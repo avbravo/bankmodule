@@ -1,0 +1,6 @@
+PARA OPERACION EXITOSA 
+DESDE EL QUE INVOCA GUARDAR
+:El mensaje y la accionReciente
+  JmoordbContext.put("operacionexitosaMensaje","Cancelar Accion");
+  JmoordbContext.put("accionReciente",accionReciente);
+

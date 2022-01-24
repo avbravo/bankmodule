@@ -1,0 +1,370 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"         
+      xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ultimaacciongenerada="http://xmlns.jcp.org/jsf/composite/ultimaacciongenerada"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
+        <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
+        <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
+        <link rel="stylesheet" href="./resources/css/style.css"/>
+        <link rel="stylesheet" href="./resources/css/dash01.css"/>
+        <link rel="stylesheet" href="./resources/css/mantenimiento.css"/>
+        <link rel="stylesheet" href="./resources/css/dataTables.bootstrap.min.css"/>
+        <meta name="referrer" content="no-referrer"/>
+        <meta name="referrer" content="strict-origin-when-cross-origin"/>
+        <link rel="stylesheet" href="./resources/css/extra.css"/>
+
+        <title>Control Manual</title>    
+        <f:metadata>
+            <f:viewAction    action="#{bajarPlantillaController.browserEventFromPage('login.xhtml')}"/>
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <h:form id="form" prependId="false" rendered="#{accessController.loged}">
+
+
+            <p:ajaxStatus onsuccess="limpiartiempo()" />
+            <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
+
+            <script type="text/javascript">
+                function setDataTableWithPageStart() {
+
+                    widgetVardataTable.getPaginator().setPage(0);
+                    alert("ejecutado la funcion setDataTableWithPageStart()")
+                }
+            </script>
+            <p:growl id='growl' widgetVar="widgetVarGrowl" life="4000" />
+            <div class="container-scroller">
+                <!-- partial:partials/_navbar.html -->
+                <template:top/>
+
+
+                <!-- Body -->
+                <div class="container-fluid page-body-wrapper">
+                    <template:navigator/>
+
+                    <!-- partial -->
+
+
+                    <!-- partial -->
+
+                    <div class="main-panel">
+                        <div class="content-wrapper" id="bgarc01">
+
+                            <div class="row up01">
+                                <div class="col-md-12 grid-margin">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h4 class="text-secondary"><p:outputLabel value="#{bajarPlantillaController.grupoAccion.GRUPOACCION.toUpperCase()}"/></h4>
+
+                                            <p:messages id="message" showSummary="true" />
+
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-lg-12 ">
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 col-lg-10">
+
+                                            <div class="card card-bor-bottom01 card-bor-top01 ">
+
+
+                                                <div class="card-header atm-head01 card-bor-top01">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-12 col-lg-11">
+                                                            <p class="card-title text-md-center text-xl-left textmvl01"><font color="#fff">Resumen de Acciones Generadas</font></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-body atm-body02">
+                                                    <div class="row justify-content-center align-content-center atm-row01">
+                                                        <div class="col-1 col-lg-auto atm-card-marbody01 atm-mar01" >
+                                                            <p:graphicImage name="atm-green01.png" library="images" alt="" class="card-icono01" />
+
+                                                        </div>
+                                                        <div class="col-2 col-lg-auto atm-card-marbody01" >
+                                                            <button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" data-toggle="modal" data-target="#acciones01">
+                                                                #{bajarPlantillaController.cajero.CAJERO}
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-8 col-lg-9 atm-card-marbody01 atm-mar02" >
+                                                            <dl>
+                                                                <dd class="atm-title-mar01"><strong>#{bajarPlantillaController.cajero.DIRECCIONCORTA}</strong></dd>
+                                                                <dd class="atm-title-mar01">#{bajarPlantillaController.cajero.DIRECCION}</dd>
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <ultimaacciongenerada:bajarplantilla id="ultimaacciongeneradabajarplantilla"  />
+
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                                 style="border:0px none; background-color:transparent;">
+                                        <p:outputLabel value="Acción"/>
+
+                                        <p:selectOneMenu id="selectOneMenuAccion" 
+                                                         class="form-control rounded-pill solosel01"
+                                                         value="#{bajarPlantillaController.selectOneMenuAccionValue}" 
+                                                         converter="#{accionConverter}"
+                                                         >
+                                            <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
+                                            <f:selectItems value="#{bajarPlantillaController.accionList}" 
+                                                           var="var" 
+                                                           itemValue="#{var}" itemLabel="#{var.ACCION} " />
+
+
+
+
+                                        </p:selectOneMenu>
+
+
+                                        <p:outputLabel value="Fecha"/>
+
+
+                                        <p:datePicker  hourFormat="12" id="time1" 
+                                                      pattern="dd/MM/yyyy hh:mm a"
+                                                      
+                                                      value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
+
+                                        </p:datePicker>
+                                        <f:facet name="footer">
+
+                                            <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                                         style="border:0px none; background-color:transparent;">
+                                                <c:if test="${bajarPlantillaController.showButton}">
+                                                    <p:commandButton value="Solicitar Token" icon="pi pi-inbox" 
+                                                                     title="Envia el token al correo"
+                                                                     id="commandButtonSendToken"
+                                                                     action="#{bajarPlantillaController.onCommandButtonSendToken()}"
+                                                                     update=":form:growl"                                                                    
+                                                                     styleClass="rounded-button ui-button-success" style="margin-right: .5rem">
+                                                    </p:commandButton>
+
+                                                </c:if>
+                                                
+
+
+
+                                                <p:commandButton value="REGRESAR"
+                                                                 styleClass="rounded-button ui-button-help"
+                                                                 icon ="pi pi-arrow-left"
+                                                                 action="#{navigatorController.go('cajeroencontrado.xhtml')}"
+                                                                 />
+
+                                            </p:panelGrid>
+
+                                        </f:facet>
+
+                                    </p:panelGrid>
+
+
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+
+                            <!--<token:tokenbajarplantilla id="tokenmodal"/>-->
+
+
+                        </div>
+                        <!-- content-wrapper ends -->
+
+
+
+
+
+                        <!-- FOOTER -->
+                        <template:footer/>
+
+
+
+                        <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+
+
+
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+
+
+
+
+            <h:panelGroup id="panelGroupToken">
+                <p:dialog widgetVar="widgetVarTokenDialog" header="Token" showEffect="fade" hideEffect="fade"
+                          width="40%"
+                          style="width:20%;margin:0 auto"
+                          position="center center"
+                          onShow="PF('widgetVarTokenDialog').initPosition()"
+                          resizable="false"
+                          >
+
+                    <f:facet name="header">
+                        <p:outputLabel value="Recibirás un Email con tu token"/>
+                    </f:facet>
+
+                    <p:panelGrid columns="4"  styleClass="ui-panelgrid-blank ui-fluid"
+                                 id="tokenDialogDetails"
+                                 style="border:0px none; background-color:transparent;">
+                        <p:inputTextarea  cols="1" id="mytokeen1" maxlength="1" 
+                                          class="boardPrimefaces"
+                                          styleClass="boardPrimefaces"
+                                          value="#{bajarPlantillaController.tokenReader.number1}"
+                                          >
+                            <p:autoUpdate />
+                        </p:inputTextarea>     
+                        <p:inputTextarea  cols="1" id="mytokeen2" maxlength="1" 
+                                          class="boardPrimefaces"
+                                          styleClass="boardPrimefaces"
+                                          value="#{bajarPlantillaController.tokenReader.number2}"
+                                          >
+                            <p:autoUpdate />
+                        </p:inputTextarea>     
+                        <p:inputTextarea  cols="1" id="mytokeen3" maxlength="1" 
+                                          class="boardPrimefaces"
+                                          styleClass="boardPrimefaces"
+                                          value="#{bajarPlantillaController.tokenReader.number3}"
+                                          >
+                            <p:autoUpdate />
+                        </p:inputTextarea>     
+                        <p:inputTextarea  cols="1" id="mytokeen4" maxlength="1" 
+                                          class="boardPrimefaces"
+                                          styleClass="boardPrimefaces"
+                                          value="#{bajarPlantillaController.tokenReader.number4}"
+                                          >
+                            <p:autoUpdate />
+                        </p:inputTextarea>    
+                        <f:facet name="footer">
+                            <p:outputLabel  value="Digita el token que recibiste" styleClass="p-text-bold"/>
+                        </f:facet>
+                    </p:panelGrid>
+
+
+                    <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
+                                 style="border:0px none; background-color:transparent;">
+
+                        <p:commandButton value="1" styleClass="rounded-button ui-button-secondary" 
+                                         action="#{bajarPlantillaController.marcarNumero('1')}"
+
+                                         update=" "/>
+                        <p:commandButton value="2" styleClass="rounded-button ui-button-secondary" 
+                                         action="#{bajarPlantillaController.marcarNumero('2')}"
+                                         update=" "/>
+                        <p:commandButton value="3" styleClass="rounded-button ui-button-secondary" 
+                                         action="#{bajarPlantillaController.marcarNumero('3')}"
+                                         update=" "/>
+                    </p:panelGrid>
+
+
+
+
+                    <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
+                                 style="border:0px none; background-color:transparent;">
+                        <p:commandButton value="4" styleClass="rounded-button ui-button-secondary" 
+                                         action="#{bajarPlantillaController.marcarNumero('4')}"
+                                         update=" "/>
+                        <p:commandButton value="5" styleClass="rounded-button ui-button-secondary"  
+                                         action="#{bajarPlantillaController.marcarNumero('5')}"
+                                         update=" "/>
+                        <p:commandButton value="6" styleClass="rounded-button ui-button-secondary" 
+                                         action="#{bajarPlantillaController.marcarNumero('6')}"
+                                         update=" "/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
+                                 style="border:0px none; background-color:transparent;">				
+                        <p:commandButton value="7" styleClass="rounded-button ui-button-secondary" 
+                                         action="#{bajarPlantillaController.marcarNumero('7')}"
+                                         update=" "/>
+                        <p:commandButton value="8" styleClass="rounded-button ui-button-secondary" 
+                                         action="#{bajarPlantillaController.marcarNumero('8')}"
+                                         update=" "/>
+                        <p:commandButton value="9" styleClass="rounded-button ui-button-secondary" 
+                                         action="#{bajarPlantillaController.marcarNumero('9')}"
+                                         update=" "/>
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
+                                 style="border:0px none; background-color:transparent;">				
+
+                        <p:commandButton  value="0" styleClass="rounded-button ui-button-secondary" 
+                                          action="#{bajarPlantillaController.marcarNumero('0')}"
+                                          update=" "/>
+                        <p:spacer/>
+
+                        <p:commandButton  value="DEL" styleClass="rounded-button ui-button-warning" 
+                                          action="#{bajarPlantillaController.marcarNumero('b')}"
+                                          icon="pi pi-times"
+                                          update=" ">
+
+                        </p:commandButton>
+
+                    </p:panelGrid>					
+
+                    <f:facet name="footer">
+                        <p:commandButton  oncomplete="PF('widgetVarTokenDialog').hide();" 
+                                          action="#{bajarPlantillaController.remoteCommand()}"
+                                          value="Cerrar"
+                                          process="@this"
+                                          icon="pi pi-times" styleClass="rounded-button ui-button-danger"
+                                          />
+                        <p:commandButton styleClass="rounded-button ui-button-success" 
+
+                                         update="tokenDialogDetails, tokenmessage"
+                                         icon="pi pi-unlock"
+                                         value="Aceptar"
+                                         action="#{bajarPlantillaController.onCommandButtonBajarPlantillaProgramarEvento()}">
+
+                        </p:commandButton>
+
+
+                    </f:facet>
+                    <p:messages id="tokenmessage" />
+                </p:dialog>
+            </h:panelGroup>
+
+            
+        </h:form>    
+        <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">
+
+            <template:accesodenegado/>
+
+        </h:form>
+        <!-- container-scroller -->
+
+        <template:script/> 
+    </h:body>
+
+</html>
+

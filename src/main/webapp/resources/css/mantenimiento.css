@@ -1,0 +1,31 @@
+#tituloDeSidebar{
+    color: white;
+    margin-top: 10px;
+}
+#content{
+    background-color: #EDEEF0;
+    color: #a3a4a5;
+    width: 100%;
+}
+#tituloDeContenido{
+    margin-left: 30px;
+    margin-top: 20px;
+}
+#contenedorFormulario{
+    margin: 40px;
+    padding: 10px;
+    width: 60%;
+    background-color: white;
+    color: black;    
+}
+
+#formularioCatalogos{
+    margin-left: 30px;
+    margin-top: 10px;
+}
+#tituloFormulario{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+

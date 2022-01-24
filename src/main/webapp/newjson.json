@@ -1,0 +1,21 @@
+{
+    "USUARIOID": "2",
+    "USERNAME": "bnp",
+    "PASSWORD": "ihzFsJRCzKMluA0cDr9DZQ==",
+    "NOMBRE": "bnp user",
+    "CEDULA": "6-7-7",
+    "EMAIL": "avbravo@gmail.com",
+    "TELEFONO": "b",
+    "CELULAR": "b",
+    "ACTIVO": "SI",
+    "ORDEN": "1",
+    "BANCOID": {
+        "BANCOID": "2",
+        "BANCO": "BANCO NACIONAL DE PANAMA",
+        "SIGLAS": "BNP",
+        "ACTIVO": "SI",
+        "DESCRIPCION": "BANCO NACIONAL DE PANAMA/8",
+        "ORDEN": "2",
+        "ESCONTRO": "NO"
+    }
+}

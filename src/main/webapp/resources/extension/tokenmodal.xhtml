@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://xmlns.jcp.org/jsf">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+          <cc:attribute name="action" />
+        <cc:attribute name="id" default="outputPanelTokenModal"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:outputPanel id="#{cc.attrs.id}">
+        
+        <div class="modal fade bd-example-modal-lg" id="token01" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content bg-token01">
+
+                    <div class="modal-header">
+                        <h5 class="titu-token01" id="token01Title">Recibirás un SMS con tu token</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-12">
+
+                                <div class="row justify-content-center">
+                                    <div class="col-auto col-lg-auto">
+
+                                        <div id="content" class="col-lg-12">
+
+                                            <textarea rows="1" cols="4" id="comment" maxlength="4" class="board">
+                                                
+                                            </textarea>
+                                           
+
+                                            <div class="row justify-content-center ">
+                                                <div class="col-12 col-lg-12 desc-token01 pl-0">
+                                                    Digita el token que recibiste
+                                                </div>
+                                            </div>
+
+
+                                            <div id="virtual-keyboard">
+                                                <div class="keyboard-row">
+
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-12 col-lg-12 keyboard-row">
+                                                            
+                                                            <a class="number" href="#" data="1">1</a>
+                                                            <a class="number" href="#" data="2">2</a>
+                                                            <a class="number" href="#" data="3">3</a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row justify-content-center keyboard-row">
+                                                        <div class="col-12 col-lg-12">
+                                                            <a class="number" href="#" data="4">4</a>
+                                                            <a class="number" href="#" data="5">5</a>
+                                                            <a class="number" href="#" data="6">6</a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-12 col-lg-12">					
+                                                            <a class="number" href="#" data="7">7</a>
+                                                            <a class="number" href="#" data="8">8</a>
+                                                            <a class="number" href="#" data="9">9</a>
+                                                        </div>
+                                                    </div>							
+
+                                                </div>
+
+                                                <div class="keyboard-row">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-12 col-lg-12">					
+                                                            <a class="number2" href="#" data="0">0</a>
+                                                            <a class="" href="#" data="DEL"><i class="ti-eraser"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>					
+
+                                            </div>
+
+                                            <div class="row justify-content-center separabot02">
+                                                <div class="col-auto col-lg-auto separabot01 pr-1 pl-1">
+                                                    <button type="button" class="btn btn-secondary rounded-pill " data-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp;Cancelar</button>
+
+                                                </div>
+                                                <div class="col-auto col-lg-auto separabot01">
+                                                    <button type="button" class="btn btn-danger rounded-pill" data-dismiss="modal" data-toggle="modal" data-target="#msjtoken01"><i class="ti-check-box"></i>&nbsp;Aceptar</button>  
+                                                </div>  
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>    
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </p:outputPanel>
+    </cc:implementation>
+</html>

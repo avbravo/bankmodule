@@ -1,0 +1,246 @@
+## YAML Template.
+FALTA:
+    -MOSTAR LAS ULTIMAS AGENDAS
+    -FILTROS ENTRE FECHAS
+    
+    -WEBSOCKET
+    -EVENTO PROGRAMADO
+        -UNA LISTA DE AGENDAS EN UN DATATABLE
+        -RETORNA Y PERMITE HACER MAS BUSQUEDAS
+      
+    -BUSCAR CAJEROS
+    -DASHBOARD INFERIOR
+Pendiente
+en el dialogo modal validar los botones al ser presionados
+llevcar un contador
+
+
+
+DISPONIBLE:
+   -US-91: 
+DASHBOARD:
+    
+    
+
+    
+-------------------------------------------------------------------------------------------    
+BACKLOG:   
+    -US:90:COMO arquitecto, QUIERO implementar WEBSOCKET, PARA las notificaciones de eventos.
+    -US:83:COMO arquitecto, QUIERO ajustar el entity banco con nuevos atributos, PARA que este conforme a la tabla banco.
+    -US-43:COMO arquitecto, QUIERO implementar paginación JPA, PARA evitar la sobre carga de datos.
+    -US:69:COMO arquitecto, QUIERO crear la configuracion JPA/Repository de cajeros implementando busquedas por nombre y cajero PARA implementarlo en los controller.
+    -US-52:COMO arquitecto, QUIERO registrar el acceso al sistema, PARA guardar evidencias de los ingresos    
+    -US-53:COMO arquitecto  QUIERO guardar el historial de los eventos ocurridos mediante JSON PARA auditar los procesos
+    -US-54:COMO arquitecto, QUIERO crear el modulo de autentificación mediante bases de datos del modulo Banco, PARA que se valide los accesos al sistema utilizando base de datos Oracle y Java EE 7 Security
+    -US-44:COMO arquitecto, QUIERO implementar pruebas JUNIT, PARA garantizar las pruebas de la aplicación.
+    -US-45:COMO arquitecto, QUIERO implementar ARQUILLIAN, PARA hacer pruebas de la aplicación.       
+    -US-50:COMO arquitecto, QUIERO crear diagramas de secuencia del modulo BANCO, PARA que los desarrolladores pueden identificar claramente los requerimientos.   
+    -US-59:COMO arquitecto, QUIERO mostrar un dialogo de ayuda, PARA que sea visualizado desde el dashboard.
+    -US-41:COMO arquitecto, QUIERO implementar lambda expresion en el codigo, PARA usar programación funcional.
+    -US-42:COMO arquitecto, QUIERO guardar un registro de los accesos al sistema, PARA que puedan ser auditados.   
+    -US:56:COMO Arquitecto, QUIERO crear una tabla de parametros, PARA almacenar la configuracion del sistem.a
+    -US:67:COMO arquitecto, QUIERO crear un TASK que recorra los tokens no usados, PARA los desabilite.    
+    -US:68:COMO arquitecto, QUIERO colocar messages de JavaserverFaces en los AbstractFacade, PARA que puedan ser visualizados por los usuarios.
+    -US:66:COMO arquitecto, QUIERO colocar messages de JavaserverFaces en los Facade, PARA que puedan ser visualizados por los usuarios.
+    -US-64:COMO arquitecto, QUIERO diseñar la pagina de error con un mensaje y un valor de retorno mediante JnoordbContext, PARA que el usuario pueda observar la notifación desde cualuier pagina.
+           
+-------------------------------------------------------------------------------------------   
+
+
+    
+
+----------------------------------------------------------------------------------    
+SPRINT-4:
+    Fecha Inicio: 4/12/2021
+    Fecha Terminacion:10/12/2021
+PENDIENTES:
+    -US:81:COMO arquitecto, QUIERO centrar dialogos, PARA que los dialogos se muestren adecudamente.
+    -US:85:COMO arquitecto, QUIERO implementar un dialog para mostrar token en lugar del modal, PARA que su implementación sea mas acorde a la especificacion jsf.
+    -US:86:COMO arquitecto, QUIERO controlar el alcance Session , PARA para evitar que al actualizar la rediriga al login.
+    -US:87:COMO arquitecto, QUIERO implementar en la configuracion las paginas de error, PARA gestionar todos los mensajes de error.
+    -US:88:COMO arquitecto, QUIERO reducir la cantidad de paginas mediante dialogos, PARA que sea mas agradable al usuario su uso.
+    -US:89:COMO arquitecto, QUIERO eliminar las librerias jQuery , PARA que no genere conflictos con PrimeFaces.    
+    -US-33:COMO arquitecto, QUIERO buscar cajeros por codigo y direccion PARA  que el ususario tenga mayor comodidad a la hora de hacer busquedas.    
+    -US-80:COMO arquitecto, QUIERO verificar la invocación de dialogos, PARA aplicarlos en diversos modulos.
+    -US-65:COMO arquitecto, QUIERO implementar la opcion de Lista de Eventos programados al bajar plantilla, PARA que el usuario pueda observar la notifación desde cualuier pagina.   
+    -US-71:COMO arquitecto, QUIERO agregar una lista de programación de bajas donde se pueden agregar multiples cajeros, PARA que el usuario pueda seleccionar muchos registros.       
+    
+PROGRESO:
+       
+    
+TERMINADOS:
+
+------------------------------------------------------------------------------------    
+    
+ SPRINT-3:    
+     Fecha Inicio:28/11/2021
+     Fecha Terminacion:3/12/2021
+    -US:78:COMO arquitecto, QUIERO implementar seguridad en los formularios  , PARA que se restringa el acceso a usuarios no autorizado.
+    -US:76:COMO arquitecto, QUIERO mejorar el formulario de bajar plantilla, PARA que tenga una mejor vista.
+    -US:74:COMO arquitecto, QUIERO desarrollar "Cancelar Accion", PARA que se pueda quitar una accion.
+    -US:75:COMO arquitecto, QUIERO desarrollar "Reagendar Accion", PARA que se pueda reagendar una accion.
+    -US:82:COMO arquitecto, QUIERO implementar Schedule en el Dashboard, PARA que el usuario visualice las acciones recientes en una agenda.
+    -US:81:COMO arquitecto, QUIERO ajustar el entity banco con nuevos atributos, PARA que este conforme a la tabla banco.
+    -US-79:COMO arquitecto, QUIERO realizar una reunión con el equipo de desarrollo, PARA revisión de los avances.
+    -US-73:COMO arquitecto, QUIERO cambiar iconos y textos de la opciçon Subir Plantilla, PARA sean aplicadas las recomendaciones de TELERED.
+    -US:77:COMO arquitecto, QUIERO implementar el filtro entre fechas con JPA , PARA implementar en el panel de agendamiento.
+    -US-38:COMO arquitecto, QUIERO filtar los cajeros del banco del usuario logeado, PARA que estos no se mezclen con los de otros bancos.
+    -US-55:COMO Arquitecto, QUIERO mejorar el menu PARA que las opciones mostradas sean acordes a las funcionalidades    
+    -US-39:COMO arquitecto, QUIERO mostrar un carrusel de los acciones por mes PARA que sea una forma mas facil de buscar en el dashboard.
+    
+    
+SPRINT-2:
+    -US-70:COMO arquitecto, QUIERO corregir el error que JSF no actualiza los componentes desde los dialogos modales, PARA que el usuario pueda revisir las notificaciones de manera adecuada.
+    -US-60:COMO arquitecto, QUIERO desarrollar la opción de reinicio remoto, PARA que el usuario pueda utilizar esta implementación facilmente.      
+    -US-48:COMO arquitecto. QUIERO indicar que un cajero tiene una accion reciente no resuelta, PARA que el usuario no cometa errores al realizar los procesos.    
+    -US-40:COMO arquitecto, QUIERO filtrar las acciones recientes por banco, PARA que cada usuario observe solo las acciones recientes del banco.
+    -US-72:COMO arquitecto, QUIERO mostrar en un datatable todas las acciones recientes, PARA que el usuario pueda visualizarlas todas.
+    -US-46:COMO arquitecto, QUIERO mostrar la fecha y hora de la ultima accion agendada, PARA que el usuario tenga informacióna actualizada.          
+    -US-75:COMO arquitecto, QUIERO hacer la presentación de avancaes del modulo banco a TELERED, PARA que  sea valido los avances.   
+    -US-61:COMO arquitecto, QUIERO diseñar la pagina de operacion exitosa en la opción SUBIR PLANTILLA, PARA que el usuario pueda observar la notifación del proceso antes de ir al Dashboard.
+    -US-62:COMO arquitecto, QUIERO diseñar la pagina de operacion exitosa en la opción BAJAR PLANTILLA, PARA que el usuario pueda observar la notifación del proceso antes de ir al Dashboard.
+    -US-63:COMO arquitecto, QUIERO diseñar la pagina de operacion exitosa en la opción REINICIO-REMOTO, PARA que el usuario pueda observar la notifación del proceso antes de ir al Dashboard.    
+    -US-32:COMO arquitecto, QUIERO generar tokens para enviar al usuario. PARA que pueda usarlos para confirmar las acciones.    
+    -US-51:COMO arquitecto, QUIERO crear la interface que envia emails con las notificaiones, PARA que los usuarios puedan recibirlas en sus correos.       
+    -US-37:COMO arquitecto  QUIERO implementar el filtro de acciones recientes por cajero y vistobanco = "no" PARA mostrar las acciones mas recientes de ese cajero        
+    -US-34:COMO arquitecto, QUIERO implementar filtros de las acciones recientes  en AccionRecienteFacade, PARA ser usadas en diversas partes de la aplicacion.
+    -US-35:COMO arquitecto, QUIERO implementar filtros de las acciones recientes  en AccionRecienteRepository, PARA ser usadas en diversas partes de la aplicacion.
+    -US-36:COMO arquitecto, QUIERO implementar filtros de las acciones recientes  en AccionRecienteRepositoryImpl, PARA ser usadas en diversas partes de la aplicacion.   
+    -US-58:COMO arquitecto, QUIERO crear un composite javaserverfaces que muestre la ultima accion generada, PARA que pueda ser agregada en los fomularios.
+    -US-47:COMO arquitecto, QUIERO que al seleccionar un cajero muestre la ultima accion agendada,PARA que el usuario conozco que ese cajero tiene actividad programada.
+    -US-57:COMO arquitecto, QUIERO simplificar el metodo de envio de emails ,PARA que su uso sea mas simple y refactorizar desde varios contoller.
+    -US-30:COMO arquitecto, QUIERO obtener el listado de correos de los tecnicos, PARA enviar las notificaciones de una accion ocurrida.
+    -US-31:COMO arquitecto, QUIERO enviar correos con notificaciones de los eventos a los Tecnicos, PARA que ellos sean informados de las acciones ocurridas.
+    -US-29:COMO arquitecto, QUIERO hacer pruebas de insercion de registros ya que JPA repite el valor del autoincrementable, PARA garantizar la integridad referencial    
+    -US-28:COMO arquitecto, QUIERO usar un Carousel donde se muestra en el dashboard las acciones recientes,PARA que el usuario pueda desplazarse con facilidad e identificar las acciones recientes.    
+    -US-27:COMO arquitecto, QUIERO revisar el dashboardController que no esta filtrando los cajeros del banco y se debe aplicar la paginacion PARA mostrar el listado correcto de cajeros
+    -US-26:COMO arquitecto, QUIERO agregar campo BANCOID Y CAJERO a la tabla Agenda, PARA que se puedan realizar filtros mas rapidamente.
+    -US-25:COMO arquitecto, QUIERO agregar campo BANCOID Y CAJERO a la tabla AgendaHitorial, PARA que se puedan realizar filtros mas rapidamente.   
+    -US-24:COMO arquitecto, QUIERO implementar actualizaciones FLUSH, PARA  que los registros esten sincronizados con la base de datos.
+    -US-23:COMO arquitecto, QUIERO calcular los totales por grupo de accion y mostrarlos en el dashboard, PARA que el usuario pueda ver las totales en el panel principal.
+    -US-22:COMO arquitecto, QUIERO quitar del insert en el archivo sql los id ,PARA que sean generados por la base de datos directamente.
+    -US-21:COMO arquitecto, QUIERO actualizar el diagrama de la base de datos Tabla Agenda con los nuevos cambios, PARA que quede actualizada directamente.
+    -US-49:COMO arquitecto, QUIERO que al seleccionar una accion reciente en el Dashboard este lleve a informacion mas detallada PARA que el usuario pueda interactuar con la accion reciente
+
+SPRINT-1:
+    -US-20:COMO Arquitecto, QUIERO configurar WebLogic con Apache Netbeans , PARA que pueda hacer depuración y seguimiento del proyecto y ejecutar pruebas.
+    -US-19:COMO arquitecto, QUIERO crear un proyecto para probar y ajustar las plantillas css y html, para que sea integrado con la especificación Java Server faces
+    -US-18:COMO arquitecto, QUIERO instalar OracleDB como imagen de docker,. PARA que las pruebas sean mas rapidadas de desarrollar.
+    -US-17:COMO arquitecto, QUIERO crear proyecto horizonreinicioremotoejb de tipo Enterprise Java Beans, para que gestione las operaciones y entidades de la base de datos
+    -US-16:COMO arquitecto, QUIERO crear un proyecto Java Enterprise Editio 7, para que genere las interfaces de usuarios para el modulo de Banco.
+    -US-15:COMO des arrollador, QUIERO crear entidades JPA de la bases de datos , para generar las tablas de la base datos Oracle
+    -US-14:COMO arquitecto, Quero crear un script que genere las tanlas de la base de datos, PARA que se puedan accesar mediante la especificación JPA.
+    -US-13:COMO Arquitecto, quiero crear un clase generador , para que genere datos en las tablas de la base de datos Oracle
+    -US-12:COMO Arquitecto, QUIERO corregir un bug con JPA y las entidades, para que los registros se almacenen correctamente en las tablas de la base de datos
+    -US-11:COMO Arquitecto, QUIERO solucionar el problema con WebLogic y JPA para campos secuenciasl, PARA que estos se generen de manera correcta en la base de datos.
+    -US-10:COMO Arquitecto , QUIERO configurar las llaves autoincrementables, para que las entidades funcionen adecuadamente con el estándar JPA
+    -US-9:COMO Arquitecto, QUIERO configurar una interface que genere un JSON String de la entidad correspondiente, PARA que  se pueda usar como datos para almacenar en el historial de eventos.
+    -US-8:COMO Arquitecto, QUIERO mejorar el diseño de las tablas de la base de datos y crear nuevas tablas, PARA que este todo el modelo de bases de datos optimizado para ser usados en todos los modulos de los sistemas(Banco, Tecnicos, Manual)
+    -US-7:COMO arquitecto, QUIERO crear la clase Historial , PARA que pueda almacenar un historial de todas las operaciones que se realicen en el sistema.
+    -US-6:COMO Arquitecto, QUIERO crear las nuevas tablas con el nuevo diseño de las bases de datos, PARA que se pueda implementar adecuadamente en el sistema.
+    -US-5:COMO Arquitecto, QUIERO crear la entidad y repositorio de la tabla configuración de email, PARA que se pueda integrar con facilidad a los controller y formularios de administración
+    -US-4:COMO Arquitecto, QUIERO crear una tabla para manejar los OTP, PARA que estos puedan ser usados como tokens en las aplicaciones
+    -US-3:COMO Arquitecto, QUIERO configurar una interface que genere un JSON String de la entidad correspondiente, PARA que se pueda usar como datos para almacenar en el historial de eventos.    
+    -US-2:COMO Arquitecto, QUIERO generar datos de prueba en la base de datos, PARA que estos puedan ser usados para pruebas del sistema.
+    -US-1:COMO Arquitecto, QUIERO crear todas las entidadess JPA optimizadas con el nuevo diseño de bases de datos, PARA que se puedan utilizar en todos los módulos de los sistemas.
+    
+    
+    GENERALES:
+        
+   
+    -AGENDA
+        --Agregue el campo CODIGOTRANSACCION a la tabla Agenda
+        --Obtengo el valor de agendaid creado mediante CODIGOTRANSACCION
+        --Guardar los datos de la agenda
+        --Guardar el historial de la agenda
+        --Guarda el grupo de accion
+        --Guardar accionreciente    
+    -Presentacion
+        --Subir Plantilla
+        --Mostrar el proceso
+        --Crear notificaciones
+        --Actualizar el dashboard con la notificacion
+
+
+
+    -Pendiente
+      --Envio de email
+       ---Interface para el envio
+       ---Filtrar los destinatarios de los correos
+       ---Envio del OTP
+
+   
+     
+     
+    -BASE DE DATOS  
+      --
+        --PARA hacer el filtro y mostrar las acciones recientes
+      --Agregar el campo CAJERO a la tabla ACCIONESRECIENTES
+
+    .ERROR
+      --JPA
+        ---Al guardar un nuevo registro inicia siempre por 952 y despues del 3 da error de integridad referencial
+
+    Guardar enviar el emial
+
+    4 TENGO QUE ENVIAR LOS EMAILS
+
+    5 ENVIAR NOTIFACION DE EXITOSO
+
+    6 BAJA DE PLANTILLA 
+    CON UNA TABLA TEMPORAL DE CAJEROS A PROGRAMARA CON LA LISTA
+    ENVIO DIRECTO
+
+    7 REINICIO REMOTO
+
+    8 PROGRAMAR AGENDA
+    LAS FECHAS OBTENERLAS DEL MES
+
+          -9 LAS NOTIFICACIONES POR EMAIL
+          --USAR UN DIALOGO QUE SE INVOCA DESDE CODIGO Y MUESTRA LOS MENSAJES        ADVERTENCIA, ERROR INFO
+
+           Buenas noches Libardo, te envió el resumen de actividades realizadas:
+    Se ajusto el diseño de la base de datos OracleDB incluyendo los módulos de banco, Técnicos y control Manual.
+    Se generaron los Entity y Facade de la base de datos con la estructura actualizada.
+    Se crearon las clases Repository y Facade optimizadas para el manejo de la base  de datos
+    Se implemento autentificación al módulo de bancos mediante usuarios registrado en la base  de datos.
+    Se implementaron nuevos componentes visuales para las opciones de Reinicio Remoto, Bajar Plantilla y Subir Plantilla.
+    Se creo la clase Controladora para la implementación del módulo de Subir Plantilla, donde se realiza el proceso de selección de cajero --> Selección de Accion --> Subir Plantilla --> Se almacena en la tabla Agenda, AgendaHistorial. AccionReciente. Esta acción reciente se muestra en el dashboard principal-
+    Se ajusto el Dashboard principal con los componentes de las acciones realizadas a los cajeros en la opción Subir Plantilla.
+    Actividades pendientes:
+    Opción Subir Plantilla
+    Avances:
+    Permite seleccionar el cajero, seleccionar de la lista de opciones para Subir plantilla
+    Se almacena en la Agenda, AgendaHiistorial y AccionReciente
+    Muestra en el dashboard la acción reciente.
+    Pendientes
+    Obtener la lista de técnicos y sus correos y enviarles una notificación
+
+    Opción Reinicio Remoto
+    Avances:
+    Permite seleccionar el cajero y muestra el formulario para seleccionar los tipos de acciones para Reinicio Remoto
+    Pendientes:
+    Envió de Email al usuario con el OTP para que el confirme los datos y se pueda almacenar la información y enviar notificaciones.
+
+    Opción de Bajar Plantilla
+    Avances:
+    Permite seleccionar el cajero y muestra el formulario para seleccionar los tipos de acciones para Bajar Plantilla
+    Pendiente
+    Seleccionar múltiples cajeros y mostrarlos en una lista para su confirmación
+    Envió del token por correo electrónico para validar los datos y confirmar la operación
+    Dashboard
+    Pendiente
+    Panel Inferior de Agendamiento donde se muestra un resumen de la semana por mes en el panel.
+    Reagendar una actividad 
+    Opción Ver todos los cajeros agendados
+    Arquitectura 
+    Pendiente
+    Implementar JPA con paginación
+    Active Directory
+    
+    
+      PrimeFaces current = PrimeFaces.current();
+  
+  current.executeScript("PF('dialogoguardadowv').show();");
+  
+   PrimeFaces.current().ajax().update("form:growl", "form:dataTable");

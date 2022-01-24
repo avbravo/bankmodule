@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"         
+      xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <h:head>
+        <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
+        <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
+        <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
+        <link rel="stylesheet" href="./resources/css/style.css"/>
+        <link rel="stylesheet" href="./resources/css/dash01.css"/>
+        <link rel="stylesheet" href="./resources/css/mantenimiento.css"/>
+        <link rel="stylesheet" href="./resources/css/dataTables.bootstrap.min.css"/>
+        <meta name="referrer" content="no-referrer"/>
+        <meta name="referrer" content="strict-origin-when-cross-origin"/>
+
+        <title>Control Manual</title>       
+   <f:metadata>
+             <f:viewAction    action="#{buscarCajeroController.browserEventFromPage('login.xhtml')}"/>
+        </f:metadata>
+    </h:head>
+    <h:body >
+        <h:form id="form" prependId="false" rendered="#{accessController.loged}">
+
+
+
+
+            <p:ajaxStatus onsuccess="limpiartiempo()" />
+            <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
+            <script type="text/javascript">
+                function setDataTableWithPageStart() {
+
+                    widgetVardataTable.getPaginator().setPage(0);
+                    alert("ejecutado la funcion setDataTableWithPageStart()")
+                }
+            </script>
+            <p:growl id='growl' widgetVar="widgetVarGrowl">
+                <p:autoUpdate/>
+            </p:growl>
+            <div class="container-scroller">
+                <!-- partial:partials/_navbar.html -->
+                <template:top/>
+
+
+                <!-- Body -->
+                <div class="container-fluid page-body-wrapper">
+                    <template:navigator/>
+
+                    <!-- partial -->
+
+
+                    <!-- partial -->
+
+                    <div class="main-panel">
+                        <div class="content-wrapper" id="bgarc01">
+
+                            <div class="row up01">
+                                <div class="col-md-12 grid-margin">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h4 class="text-secondary">BUSCAR CAJERO DE #{buscarCajeroController.banco.BANCO}</h4>
+                                      
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row justify-content-center">
+
+
+                                <div class="col-12 col-lg-12">
+                                    <div class="table-responsive">
+                                        <p:dataTable value="#{buscarCajeroController.cajeroList}"  
+                                                     var="item" 
+                                                     id="dataTable"
+                                                     widgetVar="widgetVardataTable"
+
+                                                     lazy="false"
+                                                     filteredValue="#{buscarCajeroController.cajeroSelectedList}" 
+                                                     binding="#{table1}"
+                                                     paginator="true"
+                                                     rows="#{buscarCajeroController.rowForPage}"
+                                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                                     tableStyleClass="table table-hover"
+                                                     >
+                                            <f:facet name="header">
+                                                <div class="products-table-header">
+                                                    <span style="font-weight: bold">BUSCAR</span>
+
+                                                    <span class="filter-container ui-input-icon-left">
+                                                        <i class="pi pi-search"></i>
+                                                        <p:inputText id="globalFilter" onkeyup="PF('widgetVardataTable').filter()" placeholder="Search"/>
+                                                    </span>
+
+
+                                                </div>
+                                            </f:facet>
+
+
+                                            <p:column headerText="Cajero"  style="width:5%; color:'#02A1DE'">
+                                                <p:graphicImage name="atm-blue02.png" library="images" alt="" class="" />
+                                            </p:column>
+                                            <p:column headerText="" style="width:20%;" filterBy="#{item.CAJERO}" >
+
+                                                <p:commandLink  class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" 
+                                                                style="text-decoration:none;color:black;"
+                                                                value="#{item.CAJERO}"
+                                                                update=":form:growl"
+                                                                action="#{buscarCajeroController.onCommandButtonSelectCajero(item)}"/>
+
+                                            </p:column>
+                                            <p:column headerText="Dirección" filterBy="#{item.DIRECCION}">
+
+                                                <label class="text-black">#{item.DIRECCION}</label>
+                                            </p:column>
+                                            <p:column headerText="Alias" filterBy="#{item.DIRECCIONCORTA}">
+                                                <label class="badge badge-danger">#{item.DIRECCIONCORTA}</label>
+
+                                            </p:column>
+                                        </p:dataTable>
+
+                                    </div>
+                                </div>
+
+
+               <div class="row justify-content-center">
+                                        <div class="col-2 col-lg-2 pt-3 pb-3 ali-desc-mov01">
+                                            <p:commandButton value="Dashboard"
+                                                             styleClass="rounded-button ui-button-help"
+                                                             icon="pi pi-home"
+                                                       action="#{navigatorController.go('dashboard.xhtml')}">
+                                            
+                                            </p:commandButton>
+                                            
+
+
+
+
+
+
+                                        </div>
+                                    </div>	
+
+                            </div>
+
+
+
+                        </div>
+                        <!-- content-wrapper ends -->
+
+
+
+
+
+                        <!-- FOOTER -->
+                        <template:footer/>
+
+
+
+                        <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+
+
+
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+
+        </h:form>  
+        <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">
+
+            <template:accesodenegado/>
+
+        </h:form>
+        <!-- container-scroller -->
+
+        <!-- container-scroller -->
+               <template:script/> 
+    </h:body>
+
+</html>
+

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+
+
+      xmlns:composite="http://java.sun.com/jsf/composite"
+          
+      xmlns:p="http://primefaces.org/ui">
+    <composite:interface >
+        <composite:attribute name="action" />
+    </composite:interface>
+    <composite:implementation>
+
+
+        <!-- MODAL PANTALLA ERROR BÚSQUEDA -->
+        <div class="modal fade bd-example-modal-lg" id="exampleModalScrollable2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="titu-bus" id="exampleModalScrollableTitle2">Búsqueda de Cajeros</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-12">
+
+                                <div class="row justify-content-center">
+                                    <div class="col-12 col-lg-3 form-group">
+                                        <input type="text" class="form-control rounded-pill" placeholder="Código de Cajero" />
+                                    </div>
+                                    <div class="col-9 col-lg-7 form-group pl-0 pr-1">
+                                        <input type="text" class="form-control rounded-pill" placeholder="Dirección de Cajero" />
+                                    </div>
+                                    <div class="col-2 col-lg-2 form-group pl-0">
+                                        <button type="button" class="btn btn-danger btn-rounded btn-fw text-nowrap pl-3 pr-3"><i class="ti-search"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-12 col-lg-12">
+
+                                        <div class="row justify-content-center">
+                                            <div class="col-10 col-lg-10 img-cuadre01">
+                                             
+                                                <p:graphicImage name="error-busqueda03.png" library="images" alt="" class="img-fluid" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row justify-content-center ">
+                                            <div class="col-10 col-lg-10 img-cuadre01">
+                                                <p>El Cajero que estás buscando no ha sido encontrado</p>
+                                                <p class="img-cuadre02">Consulta su código o dirección correcta e inténtalo de nuevo</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>    
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp;Cerrar</button>
+                    </div>	
+
+                </div>
+            </div>
+        </div>
+        <!-- FIN MODAL PANTALLA ERROR BÚSQUEDA -->
+
+
+
+
+
+
+
+    </composite:implementation>
+</html>
+

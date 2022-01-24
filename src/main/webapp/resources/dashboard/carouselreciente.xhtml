@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:outputPanel id="outputPanelcarouselreciente">
+
+            <p:carousel var="item"  value="#{dashboardController.accionRecienteList}" numVisible="3"
+                        responsive="true" circular="true" id="carrousel">
+
+                <div class="col-12 col-lg-10 grid-margin stretch-card upx" >
+
+                    <div class="card card-bor-bottom01 card-bor-top01">
+                        <span class="pull-right clickable close-icon" data-effect="fadeOut"><i class="fa fa-times"></i></span>
+                        <script>
+                            $('.close-icon').on('click', function () {
+                                $(this).closest('.card').fadeOut();
+
+                            })
+                        </script>
+
+                        <div class="card-header atm-head01 card-bor-top01" style="background-color: #74cbed">
+                            <p class="card-title text-md-center text-xl-left"><font color="#fff">Resumen de Acciones Generadas</font></p>
+                        </div>
+                        <div class="card-body atm-body01">
+                            <div class="row ">
+                                <div class="col-2 col-lg-2 atm-card-marbody01">
+                                    
+
+                                    <p:commandLink  class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" 
+                                                    style="text-decoration:none;color:black;"
+                                                    value="#{item.CAJERO}"
+                                                    update=":form:growl"
+                                                    action="#{dashboardController.onCommandButtonSelectAccionReciente(item,'dashboard')}"/>
+
+                                </div>
+                                <div class="col-10 col-lg-10 atm-card-marbody01">
+                                    <dl>
+                                        <dd class="atm-title-mar01"><strong>#{item.TITULO}</strong></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Evento:#{item.MENSAJE}" style="font-size: 14px; color: blue"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendo el: #{dashboardController.showDate(item.FECHAAGENDADA)}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Agendada:#{dashboardController.showHour(item.FECHAAGENDADA)}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha Ejecución: #{dashboardController.showDate(item.FECHAEJECUCION)}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora Ejecución: #{dashboardController.showHour(item.FECHAEJECUCION)}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Estado:#{item.ESTADO}"/></dd>
+
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+               
+            </p:carousel>
+        </p:outputPanel>
+    </cc:implementation>
+</html>

@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:dashboard="http://xmlns.jcp.org/jsf/composite/dashboard"         
+      xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <h:head>
+        <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
+        <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
+       <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
+        <link rel="stylesheet" href="./resources/css/style.css"/>
+        <link rel="stylesheet" href="./resources/css/dash01.css"/>
+        <link rel="stylesheet" href="./resources/css/mantenimiento.css"/>
+        <link rel="stylesheet" href="./resources/css/dataTables.bootstrap.min.css"/>
+        <meta name="referrer" content="no-referrer"/>
+        <meta name="referrer" content="strict-origin-when-cross-origin"/>
+
+        <title>Control Manual</title>    
+
+     
+   <f:metadata>
+             <f:viewAction    action="#{dashboardController.browserEventFromPage('login.xhtml')}" />
+             
+        </f:metadata>
+      
+    </h:head>
+    <h:body >
+        <h:form id="form" prependId="false" rendered="#{accessController.loged}"
+                >
+           
+            <p:ajaxStatus onsuccess="limpiartiempo()" />
+            <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
+         
+                
+            <script type="text/javascript">
+                function setDataTableWithPageStart() {
+
+                    widgetVardataTable.getPaginator().setPage(0);
+                    alert("ejecutado la funcion setDataTableWithPageStart()")
+                }
+
+
+            </script>
+            
+
+            <p:growl id='growl' widgetVar="widgetVarGrowl"/>
+            <div class="container-scroller">
+   
+                <template:top/>
+
+
+                <!-- Body -->
+                <div class="container-fluid page-body-wrapper">
+                    <template:navigator/>
+
+                    <!-- partial -->
+
+
+                    <!-- partial -->
+
+                    <div class="main-panel">
+                        <div class="content-wrapper" id="bgarc01">
+
+                            <div class="row up01">
+                                <div class="col-md-12 grid-margin">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h4 class="text-secondary">GESTIÓN DE CAJEROS</h4>
+
+                                        </div>
+                                        <div>
+                                            <p:selectOneMenu id="selectOneMenuBanco" 
+                                                             class="form-control rounded-pill solosel01"
+                                                             value="#{dashboardController.selectOneMenuBancoValue}" 
+                                                             converter="#{bancoConverter}"
+                                                             >
+                                                <f:selectItem itemLabel="Seleccione un Banco" itemValue="#{null}"  noSelectionOption="true"/>
+                                                <f:selectItems value="#{dashboardController.bancoList}" 
+                                                               var="var" 
+                                                               itemValue="#{var}" itemLabel="#{var.BANCO} " />
+
+                                                <p:ajax listener="#{dashboardController.selectOneMenuBancoChanged()}"
+                                                        event="change"
+                                                        oncomplete="remoteCommand()"
+                                                        update=":form:carousel,:form:dashboardresumenacciontotal:outputPaneltotalFinalizado, :form:dashboardresumenacciontotal:outputPaneltotalEnProceso, :form:dashboardresumenacciontotal:outputPaneltotalSolicitado,:form:dashboardschedule:outputPanelschedule"
+                                                        />
+
+
+                                            </p:selectOneMenu>
+                                            <p:remoteCommand name="remoteCommand" 
+                                                             update=":form:dashboardresumenacciontotal:outputPaneltotalFinalizado, :form:dashboardresumenacciontotal:outputPaneltotalEnProceso, :form:dashboardresumenacciontotal:outputPaneltotalSolicitado,:form:dashboardschedule:outputPanelschedule" 
+                                                             action="#{dashboardController.remoteCommand()}"
+                                                             />
+                                        </div>
+
+                                        <div>
+
+
+                                            <p:commandButton icon= "pi pi-search" value="Buscar Cajero"  class="btn btn-block btn-danger btn-sm font-weight-medium auth-form-btn rounded-pill"
+                                                             action="#{dashboardController.onCommnandButtonGoBuscarCajero()}">
+
+                                            </p:commandButton>
+
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row bannerdash01">
+                                <div class="col-12 col-lg-7" id="bottomhide02">
+                                    <div class="row justify-content-end">
+                                        <div class="col-7 col-lg-7">
+                                            <p class="atm-title01">Bienvenid@s a la aplicación de Gestión de Cajeros de Telered</p>
+                                            <button type="button" class="btn btn-danger btn-rounded btn-fw text-nowrap"><i class="ti-light-bulb"></i>&nbsp;Cómo Funciona</button>
+                                        </div> 
+                                    </div>
+                                </div>
+
+                                <dashboard:resumenacciontotal id="dashboardresumenacciontotal"/>
+                            </div>
+
+                      
+                            <p:carousel var="item"  value="#{dashboardController.accionRecienteList}" numVisible="3"
+                                        responsive="true" circular="true" id="carousel"
+                                        >
+                                <p:card style="width: 25em">
+                                    <f:facet name="header">
+                                        <strong><p:outputLabel value="#{item.TITULO}"/></strong>
+                                    </f:facet>
+                                    <f:facet name="title">
+                                        <p:commandButton styleClass="rounded-button ui-button-secondary"
+                                                         value="#{item.CAJERO}"
+                                                         update=":form:growl"
+                                                         action="#{dashboardController.onCommandButtonSelectAccionReciente(item,'dashboard')}"/>
+
+
+                                    </f:facet>
+                                    <f:facet name="subtitle">
+                                        <dd class="atm-title-mar01"> <p:outputLabel value="#{item.MENSAJE}"/></dd>
+                                    </f:facet>
+                                    <p>
+
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendo el: #{dashboardController.showDate(item.FECHAAGENDADA)}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Agendada:#{dashboardController.showHour(item.FECHAAGENDADA)}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha Ejecución: #{dashboardController.showDate(item.FECHAEJECUCION)}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora Ejecución: #{dashboardController.showHour(item.FECHAEJECUCION)}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Estado:"/> <strong><p:outputLabel value="#{item.ESTADO}"/></strong></dd>
+
+                                    </p>
+                                    <f:facet name="footer">
+
+
+                                    </f:facet>
+                                </p:card>
+                            </p:carousel>
+
+
+
+                        </div>
+                        <!-- content-wrapper ends -->
+
+
+                        <!--AGENDAMIENTOS-->
+
+            
+                        <dashboard:schedule id="dashboardschedule"/> 
+
+
+
+                        <!-- FOOTER -->
+                        <template:footer/>
+
+
+
+                        <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+
+
+
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+
+        </h:form>    
+        <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">
+
+            <template:accesodenegado/>
+
+        </h:form>
+        <!-- container-scroller -->
+        <!-- container-scroller -->
+      <template:script/> 
+    </h:body>
+
+</html>
+

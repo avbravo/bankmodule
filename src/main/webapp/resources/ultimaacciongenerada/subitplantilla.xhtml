@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <composite:interface >
+
+
+        <composite:attribute name="id" />
+
+
+    </composite:interface>
+    <composite:implementation>
+
+        <div class="card-body ">
+            <div class="row justify-content-center align-content-center">
+                <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
+                    <c:if test="${!subirPlantillaController.haveAccionReciente}">
+                        <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
+                    </c:if>
+                    <c:if test="${subirPlantillaController.haveAccionReciente}">
+                       <dd class="atm-title-mar01"><strong>#{subirPlantillaController.accionReciente.TITULO}</strong>(<p:outputLabel value="#{subirPlantillaController.accionReciente.MENSAJE}"/>)</dd>                        
+                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendo el: #{subirPlantillaController.showDate(subirPlantillaController.accionReciente.FECHAAGENDADA)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Agendada:#{subirPlantillaController.showHour(subirPlantillaController.accionReciente.FECHAAGENDADA)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{!subirPlantillaController.renderedByEstadoSolicitado()}" value="Fecha Ejecución: #{subirPlantillaController.showDate(subirPlantillaController.accionReciente.FECHAEJECUCION)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{!subirPlantillaController.renderedByEstadoSolicitado()}" value="Hora Ejecución: #{subirPlantillaController.showHour(subirPlantillaController.accionReciente.FECHAEJECUCION)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Estado:"/> <strong><p:outputLabel value="#{subirPlantillaController.accionReciente.ESTADO}"/></strong><p:spacer width="5"/><p:outputLabel value="| Transacción No:"/><strong><p:outputLabel value="#{subirPlantillaController.accionReciente.ACCIONRECIENTEID}"/></strong></dd>
+                    </c:if>
+                </div>
+
+            </div>
+        </div>
+
+
+    </composite:implementation>
+
+</html>

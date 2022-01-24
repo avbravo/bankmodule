@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Telered - Gestión de Cajeros</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="../vendors/base/vendor.bundle.base.css">
+	 <link href="../vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dash01.css">
+	
+  <link rel="stylesheet" href="../css/styles.css">
+		
+  <!-- endinject -->
+  <!-- <link rel="shortcut icon" href="../images/telered-icon01-0.png" /> -->
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	<script>
+		function elegir_opcion(combo) {
+		$tipo = jQuery(combo).val();
+		$campos = jQuery("#"+$tipo).html();
+		jQuery(".opcionesWrapper").html($campos);
+	}
+		
+		$(document).ready(function(){
+    $("#virtual-keyboard a").on('click', function() {
+        if ($(this).attr('data') == 'DEL') {
+            board_text = $('textarea.board').text();
+            board_text = board_text.substring(0, board_text.length-1);
+            $('textarea.board').text(board_text);
+			// $('#contador').html(board_text.length);
+			
+        } else {
+            $('textarea.board').text($('textarea.board').text() + $(this).attr('data'));
+        }
+    });
+});
+		
+	</script>
+	
+</head>
+<body>
+	
+	
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+	  
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row shadow-none">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo mr-5" href="../index.html"><img src="../images/telered-logo01-03.png" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="../index.html"><img src="../images/telered-icon01-04.png" alt="logo"/></a>
+		  
+      </div>
+		
+		<div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+		  
+		
+		  
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="ti-menu"></span>
+        </button>
+<!-- 	<ul class="navbar-nav mr-lg-2">
+			
+          <li class="nav-item nav-search d-none d-lg-block">
+            <div class="input-group">
+              <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                <span class="input-group-text" id="search">
+                  <i class="ti-search"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+            </div>
+          </li>
+       </ul>
+--> 
+        <ul class="navbar-nav navbar-nav-right">
+		  
+		  <li class="nav-item dropdown mr-1" id="lihide01">
+			<a class="nav-link count-indicator justify-content-center d-flex align-items-center" href="#"><i class="mx-0 fa-10x fab fa-whatsapp"></i></a>
+		  </li>	
+			
+			<!--
+			
+          <li class="nav-item dropdown mr-1">
+            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+              <i class="ti-email mx-0 ti-"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
+              <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+              <a class="dropdown-item">
+                <div class="item-thumbnail">
+                    <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="item-content flex-grow">
+                  <h6 class="ellipsis font-weight-normal">David Grey
+                  </h6>
+                  <p class="font-weight-light small-text text-muted mb-0">
+                    The meeting is cancelled
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item">
+                <div class="item-thumbnail">
+                    <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="item-content flex-grow">
+                  <h6 class="ellipsis font-weight-normal">Tim Cook
+                  </h6>
+                  <p class="font-weight-light small-text text-muted mb-0">
+                    New product launch
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item">
+                <div class="item-thumbnail">
+                    <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="item-content flex-grow">
+                  <h6 class="ellipsis font-weight-normal"> Johnson
+                  </h6>
+                  <p class="font-weight-light small-text text-muted mb-0">
+                    Upcoming board meeting
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+		  
+-->
+		  
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="ti-bell mx-0"></i>
+              <span class="count">22</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
+              <p class="mb-0 font-weight-normal float-left dropdown-header">Notificaciones</p>
+              <a class="dropdown-item">
+                <div class="item-thumbnail">
+                  <div class="item-icon bg-success">
+                    <i class="ti-info-alt mx-0"></i>
+                  </div>
+                </div>
+                <div class="item-content">
+                  <h6 class="font-weight-normal">RPA en línea</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    Actividad normal
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item">
+                <div class="item-thumbnail">
+                  <div class="item-icon bg-warning">
+                    <i class="mx-0 ti-check-box"></i>
+                  </div>
+                </div>
+                <div class="item-content">
+                  <h6 class="font-weight-normal">2204 Bajar plantilla</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    En proceso
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item">
+                <div class="item-thumbnail">
+                  <div class="item-icon bg-info">
+                    <i class="ti-check-box mx-0"></i>
+                  </div>
+                </div>
+                <div class="item-content">
+                  <h6 class="font-weight-normal">1123 Reinicio Remoto</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    En espera de ejecución
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img src="../images/faces/perfil01.png" alt="profile"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item">
+                <i class="ti-settings text-primary"></i>
+                Configuración
+              </a>
+              <a class="dropdown-item">
+                <i class="ti-power-off text-primary"></i>
+                Cerrar Sesión
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="ti-view-list"></span>
+        </button>
+      </div>
+      
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+			
+		<!--	
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="ti-palette menu-icon"></i>
+              <span class="menu-title">UI Elements</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu" style="list-style: none;">
+                
+				<li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html"><i class="ti-arrow-circle-right" style="margin-left: -10px;"></i>&nbsp;&nbsp;Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html"><i class="ti-arrow-circle-right" style="margin-left: -10px;"></i>&nbsp;&nbsp;Typography</a></li>
+              </ul>
+            </div>
+          </li>
+
+-->
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="menu-icon ti-bell"></i>
+              <span class="menu-title">Notificaciones</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="ti-write menu-icon"></i>
+              <span class="menu-title">Reportes</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="menu-icon ti-settings"></i>
+              <span class="menu-title">Configuraciones</span>
+            </a>
+          </li>
+			<!--
+          <li class="nav-item">
+            <a class="nav-link" href="pages/icons/themify.html">
+              <i class="ti-star menu-icon"></i>
+              <span class="menu-title">Icons</span>
+            </a>
+          </li>
+-->
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="ti-user menu-icon"></i>
+              <span class="menu-title">Login</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/loginx.html"> Login </a></li>
+                
+				<!--  
+				<li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> Login 2 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/register-2.html"> Register 2 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/lock-screen.html"> Lockscreen </a></li>
+-->
+              </ul>
+            </div>
+          </li>
+          
+			<!--
+			<li class="nav-item">
+            <a class="nav-link" href="documentation/documentation.html">
+              <i class="ti-write menu-icon"></i>
+              <span class="menu-title">Documentation</span>
+            </a>
+          </li>
+			-->
+        </ul>
+      </nav>
+      <!-- partial -->
+			
+      <div class="main-panel">
+        <div class="content-wrapper" id="bgarc01">
+			
+          <div class="row up01 borderline02">
+            <div class="col-md-12 grid-margin">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                 <h4 class="text-secondary textmvl02">
+					<a href="cajero-encontrado.html" class="bot-regresar01">REGRESAR</a>						
+				 </h4>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-danger btn-rounded btn-fw text-nowrap" data-toggle="modal" data-target="#exampleModalScrollable"><i class="ti-search"></i>&nbsp;BUSCA CAJERO</button>
+					
+                </div>
+              </div>
+            </div>
+          </div>
+			
+		  <div class="row justify-content-center">
+			<div class="col-12 col-lg-12 ">
+			  
+				<div class="row justify-content-center">
+					<div class="col-12 col-lg-10 opcionesc01">
+					<font color="#02a1de"><strong>Acción escogida:</strong></font> Bajar Plantilla
+					</div>
+				</div>
+				
+				<div class="row justify-content-center">
+					<div class="col-12 col-lg-10">
+					
+						<div class="card card-bor-bottom01 card-bor-top01 ">
+
+					
+				<div class="card-header atm-head01 card-bor-top01">
+					<div class="row justify-content-center">
+						<div class="col-12 col-lg-11">
+				  			<p class="card-title text-md-center text-xl-left textmvl01"><font color="#fff">Resumen de Acciones Generadas</font></p>
+						</div>
+					</div>
+				  </div>
+					
+  				<div class="card-body atm-body02">
+    				<div class="row justify-content-center align-content-center atm-row01">
+						<div class="col-1 col-lg-auto atm-card-marbody01 atm-mar01" >
+							<img src="../images/atm-green01.png" class="card-icono01" alt="" />
+						</div>
+						<div class="col-2 col-lg-auto atm-card-marbody01" >
+						                    <button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" >6533</button>
+						</div>
+						<div class="col-8 col-lg-9 atm-card-marbody01 atm-mar02" >
+							<dl>
+								<dd class="atm-title-mar01"><strong>Calle 50 y Elvira Méndez</strong></dd>
+								<dd class="atm-title-mar01">Frente a estación de metro</dd>
+							</dl>
+						</div>
+					</div>
+  				</div>
+							
+				<div class="card-body ">
+    				<div class="row justify-content-center align-content-center">
+						<div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
+						
+								<p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
+											
+						</div>
+
+					</div>
+  				</div>
+							
+
+				</div>
+					
+				</div>
+			</div>
+				
+			<div class="row justify-content-center">
+				<div class="col-12 col-lg-10 pt-3 pb-3 ali-desc-mov01">
+											 
+				<div class="row justify-content-center " >
+					<div class="col-12 col-lg-5 form-group mt-3" style="text-align: center; ">
+						<select class="form-control col-lg-auto rounded rounded-pill solosel01" id="tipo" name="tipo" onchange="elegir_opcion(this);">
+      				
+						<option value="">¿Cuando?</option>
+      					<option value="op01">Ahora</option>
+      					<option value="op02">Programar Evento</option>
+
+      				
+    				</select>
+					</div>
+				</div>
+				
+				<div class="opcionesWrapper">
+				  <div class="row justify-content-center">
+					<div class="col-12 col-lg-12">&nbsp;</div>
+				  </div>
+			    </div>
+				
+				<!-- OPCION OP01  -->
+			  
+					<div class="row opciones justify-content-center" id="op01">
+						<div class="col-12 col-lg-12">
+							
+							<div class="row justify-content-center" style="text-align: center;">
+								<div class="col-auto col-lg-auto pb-3 pl-1 pr-1">
+								
+									<a href="bajarplantilla.html"><button type="button" class="btn btn-secondary btn-rounded btn-fw "><i class="fas fa-times-circle"></i>&nbsp;CANCELAR</button></a>		
+									
+								</div>
+								<div class="col-auto col-lg-auto pb-3 pl-1 pr-1">
+								
+									<button type="button" class="btn btn-danger btn-rounded btn-fw" data-toggle="modal" data-target="#token01"><i class="ti-arrow-circle-right"></i>&nbsp;EJECUTAR</button>
+									
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					
+					<!-- OPCION OP02  -->
+					
+					<div class="row opciones" id="op02">
+
+						<div class="col-12 col-lg-12">
+							
+							<div class="row justify-content-center form-group" style="text-align: center;">
+								<div class="col-12 col-lg-auto form-inline text-nowrap pb-3 pl-0" id="ocultxt01">
+									Programar
+									
+								</div>
+								<div class="col-7 col-lg-auto pb-3 pr-0 pl-0">
+            							<input class="form-control rounded-pill soloinp01 " type="date"/>
+									
+								</div>
+								<div class="col-5 col-lg-auto pb-3 pr-0 pl-1">
+
+									<select class="form-control col-lg-auto rounded-pill solosel01" id="tipo2" name="tipo" onchange="elegir_opcion(this);">
+      				
+										<option value="" selected>Hora</option>
+      									<option value="">06H00</option>
+      									<option value="">07H00</option>
+										<option value="">08H00</option>
+      									<option value="">09H00</option>
+      									<option value="">10H00</option>
+      									<option value="">11H00</option>
+										<option value="">12H00</option>
+      									<option value="">13H00</option>	
+      									<option value="">14H00</option>
+      									<option value="">15H00</option>
+										<option value="">16H00</option>
+      									<option value="">17H00</option>
+      									<option value="">18H00</option>
+											
+    								</select>
+									
+								</div>								
+							</div>							
+							
+							<div class="row justify-content-center marfix02" style="text-align: center;">
+								<div class="col-auto col-lg-auto pb-3 pt-0 pl-1 pr-1">
+								
+									<a href="bajarplantilla.html" target="_top"><button type="button" class="btn btn-secondary btn-rounded btn-fw "><i class="fas fa-times-circle"></i>&nbsp;CANCELAR</button></a>		
+									
+								</div>
+								<div class="col-auto col-lg-auto pb-3 pt-0 pl-1 pr-1">
+								
+									<a href="programar.html" target="_top"><button type="button" class="btn btn-danger btn-rounded btn-fw"><i class="ti-calendar"></i>&nbsp;PROGRAMAR</button></a>
+									
+								</div>
+								
+							</div>
+							
+						</div>						
+					
+					</div>
+					<!-- FIN OP02 -->
+
+				</div>
+			</div>	
+				
+			</div>
+		  </div>
+			
+        </div>
+        <!-- content-wrapper ends -->
+		  
+		
+		  
+        <!-- partial:partials/_footer.html -->
+                <footer class="footer" id="bottomhide02">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Telered © 2021. Todos los derechos reservados.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><a href="#"><i class="text-danger ml-1 ti-lock"></i>&nbsp;Políticas de seguridad</a></span>
+          </div>
+        </footer>
+		  
+		<footer class="fixed-bottom" id="bottomhide01">
+			<div class="row justify-content-center bottomovil01">
+				<div class="col-3"><img src="../images/home-icon01.png" alt="" /></div>
+				<div class="col-4">&nbsp;</div>
+				<div class="col-3 bottom-align01"><img src="../images/whatsapp-icon01.png" alt="" /></div>
+			</div>  
+		</footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+	
+	<!-- MODALES -->
+	<!-- MODAL VER AGENDAMIENTO -->
+	<div class="modal fade bd-example-modal-lg" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+		
+	  <div class="modal-header">
+        <h5 class="titu-bus" id="exampleModalScrollableTitle">Búsqueda de Cajeros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+		
+	  <div class="modal-body">
+        
+		  <div class="row justify-content-center">
+		  	<div class="col-12 col-lg-12">
+			
+				<div class="row justify-content-center">
+					<div class="col-12 col-lg-3 form-group">
+					    <input type="text" class="form-control rounded-pill" placeholder="Código de Cajero" />
+					</div>
+					<div class="col-9 col-lg-7 form-group pl-0 pr-1">
+					    <input type="text" class="form-control rounded-pill" placeholder="Dirección de Cajero" />
+					</div>
+					<div class="col-2 col-lg-2 form-group pl-0">
+						<button type="button" class="btn btn-danger btn-rounded btn-fw text-nowrap pl-3 pr-3"><i class="ti-search"></i></button>
+					</div>
+				</div>
+				
+				<div class="row justify-content-center">
+				  <div class="col-12 col-lg-12">
+					<div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th style="width:2%;"><font color="#02A1DE">Cajero</font></th>
+                          <th style="width:2%;"></th>
+                          <th style="width:86%;"><font color="#02A1DE">Dirección</font></th>
+                          <th style="width: 10%;"><font color="#02A1DE">Alias</font></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><img src="../images/atm-blue02.png" alt="" class="" /></td>
+                          <td><button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm">4457</button></td>
+                          <td class="text-black">Calle Nicanor de Obarrio</td>
+                          <td><label class="badge badge-danger">San Francisco</label></td>
+                        </tr>
+                        <tr>
+                          <td><img src="../images/atm-blue02.png" alt="" class="" /></td>
+                          <td><a href="cajero-encontrado.html" target="_top"><button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm">6533</button></a></td>
+                          <td class="text-black">Centro comercial Country Plaza II, Panamá</td>
+                          <td><label class="badge badge-danger">San Francisco</label></td>
+                        </tr>
+                        <tr>
+                          <td><img src="../images/atm-blue02.png" alt="" class="" /></td>
+                          <td><a href="pre-programar.html" target="_top"><button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm">2398</button></a></td>
+                          <td class="text-black">Riba Smith</td>
+                          <td><label class="badge badge-danger">San Francisco</label></td>
+                        </tr>
+                        <tr>
+                          <td><img src="../images/atm-blue02.png" alt="" class="" /></td>
+                          <td><button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm">4511</button></td>
+                          <td class="text-black">Av Central, Panamá</td>
+                          <td><label class="badge badge-danger">San Francisco</label></td>
+                        </tr>
+                        <tr>
+                          <td><img src="../images/atm-blue02.png" alt="" class="" /></td>
+                          <td><button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm">6709</button></td>
+                          <td class="text-black">Brisas de Amador, Isla Perico, Calz. de Amador</td>
+                          <td><label class="badge badge-danger">San Francisco</label></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>					
+				 </div>
+				</div>
+				
+			</div>
+		  </div>
+		  
+      </div>    
+	  
+	  <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp;Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalScrollable2"><i class="fas fa-times-circle"></i>&nbsp;Pantalla Error</button>
+      </div>	
+	
+	</div>
+  </div>
+</div>
+	<!-- FIN MODAL VER AGENDAMIENTO -->
+	
+<!-- MODAL PANTALLA ERROR BÚSQUEDA -->
+<div class="modal fade bd-example-modal-lg" id="exampleModalScrollable2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+		
+	  <div class="modal-header">
+        <h5 class="titu-bus" id="exampleModalScrollableTitle2">Búsqueda de Cajeros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+		
+	  <div class="modal-body">
+        
+		  <div class="row justify-content-center">
+		  	<div class="col-12 col-lg-12">
+			
+				<div class="row justify-content-center">
+					<div class="col-12 col-lg-3 form-group">
+					    <input type="text" class="form-control rounded-pill" placeholder="Código de Cajero" />
+					</div>
+					<div class="col-9 col-lg-7 form-group pl-0 pr-1">
+					    <input type="text" class="form-control rounded-pill" placeholder="Dirección de Cajero" />
+					</div>
+					<div class="col-2 col-lg-2 form-group pl-0">
+						<button type="button" class="btn btn-danger btn-rounded btn-fw text-nowrap pl-3 pr-3"><i class="ti-search"></i></button>
+					</div>
+				</div>
+				
+				<div class="row justify-content-center">
+				  <div class="col-12 col-lg-12">
+							
+					  <div class="row justify-content-center">
+					  	<div class="col-10 col-lg-10 img-cuadre01">
+						  <img src="../images/error-busqueda03.png" class="img-fluid" alt="" />
+						</div>
+					  </div>
+					  
+					  <div class="row justify-content-center ">
+					  	<div class="col-10 col-lg-10 img-cuadre01">
+						  <p>El Cajero que estás buscando no ha sido encontrado</p>
+						  <p class="img-cuadre02">Consulta su código o dirección correcta e inténtalo de nuevo</p>
+						</div>
+					  </div>
+					  
+				 </div>
+				</div>
+				
+			</div>
+		  </div>
+		  
+      </div>    
+	  
+	  <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp;Cerrar</button>
+      </div>	
+	
+	</div>
+  </div>
+</div>
+<!-- FIN MODAL PANTALLA ERROR BÚSQUEDA -->
+	
+<!-- MODAL TOKEN -->
+	
+	<div class="modal fade bd-example-modal-lg" id="token01" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content bg-token01">
+		
+	  <div class="modal-header">
+        <h5 class="titu-token01" id="token01Title">Recibirás un SMS con tu token</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+		
+	  <div class="modal-body">
+        
+		  <div class="row justify-content-center">
+		  	<div class="col-12 col-lg-12">
+						
+				<div class="row justify-content-center">
+				  <div class="col-auto col-lg-auto">
+					
+			<div id="content" class="col-lg-12">
+					
+            	<textarea rows="1" cols="4" id="comment" maxlength="4" class="board"></textarea>
+				
+					<div class="row justify-content-center ">
+						<div class="col-12 col-lg-12 desc-token01 pl-0">
+							Digita el token que recibiste
+						</div>
+					</div>
+				
+				
+            <div id="virtual-keyboard">
+                <div class="keyboard-row">
+					
+					<div class="row justify-content-center">
+						<div class="col-12 col-lg-12 keyboard-row">
+                    		<a class="number" href="#" data="1">1</a>
+                    		<a class="number" href="#" data="2">2</a>
+                    		<a class="number" href="#" data="3">3</a>
+						</div>
+					</div>
+					
+					<div class="row justify-content-center keyboard-row">
+						<div class="col-12 col-lg-12">
+                    		<a class="number" href="#" data="4">4</a>
+                    		<a class="number" href="#" data="5">5</a>
+                    		<a class="number" href="#" data="6">6</a>
+						</div>
+					</div>
+					
+					<div class="row justify-content-center">
+						<div class="col-12 col-lg-12">					
+                    		<a class="number" href="#" data="7">7</a>
+                    		<a class="number" href="#" data="8">8</a>
+                    		<a class="number" href="#" data="9">9</a>
+						</div>
+					</div>							
+						
+                </div>
+
+                <div class="keyboard-row">
+					<div class="row justify-content-center">
+						<div class="col-12 col-lg-12">					
+							<a class="number2" href="#" data="0">0</a>
+                    		<a class="" href="#" data="DEL"><i class="ti-eraser"></i></a>
+                		</div>
+            		</div>
+        		</div>					
+					
+				  </div>
+				
+				  <div class="row justify-content-center">
+					<div class="col-12 col-lg-12 centrarbot01">
+				       <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal"><i class="fas fa-times-circle"></i>&nbsp;Cancelar</button>
+        				<button type="button" class="btn btn-danger rounded-pill" data-dismiss="modal" data-toggle="modal" data-target="#msjtoken01"><i class="ti-check-box"></i>&nbsp;Aceptar</button>  
+					</div>	
+		  		  </div>
+				
+				</div>
+				
+			</div>
+		  </div>
+				
+
+		  
+      </div>    
+	
+	</div>
+  </div>
+</div>
+		</div>
+	</div>
+	
+<!-- FIN MODAL -->
+	
+
+<!-- MODAL MENSAJE TOKEN -->
+	<div class="modal fade bd-example-modal-lg" id="msjtoken01" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+		
+	  <div class="modal-header">
+        <h5 class="titu-bajar01" id="msjtoken01Title02">Bajar Plantilla - Código de Seguridad</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+		
+	  <div class="modal-body">
+        
+		  <div class="row justify-content-center">
+		  	<div class="col-12 col-lg-12">
+				
+				<div class="row justify-content-center">
+				  <div class="col-12 col-lg-12">
+							
+					  <div class="row justify-content-center">
+					  	<div class="col-10 col-lg-10 img-cuadre01">
+						  <img src="../images/okbajar01.png" class="img-fluid" alt="" />
+						</div>
+					  </div>
+					  
+					  <div class="row justify-content-center ">
+					  	<div class="col-10 col-lg-10 img-cuadre01">
+						  <p><font color="green">¡Clave correcta!</font></p>
+						  <p class="img-cuadre02">Acción(es) registradas con éxito</p>
+						</div>
+					  </div>
+					  
+					   <div class="row justify-content-center ">
+					  	<div class="col-10 col-lg-10 img-cuadre02 marfix01">
+							
+        					<a href="../index.html" target="_top"><button type="button" class="btn btn-danger rounded-pill"><i class="ti-check-box"></i>&nbsp;Aceptar</button></a>					
+						
+						</div>
+					  </div>
+					  
+					  <div class="row justify-content-center">
+					  	<div class="col-10 col-lg-10 img-cuadre01">
+						  <img src="../images/okerror01.png" class="img-fluid" alt="" />
+						</div>
+					  </div>
+					  
+					  <div class="row justify-content-center ">
+					  	<div class="col-10 col-lg-10 img-cuadre01">
+						  <p>¡Clave Incorrecta!</p>
+						  <p class="img-cuadre02">Revise de nuevo e ingrese la clave correcta por favor.</p>
+						</div>
+					  </div>
+					  
+					  <div class="row justify-content-center ">
+					  	<div class="col-10 col-lg-10 img-cuadre02 marfix01">
+							
+        					<a href="#" target="_top"><button type="button" class="btn btn-danger rounded-pill" data-dismiss="modal" data-toggle="modal" data-target="#token01"><i class="ti-check-box"></i>&nbsp;Aceptar</button></a>
+							
+						</div>
+					  </div>
+					  
+				 </div>
+				</div>
+				
+			</div>
+		  </div>
+		  
+      </div>    
+	  	
+	
+	</div>
+  </div>
+</div>	
+<!-- FIN MODAL MENSAJE CANCELACIÓN AGENDAMIENTO -->	
+	
+	
+  <!-- plugins:js -->
+  <script src="../vendors/base/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="../vendors/chart.js/Chart.min.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="../js/off-canvas.js"></script>
+  <script src="../js/hoverable-collapse.js"></script>
+  <script src="../js/template.js"></script>
+  <script src="../js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="../js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>
+

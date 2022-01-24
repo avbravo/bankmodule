@@ -1,0 +1,5 @@
+#Actualizar componentes desde java
+
+
+ PrimeFaces.current().ajax().update("form:growl");
+//                PrimeFaces.current().ajax().update("growl");

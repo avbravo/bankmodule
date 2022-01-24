@@ -1,0 +1,20 @@
+#JPA
+
+
+En el facade hacemos una cosulta ordenada por AGENDAID DESC y obtenemos el primer registro
+ public Optional<AccionReciente> findByBancoIdAndCajeroIdUltimaAccionReciente(BigInteger BANCOID, BigInteger CAJEROID) {
+    
+        try {
+
+            Query query = em.createQuery("SELECT a FROM AccionReciente a WHERE a.BANCOID = :BANCOID AND a.CAJEROID = :CAJEROID ORDER BY a.AGENDAID DESC");
+            query.setParameter("BANCOID", BANCOID).setParameter("CAJEROID", CAJEROID);
+            query.setFirstResult(1);
+            query.setMaxResults(1);
+            AccionReciente accionReciente =(AccionReciente) query.getSingleResult();
+              return Optional.of(accionReciente);
+        } catch (Exception ex) {
+            System.out.println("findByBancoIdAndCajeroId() " + ex.getLocalizedMessage());
+               JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());;
+        }
+     return Optional.empty();
+    }

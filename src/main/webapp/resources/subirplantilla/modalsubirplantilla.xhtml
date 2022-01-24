@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+
+        <cc:attribute name="action" />
+        <cc:attribute name="id" default="modalacciones"/>
+
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:outputPanel id="#{cc.attrs.id}">
+            <div class="modal fade bd-example-modal-lg" id="encender01" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="titu-accion01" id="encender01Title02">Encender - Subir Plantilla</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-lg-12">
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 col-lg-12">
+
+<!--                                            <div class="row justify-content-center">
+                                                <div class="col-10 col-lg-10 img-cuadre01">
+
+                                                    <p:graphicImage name="eliminagenda01.png" library="images" alt="" class="img-fluid" />
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row justify-content-center ">
+                                                <div class="col-10 col-lg-10 img-cuadre01">
+                                                    <p>El Cajero no tiene eventos agendados.</p>
+                                                    <p class="img-cuadre02">Plantilla Activada</p>
+                                                </div>
+                                            </div>-->
+
+                                            <div class="row justify-content-center">
+                                                <div class="col-10 col-lg-10 img-cuadre01">
+
+                                                    <!--<p:graphicImage name="rpaonline01.png" library="images" alt="" class="img-fluid" />-->
+                                                    <p:graphicImage name="okbajar01.png" library="images" alt="" class="img-fluid" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row justify-content-center ">
+                                                <div class="col-10 col-lg-10 img-cuadre01">
+                                                    <p>RPA Online.</p>
+                                                    <p class="img-cuadre02">La activación de plantilla es automática</p>
+                                                </div>
+                                            </div>
+
+<!--                                            <div class="row justify-content-center">
+                                                <div class="col-10 col-lg-10 img-cuadre01">
+
+                                                    <p:graphicImage name="rpaoffline01.png" library="images" alt="" class="img-fluid" />
+                                                </div>
+                                            </div>-->
+
+<!--                                            <div class="row justify-content-center ">
+                                                <div class="col-10 col-lg-10 img-cuadre01">
+                                                    <p>RPA Offline.</p>
+                                                    <p class="img-cuadre02">Recuerde que para desactivar una plantilla debió realizar previamente su desactivación (Bajar Plantilla)</p>
+                                                    
+               
+                                                </div>
+                                            </div>-->
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>    
+
+                        <div class="modal-footer">
+                           <p:growl id='growl' /> 
+
+                            <p:commandLink class="btn btn-danger rounded-pill"  update=":form:growl"
+                                           action="#{subirPlantillaController.onCommandButtonSubirPlantilla()}">
+                                <i class="ti-arrow-circle-down" style="color:#cc0000;"></i>&nbsp;#{item.GRUPOACCION}
+                            </p:commandLink>
+
+                            
+                        </div>	
+
+                    </div>
+                </div>
+            </div>	
+        </p:outputPanel>
+    </cc:implementation>
+</html>

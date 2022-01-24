@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:template="http://xmlns.jcp.org/jsf/composite/template">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+                <div class="container-scroller">
+                <!-- partial:partials/_navbar.html -->
+                <template:top_denegado/>
+
+
+                <!-- Body -->
+                <div class="container-fluid page-body-wrapper">
+                    <template:navigator_denegado/>
+
+                    <!-- partial -->
+
+
+                    <!-- partial -->
+
+                    <div class="main-panel">
+                        <div class="content-wrapper" id="bgarc01">
+
+                            <div class="row up01">
+                                <div class="col-md-12 grid-margin">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="text-secondary">ACCESO DENEGADO</h3>
+                                            <h4 class="text-secondary"> Debe logearse primero</h4>
+
+                                            <p:messages id="message" showSummary="true" />
+
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-lg-12 ">
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 col-lg-10">
+
+                                            <div class="card card-bor-bottom01 card-bor-top01 ">
+
+
+                                                <div class="card-header atm-head01 card-bor-top01">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-12 col-lg-11">
+                                                            <p class="card-title text-md-center text-xl-left textmvl01"><font color="#fff">No cuenta con credenciales de acceso</font></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-body atm-body02">
+                                                    <div class="row justify-content-center align-content-center atm-row01">
+                                                        <div class="col-1 col-lg-auto atm-card-marbody01 atm-mar01" >
+                                                            <!--<p:graphicImage name="atm-green01.png" library="images" alt="" class="card-icono01" />-->
+<i class="pi pi-lock" style="font-size: 2rem"></i>
+                                                        </div>
+                                                        <div class="col-2 col-lg-auto atm-card-marbody01" >
+                                                            
+                                                           
+                                                            <p:commandButton 
+                                                                icon="pi pi-user"
+                                                                value="Login" class="btn btn-block btn-danger btn-sm font-weight-medium auth-form-btn rounded-pill"
+                                                                           action="login">
+                                                               
+                                                            </p:commandButton>
+                                                        </div>
+                                                        <div class="col-8 col-lg-9 atm-card-marbody01 atm-mar02" >
+                                                            <dl>
+                                                                <dd class="atm-title-mar01"><strong></strong></dd>
+
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                                             
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <!-- content-wrapper ends -->
+
+
+
+
+
+                        <!-- FOOTER -->
+                        <template:footer/>
+
+
+
+                        <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+
+
+
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+    </cc:implementation>
+</html>

@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"         
+      xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
+        <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
+       <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
+        <link rel="stylesheet" href="./resources/css/style.css"/>
+        <link rel="stylesheet" href="./resources/css/dash01.css"/>
+        <link rel="stylesheet" href="./resources/css/mantenimiento.css"/>
+        <link rel="stylesheet" href="./resources/css/dataTables.bootstrap.min.css"/>
+        <meta name="referrer" content="no-referrer"/>
+        <meta name="referrer" content="strict-origin-when-cross-origin"/>
+
+        <title>Control Manual</title>       
+     <f:metadata>
+             <f:viewAction    action="#{totalesEstadoBancoController.browserEventFromPage('login.xhtml')}"/>
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <h:form id="form" prependId="false" rendered="#{accessController.loged}">
+            
+               
+            <style type="text/css">
+                .ui-filter-column .ui-column-customfilter .custom-filter {
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+            </style>
+            <script type="text/javascript">
+                function setDataTableWithPageStart() {
+
+                    widgetVardataTable.getPaginator().setPage(0);
+                    alert("ejecutado la funcion setDataTableWithPageStart()")
+                }
+            </script>
+            <p:growl id='growl' widgetVar="widgetVarGrowl">
+                <p:autoUpdate/>
+            </p:growl>
+            <div class="container-scroller">
+                <!-- partial:partials/_navbar.html -->
+                <template:top/>
+
+
+                <!-- Body -->
+                <div class="container-fluid page-body-wrapper">
+                    <template:navigator/>
+
+                    <!-- partial -->
+
+
+                    <!-- partial -->
+
+                    <div class="main-panel">
+                        <div class="content-wrapper" id="bgarc01">
+
+                            <div class="row up01">
+                                <div class="col-md-12 grid-margin">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h4 class="text-secondary">TOTALES DE ESTADO </h4>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="row justify-content-center">
+
+
+                                <div class="col-12 col-lg-12">
+                                    <div class="table-responsive">
+                                        <p:dataTable value="#{totalesEstadoBancoController.totalesEstadoBancoList}"  
+                                                     var="item" 
+                                                     id="dataTableagendadosmodal"
+                                                     widgetVar="widgetVardataTableagendadosmodal"
+                                                     lazy="false"
+                                                     filteredValue="#{totalesEstadoBancoController.totalesEstadoBancoSelectedList}" 
+
+                                                     paginator="true"
+                                                     rows="#{totalesEstadoBancoController.rowForPage}"
+                                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                                     tableStyleClass="table table-hover"
+                                                     >
+
+                                            <f:facet name="header">
+                                                <div class="products-table-header">
+                                                    <span style="font-weight: bold">Buscar</span>
+
+                                                    <span class="filter-container ui-input-icon-left">
+                                                        <i class="pi pi-search"></i>
+                                                        <p:inputText id="globalFilter" onkeyup="PF('widgetVardataTableagendadosmodal').filter()" placeholder="Search"/>
+                                                    </span>
+
+
+                                                </div>
+                                            </f:facet>
+
+                                            <p:column headerText="Banco"  filterBy="#{item.banco.BANCO}">
+                                                <label class="text-black">#{item.banco.BANCO}</label>
+
+                                            </p:column>
+
+
+                                            <p:column headerText="Solicitado"> 
+
+                                                <label class="text-black">#{item.totalSolicitado}</label>
+                                            </p:column>
+                                            <p:column headerText="Proceso" >
+                                                <label class="text-black">#{item.totalEnProceso}</label>
+
+                                            </p:column>
+                                            <p:column headerText="Finalizado" >
+                                                <label class="text-black">#{item.totalFinalizado}</label>
+
+                                            </p:column>
+
+
+
+                                        </p:dataTable>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+
+
+                        </div>
+                        <!-- content-wrapper ends -->
+
+
+
+
+
+                        <!-- FOOTER -->
+                        <template:footer/>
+
+
+                        <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+
+
+
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+
+
+        </h:form>   
+
+        <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">
+
+            <template:accesodenegado/>
+
+        </h:form>
+        <!-- container-scroller -->
+
+        <!-- container-scroller -->
+         <template:script/> 
+    </h:body>
+
+</html>
+

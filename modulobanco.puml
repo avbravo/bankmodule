@@ -1,0 +1,8 @@
+@startuml
+Login -> Dashboard:Access Controller\nDashboardController
+Dashboard -> cajeroserach:DashboardController
+cajerosearch -> cajeroencontrado: CajeroEncontradoController
+cajeroencontrado -> cajeroaccionesmodal: CajeroEncontradoController\nCajeroAccionController
+cajeroaccionesmodal -> cajeroaccion: CajeroAccionController|nSubir plantilla y Reinicio Remoto\nBajar plantilla para banco es solo el predeterminado.
+
+@enduml
