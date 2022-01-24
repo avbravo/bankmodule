@@ -6,7 +6,9 @@
 package com.peopleinmotion.horizonreinicioremoto.repository;
 
 import com.peopleinmotion.horizonreinicioremoto.entity.Accion;
+import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.entity.GrupoAccion;
+import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
@@ -31,5 +33,13 @@ public interface AccionRepository {
     public Boolean create(Accion accion);
 
     public Boolean update(Accion accion);
+    
+     public Boolean changed(Accion accion);
+
+    public List<Accion> sql(QuerySQL querySQL);
+
+    public List<Accion> pagination(QuerySQL querySQL, Integer pageNumber, Integer rowForPage);
+
+    public int count(QuerySQL querySQL);
 
 }

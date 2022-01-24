@@ -156,9 +156,26 @@ public class Accion implements Serializable {
 
     @Override
     public String toString() {
-        return "Accion{" + "ACCIONID=" + ACCIONID + ", ACCION=" + ACCION + ", ACTIVO=" + ACTIVO + ", PREDETERMINADO=" + PREDETERMINADO + ", ORDEN=" + ORDEN + ", GRUPOACCIONID=" + GRUPOACCIONID + '}';
+        return "Accion{" + "ACCIONID=" + ACCIONID + ", ACCION=" + ACCION 
+                + ", ACTIVO=" + ACTIVO + ", PREDETERMINADO=" + PREDETERMINADO + ", ORDEN=" + ORDEN + ", GRUPOACCIONID=" + GRUPOACCIONID + '}';
     }
 
     
+    
+    
+    
+      public String toJSON() {
+    
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        sb.append("\n  \"ACCIONID\":\"").append(ACCIONID).append("\"");
+        sb.append("\n, \"ACCION\":\"").append(ACCION).append("\"");
+        sb.append("\n, \"ACTIVO\":\"").append(ACTIVO).append("\"");
+        sb.append("\n, \"PREDETERMINADO\":\"").append(PREDETERMINADO).append("\"");
+        sb.append("\n, \"ORDEN\":\"").append(ORDEN).append("\"");
+         sb.append("\n, \"GRUPOACCIONID\":").append(GRUPOACCIONID.toJSON());
+        sb.append("\n}");
+        return sb.toString();
+    }
     
 }

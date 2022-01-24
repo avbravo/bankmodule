@@ -72,7 +72,7 @@ public Optional<Accion> findByAccionId(BigInteger ACCIONID) {
             Query query = em.createQuery("SELECT a FROM Accion a WHERE a.GRUPOACCIONID = :GRUPOACCIONID");
             list = query.setParameter("GRUPOACCIONID", GRUPOACCIONID).getResultList();
         } catch (Exception ex) {
-            // System.out.println("findByGrupoAccionId() " + ex.getLocalizedMessage());
+            
                JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
         }
         return list;

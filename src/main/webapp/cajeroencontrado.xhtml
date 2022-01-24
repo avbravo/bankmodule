@@ -136,12 +136,12 @@
                                         </p:commandButton>
 
                                         <p:commandButton value="Reinicio Remoto" 
-                                                         rendered="#{cajeroEncontradoController.haveAccionReciente}"
+                                                       
                                                          styleClass="rounded-button ui-button-success" 
                                                          style="margin-right: .5rem"
                                                          update=":form:growl"
-                                                         icon="pi pi-caret-bolt"
-                                                         action="#{cajeroEncontradoController.onCommandButtonIrControlManual()}">
+                                                         icon="pi pi-globe"
+                                                         action="#{cajeroEncontradoController.onCommandButtonGrupoAccionReinicioRemoto()}">
 
                                         </p:commandButton>
 
@@ -151,7 +151,7 @@
                                                          style="margin-right: .5rem"
                                                          update=":form:growl"
                                                          icon="pi pi-eject"
-                                                         action="#{cajeroEncontradoController.onCommandButtonIrControlManual()}">
+                                                         action="#{cajeroEncontradoController.onCommandButtonGrupoAccionEncenderSubirPlantilla()}">
 
                                         </p:commandButton>
                                         

@@ -93,7 +93,7 @@ public abstract class AbstractFacade<T> {
     }
 
 
-    // <editor-fold defaultstate="collapsed" desc="List<T> queryPagination(Query query)">
+    // <editor-fold defaultstate="collapsed" desc="List<T> sql(QuerySQL querySQL)">
     public List<T> sql(QuerySQL querySQL) {
         List<T> list = new ArrayList<>();
         try {

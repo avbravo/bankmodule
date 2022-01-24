@@ -29,20 +29,20 @@ import javax.validation.constraints.Size;
  * @author avbravo
  */
 @Entity
-@Table(name = "GRUPOACCION")   
+@Table(name = "GRUPOACCION")
 @NamedQueries({
     @NamedQuery(name = "GrupoAccion.findAll", query = "SELECT g FROM GrupoAccion g"),
     @NamedQuery(name = "GrupoAccion.findByGrupoAcconId", query = "SELECT g FROM GrupoAccion g WHERE g.GRUPOACCIONID = :GRUPOACCIONID"),
     @NamedQuery(name = "GrupoAccion.findByRazon", query = "SELECT g FROM GrupoAccion g WHERE g.GRUPOACCION = :GRUPOACCION"),
     @NamedQuery(name = "GrupoAccion.findByHabilitado", query = "SELECT g FROM GrupoAccion g WHERE g.ACTIVO = :ACTIVO"),
     @NamedQuery(name = "GrupoAccion.findByOrden", query = "SELECT g FROM GrupoAccion g WHERE g.ORDEN = :ORDEN")
-    })
+})
 public class GrupoAccion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @SequenceGenerator(name = "GRUPOACCION_GEN", sequenceName = "GRUPOACCION_SEQ",allocationSize = 1)
+    @SequenceGenerator(name = "GRUPOACCION_GEN", sequenceName = "GRUPOACCION_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRUPOACCION_GEN")
     @NotNull
     @Column(name = "GRUPOACCIONID")
@@ -52,15 +52,15 @@ public class GrupoAccion implements Serializable {
     private String GRUPOACCION;
     @Basic(optional = false)
     @NotNull
-     
+
     @Column(name = "ACTIVO")
     private String ACTIVO;
     @Column(name = "ORDEN")
     private BigInteger ORDEN;
-    
-    @OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "GRUPOACCIONID")
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "GRUPOACCIONID")
     private Collection<Accion> ACCIONCollection;
-    
+
     public GrupoAccion() {
     }
 
@@ -108,12 +108,6 @@ public class GrupoAccion implements Serializable {
         this.ACCIONCollection = ACCIONCollection;
     }
 
-    
-
-   
-    
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -139,6 +133,16 @@ public class GrupoAccion implements Serializable {
         return "GrupoAccion{" + "GRUPOACCIONID=" + GRUPOACCIONID + ", GRUPOACCION=" + GRUPOACCION + ", ACTIVO=" + ACTIVO + ", ORDEN=" + ORDEN + ", ACCIONCollection=" + ACCIONCollection + '}';
     }
 
-    
-    
+    public String toJSON() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        sb.append("\n  \"GRUPOACCIONID\":\"").append(GRUPOACCIONID).append("\"");
+        sb.append("\n, \"GRUPOACCION\":\"").append(GRUPOACCION).append("\"");
+        sb.append("\n, \"ACTIVO\":\"").append(ACTIVO).append("\"");
+        sb.append("\n, \"ORDEN\":\"").append(ORDEN).append("\"");
+        sb.append("\n}");
+        return sb.toString();
+    }
+
 }

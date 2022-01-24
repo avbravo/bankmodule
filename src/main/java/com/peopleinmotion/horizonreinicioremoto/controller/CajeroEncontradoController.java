@@ -47,6 +47,8 @@ public class CajeroEncontradoController implements Serializable , Page{
     AccionReciente accionReciente = new AccionReciente();
     List<GrupoAccion> grupoAccionList = new ArrayList<>();
     private GrupoAccion grupoAccionBajarPlantilla = new GrupoAccion();
+    private GrupoAccion grupoAccionReinicioRemoto= new GrupoAccion();
+    private GrupoAccion grupoAccionEncenderSubirPlantilla= new GrupoAccion();
     Boolean haveAccionReciente = Boolean.FALSE;
 // </editor-fold>
 
@@ -86,6 +88,7 @@ public class CajeroEncontradoController implements Serializable , Page{
             }
             
          fillSelectOneMenuGrupoAccionBajarPlantilla();
+         fillSelectOneMenuGrupoAccionReinicioRemoto();
              }
         } catch (Exception e) {
           JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
@@ -102,7 +105,6 @@ public class CajeroEncontradoController implements Serializable , Page{
     public String fillSelectOneMenuGrupoAccionBajarPlantilla() {
         try {
              grupoAccionList = new ArrayList<>();
-//            List<GrupoAccion> list= grupoAccionRepository.fºindAll();
            Optional<GrupoAccion> optional= grupoAccionRepository.findByGrupoAccionId(JsfUtil.contextToBigInteger("grupoAccionBajarPlantillaId"));
            if(optional.isPresent()){
                grupoAccionBajarPlantilla = optional.get();
@@ -110,15 +112,7 @@ public class CajeroEncontradoController implements Serializable , Page{
                JsfUtil.warningMessage("No se encontro el grupo de Accion para bajar plantilla");
            }
            
-//            if(list == null || list.isEmpty()){}
-//            else{
-//                for(GrupoAccion ga:list){
-//                    if(ga.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionBajarPlantillaId"))){
-//                        grupoAccionList.add(ga);
-//                    }
-//                }
-//                 
-//            }
+
             
             
         } catch (Exception e) {
@@ -127,6 +121,50 @@ public class CajeroEncontradoController implements Serializable , Page{
         return "";
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="fillSelectOneMenuGrupoAccionReinicioRemoto() ">
+    public String fillSelectOneMenuGrupoAccionReinicioRemoto() {
+        try {
+             grupoAccionList = new ArrayList<>();
+           Optional<GrupoAccion> optional= grupoAccionRepository.findByGrupoAccionId(JsfUtil.contextToBigInteger("grupoAccionReinicioRemotoId"));
+           if(optional.isPresent()){
+               grupoAccionReinicioRemoto = optional.get();
+           }else{
+               JsfUtil.warningMessage("No se encontro el grupo de Accion para reinicio remoto");
+           }
+           
+
+            
+            
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod()+  " " + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="fillSelectOneMenuGrupoAccionEncenderSubirPlantilla() ">
+    public String fillSelectOneMenuGrupoAccionEncenderSubirPlantilla() {
+        try {
+             grupoAccionList = new ArrayList<>();
+           Optional<GrupoAccion> optional= grupoAccionRepository.findByGrupoAccionId(JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId"));
+           if(optional.isPresent()){
+               grupoAccionEncenderSubirPlantilla = optional.get();
+           }else{
+               JsfUtil.warningMessage("No se encontro el grupo de Accion para encender subir plantilla");
+           }
+           
+
+            
+            
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod()+  " " + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    
+    
+    
+    
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonGrupoAccion(GrupoAccion grupoAccion) ">
 
     /**
@@ -175,6 +213,52 @@ public class CajeroEncontradoController implements Serializable , Page{
             JmoordbContext.put("pageInView", "bajarplantilla.xhtml");
             
              return "bajarplantilla.xhtml";
+           
+          
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod()+ " "+ e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String String onCommandButtonGrupoAccionReinicioRemoto() ">
+
+    /**
+     * Se ejecuta cuando se selecciona un grupo de accion
+     *
+     * @param grupoAccion
+     * @return
+     */
+    public String onCommandButtonGrupoAccionReinicioRemoto() {
+        try {
+            
+            JmoordbContext.put("grupoAccion", grupoAccionReinicioRemoto);
+            JmoordbContext.put("pageInView", "reinicioremoto.xhtml");
+            
+             return "reinicioremoto.xhtml";
+           
+          
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod()+ " "+ e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String String onCommandButtonGrupoAccionEncenderSubirPlantilla() ">
+
+    /**
+     * Se ejecuta cuando se selecciona un grupo de accion
+     *
+     * @param grupoAccion
+     * @return
+     */
+    public String onCommandButtonGrupoAccionEncenderSubirPlantilla() {
+        try {
+            
+            JmoordbContext.put("grupoAccion", grupoAccionEncenderSubirPlantilla);
+            JmoordbContext.put("pageInView", "encendersubirplantilla.xhtml");
+            
+             return "encendersubirplantilla.xhtml";
            
           
         } catch (Exception e) {
@@ -255,15 +339,5 @@ public class CajeroEncontradoController implements Serializable , Page{
     }
     // </editor-fold>
     
-    public String onCommandButtonIrControlManual(){
-        try {
-            JmoordbContext.put("accionRecienteDashboard",accionReciente);
-            JmoordbContext.put("formularioRetorno","cajeroencontrado");
-        } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " "+e.getLocalizedMessage());
-        }
-        JmoordbContext.put("pageInView", "controlmanual.xhtml");
-        return "controlmanual.xhtml";
-    }
-    
+ 
 }
