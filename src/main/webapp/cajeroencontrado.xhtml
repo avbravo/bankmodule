@@ -20,7 +20,7 @@
         <meta name="referrer" content="no-referrer"/>
         <meta name="referrer" content="strict-origin-when-cross-origin"/>
 
-        <title>Control Manual</title>     
+        <title>Modulo Banco</title>     
         <f:metadata>
             <f:viewAction    action="#{cajeroEncontradoController.browserEventFromPage('login.xhtml')}"/>
         </f:metadata>
@@ -122,7 +122,7 @@
 
 
 
-                                    <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
+                                    <p:panelGrid columns="4"  styleClass="ui-panelgrid-blank ui-fluid"
                                                  style="border:0px none; background-color:transparent;">
 
                                         <p:commandButton value="Bajar Plantilla"
@@ -135,15 +135,27 @@
 
                                         </p:commandButton>
 
-                                        <p:commandButton value="IR A CONTROL MANUAL" 
+                                        <p:commandButton value="Reinicio Remoto" 
                                                          rendered="#{cajeroEncontradoController.haveAccionReciente}"
                                                          styleClass="rounded-button ui-button-success" 
                                                          style="margin-right: .5rem"
                                                          update=":form:growl"
-                                                         icon="pi pi-caret-right"
+                                                         icon="pi pi-caret-bolt"
                                                          action="#{cajeroEncontradoController.onCommandButtonIrControlManual()}">
 
                                         </p:commandButton>
+
+                                        <p:commandButton value="Encender (Subir Plantilla)" 
+                                                         rendered="#{cajeroEncontradoController.haveAccionReciente}"
+                                                         styleClass="rounded-button ui-button-secondary" 
+                                                         style="margin-right: .5rem"
+                                                         update=":form:growl"
+                                                         icon="pi pi-eject"
+                                                         action="#{cajeroEncontradoController.onCommandButtonIrControlManual()}">
+
+                                        </p:commandButton>
+                                        
+                                        
                                         
                                         <p:commandButton value="REGRESAR" styleClass="rounded-button ui-button-help" 
                                                               icon ="pi pi-arrow-left" 

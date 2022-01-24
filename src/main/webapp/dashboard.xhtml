@@ -20,7 +20,7 @@
         <meta name="referrer" content="no-referrer"/>
         <meta name="referrer" content="strict-origin-when-cross-origin"/>
 
-        <title>Control Manual</title>    
+        <title>Modulo Banco</title>    
 
      
    <f:metadata>
@@ -73,30 +73,7 @@
                                             <h4 class="text-secondary">GESTIÓN DE CAJEROS</h4>
 
                                         </div>
-                                        <div>
-                                            <p:selectOneMenu id="selectOneMenuBanco" 
-                                                             class="form-control rounded-pill solosel01"
-                                                             value="#{dashboardController.selectOneMenuBancoValue}" 
-                                                             converter="#{bancoConverter}"
-                                                             >
-                                                <f:selectItem itemLabel="Seleccione un Banco" itemValue="#{null}"  noSelectionOption="true"/>
-                                                <f:selectItems value="#{dashboardController.bancoList}" 
-                                                               var="var" 
-                                                               itemValue="#{var}" itemLabel="#{var.BANCO} " />
-
-                                                <p:ajax listener="#{dashboardController.selectOneMenuBancoChanged()}"
-                                                        event="change"
-                                                        oncomplete="remoteCommand()"
-                                                        update=":form:carousel,:form:dashboardresumenacciontotal:outputPaneltotalFinalizado, :form:dashboardresumenacciontotal:outputPaneltotalEnProceso, :form:dashboardresumenacciontotal:outputPaneltotalSolicitado,:form:dashboardschedule:outputPanelschedule"
-                                                        />
-
-
-                                            </p:selectOneMenu>
-                                            <p:remoteCommand name="remoteCommand" 
-                                                             update=":form:dashboardresumenacciontotal:outputPaneltotalFinalizado, :form:dashboardresumenacciontotal:outputPaneltotalEnProceso, :form:dashboardresumenacciontotal:outputPaneltotalSolicitado,:form:dashboardschedule:outputPanelschedule" 
-                                                             action="#{dashboardController.remoteCommand()}"
-                                                             />
-                                        </div>
+                                       
 
                                         <div>
 

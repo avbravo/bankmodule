@@ -138,11 +138,11 @@ public class DashboardController implements Serializable, Page {
 
             if (countViewAction == 0) {
 
-                QuerySQL querySQL = new QuerySQL.Builder()
-                        .query("SELECT b FROM Banco b WHERE b.ESCONTROL = 'NO' AND b.ACTIVO = 'SI' ORDER BY b.BANCO ASC ")
-                        .count("SELECT COUNT(b) FROM Banco b WHERE b.ESCONTROL = 'NO' AND b.ACTIVO = 'SI'")
-                        .build();
-                bancoList = bancoRepository.sql(querySQL);
+//                QuerySQL querySQL = new QuerySQL.Builder()
+//                        .query("SELECT b FROM Banco b WHERE b.ESCONTROL = 'NO' AND b.ACTIVO = 'SI' ORDER BY b.BANCO ASC ")
+//                        .count("SELECT COUNT(b) FROM Banco b WHERE b.ESCONTROL = 'NO' AND b.ACTIVO = 'SI'")
+//                        .build();
+//                bancoList = bancoRepository.sql(querySQL);
                 selectOneMenuBancoValue = banco;
               
              
