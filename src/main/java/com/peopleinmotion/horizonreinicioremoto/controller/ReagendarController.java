@@ -50,7 +50,7 @@ import org.primefaces.PrimeFaces;
 @Named
 @ViewScoped
 @Data
-public class ControlmanualController implements Serializable, Page {
+public class ReagendarController implements Serializable, Page {
 
     // <editor-fold defaultstate="collapsed" desc="field ">
     private static final long serialVersionUID = 1L;
@@ -134,7 +134,7 @@ public class ControlmanualController implements Serializable, Page {
     /**
      * Creates a new instance of CajeroAccionController
      */
-    public ControlmanualController() {
+    public ReagendarController() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="init() ">

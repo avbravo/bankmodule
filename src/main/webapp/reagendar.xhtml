@@ -19,7 +19,7 @@
 
         <title>Modulo Banco</title>        
         <f:metadata>
-            <f:viewAction    action="#{controlmanualController.browserEventFromPage('login.xhtml')}"/>
+            <f:viewAction    action="#{reagendarController.browserEventFromPage('login.xhtml')}"/>
         </f:metadata>
     </h:head>
     <h:body>
@@ -59,7 +59,7 @@
                                 <div class="col-md-12 grid-margin">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <h4 class="text-secondary">CONTROL MANUAL</h4>
+                                            <h4 class="text-secondary">REAGENDAR</h4>
 
 
                                         </div>
@@ -95,19 +95,19 @@
 
                                                         </div>
                                                         <div class="col-2 col-lg-auto atm-card-marbody01" >
-                                                            <button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" data-toggle="modal" data-target="#acciones01">#{controlmanualController.cajero.CAJERO}</button>
+                                                            <button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" data-toggle="modal" data-target="#acciones01">#{reagendarController.cajero.CAJERO}</button>
                                                         </div>
                                                         <div class="col-8 col-lg-9 atm-card-marbody01 atm-mar02" >
                                                             <dl>
-                                                                <dd class="atm-title-mar01"><strong>#{controlmanualController.cajero.DIRECCIONCORTA}</strong></dd>
-                                                                <dd class="atm-title-mar01">#{controlmanualController.cajero.DIRECCION}</dd>
+                                                                <dd class="atm-title-mar01"><strong>#{reagendarController.cajero.DIRECCIONCORTA}</strong></dd>
+                                                                <dd class="atm-title-mar01">#{reagendarController.cajero.DIRECCION}</dd>
                                                             </dl>
                                                         </div>
                                                     </div>
                                                 </div>
 
 
-                                                <ultimaacciongenerada:controlmanual id="ultimaacciongeneradacontrolmanual"  />
+                                                <ultimaacciongenerada:reagendar id="ultimaacciongeneradareagendar"  />
 
                                             </div>
 
@@ -117,23 +117,23 @@
                                     <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
                                                  style="border:0px none; background-color:transparent;">
 
-                                        <p:commandButton value="Procesando" 
+                                        <p:commandButton value="Cancelar Acción" 
                                                          update=":form:growl"
-                                                         icon="pi pi-cog"
-                                                         rendered="#{controlmanualController.showCommandButtonProcesando}"
-                                                         action="#{controlmanualController.onCommandButtonSendToken()}"
+                                                         icon="pi pi-trash"
+                                                        
+                                                         action="#{reagendarController.onCommandButtonSendToken()}"
 
                                                          title="Envia el token al correo"
                                                          styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                                                          >
                                         </p:commandButton>
-                                        <p:commandButton value="Finalizado" 
+                                        <p:commandButton value="Reagendar" 
                                                          styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                                                          update=":form:growl"
-                                                         icon="pi pi-eject"
-                                                         action="#{controlmanualController.onCommandButtonSendToken()}"
+                                                         icon="pi pi-calendar-plus"
+                                                         action="#{reagendarController.onCommandButtonSendToken()}"
 
-                                                         rendered="#{controlmanualController.showCommandButtonFinalizar}"
+          
                                                          >
 
                                         </p:commandButton>
@@ -142,7 +142,7 @@
                                         <p:commandButton value="REGRESAR" class="bot-regresar01" 
                                                          styleClass="rounded-button ui-button-help"
                                                          icon ="pi pi-arrow-left"
-                                                         action="#{controlmanualController.regresar()}"/>
+                                                         action="#{reagendarController.regresar()}"/>
 
                                     </p:panelGrid>
 
@@ -206,28 +206,28 @@
                         <p:inputTextarea  cols="1" id="mytokeen1" maxlength="1" 
                                           class="boardPrimefaces"
                                           styleClass="boardPrimefaces"
-                                          value="#{controlmanualController.tokenReader.number1}"
+                                          value="#{reagendarController.tokenReader.number1}"
                                           >
                             <p:autoUpdate />
                         </p:inputTextarea>     
                         <p:inputTextarea  cols="1" id="mytokeen2" maxlength="1" 
                                           class="boardPrimefaces"
                                           styleClass="boardPrimefaces"
-                                          value="#{controlmanualController.tokenReader.number2}"
+                                          value="#{reagendarController.tokenReader.number2}"
                                           >
                             <p:autoUpdate />
                         </p:inputTextarea>     
                         <p:inputTextarea  cols="1" id="mytokeen3" maxlength="1" 
                                           class="boardPrimefaces"
                                           styleClass="boardPrimefaces"
-                                          value="#{controlmanualController.tokenReader.number3}"
+                                          value="#{reagendarController.tokenReader.number3}"
                                           >
                             <p:autoUpdate />
                         </p:inputTextarea>     
                         <p:inputTextarea  cols="1" id="mytokeen4" maxlength="1" 
                                           class="boardPrimefaces"
                                           styleClass="boardPrimefaces"
-                                          value="#{controlmanualController.tokenReader.number4}"
+                                          value="#{reagendarController.tokenReader.number4}"
                                           >
                             <p:autoUpdate />
                         </p:inputTextarea>     
@@ -242,14 +242,14 @@
                                  style="border:0px none; background-color:transparent;">
 
                         <p:commandButton value="1" styleClass="rounded-button ui-button-secondary" 
-                                         action="#{controlmanualController.marcarNumero('1')}"
+                                         action="#{reagendarController.marcarNumero('1')}"
 
                                          update=" "/>
                         <p:commandButton value="2" styleClass="rounded-button ui-button-secondary" 
-                                         action="#{controlmanualController.marcarNumero('2')}"
+                                         action="#{reagendarController.marcarNumero('2')}"
                                          update=" "/>
                         <p:commandButton value="3" styleClass="rounded-button ui-button-secondary" 
-                                         action="#{controlmanualController.marcarNumero('3')}"
+                                         action="#{reagendarController.marcarNumero('3')}"
                                          update=" "/>
                     </p:panelGrid>
 
@@ -258,37 +258,37 @@
                     <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
                                  style="border:0px none; background-color:transparent;">
                         <p:commandButton value="4" styleClass="rounded-button ui-button-secondary" 
-                                         action="#{controlmanualController.marcarNumero('4')}"
+                                         action="#{reagendarController.marcarNumero('4')}"
                                          update=" "/>
                         <p:commandButton value="5" styleClass="rounded-button ui-button-secondary"  
-                                         action="#{controlmanualController.marcarNumero('5')}"
+                                         action="#{reagendarController.marcarNumero('5')}"
                                          update=" "/>
                         <p:commandButton value="6" styleClass="rounded-button ui-button-secondary" 
-                                         action="#{controlmanualController.marcarNumero('6')}"
+                                         action="#{reagendarController.marcarNumero('6')}"
                                          update=" "/>
                     </p:panelGrid>
                     <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
                                  style="border:0px none; background-color:transparent;">				
                         <p:commandButton value="7" styleClass="rounded-button ui-button-secondary" 
-                                         action="#{controlmanualController.marcarNumero('7')}"
+                                         action="#{reagendarController.marcarNumero('7')}"
                                          update=" "/>
                         <p:commandButton value="8" styleClass="rounded-button ui-button-secondary" 
-                                         action="#{controlmanualController.marcarNumero('8')}"
+                                         action="#{reagendarController.marcarNumero('8')}"
                                          update=" "/>
                         <p:commandButton value="9" styleClass="rounded-button ui-button-secondary" 
-                                         action="#{controlmanualController.marcarNumero('9')}"
+                                         action="#{reagendarController.marcarNumero('9')}"
                                          update=" "/>
                     </p:panelGrid>
                     <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
                                  style="border:0px none; background-color:transparent;">				
 
                         <p:commandButton  value="0" styleClass="rounded-button ui-button-secondary" 
-                                          action="#{controlmanualController.marcarNumero('0')}"
+                                          action="#{reagendarController.marcarNumero('0')}"
                                           update=" "/>
                         <p:spacer/>
 
                         <p:commandButton  value="DEL" styleClass="rounded-button ui-button-warning" 
-                                          action="#{controlmanualController.marcarNumero('b')}"
+                                          action="#{reagendarController.marcarNumero('b')}"
                                           icon="pi pi-times"
                                           update=" ">
 
@@ -300,25 +300,25 @@
 
                     <f:facet name="footer">
                         <p:commandButton  oncomplete="PF('widgetVarTokenDialog').hide();" 
-                                          action="#{controlmanualController.remoteCommand()}"
+                                          action="#{reagendarController.remoteCommand()}"
                                           value="Cerrar"
                                           process="@this"
                                           icon="pi pi-times" styleClass="rounded-button ui-button-danger"
                                           />
                         <p:commandButton styleClass="rounded-button ui-button-success" 
                                          update="tokenDialogDetails, tokenmessage"
-                                         rendered="#{controlmanualController.showCommandButtonProcesando}"
+                                         rendered="#{reagendarController.showCommandButtonProcesando}"
                                          icon="pi pi-unlock"
                                          value="Aceptar"
-                                         action="#{controlmanualController.onCommandButtonProcesando()}">
+                                         action="#{reagendarController.onCommandButtonProcesando()}">
 
                         </p:commandButton>
                         <p:commandButton styleClass="rounded-button ui-button-success" 
                                          update="tokenDialogDetails, tokenmessage"
-                                         rendered="#{controlmanualController.showCommandButtonFinalizar}"
+                                         rendered="#{reagendarController.showCommandButtonFinalizar}"
                                          icon="pi pi-unlock"
                                          value="Aceptar"
-                                         action="#{controlmanualController.onCommandButtonFinalizando()}"
+                                         action="#{reagendarController.onCommandButtonFinalizando()}"
                                          >
                         </p:commandButton>
 
