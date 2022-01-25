@@ -76,6 +76,8 @@ public class EmailServicesImpl implements EmailServices {
                     + accionReciente.getESTADO()
                     + "\nAccion generada por: "
                     + usuario.getNOMBRE()
+                    + "\n\nTransacción No.: "
+                    + accionReciente.getACCIONRECIENTEID()
                     + "\n\n\b"
                     + "\nPor favor no responda este correo..."
                     + "\n-------------------------------------------------------------";

@@ -2070,5 +2070,27 @@ public static LocalDateTime convertToLocalDateTimeViaMilisecond(Date dateToConve
 //        return hora+":"+minutos;
     }
      // </editor-fold>
+        
+       // <editor-fold defaultstate="collapsed" desc=" Boolean igualDiaMesAñoHoraMinuto(Date fechaInicio, Date fechaFin)"> 
+        
+        public static Boolean igualDiaMesAñoHoraMinuto(Date fechaInicio, Date fechaFin) {
+        Boolean iguales = false;
+        try {
+
+        
+         if (DateUtil.esMismoDia(fechaInicio, fechaFin)) {
+                    if (DateUtil.horaDeUnaFecha(fechaInicio).equals(DateUtil.horaDeUnaFecha(fechaInicio))) {
+                        if (DateUtil.minutosDeUnaFecha(fechaInicio).equals(DateUtil.minutosDeUnaFecha(fechaInicio))) {
+iguales=Boolean.TRUE;
+                        }
+                    }
+
+                }
+          } catch (Exception e) {
+            // System.out.println("esMismoDia()" + e.getLocalizedMessage());
+        }
+        return iguales;
+    }
+    // </editor-fold>
     
 }

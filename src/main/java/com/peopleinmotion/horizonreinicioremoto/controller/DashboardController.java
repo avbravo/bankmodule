@@ -192,7 +192,7 @@ public class DashboardController implements Serializable, Page {
                     + "a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId") + "' )";
 
             QuerySQL querySQL = new QuerySQL.Builder()
-                    .query("SELECT a FROM AccionReciente a WHERE a.BANCOID = '" + banco.getBANCOID() + "' AND " + where + " ORDER BY a.FECHA DESC")
+                    .query("SELECT a FROM AccionReciente a WHERE a.BANCOID = '" + banco.getBANCOID() + "' AND a.ACTIVO ='SI' AND " + where + " ORDER BY a.FECHA DESC")
                     .count("")
                     .build();
 
@@ -301,8 +301,10 @@ public class DashboardController implements Serializable, Page {
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
+      
         JmoordbContext.put("pageInView", "reagendar.xhtml");
-        return "reagendar.xhtml";
+      return "reagendar.xhtml";
+      
     }
 // </editor-fold>
 

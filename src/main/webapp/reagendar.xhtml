@@ -114,30 +114,27 @@
                                         </div>
                                     </div>
 
-                                    <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                    <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
                                                  style="border:0px none; background-color:transparent;">
+
+                                        <p:commandButton value="Reagendar" 
+                                                         styleClass="rounded-button ui-button-success" style="margin-right: .5rem"
+                                                         update=":form:growl"
+                                                         icon="pi pi-calendar-plus"
+                                                         action="#{reagendarController.onCommandButtonSendToken(true)}"
+         
+                                                         >
+
+                                        </p:commandButton>
 
                                         <p:commandButton value="Cancelar Acción" 
                                                          update=":form:growl"
-                                                         icon="pi pi-trash"
-                                                        
-                                                         action="#{reagendarController.onCommandButtonSendToken()}"
-
+                                                         icon="pi pi-trash"                                                        
+                                                         action="#{reagendarController.onCommandButtonSendToken(false)}"
                                                          title="Envia el token al correo"
                                                          styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                                                          >
                                         </p:commandButton>
-                                        <p:commandButton value="Reagendar" 
-                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
-                                                         update=":form:growl"
-                                                         icon="pi pi-calendar-plus"
-                                                         action="#{reagendarController.onCommandButtonSendToken()}"
-
-          
-                                                         >
-
-                                        </p:commandButton>
-
 
                                         <p:commandButton value="REGRESAR" class="bot-regresar01" 
                                                          styleClass="rounded-button ui-button-help"
@@ -307,18 +304,18 @@
                                           />
                         <p:commandButton styleClass="rounded-button ui-button-success" 
                                          update="tokenDialogDetails, tokenmessage"
-                                         rendered="#{reagendarController.showCommandButtonProcesando}"
+                                         rendered="#{reagendarController.showCommandButtonReagendar}"
                                          icon="pi pi-unlock"
                                          value="Aceptar"
-                                         action="#{reagendarController.onCommandButtonProcesando()}">
+                                         action="#{reagendarController.onCommandButtonReagendar()}">
 
                         </p:commandButton>
                         <p:commandButton styleClass="rounded-button ui-button-success" 
                                          update="tokenDialogDetails, tokenmessage"
-                                         rendered="#{reagendarController.showCommandButtonFinalizar}"
+                                         rendered="#{!reagendarController.showCommandButtonReagendar}"
                                          icon="pi pi-unlock"
                                          value="Aceptar"
-                                         action="#{reagendarController.onCommandButtonFinalizando()}"
+                                         action="#{reagendarController.onCommandButtonCancelar()}"
                                          >
                         </p:commandButton>
 

@@ -5,7 +5,6 @@
  */
 package com.peopleinmotion.horizonreinicioremoto.controller;
 
-
 import com.peopleinmotion.horizonreinicioremoto.domains.MessagesForm;
 import com.peopleinmotion.horizonreinicioremoto.domains.TokenReader;
 import com.peopleinmotion.horizonreinicioremoto.entity.AccionReciente;
@@ -67,6 +66,7 @@ public class ReagendarController implements Serializable, Page {
     private TokenReader tokenReader = new TokenReader();
     private Boolean tokenEnviado = Boolean.FALSE;
     private Boolean updateByOtherUser = Boolean.FALSE;
+    private Boolean showCommandButtonReagendar = Boolean.FALSE;
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="@Inject ">
@@ -95,7 +95,7 @@ public class ReagendarController implements Serializable, Page {
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Boolean getShowCommandButtonProcesando() ">
     public Boolean getShowCommandButtonProcesando() {
- showCommandButtonProcesando = Boolean.FALSE;
+        showCommandButtonProcesando = Boolean.FALSE;
         try {
 
             if (accionReciente.getESTADOID().equals(JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId"))) {
@@ -110,12 +110,10 @@ public class ReagendarController implements Serializable, Page {
         return showCommandButtonProcesando;
     }
 
-   // </editor-fold> 
-    
-        
-        // <editor-fold defaultstate="collapsed" desc="Boolean getShowCommandButtonFinalizar() ">
+    // </editor-fold> 
+    // <editor-fold defaultstate="collapsed" desc="Boolean getShowCommandButtonFinalizar() ">
     public Boolean getShowCommandButtonFinalizar() {
-         showCommandButtonFinalizar = Boolean.FALSE;
+        showCommandButtonFinalizar = Boolean.FALSE;
         try {
             if (accionReciente.getESTADOID().equals(JsfUtil.contextToBigInteger("estadoProcesandoId"))) {
                 showCommandButtonFinalizar = Boolean.TRUE;
@@ -141,7 +139,7 @@ public class ReagendarController implements Serializable, Page {
     @PostConstruct
     public void init() {
         try {
-            
+            showCommandButtonReagendar = Boolean.FALSE;
             updateByOtherUser = Boolean.FALSE;
             if (JmoordbContext.get("user") == null) {
 
@@ -157,7 +155,7 @@ public class ReagendarController implements Serializable, Page {
             }
 
         } catch (Exception e) {
-     JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
 
         }
 
@@ -169,7 +167,7 @@ public class ReagendarController implements Serializable, Page {
         try {
             grupoAccionList = grupoAccionRepository.findAll();
         } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod()+" " + e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
         return "";
     }
@@ -188,7 +186,7 @@ public class ReagendarController implements Serializable, Page {
 
             if (grupoAccion.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId"))) {
                 JmoordbContext.put("pageInView", "subirplantilla.xhtml");
-                        
+
                 return "subirplantilla.xhtml";
             }
             if (grupoAccion.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionReinicioRemotoId"))) {
@@ -196,13 +194,13 @@ public class ReagendarController implements Serializable, Page {
                 return "reinicioremoto.xhtml";
             }
             if (grupoAccion.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionBajarPlantillaId"))) {
-                JmoordbContext.put("pageInView","bajarplantilla.xhtml");
+                JmoordbContext.put("pageInView", "bajarplantilla.xhtml");
                 return "bajarplantilla.xhtml";
             }
             JsfUtil.warningMessage("No se identifico el grupo de accion para continuar esta operación");
 
         } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " "+ e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
         return "";
     }
@@ -228,7 +226,7 @@ public class ReagendarController implements Serializable, Page {
 
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod()+ " "+ e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
             PrimeFaces.current().ajax().update("form:growl");
 
         }
@@ -255,8 +253,8 @@ public class ReagendarController implements Serializable, Page {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonProcesando()">
-    public String onCommandButtonProcesando() {
+    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonReagendar()">
+    public String onCommandButtonReagendar() {
         try {
             if (!tokenEnviado) {
                 JsfUtil.warningMessage("Usted debe solicite primero un token");
@@ -265,10 +263,10 @@ public class ReagendarController implements Serializable, Page {
             if (!validateToken()) {
                 return "";
             }
+
             /**
              * Valida si fue cambiado por otro usuario
              */
-            
             if (accionRecienteServices.changed(accionRecienteOld)) {
                 MessagesForm messagesForm = new MessagesForm.Builder()
                         .id(accionReciente.getCAJERO())
@@ -294,39 +292,35 @@ public class ReagendarController implements Serializable, Page {
                 estado = optional.get();
             }
 
-            accionReciente.setESTADOID(estado.getESTADOID());
-            accionReciente.setESTADO(estado.getESTADO());
-            accionReciente.setFECHA(DateUtil.getFechaHoraActual());
-            accionReciente.setFECHAEJECUCION(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
                 //Actualizar la agenda
 
                 Optional<Agenda> agendaOptional = agendaRepository.findByAgendaId(accionReciente.getAGENDAID());
                 if (!agendaOptional.isPresent()) {
                     JsfUtil.warningMessage("No se encontro registros de ese agendamiento");
-                    
+
                     return "";
                 } else {
                     Agenda agenda = agendaOptional.get();
-                    agenda.setESTADOID(estado.getESTADOID());
+                    agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIO ESTADO A PROCESANDO", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDO EL EVENTO", user);
 
                         JmoordbContext.put("accionReciente", accionReciente);
-                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIO ESTADO A PROCESANDO", user, cajero, bank);
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE REAGENDO EL EVENTO", user, cajero, bank);
 
                         /*
                         *Mensajes exitosos
                          */
-                         MessagesForm messagesForm = new MessagesForm.Builder()
+                        MessagesForm messagesForm = new MessagesForm.Builder()
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación Exitosa")
                                 .header2("La acción se realizo exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
-                                .titulo("Cambio de estado a procesado")
-                                .mensaje("Se realizo exitosamente el cambio de estado ")
+                                .titulo("Se Reagendo el evento")
+                                .mensaje("Se realizo con exito el regeandeamiento")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -349,8 +343,8 @@ public class ReagendarController implements Serializable, Page {
     }
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonFinalizando()">
-    public String onCommandButtonFinalizando() {
+    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonCancelar()">
+    public String onCommandButtonCancelar() {
 
         try {
             //PrimeFaces.current().executeScript("PF('bancoDialog').hide()");
@@ -364,8 +358,9 @@ public class ReagendarController implements Serializable, Page {
             /**
              * Valida si fue cambiado por otro usuario
              */
+
             if (accionRecienteServices.changed(accionRecienteOld)) {
-                  MessagesForm messagesForm = new MessagesForm.Builder()
+                MessagesForm messagesForm = new MessagesForm.Builder()
                         .id(accionReciente.getCAJERO())
                         .header("Operación Incompleta")
                         .header2("La acción no fue completada")
@@ -390,8 +385,7 @@ public class ReagendarController implements Serializable, Page {
 
             }
 
-            accionReciente.setESTADOID(estado.getESTADOID());
-            accionReciente.setESTADO(estado.getESTADO());
+            accionReciente.setACTIVO("NO");
             if (accionRecienteRepository.update(accionReciente)) {
                 //Actualizar la agenda
 
@@ -402,25 +396,25 @@ public class ReagendarController implements Serializable, Page {
                     return "";
                 } else {
                     Agenda agenda = agendaOptional.get();
-                    agenda.setESTADOID(estado.getESTADOID());
+                    agenda.setACTIVO("NO");
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIO ESTADO A EJECUTADA", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELO EL EVENTO", user);
 
                         JmoordbContext.put("accionReciente", accionReciente);
-                 emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIO ESTADO A EJECUTADA", user, cajero, bank);
-                   
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELO EL EVENTO", user, cajero, bank);
+
                         /*
                         *Mensajes exitosos
                          */
-                          MessagesForm messagesForm = new MessagesForm.Builder()
+                        MessagesForm messagesForm = new MessagesForm.Builder()
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación Exitosa")
                                 .header2("La acción se realizo exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
-                                .titulo("Cambio de estado a ejecutado")
-                                .mensaje("Se realizo exitosamente el cambio de estado ")
+                                .titulo("Cancelación de evento")
+                                .mensaje("Se realizo exitosamente la cancelación del evento")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -459,13 +453,13 @@ public class ReagendarController implements Serializable, Page {
 
                     if (agendaRepository.update(agenda)) {
                         agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION", user);
-                        
+
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "REAGENDAR ACCION", user, cajero, bank);
                         /*
                         *Mensajes exitosos
                          */
-                          MessagesForm messagesForm = new MessagesForm.Builder()
+                        MessagesForm messagesForm = new MessagesForm.Builder()
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación Exitosa")
                                 .header2("La acción se realizo exitosamente")
@@ -488,7 +482,7 @@ public class ReagendarController implements Serializable, Page {
                 JsfUtil.warningMessage("No se pudo actualizar la agenda reciente");
             }
         } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod()+ " " + e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
         return "";
     }
@@ -505,43 +499,57 @@ public class ReagendarController implements Serializable, Page {
             JmoordbContext.put("pageInView", retorno);
             return retorno;
         } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod()+ " "+ e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
         return "";
     }
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="onCommandButtonSendToken()">
-    public String onCommandButtonSendToken() {
+    public String onCommandButtonSendToken(Boolean isReagendar) {
 
-        sendToken();
+        try {
+            this.showCommandButtonReagendar = isReagendar;
+            if (isReagendar) {
+                
+                if(DateUtil.igualDiaMesAñoHoraMinuto(accionReciente.getFECHAAGENDADA(),  accionRecienteOld.getFECHAAGENDADA())){
+                     JsfUtil.warningMessage("Indique otra fecha para proceder a realizar el cambio de agenda");
+                    return "";
+                }
+                
+        
+             
+            }
+            sendToken();
 
-        return "";
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+
+        }
+    return "";
     }
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="String sendToken()">
     public String sendToken() {
         try {
-            
-            tokenEnviado = Boolean.FALSE;
-Token token = tokenServices.supplier();
 
-            
+            tokenEnviado = Boolean.FALSE;
+            Token token = tokenServices.supplier();
+
             if (tokenRepository.create(token)) {
-    //Envia el token sincrono y valida si fue o no enviado.
+                //Envia el token sincrono y valida si fue o no enviado.
                 if (!emailServices.sendTokenToEmailSincrono(token, user)) {
                     JsfUtil.errorMessage("No se logro enviar el token a su correo. Reintente la operación");
                     tokenEnviado = Boolean.FALSE;
-                  
+
                 } else {
                     JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
                     tokenEnviado = Boolean.TRUE;
-                   
-        openDialogToken();
+
+                    openDialogToken();
                 }
                 //Envia el token al usuario
-              
 
             } else {
                 JsfUtil.warningMessage("No se pudo generar el token. Repita la acción");
@@ -557,10 +565,10 @@ Token token = tokenServices.supplier();
 
     public Boolean validateToken() {
         try {
-           String  tokenIngresado=tokenReader.getNumber1().trim()+tokenReader.getNumber2().trim()+tokenReader.getNumber3().trim()+tokenReader.getNumber4().trim();
+            String tokenIngresado = tokenReader.getNumber1().trim() + tokenReader.getNumber2().trim() + tokenReader.getNumber3().trim() + tokenReader.getNumber4().trim();
             return tokenServices.validateToken(user, tokenIngresado);
         } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " "+ e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
         return Boolean.FALSE;
     }
@@ -583,16 +591,15 @@ Token token = tokenServices.supplier();
 
         try {
 
-                 tokenReader = tokenServices.marcarToken(numero, tokenReader);
+            tokenReader = tokenServices.marcarToken(numero, tokenReader);
 
         } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod()+ " "+ e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
         return "";
     }
 // </editor-fold> 
-    
-    
+
     // <editor-fold defaultstate="collapsed" desc="String openDialogToken()">
     public String openDialogToken() {
         try {
