@@ -100,7 +100,7 @@ public class BuscarCajeroController implements Serializable, Page {
                 user = (Usuario) JmoordbContext.get("user");
                 banco = (Banco) JmoordbContext.get("banco");
 
-                cajeroList = cajeroRepository.findByBancoId(banco);
+                cajeroList = cajeroRepository.findByBancoIdAndActivo(banco,"SI");
 
             }
         } catch (Exception e) {

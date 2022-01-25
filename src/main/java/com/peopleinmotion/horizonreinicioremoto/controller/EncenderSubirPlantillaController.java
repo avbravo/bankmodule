@@ -56,7 +56,7 @@ import org.primefaces.PrimeFaces;
 @Named
 @ViewScoped
 @Data
-public class ReinicioRemotoController implements Serializable, Page {
+public class EncenderSubirPlantillaController implements Serializable, Page {
 
     // <editor-fold defaultstate="collapsed" desc="field ">
     private static final long serialVersionUID = 1L;
@@ -109,7 +109,7 @@ public class ReinicioRemotoController implements Serializable, Page {
     /**
      * Creates a new instance of CajeroAccionController
      */
-    public ReinicioRemotoController() {
+    public EncenderSubirPlantillaController() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="void init() ">
@@ -133,19 +133,24 @@ public class ReinicioRemotoController implements Serializable, Page {
                  * Buscare las acciones del grupo
                  */
                 accionList = new ArrayList<>();
+                
+                ConsoleUtil.info("grupoAccion.toJSOON() -> "+grupoAccion.toJSON());
+                
+                ConsoleUtil.info("grupoAccionEncenderSubirPlantillaId -> " +JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId").toString());
 
-                if (grupoAccion.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionReinicioRemotoId"))) {
+                if (grupoAccion.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId"))) {
+ConsoleUtil.info("va a buscar la lista...");
+                    accionList = accionRepository.findByGrupoAccionIdAndPredeterminado(grupoAccion, "SI");
 
-                                        accionList = accionRepository.findByGrupoAccionIdAndPredeterminado(grupoAccion, "NO");
-                    
-               //     accionList = accionRepository.findByGrupoAccionId(grupoAccion);
                 } else {
-                    JsfUtil.warningMessage("El grupoAccion debe ser Reinicio Remoto para realizar las operaciones");
+                    ConsoleUtil.info("El grupoAccion debe ser Encender Subir Plantilla para realizar las operaciones");
+                    JsfUtil.warningMessage("El grupoAccion debe ser Encender Subir Plantilla para realizar las operaciones");
                 }
                 if (accionList == null || accionList.isEmpty()) {
-
+ConsoleUtil.info("la lista esta vacia..");
                     JsfUtil.warningMessage("No hay acciones para el grupo seleccionado");
                 } else {
+                    ConsoleUtil.info("la lista NO esta vacia..");
                     accion = accionList.get(0);
                 }
                 Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
@@ -269,8 +274,6 @@ public class ReinicioRemotoController implements Serializable, Page {
             JmoordbContext.put("fechahoraBaja", fechahoraBaja);
             Token token = tokenServices.supplier();
 
-
-
             JmoordbContext.put("accion", selectOneMenuAccionValue);
             if (tokenRepository.create(token)) {
 
@@ -283,12 +286,12 @@ public class ReinicioRemotoController implements Serializable, Page {
                     JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
                     tokenEnviado = Boolean.TRUE;
                     ConsoleUtil.info("mostrare el dialogo...");
-        openDialogToken();
+                    openDialogToken();
                 }
                 //Envia el token asincrono
 //                emailServices.sendTokenToEmail(token, user);
 //Abre el dialogo
-        
+
             } else {
                 JsfUtil.warningMessage("No se pudo generar el token. Repita la acción");
             }
@@ -299,7 +302,6 @@ public class ReinicioRemotoController implements Serializable, Page {
         return "";
     }
 // </editor-fold>
-
 
     // <editor-fold defaultstate="collapsed" desc="String openDialogToken()">
     public String openDialogToken() {
@@ -344,13 +346,13 @@ public class ReinicioRemotoController implements Serializable, Page {
     }
 // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonReinicioRemoto()">
+    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonEncenderSubirPlantilla()">
     /**
      * Guarda el evento y envia notificaciones
      *
      * @return
      */
-    public String onCommandButtonReinicioRemoto() {
+    public String onCommandButtonEncenderSubirPlantilla() {
         try {
             if (!tokenEnviado) {
                 JsfUtil.warningMessage("Usted debe solicite primero un token");
@@ -424,8 +426,8 @@ public class ReinicioRemotoController implements Serializable, Page {
                                 .header2("La acción se realizo exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
-                                .titulo("Reinicio Remoto")
-                                .mensaje("Se realizo exitosamente el registro de Reinicio Remoto")
+                                .titulo("Encender Subir Plantilla")
+                                .mensaje("Se realizo exitosamente el registro de Encender Subir Plantilla")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);

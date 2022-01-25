@@ -89,6 +89,7 @@ public class CajeroEncontradoController implements Serializable , Page{
             
          fillSelectOneMenuGrupoAccionBajarPlantilla();
          fillSelectOneMenuGrupoAccionReinicioRemoto();
+         fillSelectOneMenuGrupoAccionEncenderSubirPlantilla();
              }
         } catch (Exception e) {
           JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());

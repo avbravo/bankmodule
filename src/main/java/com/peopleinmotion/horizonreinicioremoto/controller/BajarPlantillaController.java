@@ -148,7 +148,7 @@ public class BajarPlantillaController implements Serializable, Page {
                 }
                 Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
                 if (!optional.isPresent()) {
-                    JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignalor a esta operacion.");
+                    JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignarlo a esta operacion.");
                 } else {
                     estado = optional.get();
                     showButton = Boolean.TRUE;

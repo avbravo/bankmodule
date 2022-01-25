@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <composite:interface >
+
+
+        <composite:attribute name="id" />
+
+
+    </composite:interface>
+    <composite:implementation>
+
+        <div class="card-body ">
+            <div class="row justify-content-center align-content-center">
+                <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
+                    <c:if test="${!encenderSubirPlantillaController.haveAccionReciente}">
+                        <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
+                    </c:if>
+                    <c:if test="${encenderSubirPlantillaController.haveAccionReciente}">
+                       <dd class="atm-title-mar01"><strong>#{encenderSubirPlantillaController.accionReciente.TITULO}</strong>(<p:outputLabel value="#{encenderSubirPlantillaController.accionReciente.MENSAJE}"/>)</dd>                        
+                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendo el: #{encenderSubirPlantillaController.showDate(encenderSubirPlantillaController.accionReciente.FECHAAGENDADA)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Agendada:#{encenderSubirPlantillaController.showHour(encenderSubirPlantillaController.accionReciente.FECHAAGENDADA)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{!encenderSubirPlantillaController.renderedByEstadoSolicitado()}" value="Fecha Ejecución: #{encenderSubirPlantillaController.showDate(encenderSubirPlantillaController.accionReciente.FECHAEJECUCION)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{!encenderSubirPlantillaController.renderedByEstadoSolicitado()}" value="Hora Ejecución: #{encenderSubirPlantillaController.showHour(encenderSubirPlantillaController.accionReciente.FECHAEJECUCION)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Estado:"/> <strong><p:outputLabel value="#{encenderSubirPlantillaController.accionReciente.ESTADO}"/></strong><p:spacer width="5"/><p:outputLabel value="| Transacción No:"/><strong><p:outputLabel value="#{encenderSubirPlantillaController.accionReciente.ACCIONRECIENTEID}"/></strong></dd>
+                    </c:if>
+                </div>
+
+            </div>
+        </div>
+
+
+    </composite:implementation>
+
+</html>
