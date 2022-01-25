@@ -190,8 +190,8 @@ public class AgendadosController implements Serializable, Page {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
         
-       JmoordbContext.put("pageInView", "controlmanual.xhtml");
-        return "controlmanual.xhtml";
+       JmoordbContext.put("pageInView", "reagendar.xhtml");
+        return "reagendar.xhtml";
     }
 // </editor-fold>
 

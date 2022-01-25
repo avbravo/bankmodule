@@ -458,10 +458,10 @@ public class ReagendarController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "CONTROLMANUAL ACCION", user);
-                        JmoordbContext.put("operacionExitosaMensaje", "Control Manual Accion");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION", user);
+                        
                         JmoordbContext.put("accionReciente", accionReciente);
-                        emailServices.sendEmailToTecnicosHeader(accionReciente, "CONTROLMANUAL ACCION", user, cajero, bank);
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "REAGENDAR ACCION", user, cajero, bank);
                         /*
                         *Mensajes exitosos
                          */

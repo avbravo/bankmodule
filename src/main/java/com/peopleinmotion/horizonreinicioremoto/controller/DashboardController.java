@@ -301,8 +301,8 @@ public class DashboardController implements Serializable, Page {
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
-        JmoordbContext.put("pageInView", "controlmanual.xhtml");
-        return "controlmanual.xhtml";
+        JmoordbContext.put("pageInView", "reagendar.xhtml");
+        return "reagendar.xhtml";
     }
 // </editor-fold>
 
