@@ -139,7 +139,8 @@ public class ReagendarController implements Serializable, Page {
     @PostConstruct
     public void init() {
         try {
-            showCommandButtonReagendar = Boolean.FALSE;
+            ConsoleUtil.info("ReagendarController.init()..");
+           
             updateByOtherUser = Boolean.FALSE;
             if (JmoordbContext.get("user") == null) {
 
@@ -256,6 +257,7 @@ public class ReagendarController implements Serializable, Page {
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonReagendar()">
     public String onCommandButtonReagendar() {
         try {
+            ConsoleUtil.info("llego  a onCommandButtonReagendar()");
             if (!tokenEnviado) {
                 JsfUtil.warningMessage("Usted debe solicite primero un token");
                 return "";
@@ -509,6 +511,7 @@ public class ReagendarController implements Serializable, Page {
     public String onCommandButtonSendToken(Boolean isReagendar) {
 
         try {
+            ConsoleUtil.info("onCommandButtonSendToken(isReagendar ) "+isReagendar);
             this.showCommandButtonReagendar = isReagendar;
             if (isReagendar) {
                 
@@ -520,7 +523,7 @@ public class ReagendarController implements Serializable, Page {
         
              
             }
-            sendToken();
+            sendToken(isReagendar);
 
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
@@ -531,7 +534,7 @@ public class ReagendarController implements Serializable, Page {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="String sendToken()">
-    public String sendToken() {
+    public String sendToken(Boolean isReagendar) {
         try {
 
             tokenEnviado = Boolean.FALSE;
@@ -547,7 +550,7 @@ public class ReagendarController implements Serializable, Page {
                     JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
                     tokenEnviado = Boolean.TRUE;
 
-                    openDialogToken();
+                    openDialogToken(isReagendar);
                 }
                 //Envia el token al usuario
 
@@ -601,16 +604,23 @@ public class ReagendarController implements Serializable, Page {
 // </editor-fold> 
 
     // <editor-fold defaultstate="collapsed" desc="String openDialogToken()">
-    public String openDialogToken() {
+    public String openDialogToken(Boolean isReagendar) {
         try {
+if(isReagendar){
+     PrimeFaces.current().executeScript("PF('widgetVarTokenDialogReagendar').initPosition()");
+            PrimeFaces.current().executeScript("PF('widgetVarTokenDialogReagendar').show()");
 
-            PrimeFaces.current().executeScript("PF('widgetVarTokenDialog').initPosition()");
+}else{
+     PrimeFaces.current().executeScript("PF('widgetVarTokenDialog').initPosition()");
             PrimeFaces.current().executeScript("PF('widgetVarTokenDialog').show()");
 
+}
+           
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
         return "";
     }
 // </editor-fold>
+   
 }
