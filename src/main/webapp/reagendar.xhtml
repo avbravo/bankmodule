@@ -121,6 +121,7 @@
                                                          styleClass="rounded-button ui-button-success" style="margin-right: .5rem"
                                                          update=":form:growl"
                                                          icon="pi pi-calendar-plus"
+                                                         rendered="#{reagendarController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
                                                          action="#{reagendarController.onCommandButtonSendToken(true)}"
                                                         >
 
@@ -128,7 +129,8 @@
 
                                         <p:commandButton value="Cancelar Acción" 
                                                          update=":form:growl"
-                                                         icon="pi pi-trash"                                                        
+                                                         icon="pi pi-trash"            
+                                                         rendered="#{!reagendarController.accionReciente.ESTADO.trim().equals('Ejecutada')}"
                                                          action="#{reagendarController.onCommandButtonSendToken(false)}"
                                                          title="Envia el token al correo"
                                                          styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"

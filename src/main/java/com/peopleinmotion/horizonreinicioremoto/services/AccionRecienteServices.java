@@ -21,6 +21,8 @@ import java.util.Optional;
 public interface AccionRecienteServices {
     public AccionReciente create(Agenda agenda, Banco banco, Cajero cajero, Accion accion, GrupoAccion grupoAccion, Estado estado);
     public Boolean renderedByEstadoSolicitado(AccionReciente accionReciente);
-
+    public Boolean renderedByEstadoFinalizado(AccionReciente accionReciente);
+    public Boolean renderedByEstadoEnProceso(AccionReciente accionReciente);
+      
     public Boolean changed(AccionReciente accionReciente);
 }

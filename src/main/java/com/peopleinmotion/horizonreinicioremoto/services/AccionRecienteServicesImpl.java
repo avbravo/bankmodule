@@ -78,6 +78,34 @@ public class AccionRecienteServicesImpl implements AccionRecienteServices {
         return Boolean.FALSE;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Boolean renderedByEstadoFinalizado(AccionReciente accionReciente) ">
+    @Override
+    public Boolean renderedByEstadoFinalizado(AccionReciente accionReciente) {
+        try {
+            if (JsfUtil.contextToBigInteger("grupoEstadoFinalizadoId").equals(accionReciente.getESTADOID())) {
+                return Boolean.TRUE;
+            }
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return Boolean.FALSE;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Boolean renderedByEstadoEnProceso(AccionReciente accionReciente) ">
+    @Override
+    public Boolean renderedByEstadoEnProceso(AccionReciente accionReciente) {
+        try {
+            if (JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId").equals(accionReciente.getESTADOID())) {
+                return Boolean.TRUE;
+            }
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return Boolean.FALSE;
+    }
+// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Boolean change(AccionReciente accionReciente">
     @Override

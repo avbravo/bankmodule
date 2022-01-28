@@ -59,9 +59,10 @@
                                                      requiredMessage="Ingrese el nombre de usuario"
                                                      value="#{accessController.username}">
                                         </h:inputText>
-                                        <p:message for="username" severity="error"/>
+                                        
 
                                     </div>
+                                    <p:message for="username" severity="error"/>
                                     <div class="form-group">
                                         <p:outputLabel for="password">Password</p:outputLabel>
                                         <h:inputSecret  id="password"
@@ -70,10 +71,10 @@
                                                         class="form-control form-control-lg rounded-pill" pt:placeholder="Contraseña"
                                                         value="#{accessController.password}"
                                                         ></h:inputSecret>
-                                        <p:message for="password" severity="error"/>
+                                       
 
                                     </div>
-                                    
+                                     <p:message for="password" severity="error"/>
                                     
                                     
                                 <div class="mt-3">

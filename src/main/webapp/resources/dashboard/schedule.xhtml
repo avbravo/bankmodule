@@ -94,6 +94,8 @@
                                        styleClass="rounded-button ui-button-success" style="margin-right: .5rem"
                                       id="commandButtonProcesar"
                                       value="Reagendar"
+                                      rendered="#{dashboardController.accionRecienteSelected.ESTADO.trim() ne 'Ejecutada'}"
+                                      
                                         icon="pi pi-calendar-plus"
                                       update=":form:growl"
                                       action="#{dashboardController.onCommandButtonSelectAccionReciente(dashboardController.accionRecienteSelected,'dashboard')}"/>
