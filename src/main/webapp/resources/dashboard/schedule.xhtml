@@ -27,17 +27,17 @@
                                 value="#{dashboardController.lazyEventModel}"
                                 widgetVar="myschedule" 
                                 class="schedule-forecolor-black1"
-                                
+
                                 >
 
                         <p:ajax event="eventSelect"  listener="#{dashboardController.onEventSelect}" update="eventDetails"
-                               
-                               oncomplete="PF('widgetVarscheduleDialog').show();"
-                              />
+
+                                oncomplete="PF('widgetVarscheduleDialog').show();"
+                                />
                     </p:schedule>
                 </div>  
             </div>
-         
+
         </p:outputPanel>
 
         <p:outputPanel id="outputPanelDialogoSchedule">
@@ -62,20 +62,23 @@
                     <p:outputLabel  value="Acción" styleClass="p-text-bold"/>
                     <p:outputLabel id="titulo" value="#{dashboardController.accionRecienteSelected.TITULO}"/>
 
+                    
                     <p:outputLabel  value="Mensaje" styleClass="p-text-bold"/>
-                    <p:outputLabel id="mensaje" value="#{dashboardController.accionRecienteSelected.MENSAJE}"/>
+                    <p:outputLabel id="mensaje2" value="#{dashboardController.cortarTexto(dashboardController.accionRecienteSelected.MENSAJE)}"/>
 
-                    <p:outputLabel value="Se Agendó el:" styleClass="p-text-bold"/>
+                    <p:outputLabel value="Se Agendó el:" styleClass="p-text-bold" rendered="false"/>
                     <p:calendar  value="#{dashboardController.event.startDate}" pattern="dd/MM/yyyy hh:mm a"
-                              
+                                 rendered="false"
                                  />
-
+                  
+                    <p:outputLabel value="Se Agendó el:" styleClass="p-text-bold" />
+                    <p:outputLabel value="#{dashboardController.showDate(dashboardController.accionRecienteSelected.FECHAAGENDADA)}  #{dashboardController.showHour(dashboardController.accionRecienteSelected.FECHAAGENDADA) }"/>
                     <p:outputLabel value="Fecha/Ejecución:" styleClass="p-text-bold" rendered="#{!dashboardController.renderedByEstadoSolicitado()}"/>
                     <p:outputLabel rendered="#{!dashboardController.renderedByEstadoSolicitado()}" value=" #{dashboardController.showDate(dashboardController.accionRecienteSelected.FECHAEJECUCION)}"/>
                     <p:outputLabel value="Hora/Ejecución:" styleClass="p-text-bold" rendered="#{!dashboardController.renderedByEstadoSolicitado()}"/>
                     <p:outputLabel rendered="#{!dashboardController.renderedByEstadoSolicitado()}" value=" #{dashboardController.showHour(dashboardController.accionRecienteSelected.FECHAEJECUCION)}"/>
 
-                  
+
 
                     <p:outputLabel  value="Estado" styleClass="p-text-bold"/>
                     <p:outputLabel id="estado" value="#{dashboardController.accionRecienteSelected.ESTADO}" />
@@ -87,23 +90,26 @@
                 <f:facet name="footer">
                     <p:commandButton  oncomplete="PF('widgetVarscheduleDialog').hide();" 
                                       value="Cerrar"
-                                       icon="pi pi-times"
-                                   styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"/>
+                                      icon="pi pi-times"
+                                      styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"/>
                     <p:commandButton 
-                                      
-                                       styleClass="rounded-button ui-button-success" style="margin-right: .5rem"
-                                      id="commandButtonProcesar"
-                                      value="Reagendar"
-                                      rendered="#{dashboardController.accionRecienteSelected.ESTADO.trim() ne 'Ejecutada'}"
-                                      
-                                        icon="pi pi-calendar-plus"
-                                      update=":form:growl"
-                                      action="#{dashboardController.onCommandButtonSelectAccionReciente(dashboardController.accionRecienteSelected,'dashboard')}"/>
+
+                        styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
+                        id="commandButtonProcesar"
+                        value="Continuar"
+
+
+                        icon="pi pi-calendar-plus"
+                        update=":form:growl"
+                        action="#{dashboardController.onCommandButtonSelectAccionReciente(dashboardController.accionRecienteSelected,'dashboard')}"/>
 
 
                 </f:facet>
             </p:dialog>
         </p:outputPanel>
+
+
+
 
     </cc:implementation>
 </html>

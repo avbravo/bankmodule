@@ -127,7 +127,7 @@ public class DashboardController implements Serializable, Page {
                 JmoordbContext.put("countViewAction", 0);
             }
             Integer countViewAction = Integer.parseInt(JmoordbContext.get("countViewAction").toString());
-           
+
             lazyEventModel = new LazyScheduleModel() {
 
                 @Override
@@ -144,15 +144,13 @@ public class DashboardController implements Serializable, Page {
 //                        .build();
 //                bancoList = bancoRepository.sql(querySQL);
                 selectOneMenuBancoValue = banco;
-              
-             
+
                 fillCarouselAccionReciente();
                 calcularTotales();
                 loadSchedule();
-          
 
             } else {
-               
+
                 selectOneMenuBancoValue = banco;
             }
 
@@ -174,9 +172,8 @@ public class DashboardController implements Serializable, Page {
         try {
             Integer countViewAction = Integer.parseInt(JmoordbContext.get("countViewAction").toString());
 
-
             JmoordbContext.put("countViewAction", 0);
-       
+
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
         }
@@ -301,10 +298,10 @@ public class DashboardController implements Serializable, Page {
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
-      
+
         JmoordbContext.put("pageInView", "reagendar.xhtml");
-      return "reagendar.xhtml";
-      
+        return "reagendar.xhtml";
+
     }
 // </editor-fold>
 
@@ -407,14 +404,13 @@ public class DashboardController implements Serializable, Page {
                 JmoordbContext.put("cajero", cajeroSelected);
             }
             JmoordbContext.put("formularioRetorno", "dashboard");
-	
 
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + ": " + e.getLocalizedMessage());
         }
 
-     return "";
-     //return "";
+        return "";
+        //return "";
 
     }
 
@@ -434,7 +430,7 @@ public class DashboardController implements Serializable, Page {
      */
     public String selectOneMenuBancoChanged() {
         try {
-           
+
             JmoordbContext.put("banco", selectOneMenuBancoValue);
             calcularTotales();
             fillCarouselAccionReciente();
@@ -453,19 +449,20 @@ public class DashboardController implements Serializable, Page {
     }
 // </editor-fold>
 
-
     // <editor-fold defaultstate="collapsed" desc="Boolean renderedByEstadoSolicitado()">
     public Boolean renderedByEstadoSolicitado() {
         return accionRecienteServices.renderedByEstadoSolicitado(accionRecienteSelected);
 
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Boolean renderedByEstadoFinalizado()">
     public Boolean renderedByEstadoFinalizado(AccionReciente accionRecienteSelected) {
-        ConsoleUtil.info("Es "+accionRecienteServices.renderedByEstadoFinalizado(accionRecienteSelected));
+
         return accionRecienteServices.renderedByEstadoFinalizado(accionRecienteSelected);
 
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Boolean renderedByEstadoEnProceso()">
     public Boolean renderedByEstadoEnProceso() {
@@ -473,5 +470,26 @@ public class DashboardController implements Serializable, Page {
 
     }
     // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="cortarTexto(String texto)">
+    public String cortarTexto(String texto) {
+        try {
+            Integer limite = 35;
+            if (JsfUtil.contextToInteger("numeroCaracteresCortarTexto") == null) {
+                JsfUtil.warningMessage("No se ha definido la cantidad de caracteres en el archivo de confioguración");
+            } else {
+                limite = JsfUtil.contextToInteger("numeroCaracteresCortarTexto");
+            }
+            Integer length = texto.length();
+            if (length > limite) {
+
+                texto = texto.substring(0, (limite -1));
+            }
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return texto;
+    }
+// </editor-fold>
 
 }

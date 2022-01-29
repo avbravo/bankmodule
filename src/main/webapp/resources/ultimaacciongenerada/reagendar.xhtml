@@ -28,6 +28,7 @@
                         <dd class="atm-title-mar01"><p:outputLabel value="Estado:"/> <strong><p:outputLabel value="#{reagendarController.accionReciente.ESTADO}"/></strong><p:spacer width="5"/><p:outputLabel value="| Transacción No:"/><strong><p:outputLabel value="#{reagendarController.accionReciente.ACCIONRECIENTEID}"/></strong></dd>
 
                         <p:datePicker id="time1" 
+                                      rendered="#{!reagendarController.accionReciente.ESTADO.trim().equals('Ejecutada')}"
                                       hourFormat="12"
                                       pattern="dd/MM/yyyy hh:mm a"
                                       value="#{reagendarController.accionReciente.FECHAAGENDADA}" showTime="true">

@@ -75,6 +75,9 @@ public class AccessServicesImpl implements AccessServices {
                 JsfUtil.propertiesBigIntegerToContext(prop, "estadoFinalizadoId");
                 JsfUtil.propertiesStringToContext(prop, "prefijo");
                 JsfUtil.propertiesStringToContext(prop, "applicativePath");
+                JsfUtil.propertiesIntegerToContext(prop, "numeroCaracteresCortarTexto");
+                
+                
             } else {
                 JsfUtil.errorMessage("No se puede cargar el archivo configuration.properties");
             }

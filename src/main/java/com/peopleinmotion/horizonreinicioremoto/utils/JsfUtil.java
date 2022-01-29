@@ -2428,7 +2428,7 @@ public class JsfUtil implements Serializable {
         }
     }
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc=" propertiesBigIntegerToContext(Properties properties, String key)">
+    // <editor-fold defaultstate="collapsed" desc=" propertiesIntegerToContext(Properties properties, String key)">
 
     /**
      * Lee una propiedad y la asigna al context
