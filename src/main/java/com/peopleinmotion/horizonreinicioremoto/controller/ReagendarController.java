@@ -257,7 +257,7 @@ public class ReagendarController implements Serializable, Page {
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonReagendar()">
     public String onCommandButtonReagendar() {
         try {
-            ConsoleUtil.info("llego  a onCommandButtonReagendar()");
+           
             if (!tokenEnviado) {
                 JsfUtil.warningMessage("Usted debe solicite primero un token");
                 return "";
@@ -514,7 +514,8 @@ public class ReagendarController implements Serializable, Page {
             ConsoleUtil.info("onCommandButtonSendToken(isReagendar ) "+isReagendar);
             this.showCommandButtonReagendar = isReagendar;
             if (isReagendar) {
-                
+                 ConsoleUtil.info("accionReciente.getFECHAAGENDADA() " +accionReciente.getFECHAAGENDADA());
+                 ConsoleUtil.info("accionRecienteOld.getFECHAAGENDADA() " +accionRecienteOld.getFECHAAGENDADA());
                 if(DateUtil.igualDiaMesAñoHoraMinuto(accionReciente.getFECHAAGENDADA(),  accionRecienteOld.getFECHAAGENDADA())){
                      JsfUtil.warningMessage("Indique otra fecha para proceder a realizar el cambio de agenda");
                     return "";

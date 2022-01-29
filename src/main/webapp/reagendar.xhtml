@@ -118,7 +118,7 @@
                                                  style="border:0px none; background-color:transparent;">
 
                                         <p:commandButton value="Reagendar" 
-                                                         styleClass="rounded-button ui-button-success" style="margin-right: .5rem"
+                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                                                          update=":form:growl"
                                                          icon="pi pi-calendar-plus"
                                                          rendered="#{reagendarController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
@@ -139,7 +139,7 @@
                                         </p:commandButton>
 
                                         <p:commandButton value="REGRESAR" class="bot-regresar01" 
-                                                         styleClass="rounded-button ui-button-help"
+                                                        styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                                          icon ="pi pi-arrow-left"
                                                          action="#{reagendarController.regresar()}"/>
 
@@ -301,10 +301,11 @@
                                           action="#{reagendarController.remoteCommand()}"
                                           value="Cerrar"
                                           process="@this"
-                                          icon="pi pi-times" styleClass="rounded-button ui-button-danger"
+                                          icon="pi pi-times" 
+                                          styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                           />
                       
-                        <p:commandButton styleClass="rounded-button ui-button-success" 
+                        <p:commandButton styleClass="rounded-button ui-button-danger"
                                          update="tokenDialogDetails, tokenmessage"
                                 
                                          icon="pi pi-unlock"
@@ -437,10 +438,10 @@
                                           action="#{reagendarController.remoteCommand()}"
                                           value="Cerrar"
                                           process="@this"
-                                          icon="pi pi-times" styleClass="rounded-button ui-button-danger"
+                                          icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                           />
                     
-                        <p:commandButton styleClass="rounded-button ui-button-success" 
+                        <p:commandButton styleClass="rounded-button ui-button-danger"
                                          update="tokenDialogDetailsReagendar, tokenmessageReagendar"
                                         
                                          icon="pi pi-unlock"

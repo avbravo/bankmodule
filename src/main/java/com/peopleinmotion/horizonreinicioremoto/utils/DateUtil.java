@@ -2074,13 +2074,14 @@ public static LocalDateTime convertToLocalDateTimeViaMilisecond(Date dateToConve
        // <editor-fold defaultstate="collapsed" desc=" Boolean igualDiaMesAñoHoraMinuto(Date fechaInicio, Date fechaFin)"> 
         
         public static Boolean igualDiaMesAñoHoraMinuto(Date fechaInicio, Date fechaFin) {
-        Boolean iguales = false;
+        Boolean iguales = Boolean.FALSE;
         try {
 
         
          if (DateUtil.esMismoDia(fechaInicio, fechaFin)) {
-                    if (DateUtil.horaDeUnaFecha(fechaInicio).equals(DateUtil.horaDeUnaFecha(fechaInicio))) {
-                        if (DateUtil.minutosDeUnaFecha(fechaInicio).equals(DateUtil.minutosDeUnaFecha(fechaInicio))) {
+     
+                    if (DateUtil.horaDeUnaFecha(fechaInicio).equals(DateUtil.horaDeUnaFecha(fechaFin))) {
+                        if (DateUtil.minutosDeUnaFecha(fechaInicio).equals(DateUtil.minutosDeUnaFecha(fechaFin))) {
 iguales=Boolean.TRUE;
                         }
                     }

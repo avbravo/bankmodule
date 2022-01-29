@@ -26,7 +26,7 @@
                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{!reagendarController.renderedByEstadoSolicitado()}" value="Fecha Ejecución: #{reagendarController.showDate(reagendarController.accionReciente.FECHAEJECUCION)}"/></dd>
                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{!reagendarController.renderedByEstadoSolicitado()}" value="Hora Ejecución: #{reagendarController.showHour(reagendarController.accionReciente.FECHAEJECUCION)}"/></dd>
                         <dd class="atm-title-mar01"><p:outputLabel value="Estado:"/> <strong><p:outputLabel value="#{reagendarController.accionReciente.ESTADO}"/></strong><p:spacer width="5"/><p:outputLabel value="| Transacción No:"/><strong><p:outputLabel value="#{reagendarController.accionReciente.ACCIONRECIENTEID}"/></strong></dd>
-
+                        <p:outputLabel value="Nueva Fecha"/>
                         <p:datePicker id="time1" 
                                       rendered="#{!reagendarController.accionReciente.ESTADO.trim().equals('Ejecutada')}"
                                       hourFormat="12"
