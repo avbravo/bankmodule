@@ -64,7 +64,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h4 class="text-secondary">CAJERO ENCONTRADO</h4>
-                                         
+
 
                                         </div>
 
@@ -122,47 +122,31 @@
 
 
 
+
+
                                     <p:panelGrid columns="4"  styleClass="ui-panelgrid-blank ui-fluid"
                                                  style="border:0px none; background-color:transparent;">
 
-                                        <p:commandButton value="Bajar Plantilla"
-                                                         icon="pi pi-chevron-down" 
-                                                         process="@this" 
-                                                         action="#{cajeroEncontradoController.onCommandButtonGrupoAccionBajarPlantilla()}"
-                                                         update=":form:growl"
-                                                         styleClass="rounded-button ui-button-danger" 
-                                                         style="margin-right: .5rem">
 
-                                        </p:commandButton>
 
-                                        <p:commandButton value="Reinicio Remoto" 
-                                                       
-                                                         styleClass="rounded-button ui-button-success" 
-                                                         style="margin-right: .5rem"
-                                                         update=":form:growl"
-                                                         icon="pi pi-globe"
-                                                         action="#{cajeroEncontradoController.onCommandButtonGrupoAccionReinicioRemoto()}">
 
-                                        </p:commandButton>
 
-                                        <p:commandButton value="Encender (Subir Plantilla)" 
-                                                         rendered="#{cajeroEncontradoController.haveAccionReciente}"
-                                                         styleClass="rounded-button ui-button-secondary" 
-                                                         style="margin-right: .5rem"
-                                                         update=":form:growl"
-                                                         icon="pi pi-eject"
-                                                         action="#{cajeroEncontradoController.onCommandButtonGrupoAccionEncenderSubirPlantilla()}">
 
-                                        </p:commandButton>
-                                        
-                                        
-                                        
+                                        <p:menuButton value="ACCIÓN" styleClass="rounded-button ui-button-outlined ui-button-danger">
+                                            <p:menuitem value="Bajar Plantilla (Ahora)"   update=":form:growl" icon="pi pi-chevron-circle-down" action="#{cajeroEncontradoController.onCommandButtonGrupoAccionBajarPlantilla()}"/>
+                                            <p:menuitem value="Bajar Plantilla (Programar Evento)"   update=":form:growl" icon="pi pi-calendar" action="#{cajeroEncontradoController.onCommandButtonGrupoAccionBajarPlantillaProgramarEvento()}"/>
+                                            <p:menuitem value="Reinicio Remoto"  update=":form:growl" icon="pi pi-globe"  action="#{cajeroEncontradoController.onCommandButtonGrupoAccionReinicioRemoto()}" />
+                                            <p:divider/>
+                                            <p:menuitem value="Encender (Subir Plantilla)" update=":form:growl"  icon="pi pi-chevron-circle-up"  action="#{cajeroEncontradoController.onCommandButtonGrupoAccionEncenderSubirPlantilla()}" />
+
+
+                                        </p:menuButton>
+
                                         <p:commandButton value="REGRESAR"   
                                                          styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                              icon ="pi pi-arrow-left" 
+                                                         icon ="pi pi-arrow-left" 
                                                          action="#{navigatorController.go('buscarcajero.xhtml')}"
-                                                           />
-
+                                                         />
                                     </p:panelGrid>
 
 
@@ -172,7 +156,7 @@
                                 </div>
                             </div>
 
-       
+
 
                         </div>
                         <!-- content-wrapper ends -->

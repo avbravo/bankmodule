@@ -54,7 +54,7 @@ public class AgendadosController implements Serializable, Page {
 // <editor-fold defaultstate="collapsed" desc="field ">
     private static final long serialVersionUID = 1L;
     private ScheduleEvent<?> event = new DefaultScheduleEvent<>();
-    private Integer rowForPage = 5;
+    private Integer rowForPage = 15;
     private String codigoSearch;
     private String direccionSearch;
     private Cajero cajeroSelected = new Cajero();
@@ -113,6 +113,8 @@ public class AgendadosController implements Serializable, Page {
     public void init() {
         try {
        
+          
+            
             if (JmoordbContext.get("user") == null) {
 
             } else {
@@ -125,11 +127,14 @@ public class AgendadosController implements Serializable, Page {
                 user = (Usuario) JmoordbContext.get("user");
                 banco = (Banco) JmoordbContext.get("banco");
                 
-     
+     if(JsfUtil.contextToInteger("rowForPage") != null){
+                    rowForPage=JsfUtil.contextToInteger("rowForPage");
+                }
                 fillAccionRecienteList();
                 
                 
                 
+
                
             }
         } catch (Exception e) {

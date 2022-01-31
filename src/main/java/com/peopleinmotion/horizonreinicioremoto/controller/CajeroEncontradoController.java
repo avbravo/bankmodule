@@ -222,6 +222,29 @@ public class CajeroEncontradoController implements Serializable , Page{
         return "";
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonGrupoAccionBajarPlantillaProgramarEvento()">
+
+    /**
+     * Se ejecuta cuando se selecciona un grupo de accion
+     *
+     * @param grupoAccion
+     * @return
+     */
+    public String onCommandButtonGrupoAccionBajarPlantillaProgramarEvento() {
+        try {
+            
+            JmoordbContext.put("grupoAccion", grupoAccionBajarPlantilla);
+            JmoordbContext.put("pageInView", "bajarplantillaprogramarevento.xhtml");
+            
+             return "bajarplantillaprogramarevento.xhtml";
+           
+          
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod()+ " "+ e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String String onCommandButtonGrupoAccionReinicioRemoto() ">
 
     /**
