@@ -299,11 +299,11 @@ accionRecienteProgramarEventoList = new ArrayList<>();
                 if (!emailServices.sendTokenToEmailSincrono(token, user)) {
                     JsfUtil.errorMessage("No se logro enviar el token a su correo. Reintente la operación");
                     tokenEnviado = Boolean.FALSE;
-                    ConsoleUtil.info("No lo pude enviar el dialogo...");
+                   
                 } else {
                     JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
                     tokenEnviado = Boolean.TRUE;
-                    ConsoleUtil.info("mostrare el dialogo...");
+           
         openDialogToken();
                 }
                 //Envia el token asincrono
@@ -502,6 +502,17 @@ accionRecienteProgramarEventoList = new ArrayList<>();
         return "";
     }
 // </editor-fold> 
-
+    
+      // <editor-fold defaultstate="collapsed" desc="String onComnandButtonAgregarCajero()">
+public String onComnandButtonAgregarCajero(){
+    try {
+         PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').initPosition()");
+            PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').show()");
+    } catch (Exception e) {
+           JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+    }
+    return "";
+}
+// </editor-fold> 
 }
 

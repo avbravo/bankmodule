@@ -91,14 +91,16 @@
                                                  tableStyleClass="table table-hover"
                                                  >
                                         <f:facet name="header">
-                                             <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-plus" 
-                                                              value="Agregar Cajero" process="@this"
-                                                              
-                                                               oncomplete="PF('widgetVarAgregarCajeroDialog').show()">
-                                                                  
-                                                       o
-                                                    </p:commandButton>
-                                                    
+                                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-plus" 
+                                                             value="Agregar Cajero" process="@this"
+
+                                                             action="#{bajarPlantillaProgramarEventoController.onComnandButtonAgregarCajero()}"
+                                                             update=":form:growl"
+                                                             >
+
+
+                                            </p:commandButton>
+
                                         </f:facet>
 
 
@@ -120,13 +122,13 @@
 
                                         </p:column>
                                         <p:column headerText="" >
-                                                   
-                                                    
+
+
                                             <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this">
-                                                                  
-                                                        <f:setPropertyActionListener value="#{item}" target="#{bajarPlantillaProgramarEventoController.accionRecienteSelected}"/>
-                                                    </p:commandButton>
-                                                </p:column>           
+
+                                                <f:setPropertyActionListener value="#{item}" target="#{bajarPlantillaProgramarEventoController.accionRecienteSelected}"/>
+                                            </p:commandButton>
+                                        </p:column>           
 
                                     </p:dataTable>
 
@@ -137,9 +139,9 @@
                             <div class="row justify-content-center">
                                 <div class="col-12 col-lg-12 ">
 
-                                   
 
-                          
+
+
 
 
 
@@ -178,7 +180,7 @@
             </div>
 
 
-                        <h:panelGroup id="panelGroupAgregarCajero">
+            <h:panelGroup id="panelGroupAgregarCajero">
                 <p:dialog widgetVar="widgetVarAgregarCajeroDialog" header="Token" showEffect="fade" hideEffect="fade"
                           width="40%"
                           style="width:20%;margin:0 auto"
@@ -194,35 +196,36 @@
                     <p:panelGrid columns="4"  styleClass="ui-panelgrid-blank ui-fluid"
                                  id="agregarCajeroDialogDetails"
                                  style="border:0px none; background-color:transparent;">
-                       <p:selectOneMenu id="selectOneMenuBanco" 
-                                                             class="form-control rounded-pill solosel01"
-                                                             value="#{dajarPlantillaProgramarEventoController.selectOneMenuCajeroValue}" 
-                                                             converter="#{bancoConverter}"
-                                                             >
-                                                <f:selectItem itemLabel="Seleccione un Cajero" itemValue="#{null}"  noSelectionOption="true"/>
-                                                <f:selectItems value="#{dajarPlantillaProgramarEventoController.cajeroList}" 
-                                                               var="var" 
-                                                               itemValue="#{var}" itemLabel="#{var.CAJERO} " />
+                        <p:selectOneMenu id="selectOneMenuBanco" 
+                                         class="form-control rounded-pill solosel01"
+                                         value="#{bajarPlantillaProgramarEventoController.selectOneMenuCajeroValue}" 
+                                         converter="#{cajeroConverter}"
+                                     
+                                         >
+                            <f:selectItem itemLabel="Seleccione un Cajero" itemValue="#{null}"  noSelectionOption="true"/>
+                            <f:selectItems value="#{bajarPlantillaProgramarEventoController.cajeroList}" 
+                                           var="var" 
+                                           itemValue="#{var}" itemLabel="#{var.CAJERO} " />
 
-                                              
+
+                           
+
+                        </p:selectOneMenu>
 
 
-                                            </p:selectOneMenu>
-                   
-                      
                     </p:panelGrid>
 
 
-                  
+
 
 
 
 
                     <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
                                  style="border:0px none; background-color:transparent;">
-                 
+
                     </p:panelGrid>
-    				
+
 
                     <f:facet name="footer">
                         <p:commandButton  oncomplete="PF('widgetVarAgregarCajeroDialog').hide();" 
@@ -242,16 +245,16 @@
 
 
                     </f:facet>
-                    <p:messages id="agregaracajeromessage" />
+                    <p:messages id="agregarcajeromessage" />
                 </p:dialog>
             </h:panelGroup>
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
 
 
             <h:panelGroup id="panelGroupToken">
