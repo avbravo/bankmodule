@@ -93,11 +93,11 @@
                                         <f:facet name="header">
                                             <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-plus" 
                                                              value="Agregar Cajero" process="@this"
-
-                                                             action="#{bajarPlantillaProgramarEventoController.onComnandButtonAgregarCajero()}"
+oncomplete="PF('widgetVarAgregarCajeroDialog').show()"
+                                                             actionListener="#{bajarPlantillaProgramarEventoController.onComnandButtonAgregarCajeroShowDialog()}"
                                                              update=":form:growl"
                                                              >
-
+     <p:resetInput target=":form:agregarCajeroDialogDetails"/>
 
                                             </p:commandButton>
 
@@ -139,9 +139,22 @@
                             <div class="row justify-content-center">
                                 <div class="col-12 col-lg-12 ">
 
+                                    <p:commandButton value="Solicitar Token" icon="pi pi-inbox" 
+                                                     title="Envia el token al correo"
+                                                     id="commandButtonSendToken"
+                                                     rendered="#{not empty bajarPlantillaProgramarEventoController.accionRecienteProgramarEventoList}"
+                                                     action="#{bajarPlantillaProgramarEventoController.onCommandButtonSendToken()}"
+                                                     update=":form:growl"                                                                    
+                                                     styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
+                                    </p:commandButton>
 
 
 
+                                    <p:commandButton value="REGRESAR"
+                                                     styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                     icon ="pi pi-arrow-left"
+                                                     action="#{navigatorController.go('cajeroencontrado.xhtml')}"
+                                                     />
 
 
 
@@ -193,14 +206,15 @@
                         <p:outputLabel value="Seleccione Cajero"/>
                     </f:facet>
 
-                    <p:panelGrid columns="4"  styleClass="ui-panelgrid-blank ui-fluid"
+                    <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
                                  id="agregarCajeroDialogDetails"
                                  style="border:0px none; background-color:transparent;">
-                        <p:selectOneMenu id="selectOneMenuBanco" 
+                        <p:outputLabel value="Cajero"/>
+                        <h:selectOneMenu id="selectOneMenuCajero" 
                                          class="form-control rounded-pill solosel01"
                                          value="#{bajarPlantillaProgramarEventoController.selectOneMenuCajeroValue}" 
                                          converter="#{cajeroConverter}"
-                                     
+
                                          >
                             <f:selectItem itemLabel="Seleccione un Cajero" itemValue="#{null}"  noSelectionOption="true"/>
                             <f:selectItems value="#{bajarPlantillaProgramarEventoController.cajeroList}" 
@@ -208,9 +222,40 @@
                                            itemValue="#{var}" itemLabel="#{var.CAJERO} " />
 
 
-                           
 
-                        </p:selectOneMenu>
+
+                        </h:selectOneMenu>
+                        <p:outputLabel value="Direccion"/>
+                        <p:outputLabel value="Direcbion....."/>
+
+
+                        <p:outputLabel value="Acción"/>
+
+                        <h:selectOneMenu id="selectOneMenuAccion" 
+                                         class="form-control rounded-pill solosel01"
+                                         value="#{bajarPlantillaProgramarEventoController.selectOneMenuAccionValue}" 
+                                         converter="#{accionConverter}"
+                                         >
+                            <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
+                            <f:selectItems value="#{bajarPlantillaProgramarEventoController.accionList}" 
+                                           var="var" 
+                                           itemValue="#{var}" itemLabel="#{var.ACCION} " />
+
+
+
+
+                        </h:selectOneMenu>
+
+                        <p:outputLabel value="Fecha"/>
+
+
+                        <p:datePicker  hourFormat="12"  
+                                       pattern="dd/MM/yyyy hh:mm a"
+id="fechaBaja"
+                                       value="#{bajarPlantillaProgramarEventoController.fechahoraBaja}" showTime="true">
+
+                        </p:datePicker>
+
 
 
                     </p:panelGrid>
@@ -229,17 +274,17 @@
 
                     <f:facet name="footer">
                         <p:commandButton  oncomplete="PF('widgetVarAgregarCajeroDialog').hide();" 
-                                          action="#{bajarPlantillaController.remoteCommand()}"
+                                          action="#{bajarPlantillaProgramarEventoController.remoteCommand()}"
                                           value="Cerrar"
                                           process="@this"
                                           icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                           />
                         <p:commandButton styleClass="rounded-button ui-button-danger"
-
+process="selectOneMenuCajero, selectOneMenuAccion,fechaBaja"
                                          update="agregarCajeroDialogDetails, agregarcajeromessage"
                                          icon="pi pi-unlock"
                                          value="Aceptar"
-                                         action="#{bajarPlantillaController.onCommandButtonBajarPlantillaProgramarEvento()}">
+                                         actionListener="#{bajarPlantillaProgramarEventoController.onCommandButtonAgregarCajeroADataTable()}">
 
                         </p:commandButton>
 

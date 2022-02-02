@@ -25,11 +25,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Builder;
 
 /**
  *
  * @author avbravo
  */
+@Builder
 @Entity
 @Table(name = "ACCIONRECIENTE")
 @NamedQueries({
@@ -116,6 +118,29 @@ public class AccionReciente implements Serializable {
     public AccionReciente() {
     }
 
+    public AccionReciente(BigInteger ACCIONRECIENTEID, BigInteger ACCIONID, BigInteger ESTADOID, String ESTADO, BigInteger BANCOID, BigInteger CAJEROID, String CAJERO, BigInteger AGENDAID, String TITULO, String MENSAJE, String ACTIVO, String VISTOBANCO, String VISTOTECNICO, Date FECHA, Date FECHAAGENDADA, Date FECHAEJECUCION) {
+        this.ACCIONRECIENTEID = ACCIONRECIENTEID;
+        this.ACCIONID = ACCIONID;
+        this.ESTADOID = ESTADOID;
+        this.ESTADO = ESTADO;
+        this.BANCOID = BANCOID;
+        this.CAJEROID = CAJEROID;
+        this.CAJERO = CAJERO;
+        this.AGENDAID = AGENDAID;
+        this.TITULO = TITULO;
+        this.MENSAJE = MENSAJE;
+        this.ACTIVO = ACTIVO;
+        this.VISTOBANCO = VISTOBANCO;
+        this.VISTOTECNICO = VISTOTECNICO;
+        this.FECHA = FECHA;
+        this.FECHAAGENDADA = FECHAAGENDADA;
+        this.FECHAEJECUCION = FECHAEJECUCION;
+    }
+
+    
+    
+    
+    
     public Date getFECHAEJECUCION() {
         return FECHAEJECUCION;
     }

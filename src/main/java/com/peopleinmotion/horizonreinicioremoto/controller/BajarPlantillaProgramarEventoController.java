@@ -10,7 +10,6 @@ package com.peopleinmotion.horizonreinicioremoto.controller;
  * @author avbravo
  */
 // <editor-fold defaultstate="collapsed" desc="import ">
-
 import com.peopleinmotion.horizonreinicioremoto.domains.MessagesForm;
 import com.peopleinmotion.horizonreinicioremoto.domains.TokenReader;
 import com.peopleinmotion.horizonreinicioremoto.entity.Accion;
@@ -62,11 +61,10 @@ import org.primefaces.PrimeFaces;
 @ViewScoped
 @Data
 public class BajarPlantillaProgramarEventoController implements Serializable, Page {
-    
 
     // <editor-fold defaultstate="collapsed" desc="field ">
     private static final long serialVersionUID = 1L;
-     private Integer rowForPage = 15;
+    private Integer rowForPage = 15;
     private Cajero cajero = new Cajero();
     Usuario user = new Usuario();
     Banco bank = new Banco();
@@ -86,7 +84,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     private Boolean tokenEnviado = Boolean.FALSE;
     private List<AccionReciente> accionRecienteProgramarEventoList = new ArrayList<>();
     private List<AccionReciente> accionRecienteProgramarEventoSelectedList = new ArrayList<>();
-        List<Cajero> cajeroList = new ArrayList<>();
+    List<Cajero> cajeroList = new ArrayList<>();
     List<Cajero> cajeroSelectedList = new ArrayList<>();
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="@Inject ">
@@ -129,7 +127,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     @PostConstruct
     public void init() {
         try {
-accionRecienteProgramarEventoList = new ArrayList<>();
+            accionRecienteProgramarEventoList = new ArrayList<>();
             tokenEnviado = Boolean.FALSE;
             if (JmoordbContext.get("user") == null) {
 
@@ -141,17 +139,17 @@ accionRecienteProgramarEventoList = new ArrayList<>();
                 bank = (Banco) JmoordbContext.get("banco");
                 cajero = (Cajero) JmoordbContext.get("cajero");
                 grupoAccion = (GrupoAccion) JmoordbContext.get("grupoAccion");
+JsfUtil.copyBeans(selectOneMenuCajeroValue, cajero);
 
-                if(JsfUtil.contextToInteger("rowForPage") != null){
-                    rowForPage=JsfUtil.contextToInteger("rowForPage");
+                if (JsfUtil.contextToInteger("rowForPage") != null) {
+                    rowForPage = JsfUtil.contextToInteger("rowForPage");
                 }
-                
-                
+
                 /*
                 Lista de Cajeros del Banco
-                */
-                 cajeroList = cajeroRepository.findByBancoIdAndActivo(bank,"SI");
-                
+                 */
+                cajeroList = cajeroRepository.findByBancoIdAndActivo(bank, "SI");
+
                 /**
                  * Buscare las acciones del grupo
                  */
@@ -290,8 +288,6 @@ accionRecienteProgramarEventoList = new ArrayList<>();
             JmoordbContext.put("fechahoraBaja", fechahoraBaja);
             Token token = tokenServices.supplier();
 
-
-
             JmoordbContext.put("accion", selectOneMenuAccionValue);
             if (tokenRepository.create(token)) {
 
@@ -299,17 +295,17 @@ accionRecienteProgramarEventoList = new ArrayList<>();
                 if (!emailServices.sendTokenToEmailSincrono(token, user)) {
                     JsfUtil.errorMessage("No se logro enviar el token a su correo. Reintente la operación");
                     tokenEnviado = Boolean.FALSE;
-                   
+
                 } else {
                     JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
                     tokenEnviado = Boolean.TRUE;
-           
-        openDialogToken();
+
+                    openDialogToken();
                 }
                 //Envia el token asincrono
 //                emailServices.sendTokenToEmail(token, user);
 //Abre el dialogo
-        
+
             } else {
                 JsfUtil.warningMessage("No se pudo generar el token. Repita la acción");
             }
@@ -320,7 +316,6 @@ accionRecienteProgramarEventoList = new ArrayList<>();
         return "";
     }
 // </editor-fold>
-
 
     // <editor-fold defaultstate="collapsed" desc="String openDialogToken()">
     public String openDialogToken() {
@@ -502,17 +497,56 @@ accionRecienteProgramarEventoList = new ArrayList<>();
         return "";
     }
 // </editor-fold> 
-    
-      // <editor-fold defaultstate="collapsed" desc="String onComnandButtonAgregarCajero()">
-public String onComnandButtonAgregarCajero(){
-    try {
-         PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').initPosition()");
-            PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').show()");
-    } catch (Exception e) {
-           JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
-    }
-    return "";
-}
-// </editor-fold> 
-}
 
+    // <editor-fold defaultstate="collapsed" desc="String onComnandButtonAgregarCajeroShowDialog()">
+    public void onComnandButtonAgregarCajeroShowDialog() {
+        try {
+//            PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').initPosition()");
+//            PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').show()");
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+        }
+       ;
+    }
+// </editor-fold> 
+    
+    
+     // <editor-fold defaultstate="collapsed" desc="method() ">
+    public void onCommandButtonAgregarCajeroADataTable(){
+        try {
+            if(selectOneMenuCajeroValue == null){
+                JsfUtil.warningMessage("Por favor seleccione un cajero");
+                return ;
+            }
+            if(selectOneMenuAccionValue == null){
+                JsfUtil.warningMessage("Por favor seleccione una Acción");
+                return ; 
+            }
+            AccionReciente accionReciente= AccionReciente.builder()
+                    .ACCIONID(JsfUtil.toBigInteger(0))
+                    .ACCIONRECIENTEID(JsfUtil.toBigInteger(0))
+                    .ACTIVO("SI")
+                    .AGENDAID(JsfUtil.toBigInteger(0))
+                    .BANCOID(bank.getBANCOID())
+                    .CAJERO(selectOneMenuCajeroValue.getCAJERO())
+                    .CAJEROID(selectOneMenuCajeroValue.getCAJEROID())
+                    .ESTADO(estado.getESTADO())
+                    .ESTADOID(estado.getESTADOID())
+                    .FECHA(fechahoraBaja)
+                    .FECHAAGENDADA(fechahoraBaja)
+                    .FECHAEJECUCION(fechahoraBaja)
+                    .MENSAJE(accion.getACCION())
+                    .TITULO(grupoAccion.getGRUPOACCION())
+                    .VISTOBANCO("NO")
+                    .VISTOTECNICO("NO")
+                    .build();
+            
+            accionRecienteProgramarEventoList.add(accionReciente);
+              PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').hide()");
+        } catch (Exception e) {
+               JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return ;
+    }
+// </editor-fold>
+}
