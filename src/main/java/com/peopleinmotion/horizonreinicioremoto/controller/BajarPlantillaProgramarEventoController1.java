@@ -11,7 +11,6 @@ package com.peopleinmotion.horizonreinicioremoto.controller;
  */
 // <editor-fold defaultstate="collapsed" desc="import ">
 import com.peopleinmotion.horizonreinicioremoto.domains.MessagesForm;
-import com.peopleinmotion.horizonreinicioremoto.domains.ProgramarEvento;
 import com.peopleinmotion.horizonreinicioremoto.domains.TokenReader;
 import com.peopleinmotion.horizonreinicioremoto.entity.Accion;
 import com.peopleinmotion.horizonreinicioremoto.entity.AccionReciente;
@@ -62,7 +61,7 @@ import org.primefaces.event.CellEditEvent;
 @Named
 @ViewScoped
 @Data
-public class BajarPlantillaProgramarEventoController implements Serializable, Page {
+public class BajarPlantillaProgramarEventoController1 implements Serializable, Page {
 
     // <editor-fold defaultstate="collapsed" desc="field ">
     private static final long serialVersionUID = 1L;
@@ -88,8 +87,6 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     private List<AccionReciente> accionRecienteProgramarEventoSelectedList = new ArrayList<>();
     List<Cajero> cajeroList = new ArrayList<>();
     List<Cajero> cajeroSelectedList = new ArrayList<>();
-    private List<ProgramarEvento> programarEventoList = new ArrayList<>();
-    private List<ProgramarEvento> programarEventoSelectedList = new ArrayList<>();
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="@Inject ">
     @Inject
@@ -124,7 +121,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     /**
      * Creates a new instance of CajeroAccionController
      */
-    public BajarPlantillaProgramarEventoController() {
+    public BajarPlantillaProgramarEventoController1() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="void init() ">
@@ -132,21 +129,20 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     public void init() {
         try {
             accionRecienteProgramarEventoList = new ArrayList<>();
-            programarEventoList = new ArrayList<>();
 
+        
             tokenEnviado = Boolean.FALSE;
             if (JmoordbContext.get("user") == null) {
 
             } else {
                 fechahoraBaja = DateUtil.fechaHoraActual();
-           
+   fillDataTableAccionReciente();
                 selectOneMenuCuandoValue = "";
                 user = (Usuario) JmoordbContext.get("user");
                 bank = (Banco) JmoordbContext.get("banco");
                 cajero = (Cajero) JmoordbContext.get("cajero");
                 grupoAccion = (GrupoAccion) JmoordbContext.get("grupoAccion");
                 JsfUtil.copyBeans(selectOneMenuCajeroValue, cajero);
-                     fillDataTableAccionReciente();
 
                 if (JsfUtil.contextToInteger("rowForPage") != null) {
                     rowForPage = JsfUtil.contextToInteger("rowForPage");
@@ -571,22 +567,28 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
 // <editor-fold defaultstate="collapsed" desc="fillDataTableAccionReciente()  ">
     private void fillDataTableAccionReciente() {
         try {
-            ProgramarEvento programarEvento = ProgramarEvento.builder()
-                    .cajero(cajero)
-                    .accion(accion)
-                    .fechahora(fechahoraBaja)
-                    .build();
-
-            programarEventoList.add(programarEvento);
-            for (int i = 0; i <= 25; i++) {
-                ProgramarEvento programarEventoVar = ProgramarEvento.builder()
-                        .cajero(new Cajero())
-                        .accion(accion)
-                        .fechahora(fechahoraBaja)
+       //     for (int i = 0; i <= 25; i++) {
+                AccionReciente accionReciente = AccionReciente.builder()
+                        .ACCIONID(JsfUtil.toBigInteger(0))
+                        .ACCIONRECIENTEID(JsfUtil.toBigInteger(0))
+                        .ACTIVO("SI")
+                        .AGENDAID(JsfUtil.toBigInteger(0))
+                        .BANCOID(bank.getBANCOID())
+                        .CAJERO("")
+                        .CAJEROID(JsfUtil.toBigInteger(0))
+                        .ESTADO(estado.getESTADO())
+                        .ESTADOID(estado.getESTADOID())
+                        .FECHA(DateUtil.getFechaHoraActual())
+                        .FECHAAGENDADA(DateUtil.getFechaHoraActual())
+                        .FECHAEJECUCION(DateUtil.getFechaHoraActual())
+                        .MENSAJE("")
+                        .TITULO("")
+                        .VISTOBANCO("NO")
+                        .VISTOTECNICO("NO")
                         .build();
 
-                programarEventoList.add(programarEventoVar);
-            }
+                accionRecienteProgramarEventoList.add(accionReciente);
+         //   }
 
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
