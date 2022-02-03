@@ -128,22 +128,16 @@
 
                                         <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-plus" 
                                                          value="Agregar Cajero" process="@this"
-                                                        
+                                                         oncomplete="remoteCommandUpdateDataTable()"
                                                          action="#{bajarPlantillaProgramarEventoController.onCommandButtonAgregarCajeroADataTable()}"
                                                          update=":form:growl, :form:dataTable"
                                                          >
 
 
                                         </p:commandButton>
-                                        
+                                        <p:remoteCommand name="remoteCommandUpdateDataTable"
+                                                         update=":form:datatable"/>
 
-                                        <p:commandButton value="Solicitar Token" icon="pi pi-inbox" 
-                                                         title="Envia el token al correo"
-                                                         id="commandButtonSendToken"
-                                                         action="#{bajarPlantillaController.onCommandButtonSendToken()}"
-                                                         update=":form:growl"                                                                    
-                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
-                                        </p:commandButton>
 
 
 
