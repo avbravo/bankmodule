@@ -5,12 +5,9 @@
  */
 package com.peopleinmotion.horizonreinicioremoto.converter;
 
-import com.peopleinmotion.horizonreinicioremoto.entity.Accion;
 import com.peopleinmotion.horizonreinicioremoto.entity.Cajero;
-import com.peopleinmotion.horizonreinicioremoto.facade.CajeroFacade;
-import com.peopleinmotion.horizonreinicioremoto.repository.AccionRepository;
+import com.peopleinmotion.horizonreinicioremoto.repository.CajeroRepository;
 import com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil;
-import java.math.BigDecimal;
 import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -29,13 +26,13 @@ import javax.inject.Named;
 @RequestScoped
 public class CajeroConverter implements Converter {
 @Inject
-    AccionRepository cajeroRepository;
+    CajeroRepository cajeroRepository;
 
     
    
      @Override
     public Object getAsObject(FacesContext context, UIComponent component, String submittedValue) {
-        Accion a = new Accion();
+        Cajero a = new Cajero();
         if (cajeroRepository == null) {
 
         }
@@ -46,7 +43,7 @@ public class CajeroConverter implements Converter {
         }
 
         try {
-            Optional<Accion> optional = cajeroRepository.findByAccionId(JsfUtil.toBigInteger(Integer.parseInt(submittedValue)));
+            Optional<Cajero> optional = cajeroRepository.findByCajeroId(JsfUtil.toBigInteger(Integer.parseInt(submittedValue)));
             if (optional.isPresent()) {
                 a = optional.get();
             }
@@ -65,15 +62,15 @@ public class CajeroConverter implements Converter {
             return "";
         }
 
-        if (modelValue instanceof Accion) {
-          return String.valueOf(((Accion) modelValue).getACCIONID());
+        if (modelValue instanceof Cajero) {
+          return String.valueOf(((Cajero) modelValue).getCAJEROID());
         } else {
 
           throw new ConverterException(new FacesMessage(modelValue + " is not a valid from Converter"));
         }
       } catch (Exception e) {
    
-            new FacesMessage("Error en converter Accion "+e.getLocalizedMessage());
+            new FacesMessage("Error en converter Cajero "+e.getLocalizedMessage());
       }
 
  return "";

@@ -62,7 +62,7 @@ import org.primefaces.event.CellEditEvent;
 @Named
 @ViewScoped
 @Data
-public class BajarPlantillaProgramarEventoController implements Serializable, Page {
+public class BajarPlantillaProgramarEventoController11 implements Serializable, Page {
 
     // <editor-fold defaultstate="collapsed" desc="field ">
     private static final long serialVersionUID = 1L;
@@ -82,7 +82,6 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     private Boolean haveAccionReciente = Boolean.TRUE;
     private String selectOneMenuCuandoValue = "ahora";
     private Date fechahoraBaja;
-    private Date minDate;
     private TokenReader tokenReader = new TokenReader();
     private Boolean tokenEnviado = Boolean.FALSE;
     private List<AccionReciente> accionRecienteProgramarEventoList = new ArrayList<>();
@@ -125,14 +124,13 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     /**
      * Creates a new instance of CajeroAccionController
      */
-    public BajarPlantillaProgramarEventoController() {
+    public BajarPlantillaProgramarEventoController11() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="void init() ">
     @PostConstruct
     public void init() {
         try {
-            minDate = DateUtil.fechaActual();
             accionRecienteProgramarEventoList = new ArrayList<>();
             programarEventoList = new ArrayList<>();
 
@@ -141,29 +139,23 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
 
             } else {
                 fechahoraBaja = DateUtil.fechaHoraActual();
-
+           
                 selectOneMenuCuandoValue = "";
                 user = (Usuario) JmoordbContext.get("user");
                 bank = (Banco) JmoordbContext.get("banco");
                 cajero = (Cajero) JmoordbContext.get("cajero");
                 grupoAccion = (GrupoAccion) JmoordbContext.get("grupoAccion");
                 JsfUtil.copyBeans(selectOneMenuCajeroValue, cajero);
-               
+                     fillDataTableAccionReciente();
 
                 if (JsfUtil.contextToInteger("rowForPage") != null) {
                     rowForPage = JsfUtil.contextToInteger("rowForPage");
                 }
 
-                
                 /*
                 Lista de Cajeros del Banco
                  */
                 cajeroList = cajeroRepository.findByBancoIdAndActivo(bank, "SI");
-                
-                /*
-                * Carga el evento al datatable
-                */
-            //     fillDataTableProgramarEvento();
 
                 /**
                  * Buscare las acciones del grupo
@@ -536,15 +528,14 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                 JsfUtil.warningMessage("Por favor seleccione una Acción");
                 return "";
             }
-
-            ProgramarEvento programarEvento = ProgramarEvento.builder()
-                    .cajero(selectOneMenuCajeroValue)
-                    .accion(selectOneMenuAccionValue)
+            
+             ProgramarEvento programarEvento = ProgramarEvento.builder()
+                    .cajero(cajero)
+                    .accion(accion)
                     .fechahora(fechahoraBaja)
                     .build();
 
             programarEventoList.add(programarEvento);
-            cajeroList.remove(selectOneMenuCajeroValue);
 //            AccionReciente accionReciente = AccionReciente.builder()
 //                    .ACCIONID(JsfUtil.toBigInteger(0))
 //                    .ACCIONRECIENTEID(JsfUtil.toBigInteger(0))
@@ -564,8 +555,8 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
 //                    .VISTOTECNICO("NO")
 //                    .build();
 
-//            accionRecienteProgramarEventoList.add(accionReciente);
-            // PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').hide()");
+            accionRecienteProgramarEventoList.add(accionReciente);
+           // PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').hide()");
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
@@ -585,8 +576,8 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     }
     // </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="fillDataTableProgramarEvento() ">
-    private void fillDataTableProgramarEvento() {
+// <editor-fold defaultstate="collapsed" desc="fillDataTableAccionReciente()  ">
+    private void fillDataTableAccionReciente() {
         try {
             ProgramarEvento programarEvento = ProgramarEvento.builder()
                     .cajero(cajero)
@@ -595,7 +586,6 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                     .build();
 
             programarEventoList.add(programarEvento);
-            cajeroList.remove(cajero);
 //            for (int i = 0; i <= 25; i++) {
 //                ProgramarEvento programarEventoVar = ProgramarEvento.builder()
 //                        .cajero(new Cajero())
@@ -611,15 +601,4 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
         }
     }
     // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="String onSelectOneMenuCajeroChange()">
-    public String onSelectOneMenuCajeroChange(){
-        try {
-          //  JsfUtil.successMessage("Cajero seleccionado "+selectOneMenuCajeroValue);
-      } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
-        }
-        return "";
-    }
-// </editor-fold>
 }
