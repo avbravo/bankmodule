@@ -518,15 +518,15 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
 // </editor-fold> 
 
     // <editor-fold defaultstate="collapsed" desc="onCommandButtonAgregarCajeroADataTable() ">
-    public void onCommandButtonAgregarCajeroADataTable() {
+    public String onCommandButtonAgregarCajeroADataTable() {
         try {
             if (selectOneMenuCajeroValue == null) {
                 JsfUtil.warningMessage("Por favor seleccione un cajero");
-                return;
+                return "";
             }
             if (selectOneMenuAccionValue == null) {
                 JsfUtil.warningMessage("Por favor seleccione una Acción");
-                return;
+                return "";
             }
             AccionReciente accionReciente = AccionReciente.builder()
                     .ACCIONID(JsfUtil.toBigInteger(0))
@@ -548,15 +548,15 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                     .build();
 
             accionRecienteProgramarEventoList.add(accionReciente);
-            PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').hide()");
+           // PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').hide()");
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
-        return;
+        return "";
     }
 // </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="method ">
+// <editor-fold defaultstate="collapsed" desc="onCellEdit(CellEditEvent event)">
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
@@ -578,15 +578,15 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                     .build();
 
             programarEventoList.add(programarEvento);
-            for (int i = 0; i <= 25; i++) {
-                ProgramarEvento programarEventoVar = ProgramarEvento.builder()
-                        .cajero(new Cajero())
-                        .accion(accion)
-                        .fechahora(fechahoraBaja)
-                        .build();
-
-                programarEventoList.add(programarEventoVar);
-            }
+//            for (int i = 0; i <= 25; i++) {
+//                ProgramarEvento programarEventoVar = ProgramarEvento.builder()
+//                        .cajero(new Cajero())
+//                        .accion(accion)
+//                        .fechahora(fechahoraBaja)
+//                        .build();
+//
+//                programarEventoList.add(programarEventoVar);
+//            }
 
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());

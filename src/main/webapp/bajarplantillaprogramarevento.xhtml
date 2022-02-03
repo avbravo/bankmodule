@@ -74,6 +74,88 @@
                                     </div>
                                 </div>
                             </div>
+                            <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                         style="border:0px none; background-color:transparent;">
+
+
+                                <p:outputLabel value="Cajero"/>
+                                <h:selectOneMenu id="selectOneMenuCajeroAdd" 
+                                                 class="form-control rounded-pill solosel01"
+                                                 value="#{bajarPlantillaProgramarEventoController.selectOneMenuCajeroValue}" 
+                                                 converter="#{cajeroConverter}"
+
+                                                 >
+                                    <f:selectItem itemLabel="Seleccione un Cajero" itemValue="#{null}"  noSelectionOption="true"/>
+                                    <f:selectItems value="#{bajarPlantillaProgramarEventoController.cajeroList}" 
+                                                   var="var" 
+                                                   itemValue="#{var}" itemLabel="#{var.CAJERO} " />
+
+
+
+
+                                </h:selectOneMenu>
+                                <p:outputLabel value="Acción"/>
+
+                                <p:selectOneMenu id="selectOneMenuAccionAdd" 
+                                                 class="form-control rounded-pill solosel01"
+                                                 value="#{bajarPlantillaProgramarEventoController.selectOneMenuAccionValue}" 
+                                                 converter="#{accionConverter}"
+                                                 >
+                                    <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
+                                    <f:selectItems value="#{bajarPlantillaProgramarEventoController.accionList}" 
+                                                   var="var" 
+                                                   itemValue="#{var}" itemLabel="#{var.ACCION} " />
+
+
+
+
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel value="Fecha"/>
+
+
+                                <p:datePicker  hourFormat="12" id="fechaAdd" 
+                                               pattern="dd/MM/yyyy hh:mm a"
+
+                                               value="#{bajarPlantillaProgramarEventoController.fechahoraBaja}" showTime="true">
+
+                                </p:datePicker>
+                                <f:facet name="footer">
+
+                                    <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                                 style="border:0px none; background-color:transparent;">
+
+                                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-plus" 
+                                                         value="Agregar Cajero" process="@this"
+                                                        
+                                                         action="#{bajarPlantillaProgramarEventoController.onCommandButtonAgregarCajeroADataTable()}"
+                                                         update=":form:growl, :form:dataTable"
+                                                         >
+
+
+                                        </p:commandButton>
+                                        
+
+                                        <p:commandButton value="Solicitar Token" icon="pi pi-inbox" 
+                                                         title="Envia el token al correo"
+                                                         id="commandButtonSendToken"
+                                                         action="#{bajarPlantillaController.onCommandButtonSendToken()}"
+                                                         update=":form:growl"                                                                    
+                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
+                                        </p:commandButton>
+
+
+
+
+
+
+
+                                    </p:panelGrid>
+
+                                </f:facet>
+
+                            </p:panelGrid>
 
                             <div class="col-12 col-lg-12">
                                 <div class="table-responsive">
@@ -110,27 +192,8 @@
                                         <p:column headerText=""  style="width:5%; color:'#02A1DE'">
                                             <p:graphicImage name="atm-blue02.png" library="images" alt="" class="" />
                                         </p:column>
-                                        
-                                         <p:column headerText="Acción">
-                                            <p:cellEditor>
-                                                <f:facet name="output">
-                                                    <p:outputLabel value="#{item.accion.ACCION}"/>
-                                                </f:facet>
-                                                <f:facet name="input">
-                                                    <h:selectOneMenu 
-                                                        style="width:100%"
-                                                        value="#{item.accion}" 
-                                                        converter="#{accionConverter}"
-                                                        >
 
-                                                        <f:selectItems value="#{bajarPlantillaProgramarEventoController.accionList}" 
-                                                                       var="var" 
-                                                                       itemValue="#{var}" itemLabel="#{var.ACCION} " />
 
-                                                    </h:selectOneMenu>
-                                                </f:facet>
-                                            </p:cellEditor>
-                                        </p:column>
                                         <p:column headerText="Cajero">
                                             <p:cellEditor>
                                                 <f:facet name="output">
@@ -151,8 +214,27 @@
                                                 </f:facet>
                                             </p:cellEditor>
                                         </p:column>
-                                       
-                                       
+                                        <p:column headerText="Acción">
+                                            <p:cellEditor>
+                                                <f:facet name="output">
+                                                    <p:outputLabel value="#{item.accion.ACCION}"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <h:selectOneMenu 
+                                                        style="width:100%"
+                                                        value="#{item.accion}" 
+                                                        converter="#{accionConverter}"
+                                                        >
+
+                                                        <f:selectItems value="#{bajarPlantillaProgramarEventoController.accionList}" 
+                                                                       var="var" 
+                                                                       itemValue="#{var}" itemLabel="#{var.ACCION} " />
+
+                                                    </h:selectOneMenu>
+                                                </f:facet>
+                                            </p:cellEditor>
+                                        </p:column>
+
                                         <p:column headerText="Fecha">
                                             <p:cellEditor>
                                                 <f:facet name="output">
