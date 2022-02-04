@@ -80,26 +80,31 @@
 
                                 <p:outputLabel value="Cajero"/>
                                 <h:selectOneMenu id="selectOneMenuCajeroAdd" 
-                                                 class="form-control rounded-pill solosel01"
+                                             
                                                  value="#{bajarPlantillaProgramarEventoController.selectOneMenuCajeroValue}" 
                                                  converter="#{cajeroConverter}"
+                                               
 
                                                  >
 <!--                                    <f:selectItem itemLabel="Seleccione un Cajero" itemValue="#{null}"  noSelectionOption="true"/>-->
                                     <f:selectItems value="#{bajarPlantillaProgramarEventoController.cajeroList}" 
                                                    var="var" 
-                                                   itemValue="#{var}" itemLabel="#{var.CAJERO} " />
+                                                   itemValue="#{var}" itemLabel="#{var.CAJERO}" />
 
 
  <p:ajax process="selectOneMenuCajeroAdd" event="change"
-                                                    update=" :form:growl "
+                                                    update=" :form:growl ,:form:direccion"
                                                     listener="#{bajarPlantillaProgramarEventoController.onSelectOneMenuCajeroChange()}"/>
 
                                 </h:selectOneMenu>
+                                
+                                <p:outputLabel value="Dirección"/>
+                                <p:outputLabel id="direccion" value="#{bajarPlantillaProgramarEventoController.selectOneMenuCajeroValue.DIRECCION}" />
+                                
                                 <p:outputLabel value="Acción"/>
 
-                                <p:selectOneMenu id="selectOneMenuAccionAdd" 
-                                                 class="form-control rounded-pill solosel01"
+                                <h:selectOneMenu id="selectOneMenuAccionAdd" 
+                                             
                                                  value="#{bajarPlantillaProgramarEventoController.selectOneMenuAccionValue}" 
                                                  converter="#{accionConverter}"
                                                  >
@@ -111,7 +116,7 @@
 
 
 
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
 
 
                                 <p:outputLabel value="Fecha"/>
@@ -134,13 +139,13 @@
                                                          process="@this, selectOneMenuCajeroAdd,selectOneMenuAccionAdd,fechaAdd"
                                                          oncomplete="remoteCommandUpdateDataTable()"
                                                          action="#{bajarPlantillaProgramarEventoController.onCommandButtonAgregarCajeroADataTable()}"
-                                                         update=":form:growl, :form:selectOneMenuAccionAdd,:form:dataTable"
+                                                         update=":form:growl, :form:selectOneMenuCajeroAdd,:form:dataTable, :form:commandButtonSendToken, :form:direccion"
                                                          >
 
 
                                         </p:commandButton>
                                         <p:remoteCommand name="remoteCommandUpdateDataTable"
-                                                         update=":form:dataTable,:form:selectOneMenuAccionAdd"/>
+                                                         update=":form:dataTable,:form:selectOneMenuAccionAdd, :form:commandButtonSendToken,:form:direccion"/>
 
 
 
@@ -207,9 +212,11 @@
                                         <p:column headerText="" >
 
 
-                                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this">
+                                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                                                oncomplete="PF('deleteProgramarEventoDialog').show()"
+                                                             >
 
-                                                <f:setPropertyActionListener value="#{item}" target="#{bajarPlantillaProgramarEventoController.accionRecienteSelected}"/>
+                                                <f:setPropertyActionListener value="#{item}" target="#{bajarPlantillaProgramarEventoController.programarEventoSelected}"/>
                                             </p:commandButton>
                                         </p:column>           
 
@@ -225,7 +232,7 @@
                                     <p:commandButton value="Solicitar Token" icon="pi pi-inbox" 
                                                      title="Envia el token al correo"
                                                      id="commandButtonSendToken"
-                                                     rendered="#{not empty bajarPlantillaProgramarEventoController.accionRecienteProgramarEventoList}"
+                                    
                                                      action="#{bajarPlantillaProgramarEventoController.onCommandButtonSendToken()}"
                                                      update=":form:growl"                                                                    
                                                      styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
@@ -418,6 +425,15 @@
                 </p:dialog>
             </h:panelGroup>
 
+            <h:panelGroup id="panelGroupdeleteProgramarEventoDialog">
+                 <p:confirmDialog widgetVar="deleteProgramarEventoDialog" showEffect="fade" width="300"
+                         message="Desea quitar este agendamiento?" header="Confirmar" severity="warn">
+     <p:commandButton value="Si" icon="pi pi-check" actionListener="#{bajarPlantillaProgramarEventoController.deleteProgramarEvento()}"
+                             process="@this" oncomplete="PF('deleteProgramarEventoDialog').hide()"/>
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                             onclick="PF('deleteProgramarEventoDialog').hide()"/>
+        </p:confirmDialog>
+            </h:panelGroup>
 
         </h:form>    
         <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">

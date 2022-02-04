@@ -76,12 +76,12 @@ public Optional<Cajero> findByCajeroId(BigInteger CAJEROID) {
         return list;
     }
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="List<Cajero> findByBancoIdAndActivo(Banco BANCOID)">
+    // <editor-fold defaultstate="collapsed" desc="List<Cajero> findByBancoIdAndActivo(Banco BANCOID, String ACTIVO)">
      public List<Cajero> findByBancoIdAndActivo(Banco BANCOID, String ACTIVO) {
         List<Cajero> list = new ArrayList<>();
         try {
 
-           Query query = em.createQuery("SELECT c FROM Cajero c WHERE c.BANCOID = :BANCOID AND c.ACTIVO = :ACTIVO");
+           Query query = em.createQuery("SELECT c FROM Cajero c WHERE c.BANCOID = :BANCOID AND c.ACTIVO = :ACTIVO ORDER BY c.CAJERO");
             
             list = query.setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
             

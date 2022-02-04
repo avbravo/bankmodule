@@ -47,6 +47,7 @@ import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
+import java.util.Collections;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -91,6 +92,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     List<Cajero> cajeroSelectedList = new ArrayList<>();
     private List<ProgramarEvento> programarEventoList = new ArrayList<>();
     private List<ProgramarEvento> programarEventoSelectedList = new ArrayList<>();
+    private ProgramarEvento programarEventoSelected = new ProgramarEvento();
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="@Inject ">
     @Inject
@@ -148,23 +150,20 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                 cajero = (Cajero) JmoordbContext.get("cajero");
                 grupoAccion = (GrupoAccion) JmoordbContext.get("grupoAccion");
                 JsfUtil.copyBeans(selectOneMenuCajeroValue, cajero);
-               
 
                 if (JsfUtil.contextToInteger("rowForPage") != null) {
                     rowForPage = JsfUtil.contextToInteger("rowForPage");
                 }
 
-                
                 /*
                 Lista de Cajeros del Banco
                  */
                 cajeroList = cajeroRepository.findByBancoIdAndActivo(bank, "SI");
-                
+
                 /*
                 * Carga el evento al datatable
-                */
-            //     fillDataTableProgramarEvento();
-
+                 */
+                //     fillDataTableProgramarEvento();
                 /**
                  * Buscare las acciones del grupo
                  */
@@ -267,9 +266,14 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     // <editor-fold defaultstate="collapsed" desc="onCommandButtonSendToken() ">
     public String onCommandButtonSendToken() {
         try {
+            tokenEnviado = Boolean.FALSE;
             /**
              * Valida que no se hay un agendamiento en la misma hora
              */
+            if (programarEventoList == null || programarEventoList.isEmpty()) {
+                JsfUtil.warningMessage("Debe agregar agendamientos a la lista para procesarlos");
+                return "";
+            }
 
             sendToken();
         } catch (Exception e) {
@@ -391,29 +395,37 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                 return "";
             }
 
-            if (selectOneMenuAccionValue == null || selectOneMenuAccionValue.getACCIONID() == null) {
-                JsfUtil.warningMessage("No selecciono la acción a ejecutar");
-                return "";
-            }
-
-            JsfUtil.copyBeans(accion, selectOneMenuAccionValue);
-            /**
-             * Valida que no se hay un agendamiento en la misma hora
-             */
-            Integer count = agendaRepository.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
-            if (count > 0) {
-                ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha");
-                JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
-
+            if (programarEventoList == null || programarEventoList.isEmpty()) {
+                JsfUtil.warningMessage("No hay registros de agendamientos para procesar");
                 return "";
             }
 
             if (accionList == null || accionList.isEmpty()) {
                 JsfUtil.warningMessage("No acciones para el grupo seleccionado");
-            } else {
+                return "";
+            }
+            /*
+            Revisar si tieen agendamiento en esa hora
+             */
+            Integer countExitosos = 0;
+            for (ProgramarEvento programarEvento : programarEventoList) {
+                JsfUtil.copyBeans(cajero, programarEvento.getCajero());
+                JsfUtil.copyBeans(accion, programarEvento.getAccion());
+                fechahoraBaja = programarEvento.getFechahora();
+                /**
+                 * Valida que no se hay un agendamiento en la misma hora
+                 */
+                Integer count = agendaRepository.countAgendamiento(programarEvento.getCajero().getBANCOID().getBANCOID(),
+                        programarEvento.getCajero().getCAJEROID(), programarEvento.getAccion().getACCIONID(),
+                        estado.getESTADOID(), programarEvento.getFechahora(), "SI");
+                if (count > 0) {
+                    ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha Cajero: " + programarEvento.getCajero().getCAJERO());
+                    JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
 
-                Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
+                    return "";
+                }
 
+                // Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
                 Agenda agenda = new Agenda();
                 agenda.setACTIVO("SI");
                 agenda.setCODIGOTRANSACCION(JsfUtil.generateUniqueID());
@@ -443,31 +455,28 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                          * Envio de email
                          */
                         emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
-//       Boolean emailSend=    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
-//                     if(emailSend ){
-//                        ConsoleUtil.info("Si envio el email");
-//                    }else{
-//                        ConsoleUtil.error("No envio el email");
-//                    }
-                        MessagesForm messagesForm = new MessagesForm.Builder()
-                                .id(accionReciente.getCAJERO())
-                                .header("Operación Exitosa")
-                                .header2("La acción se realizo exitosamente")
-                                .image("atm-green01.png")
-                                .libary("images")
-                                .titulo("Bajar plantilla Programar evento")
-                                .mensaje("Se realizo exitosamente la baja de plantilla ")
-                                .returnTo("dashboard.xhtml")
-                                .build();
-                        JmoordbContext.put("messagesForm", messagesForm);
+                        countExitosos++;
 
-                        JmoordbContext.put("pageInView", "messagesform.xhtml");
-                        return "messagesform.xhtml";
                     }
 
                 }
 
             }
+            MessagesForm messagesForm = new MessagesForm.Builder()
+                    .id(accionReciente.getCAJERO())
+                    .header("Operación Exitosa")
+                    .header2("Se procesaron exitosamente " + countExitosos)
+                    .image("atm-green01.png")
+                    .libary("images")
+                    .titulo("Bajar plantilla Programar evento")
+                    .mensaje("Se realizo exitosamente la baja de plantilla ")
+                    .returnTo("dashboard.xhtml")
+                    .build();
+            JmoordbContext.put("messagesForm", messagesForm);
+
+            JmoordbContext.put("pageInView", "messagesform.xhtml");
+            return "messagesform.xhtml";
+
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
@@ -545,27 +554,13 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
 
             programarEventoList.add(programarEvento);
             cajeroList.remove(selectOneMenuCajeroValue);
-//            AccionReciente accionReciente = AccionReciente.builder()
-//                    .ACCIONID(JsfUtil.toBigInteger(0))
-//                    .ACCIONRECIENTEID(JsfUtil.toBigInteger(0))
-//                    .ACTIVO("SI")
-//                    .AGENDAID(JsfUtil.toBigInteger(0))
-//                    .BANCOID(bank.getBANCOID())
-//                    .CAJERO(selectOneMenuCajeroValue.getCAJERO())
-//                    .CAJEROID(selectOneMenuCajeroValue.getCAJEROID())
-//                    .ESTADO(estado.getESTADO())
-//                    .ESTADOID(estado.getESTADOID())
-//                    .FECHA(fechahoraBaja)
-//                    .FECHAAGENDADA(fechahoraBaja)
-//                    .FECHAEJECUCION(fechahoraBaja)
-//                    .MENSAJE(accion.getACCION())
-//                    .TITULO(grupoAccion.getGRUPOACCION())
-//                    .VISTOBANCO("NO")
-//                    .VISTOTECNICO("NO")
-//                    .build();
-
-//            accionRecienteProgramarEventoList.add(accionReciente);
-            // PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').hide()");
+            
+            if(cajeroList == null  || cajeroList.isEmpty() || cajeroList.size()==0){
+                
+            }else{
+                JsfUtil.copyBeans(selectOneMenuCajeroValue, cajeroList.get(0));
+            }
+            JsfUtil.successMessage("Se agrego a la lista el evento para ser agendado");
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
@@ -611,15 +606,33 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
         }
     }
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="String onSelectOneMenuCajeroChange()">
-    public String onSelectOneMenuCajeroChange(){
+    public String onSelectOneMenuCajeroChange() {
         try {
-          //  JsfUtil.successMessage("Cajero seleccionado "+selectOneMenuCajeroValue);
-      } catch (Exception e) {
+            //  JsfUtil.successMessage("Cajero seleccionado "+selectOneMenuCajeroValue);
+        } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
         return "";
+    }
+// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="void deleteProgramarEvento()">
+    public void deleteProgramarEvento() {
+
+        try {
+            programarEventoList.remove(programarEventoSelected);
+            cajeroList.add(programarEventoSelected.getCajero());
+            Collections.sort(cajeroList,
+                    (Cajero a, Cajero b) -> a.getCAJERO().compareTo(b.getCAJERO()));
+            JsfUtil.copyBeans(selectOneMenuCajeroValue, cajeroList.get(0));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Agendamiento removido de la lista"));
+            PrimeFaces.current().ajax().update("form:growl", "form:dataTable", ":form:selectOneMenuCajeroAdd", ":form:direccion");
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+
     }
 // </editor-fold>
 }
