@@ -63,7 +63,7 @@ import org.primefaces.event.CellEditEvent;
 @Named
 @ViewScoped
 @Data
-public class BajarPlantillaProgramarEventoController implements Serializable, Page {
+public class BajarPlantillaProgramarEventoController111 implements Serializable, Page {
 
     // <editor-fold defaultstate="collapsed" desc="field ">
     private static final long serialVersionUID = 1L;
@@ -86,10 +86,6 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     private Date minDate;
     private TokenReader tokenReader = new TokenReader();
     private Boolean tokenEnviado = Boolean.FALSE;
-    
-    private Boolean showDataTable = Boolean.TRUE;
-    private Boolean showPanelGridBusquedaCajero = Boolean.FALSE;
-    
     private List<AccionReciente> accionRecienteProgramarEventoList = new ArrayList<>();
     private List<AccionReciente> accionRecienteProgramarEventoSelectedList = new ArrayList<>();
     List<Cajero> cajeroList = new ArrayList<>();
@@ -131,16 +127,13 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     /**
      * Creates a new instance of CajeroAccionController
      */
-    public BajarPlantillaProgramarEventoController() {
+    public BajarPlantillaProgramarEventoController111() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="void init() ">
     @PostConstruct
     public void init() {
         try {
-
-            showDataTable = Boolean.TRUE;
-          showPanelGridBusquedaCajero= Boolean.FALSE;
             minDate = DateUtil.fechaActual();
             accionRecienteProgramarEventoList = new ArrayList<>();
             programarEventoList = new ArrayList<>();
@@ -537,33 +530,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
         }
-
-    }
-// </editor-fold> 
-    // <editor-fold defaultstate="collapsed" desc="String String onComnandButtonBuscarCajero()">
-    public String onComnandButtonBuscarCajero() {
-        try {
-          showDataTable = Boolean.FALSE;
-     showPanelGridBusquedaCajero = Boolean.TRUE;
-
-            PrimeFaces.current().ajax().update("form:growl", "form:dataTable", "form:panelGridBusquedaCajero", "form:commandButtonSendToken", "form:commandButtonRegresarMain");
-        } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
-        }
-return "";
-    }
-// </editor-fold> 
-    // <editor-fold defaultstate="collapsed" desc="String String String onComnandButtonRegresarDataTable()">
-    public String onComnandButtonRegresarDataTable() {
-        try {
-          showDataTable = Boolean.TRUE;
-     showPanelGridBusquedaCajero = Boolean.FALSE;
-
-            PrimeFaces.current().ajax().update("form:growl", "form:dataTable", "form:panelGridBusquedaCajero", "form:commandButtonSendToken", "form:commandButtonRegresarMain");
-        } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
-        }
-return "";
+        ;
     }
 // </editor-fold> 
 
@@ -594,7 +561,6 @@ return "";
                 JsfUtil.copyBeans(selectOneMenuCajeroValue, cajeroList.get(0));
             }
             JsfUtil.successMessage("Se agrego a la lista el evento para ser agendado");
-            onComnandButtonRegresarDataTable();
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }

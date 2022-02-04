@@ -74,19 +74,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <p:panelGrid id="panelGridBusquedaCajero"
-                                         rendered="#{bajarPlantillaProgramarEventoController.showPanelGridBusquedaCajero}"
-
-                                         columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                            <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
                                          style="border:0px none; background-color:transparent;">
 
-                                <p:autoUpdate/>
+
                                 <p:outputLabel value="Cajero"/>
                                 <h:selectOneMenu id="selectOneMenuCajeroAdd" 
-
+                                             
                                                  value="#{bajarPlantillaProgramarEventoController.selectOneMenuCajeroValue}" 
                                                  converter="#{cajeroConverter}"
-
+                                               
 
                                                  >
 <!--                                    <f:selectItem itemLabel="Seleccione un Cajero" itemValue="#{null}"  noSelectionOption="true"/>-->
@@ -95,19 +92,19 @@
                                                    itemValue="#{var}" itemLabel="#{var.CAJERO}" />
 
 
-                                    <p:ajax process="selectOneMenuCajeroAdd" event="change"
-                                            update=" :form:growl ,:form:direccion"
-                                            listener="#{bajarPlantillaProgramarEventoController.onSelectOneMenuCajeroChange()}"/>
+ <p:ajax process="selectOneMenuCajeroAdd" event="change"
+                                                    update=" :form:growl ,:form:direccion"
+                                                    listener="#{bajarPlantillaProgramarEventoController.onSelectOneMenuCajeroChange()}"/>
 
                                 </h:selectOneMenu>
-
+                                
                                 <p:outputLabel value="Dirección"/>
                                 <p:outputLabel id="direccion" value="#{bajarPlantillaProgramarEventoController.selectOneMenuCajeroValue.DIRECCION}" />
-
+                                
                                 <p:outputLabel value="Acción"/>
 
                                 <h:selectOneMenu id="selectOneMenuAccionAdd" 
-
+                                             
                                                  value="#{bajarPlantillaProgramarEventoController.selectOneMenuAccionValue}" 
                                                  converter="#{accionConverter}"
                                                  >
@@ -127,7 +124,7 @@
 
                                 <p:datePicker  hourFormat="12" id="fechaAdd" 
                                                pattern="dd/MM/yyyy hh:mm a"
-                                               mindate="#{bajarPlantillaProgramarEventoController.minDate}"
+                                                mindate="#{bajarPlantillaProgramarEventoController.minDate}"
 
                                                value="#{bajarPlantillaProgramarEventoController.fechahoraBaja}" showTime="true">
 
@@ -137,31 +134,21 @@
                                     <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
                                                  style="border:0px none; background-color:transparent;">
 
-                                        <p:commandButton styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
-                                                         icon="pi pi-plus" 
+                                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-plus" 
                                                          value="Agregar Cajero" 
                                                          process="@this, selectOneMenuCajeroAdd,selectOneMenuAccionAdd,fechaAdd"
                                                          oncomplete="remoteCommandUpdateDataTable()"
                                                          action="#{bajarPlantillaProgramarEventoController.onCommandButtonAgregarCajeroADataTable()}"
-                                                         update=":form ,:form:growl, :form:selectOneMenuCajeroAdd,:form:dataTable, :form:commandButtonSendToken, :form:direccion"
+                                                         update=":form:growl, :form:selectOneMenuCajeroAdd,:form:dataTable, :form:commandButtonSendToken, :form:direccion"
                                                          >
 
 
                                         </p:commandButton>
-                                      
-                                        <p:commandButton  icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                          value="Regresar" 
-                                                          process="@this"
-
-                                                          action="#{bajarPlantillaProgramarEventoController.onComnandButtonRegresarDataTable()}"
-                                                          update=":form, :form:growl, :form:selectOneMenuCajeroAdd,:form:dataTable, :form:commandButtonSendToken, :form:direccion"
-                                                          >
-
-
-                                        </p:commandButton>
-
-  <p:remoteCommand name="remoteCommandUpdateDataTable"
+                                        <p:remoteCommand name="remoteCommandUpdateDataTable"
                                                          update=":form:dataTable,:form:selectOneMenuAccionAdd, :form:commandButtonSendToken,:form:direccion"/>
+
+
+
 
 
 
@@ -179,7 +166,7 @@
                                                  var="item" 
                                                  id="dataTable"
                                                  widgetVar="widgetVardataTable"
-                                                 rendered="#{bajarPlantillaProgramarEventoController.showDataTable}"
+
                                                  lazy="false"
                                                  filteredValue="#{bajarPlantillaProgramarEventoController.programarEventoSelectedList}" 
                                                  binding="#{table1}"
@@ -191,16 +178,10 @@
                                                  editable="true"
                                                  editMode="cell" 
                                                  >
-<p:autoUpdate/>
+
                                         <p:ajax event="cellEdit" listener="#{bajarPlantillaProgramarEventoController.onCellEdit}" update=":form:growl, :form:dataTable"/>
                                         <f:facet name="header">
-                                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-search" 
-                                                             value="Buscar Cajero" process="@this"
-
-                                                             action="#{bajarPlantillaProgramarEventoController.onComnandButtonBuscarCajero()}"
-                                                             update=":form, :form:growl, :form:panelGridBusquedaCajero, :form:dataTable"
-                                                             >
-                                            </p:commandButton>
+                                            
 
                                         </f:facet>
                                         <p:column headerText=""  style="width:5%; color:'#02A1DE'">
@@ -209,21 +190,21 @@
 
 
                                         <p:column headerText="Cajero">
-
-                                            <p:outputLabel value="#{item.cajero.CAJERO}  - #{item.cajero.DIRECCION}"/>
-
+                                          
+                                                    <p:outputLabel value="#{item.cajero.CAJERO}  - #{item.cajero.DIRECCION}"/>
+                                              
                                         </p:column>
                                         <p:column headerText="Acción">
-
-                                            <p:outputLabel value="#{item.accion.ACCION}"/>
-
-
+                                         
+                                                    <p:outputLabel value="#{item.accion.ACCION}"/>
+                                              
+                                        
                                         </p:column>
 
                                         <p:column headerText="Fecha">
-
-                                            <p:outputLabel value="#{bajarPlantillaProgramarEventoController.showDate(item.fechahora)} :#{bajarPlantillaProgramarEventoController.showHour(item.fechahora)}"/>
-
+                                     
+                                                    <p:outputLabel value="#{bajarPlantillaProgramarEventoController.showDate(item.fechahora)} :#{bajarPlantillaProgramarEventoController.showHour(item.fechahora)}"/>
+                                               
                                         </p:column>
 
 
@@ -232,7 +213,7 @@
 
 
                                             <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                                             oncomplete="PF('deleteProgramarEventoDialog').show()"
+                                                                oncomplete="PF('deleteProgramarEventoDialog').show()"
                                                              >
 
                                                 <f:setPropertyActionListener value="#{item}" target="#{bajarPlantillaProgramarEventoController.programarEventoSelected}"/>
@@ -251,7 +232,7 @@
                                     <p:commandButton value="Solicitar Token" icon="pi pi-inbox" 
                                                      title="Envia el token al correo"
                                                      id="commandButtonSendToken"
-                                                     rendered="#{bajarPlantillaProgramarEventoController.showDataTable}"
+                                    
                                                      action="#{bajarPlantillaProgramarEventoController.onCommandButtonSendToken()}"
                                                      update=":form:growl"                                                                    
                                                      styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
@@ -260,8 +241,6 @@
 
 
                                     <p:commandButton value="REGRESAR"
-                                                     rendered="#{bajarPlantillaProgramarEventoController.showDataTable}"
-                                                     id="commandButtonRegresarMain"
                                                      styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                                      icon ="pi pi-arrow-left"
                                                      action="#{navigatorController.go('cajeroencontrado.xhtml')}"
@@ -447,13 +426,13 @@
             </h:panelGroup>
 
             <h:panelGroup id="panelGroupdeleteProgramarEventoDialog">
-                <p:confirmDialog widgetVar="deleteProgramarEventoDialog" showEffect="fade" width="300"
-                                 message="Desea quitar este agendamiento?" header="Confirmar" severity="warn">
-                    <p:commandButton value="Si" icon="pi pi-check" actionListener="#{bajarPlantillaProgramarEventoController.deleteProgramarEvento()}"
-                                     process="@this" oncomplete="PF('deleteProgramarEventoDialog').hide()"/>
-                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                     onclick="PF('deleteProgramarEventoDialog').hide()"/>
-                </p:confirmDialog>
+                 <p:confirmDialog widgetVar="deleteProgramarEventoDialog" showEffect="fade" width="300"
+                         message="Desea quitar este agendamiento?" header="Confirmar" severity="warn">
+     <p:commandButton value="Si" icon="pi pi-check" actionListener="#{bajarPlantillaProgramarEventoController.deleteProgramarEvento()}"
+                             process="@this" oncomplete="PF('deleteProgramarEventoDialog').hide()"/>
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                             onclick="PF('deleteProgramarEventoDialog').hide()"/>
+        </p:confirmDialog>
             </h:panelGroup>
 
         </h:form>    
