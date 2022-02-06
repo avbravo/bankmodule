@@ -4,7 +4,7 @@
 
     <groupId>com.people-inmotion</groupId>
     <artifactId>bankmodule</artifactId>
-    <version>0.3.114</version>
+    <version>0.3.115</version>
     <packaging>war</packaging>
 
     <name>bankmodule</name>
@@ -163,6 +163,10 @@ Oracle DB
             <artifactId>weblogic-maven-plugin</artifactId>
             <version>10.3.6.0</version>
         </dependency>-->
+        
+        
+        
+
     </dependencies>
 
     <build>

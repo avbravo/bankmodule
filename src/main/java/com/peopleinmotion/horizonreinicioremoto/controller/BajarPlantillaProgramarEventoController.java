@@ -86,10 +86,10 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     private Date minDate;
     private TokenReader tokenReader = new TokenReader();
     private Boolean tokenEnviado = Boolean.FALSE;
-    
+
     private Boolean showDataTable = Boolean.TRUE;
     private Boolean showPanelGridBusquedaCajero = Boolean.FALSE;
-    
+
     private List<AccionReciente> accionRecienteProgramarEventoList = new ArrayList<>();
     private List<AccionReciente> accionRecienteProgramarEventoSelectedList = new ArrayList<>();
     List<Cajero> cajeroList = new ArrayList<>();
@@ -140,7 +140,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
         try {
 
             showDataTable = Boolean.TRUE;
-          showPanelGridBusquedaCajero= Boolean.FALSE;
+            showPanelGridBusquedaCajero = Boolean.FALSE;
             minDate = DateUtil.fechaActual();
             accionRecienteProgramarEventoList = new ArrayList<>();
             programarEventoList = new ArrayList<>();
@@ -156,7 +156,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                 bank = (Banco) JmoordbContext.get("banco");
                 cajero = (Cajero) JmoordbContext.get("cajero");
                 grupoAccion = (GrupoAccion) JmoordbContext.get("grupoAccion");
-                JsfUtil.copyBeans(selectOneMenuCajeroValue, cajero);
+               // JsfUtil.copyBeans(selectOneMenuCajeroValue, cajero);
 
                 if (JsfUtil.contextToInteger("rowForPage") != null) {
                     rowForPage = JsfUtil.contextToInteger("rowForPage");
@@ -541,29 +541,31 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     }
 // </editor-fold> 
     // <editor-fold defaultstate="collapsed" desc="String String onComnandButtonBuscarCajero()">
+
     public String onComnandButtonBuscarCajero() {
         try {
-          showDataTable = Boolean.FALSE;
-     showPanelGridBusquedaCajero = Boolean.TRUE;
+            showDataTable = Boolean.FALSE;
+            showPanelGridBusquedaCajero = Boolean.TRUE;
 
             PrimeFaces.current().ajax().update("form:growl", "form:dataTable", "form:panelGridBusquedaCajero", "form:commandButtonSendToken", "form:commandButtonRegresarMain");
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
         }
-return "";
+        return "";
     }
 // </editor-fold> 
     // <editor-fold defaultstate="collapsed" desc="String String String onComnandButtonRegresarDataTable()">
+
     public String onComnandButtonRegresarDataTable() {
         try {
-          showDataTable = Boolean.TRUE;
-     showPanelGridBusquedaCajero = Boolean.FALSE;
+            showDataTable = Boolean.TRUE;
+            showPanelGridBusquedaCajero = Boolean.FALSE;
 
             PrimeFaces.current().ajax().update("form:growl", "form:dataTable", "form:panelGridBusquedaCajero", "form:commandButtonSendToken", "form:commandButtonRegresarMain");
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
         }
-return "";
+        return "";
     }
 // </editor-fold> 
 
@@ -587,14 +589,14 @@ return "";
 
             programarEventoList.add(programarEvento);
             cajeroList.remove(selectOneMenuCajeroValue);
-            
-            if(cajeroList == null  || cajeroList.isEmpty() || cajeroList.size()==0){
-                
-            }else{
-                JsfUtil.copyBeans(selectOneMenuCajeroValue, cajeroList.get(0));
+fechahoraBaja = DateUtil.fechaHoraActual();
+            if (cajeroList == null || cajeroList.isEmpty() || cajeroList.size() == 0) {
+
+            } else {
+               // JsfUtil.copyBeans(selectOneMenuCajeroValue, cajeroList.get(0));
             }
             JsfUtil.successMessage("Se agrego a la lista el evento para ser agendado");
-            onComnandButtonRegresarDataTable();
+            // onComnandButtonRegresarDataTable();
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
@@ -644,7 +646,7 @@ return "";
     // <editor-fold defaultstate="collapsed" desc="String onSelectOneMenuCajeroChange()">
     public String onSelectOneMenuCajeroChange() {
         try {
-            //  JsfUtil.successMessage("Cajero seleccionado "+selectOneMenuCajeroValue);
+          //JsfUtil.successMessage("Cajero seleccionado "+selectOneMenuCajeroValue);
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
