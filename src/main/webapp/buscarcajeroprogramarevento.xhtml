@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"         
+      xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ultimaacciongenerada="http://xmlns.jcp.org/jsf/composite/ultimaacciongenerada"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
+        <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
+        <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
+        <link rel="stylesheet" href="./resources/css/style.css"/>
+        <link rel="stylesheet" href="./resources/css/dash01.css"/>
+        <link rel="stylesheet" href="./resources/css/mantenimiento.css"/>
+        <link rel="stylesheet" href="./resources/css/dataTables.bootstrap.min.css"/>
+        <meta name="referrer" content="no-referrer"/>
+        <meta name="referrer" content="strict-origin-when-cross-origin"/>
+        <link rel="stylesheet" href="./resources/css/extra.css"/>
+
+        <title>Modulo Banco</title>    
+        <f:metadata>
+            <f:viewAction    action="#{buscarCajeroProgramarEventoController.browserEventFromPage('login.xhtml')}"/>
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <h:form id="form" prependId="false" rendered="#{accessController.loged}">
+
+
+            <p:ajaxStatus onsuccess="limpiartiempo()" />
+            <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
+
+            <script type="text/javascript">
+                function setDataTableWithPageStart() {
+
+                    widgetVardataTable.getPaginator().setPage(0);
+                    alert("ejecutado la funcion setDataTableWithPageStart()")
+                }
+            </script>
+            <p:growl id='growl' widgetVar="widgetVarGrowl" life="4000" />
+            <div class="container-scroller">
+                <!-- partial:partials/_navbar.html -->
+                <template:top/>
+
+
+                <!-- Body -->
+                <div class="container-fluid page-body-wrapper">
+                    <template:navigator/>
+
+                    <!-- partial -->
+
+
+                    <!-- partial -->
+
+                    <div class="main-panel">
+                        <div class="content-wrapper" id="bgarc01">
+
+                            <div class="row up01">
+                                <div class="col-md-12 grid-margin">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h4 class="text-secondary"><p:outputLabel value="#{buscarCajeroProgramarEventoController.grupoAccion.GRUPOACCION.toUpperCase()} PROGRAMAR EVENTO" /></h4>
+
+                                            <p:messages id="message" showSummary="true" />
+
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <p:panelGrid id="panelGridBusquedaCajero"
+
+
+                                         columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                         style="border:0px none; background-color:transparent;">
+
+
+                                <p:outputLabel value="Cajero"/>
+                                <p:selectOneMenu id="selectOneMenuCajeroAdd" 
+
+                                                 value="#{buscarCajeroProgramarEventoController.selectOneMenuCajeroValue}" 
+                                                 converter="#{cajeroConverter}"
+
+                                                 filter="true"
+                                                 filterMatchMode="startsWith"
+                                                 >
+                                    <f:selectItem itemLabel="Seleccione un Cajero" itemValue="#{null}"  noSelectionOption="true"/>
+                                    <f:selectItems value="#{buscarCajeroProgramarEventoController.cajeroList}" 
+                                                   var="var" 
+                                                   itemValue="#{var}" itemLabel="#{var.CAJERO}" />
+
+                                    
+
+
+
+                                    <p:ajax process="selectOneMenuCajeroAdd" event="change"
+                                            update=" :form:growl ,:form:direccion"
+                                            listener="#{buscarCajeroProgramarEventoController.onSelectOneMenuCajeroChange()}"/>
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="Dirección"/>
+                                <p:outputLabel id="direccion" value="#{buscarCajeroProgramarEventoController.selectOneMenuCajeroValue.DIRECCION}" />
+
+                                <p:outputLabel value="Acción"/>
+
+                                <p:selectOneMenu id="selectOneMenuAccionAdd" 
+                                                 filter="true"
+                                                 filterMatchMode="startsWith"
+                                                 value="#{buscarCajeroProgramarEventoController.selectOneMenuAccionValue}" 
+                                                 converter="#{accionConverter}"
+                                                 >
+                                    <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
+                                    <f:selectItems value="#{buscarCajeroProgramarEventoController.accionList}" 
+                                                   var="var" 
+                                                   itemValue="#{var}" itemLabel="#{var.ACCION} " />
+
+
+
+
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel value="Fecha"/>
+
+
+                                <p:datePicker  hourFormat="12" id="fechaAdd" 
+                                               pattern="dd/MM/yyyy hh:mm a"
+
+                                               inline="true"
+                                               value="#{buscarCajeroProgramarEventoController.fechahoraBaja}" showTime="true">
+
+                                </p:datePicker>
+                                <f:facet name="footer">
+
+                                    <p:panelGrid  columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                                  style="border:0px none; background-color:transparent;">
+                                        <p:commandButton styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
+                                                         icon="pi pi-plus" 
+                                                         value="Agregar Cajero" 
+                                                         process="@this, selectOneMenuCajeroAdd,selectOneMenuAccionAdd,fechaAdd"
+
+                                                         action="#{buscarCajeroProgramarEventoController.onCommandButtonAgregarCajeroADataTable()}"
+                                                         update=":form:growl,  :form:direccion"
+                                                         >
+
+
+                                        </p:commandButton>
+
+                                        <p:commandButton value="REGRESAR"
+
+                                                         id="commandButtonRegresarMain"
+                                                         styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                         icon ="pi pi-arrow-left"
+                                                         action="#{buscarCajeroProgramarEventoController.onCommandButtonRegresarToProgramarEvento()}"
+                                                         />
+
+                                    </p:panelGrid>
+
+
+
+
+                                </f:facet>
+
+                            </p:panelGrid>
+
+
+
+
+
+
+                            <!--<token:tokenbajarplantilla id="tokenmodal"/>-->
+
+
+                        </div>
+                        <!-- content-wrapper ends -->
+
+
+
+
+
+                        <!-- FOOTER -->
+                        <template:footer/>
+
+
+
+                        <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+
+
+
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </h:form>    
+        <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">
+
+            <template:accesodenegado/>
+
+        </h:form>
+        <!-- container-scroller -->
+
+        <template:script/> 
+    </h:body>
+
+</html>
+

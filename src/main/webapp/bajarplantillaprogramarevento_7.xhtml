@@ -74,7 +74,103 @@
                                     </div>
                                 </div>
                             </div>
-             
+                            <p:panelGrid id="panelGridBusquedaCajero"
+
+
+                                         columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                         style="border:0px none; background-color:transparent;">
+
+                                <p:autoUpdate/>
+                                <p:outputLabel value="Cajero"/>
+                                <h:selectOneMenu id="selectOneMenuCajeroAdd" 
+
+                                                 value="#{bajarPlantillaProgramarEventoController.selectOneMenuCajeroValue}" 
+                                                 converter="#{cajeroConverter}"
+
+
+                                                 >
+                                    <f:selectItem itemLabel="Seleccione un Cajero" itemValue="#{null}"  noSelectionOption="true"/>
+                                    <f:selectItems value="#{bajarPlantillaProgramarEventoController.cajeroList}" 
+                                                   var="var" 
+                                                   itemValue="#{var}" itemLabel="#{var.CAJERO}" />
+
+
+                                    <p:ajax process="selectOneMenuCajeroAdd" event="change"
+                                            update=" :form:growl ,:form:direccion"
+                                            listener="#{bajarPlantillaProgramarEventoController.onSelectOneMenuCajeroChange()}"/>
+
+                                </h:selectOneMenu>
+
+                                <p:outputLabel value="Dirección"/>
+                                <p:outputLabel id="direccion" value="#{bajarPlantillaProgramarEventoController.selectOneMenuCajeroValue.DIRECCION}" />
+
+                                <p:outputLabel value="Acción"/>
+
+                                <h:selectOneMenu id="selectOneMenuAccionAdd" 
+
+                                                 value="#{bajarPlantillaProgramarEventoController.selectOneMenuAccionValue}" 
+                                                 converter="#{accionConverter}"
+                                                 >
+                                    <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
+                                    <f:selectItems value="#{bajarPlantillaProgramarEventoController.accionList}" 
+                                                   var="var" 
+                                                   itemValue="#{var}" itemLabel="#{var.ACCION} " />
+
+
+
+
+                                </h:selectOneMenu>
+
+
+                                <p:outputLabel value="Fecha"/>
+
+
+                                <p:datePicker  hourFormat="12" id="fechaAdd" 
+                                               pattern="dd/MM/yyyy hh:mm a"
+
+showButtonBar="true"
+                                               value="#{bajarPlantillaProgramarEventoController.fechahoraBaja}" showTime="true">
+
+                                </p:datePicker>
+                                <f:facet name="footer">
+
+                                   
+
+                                        <p:commandButton styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
+                                                         icon="pi pi-plus" 
+                                                         value="Agregar Cajero" 
+                                                         process="@this, selectOneMenuCajeroAdd,selectOneMenuAccionAdd,fechaAdd"
+                                                         oncomplete="remoteCommandUpdateDataTable()"
+                                                         action="#{bajarPlantillaProgramarEventoController.onCommandButtonAgregarCajeroADataTable()}"
+                                                         update=":form:growl, :form:dataTable, :form:direccion"
+                                                         >
+
+
+                                        </p:commandButton>
+
+                                        <!--                                        <p:commandButton  icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                                  value="Regresar" 
+                                                                                                  process="@this"
+                                        
+                                                                                                  action="#{bajarPlantillaProgramarEventoController.onComnandButtonRegresarDataTable()}"
+                                                                                                  update=":form:growl, :form:selectOneMenuCajeroAdd,:form:dataTable, :form:commandButtonSendToken, :form:direccion"
+                                                                                                  >
+                                        
+                                        
+                                                                                </p:commandButton>-->
+
+                                        <p:remoteCommand name="remoteCommandUpdateDataTable"
+                                                         update=":form:dataTable,:form:selectOneMenuAccionAdd, :form:direccion"/>
+
+
+
+
+
+                                   
+
+                                </f:facet>
+
+                            </p:panelGrid>
 
                             <div class="col-12 col-lg-12">
                                 <div class="table-responsive">
@@ -97,15 +193,16 @@
                                         <p:autoUpdate/>
                                         <p:ajax event="cellEdit" listener="#{bajarPlantillaProgramarEventoController.onCellEdit}" update=":form:growl, :form:dataTable"/>
                                         <f:facet name="header">
-                                           <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-search" 
+<!--                                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-search" 
                                                              value="Buscar Cajero" process="@this"
-                                                            
+                                                             oncomplete="remoteCommandDataTable()"
                                                              action="#{bajarPlantillaProgramarEventoController.onComnandButtonBuscarCajero()}"
-                                                             update=" :form:growl, :form:dataTable"
+                                                             update=" :form:growl, :form:panelGridBusquedaCajero, :form:dataTable"
                                                              >
                                             </p:commandButton>  
 
-
+                                            <p:remoteCommand name="remoteCommandDataTable"
+                                                             update=" :form:growl, :form:panelGridBusquedaCajero, :form:dataTable"/>-->
                                         </f:facet>
                                         <p:column headerText=""  style="width:5%; color:'#02A1DE'">
                                             <p:graphicImage name="atm-blue02.png" library="images" alt="" class="" />

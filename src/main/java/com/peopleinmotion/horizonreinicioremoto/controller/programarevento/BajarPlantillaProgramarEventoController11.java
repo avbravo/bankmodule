@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.peopleinmotion.horizonreinicioremoto.controller;
+package com.peopleinmotion.horizonreinicioremoto.controller.programarevento;
 
 /**
  *
@@ -47,7 +47,6 @@ import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
-import java.util.Collections;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -63,7 +62,7 @@ import org.primefaces.event.CellEditEvent;
 @Named
 @ViewScoped
 @Data
-public class BajarPlantillaProgramarEventoController implements Serializable, Page {
+public class BajarPlantillaProgramarEventoController11 implements Serializable, Page {
 
     // <editor-fold defaultstate="collapsed" desc="field ">
     private static final long serialVersionUID = 1L;
@@ -83,20 +82,14 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     private Boolean haveAccionReciente = Boolean.TRUE;
     private String selectOneMenuCuandoValue = "ahora";
     private Date fechahoraBaja;
-    private Date minDate;
     private TokenReader tokenReader = new TokenReader();
     private Boolean tokenEnviado = Boolean.FALSE;
-
-    private Boolean showDataTable = Boolean.TRUE;
-    private Boolean showPanelGridBusquedaCajero = Boolean.FALSE;
-
     private List<AccionReciente> accionRecienteProgramarEventoList = new ArrayList<>();
     private List<AccionReciente> accionRecienteProgramarEventoSelectedList = new ArrayList<>();
     List<Cajero> cajeroList = new ArrayList<>();
     List<Cajero> cajeroSelectedList = new ArrayList<>();
     private List<ProgramarEvento> programarEventoList = new ArrayList<>();
     private List<ProgramarEvento> programarEventoSelectedList = new ArrayList<>();
-    private ProgramarEvento programarEventoSelected = new ProgramarEvento();
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="@Inject ">
     @Inject
@@ -131,17 +124,13 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     /**
      * Creates a new instance of CajeroAccionController
      */
-    public BajarPlantillaProgramarEventoController() {
+    public BajarPlantillaProgramarEventoController11() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="void init() ">
     @PostConstruct
     public void init() {
         try {
-
-            showDataTable = Boolean.TRUE;
-            showPanelGridBusquedaCajero = Boolean.FALSE;
-            minDate = DateUtil.fechaActual();
             accionRecienteProgramarEventoList = new ArrayList<>();
             programarEventoList = new ArrayList<>();
 
@@ -150,13 +139,14 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
 
             } else {
                 fechahoraBaja = DateUtil.fechaHoraActual();
-
+           
                 selectOneMenuCuandoValue = "";
                 user = (Usuario) JmoordbContext.get("user");
                 bank = (Banco) JmoordbContext.get("banco");
                 cajero = (Cajero) JmoordbContext.get("cajero");
                 grupoAccion = (GrupoAccion) JmoordbContext.get("grupoAccion");
-               // JsfUtil.copyBeans(selectOneMenuCajeroValue, cajero);
+                JsfUtil.copyBeans(selectOneMenuCajeroValue, cajero);
+                     fillDataTableAccionReciente();
 
                 if (JsfUtil.contextToInteger("rowForPage") != null) {
                     rowForPage = JsfUtil.contextToInteger("rowForPage");
@@ -167,10 +157,6 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                  */
                 cajeroList = cajeroRepository.findByBancoIdAndActivo(bank, "SI");
 
-                /*
-                * Carga el evento al datatable
-                 */
-                //     fillDataTableProgramarEvento();
                 /**
                  * Buscare las acciones del grupo
                  */
@@ -273,14 +259,9 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     // <editor-fold defaultstate="collapsed" desc="onCommandButtonSendToken() ">
     public String onCommandButtonSendToken() {
         try {
-            tokenEnviado = Boolean.FALSE;
             /**
              * Valida que no se hay un agendamiento en la misma hora
              */
-            if (programarEventoList == null || programarEventoList.isEmpty()) {
-                JsfUtil.warningMessage("Debe agregar agendamientos a la lista para procesarlos");
-                return "";
-            }
 
             sendToken();
         } catch (Exception e) {
@@ -402,37 +383,29 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                 return "";
             }
 
-            if (programarEventoList == null || programarEventoList.isEmpty()) {
-                JsfUtil.warningMessage("No hay registros de agendamientos para procesar");
+            if (selectOneMenuAccionValue == null || selectOneMenuAccionValue.getACCIONID() == null) {
+                JsfUtil.warningMessage("No selecciono la acción a ejecutar");
+                return "";
+            }
+
+            JsfUtil.copyBeans(accion, selectOneMenuAccionValue);
+            /**
+             * Valida que no se hay un agendamiento en la misma hora
+             */
+            Integer count = agendaRepository.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
+            if (count > 0) {
+                ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha");
+                JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
+
                 return "";
             }
 
             if (accionList == null || accionList.isEmpty()) {
                 JsfUtil.warningMessage("No acciones para el grupo seleccionado");
-                return "";
-            }
-            /*
-            Revisar si tieen agendamiento en esa hora
-             */
-            Integer countExitosos = 0;
-            for (ProgramarEvento programarEvento : programarEventoList) {
-                JsfUtil.copyBeans(cajero, programarEvento.getCajero());
-                JsfUtil.copyBeans(accion, programarEvento.getAccion());
-                fechahoraBaja = programarEvento.getFechahora();
-                /**
-                 * Valida que no se hay un agendamiento en la misma hora
-                 */
-                Integer count = agendaRepository.countAgendamiento(programarEvento.getCajero().getBANCOID().getBANCOID(),
-                        programarEvento.getCajero().getCAJEROID(), programarEvento.getAccion().getACCIONID(),
-                        estado.getESTADOID(), programarEvento.getFechahora(), "SI");
-                if (count > 0) {
-                    ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha Cajero: " + programarEvento.getCajero().getCAJERO());
-                    JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
+            } else {
 
-                    return "";
-                }
+                Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
 
-                // Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
                 Agenda agenda = new Agenda();
                 agenda.setACTIVO("SI");
                 agenda.setCODIGOTRANSACCION(JsfUtil.generateUniqueID());
@@ -462,28 +435,31 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                          * Envio de email
                          */
                         emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
-                        countExitosos++;
+//       Boolean emailSend=    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
+//                     if(emailSend ){
+//                        ConsoleUtil.info("Si envio el email");
+//                    }else{
+//                        ConsoleUtil.error("No envio el email");
+//                    }
+                        MessagesForm messagesForm = new MessagesForm.Builder()
+                                .id(accionReciente.getCAJERO())
+                                .header("Operación Exitosa")
+                                .header2("La acción se realizo exitosamente")
+                                .image("atm-green01.png")
+                                .libary("images")
+                                .titulo("Bajar plantilla Programar evento")
+                                .mensaje("Se realizo exitosamente la baja de plantilla ")
+                                .returnTo("dashboard.xhtml")
+                                .build();
+                        JmoordbContext.put("messagesForm", messagesForm);
 
+                        JmoordbContext.put("pageInView", "messagesform.xhtml");
+                        return "messagesform.xhtml";
                     }
 
                 }
 
             }
-            MessagesForm messagesForm = new MessagesForm.Builder()
-                    .id(accionReciente.getCAJERO())
-                    .header("Operación Exitosa")
-                    .header2("Se procesaron exitosamente " + countExitosos)
-                    .image("atm-green01.png")
-                    .libary("images")
-                    .titulo("Bajar plantilla Programar evento")
-                    .mensaje("Se realizo exitosamente la baja de plantilla ")
-                    .returnTo("dashboard.xhtml")
-                    .build();
-            JmoordbContext.put("messagesForm", messagesForm);
-
-            JmoordbContext.put("pageInView", "messagesform.xhtml");
-            return "messagesform.xhtml";
-
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
@@ -537,35 +513,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
         }
-
-    }
-// </editor-fold> 
-    // <editor-fold defaultstate="collapsed" desc="String String onComnandButtonBuscarCajero()">
-
-    public String onComnandButtonBuscarCajero() {
-        try {
-            showDataTable = Boolean.FALSE;
-            showPanelGridBusquedaCajero = Boolean.TRUE;
-
-            PrimeFaces.current().ajax().update("form:growl", "form:dataTable", "form:panelGridBusquedaCajero", "form:commandButtonSendToken", "form:commandButtonRegresarMain");
-        } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
-        }
-        return "";
-    }
-// </editor-fold> 
-    // <editor-fold defaultstate="collapsed" desc="String String String onComnandButtonRegresarDataTable()">
-
-    public String onComnandButtonRegresarDataTable() {
-        try {
-            showDataTable = Boolean.TRUE;
-            showPanelGridBusquedaCajero = Boolean.FALSE;
-
-            PrimeFaces.current().ajax().update("form:growl", "form:dataTable", "form:panelGridBusquedaCajero", "form:commandButtonSendToken", "form:commandButtonRegresarMain");
-        } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
-        }
-        return "";
+        ;
     }
 // </editor-fold> 
 
@@ -580,23 +528,35 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                 JsfUtil.warningMessage("Por favor seleccione una Acción");
                 return "";
             }
-
-            ProgramarEvento programarEvento = ProgramarEvento.builder()
-                    .cajero(selectOneMenuCajeroValue)
-                    .accion(selectOneMenuAccionValue)
+            
+             ProgramarEvento programarEvento = ProgramarEvento.builder()
+                    .cajero(cajero)
+                    .accion(accion)
                     .fechahora(fechahoraBaja)
                     .build();
 
             programarEventoList.add(programarEvento);
-            cajeroList.remove(selectOneMenuCajeroValue);
-fechahoraBaja = DateUtil.fechaHoraActual();
-            if (cajeroList == null || cajeroList.isEmpty() || cajeroList.size() == 0) {
+//            AccionReciente accionReciente = AccionReciente.builder()
+//                    .ACCIONID(JsfUtil.toBigInteger(0))
+//                    .ACCIONRECIENTEID(JsfUtil.toBigInteger(0))
+//                    .ACTIVO("SI")
+//                    .AGENDAID(JsfUtil.toBigInteger(0))
+//                    .BANCOID(bank.getBANCOID())
+//                    .CAJERO(selectOneMenuCajeroValue.getCAJERO())
+//                    .CAJEROID(selectOneMenuCajeroValue.getCAJEROID())
+//                    .ESTADO(estado.getESTADO())
+//                    .ESTADOID(estado.getESTADOID())
+//                    .FECHA(fechahoraBaja)
+//                    .FECHAAGENDADA(fechahoraBaja)
+//                    .FECHAEJECUCION(fechahoraBaja)
+//                    .MENSAJE(accion.getACCION())
+//                    .TITULO(grupoAccion.getGRUPOACCION())
+//                    .VISTOBANCO("NO")
+//                    .VISTOTECNICO("NO")
+//                    .build();
 
-            } else {
-               // JsfUtil.copyBeans(selectOneMenuCajeroValue, cajeroList.get(0));
-            }
-            JsfUtil.successMessage("Se agrego a la lista el evento para ser agendado");
-            // onComnandButtonRegresarDataTable();
+            accionRecienteProgramarEventoList.add(accionReciente);
+           // PrimeFaces.current().executeScript("PF('widgetVarAgregarCajeroDialog').hide()");
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
@@ -616,8 +576,8 @@ fechahoraBaja = DateUtil.fechaHoraActual();
     }
     // </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="fillDataTableProgramarEvento() ">
-    private void fillDataTableProgramarEvento() {
+// <editor-fold defaultstate="collapsed" desc="fillDataTableAccionReciente()  ">
+    private void fillDataTableAccionReciente() {
         try {
             ProgramarEvento programarEvento = ProgramarEvento.builder()
                     .cajero(cajero)
@@ -626,7 +586,6 @@ fechahoraBaja = DateUtil.fechaHoraActual();
                     .build();
 
             programarEventoList.add(programarEvento);
-            cajeroList.remove(cajero);
 //            for (int i = 0; i <= 25; i++) {
 //                ProgramarEvento programarEventoVar = ProgramarEvento.builder()
 //                        .cajero(new Cajero())
@@ -642,33 +601,4 @@ fechahoraBaja = DateUtil.fechaHoraActual();
         }
     }
     // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="String onSelectOneMenuCajeroChange()">
-    public String onSelectOneMenuCajeroChange() {
-        try {
-          //JsfUtil.successMessage("Cajero seleccionado "+selectOneMenuCajeroValue);
-        } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
-        }
-        return "";
-    }
-// </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="void deleteProgramarEvento()">
-    public void deleteProgramarEvento() {
-
-        try {
-            programarEventoList.remove(programarEventoSelected);
-            cajeroList.add(programarEventoSelected.getCajero());
-            Collections.sort(cajeroList,
-                    (Cajero a, Cajero b) -> a.getCAJERO().compareTo(b.getCAJERO()));
-            JsfUtil.copyBeans(selectOneMenuCajeroValue, cajeroList.get(0));
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Agendamiento removido de la lista"));
-            PrimeFaces.current().ajax().update("form:growl", "form:dataTable", ":form:selectOneMenuCajeroAdd", ":form:direccion");
-        } catch (Exception e) {
-            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
-        }
-
-    }
-// </editor-fold>
 }
