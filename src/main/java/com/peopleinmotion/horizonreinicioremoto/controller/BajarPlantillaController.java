@@ -410,7 +410,7 @@ public class BajarPlantillaController implements Serializable, Page {
 
                         agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user);
 
-                        AccionReciente accionReciente = accionRecienteServices.create(agenda, bank, cajero, accion, grupoAccion, estado);
+                        AccionReciente accionReciente = accionRecienteServices.create(agenda, bank, cajero, accion, grupoAccion, estado,"SI");
                         JmoordbContext.put("accionReciente", accionReciente);
                         /**
                          * Envio de email

@@ -30,14 +30,15 @@ public class AccionRecienteServicesImpl implements AccionRecienteServices {
     AccionRecienteRepository accionRecienteRepository;
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="AccionReciente createAccionReciente(Agenda agenda, Banco banco, Cajero cajero, Accion accion, GrupoAccion grupoAccion, Estado estado) ">
+    // <editor-fold defaultstate="collapsed" desc="AccionReciente create(Agenda agenda, Banco banco, Cajero cajero, Accion accion, GrupoAccion grupoAccion, Estado estado,String autorizado) ">
     @Override
-    public AccionReciente create(Agenda agenda, Banco banco, Cajero cajero, Accion accion, GrupoAccion grupoAccion, Estado estado) {
+    public AccionReciente create(Agenda agenda, Banco banco, Cajero cajero, Accion accion, GrupoAccion grupoAccion, Estado estado, String autorizado) {
         AccionReciente accionReciente = new AccionReciente();
         try {
 
             accionReciente.setACCIONID(agenda.getACCIONID());
             accionReciente.setACTIVO("SI");
+            accionReciente.setAUTORIZADO(autorizado);
             accionReciente.setAGENDAID(agenda.getAGENDAID());
             accionReciente.setESTADO(estado.getESTADO());
             accionReciente.setESTADOID(estado.getESTADOID());

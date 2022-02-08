@@ -91,6 +91,14 @@ public class AccionReciente implements Serializable {
     @Size(min = 2, max = 2)
     @Column(name = "ACTIVO")
     private String ACTIVO;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 2, max = 2)
+    @Column(name = "AUTORIZADO")
+    private String AUTORIZADO;
+    
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 2, max = 2)
@@ -118,7 +126,7 @@ public class AccionReciente implements Serializable {
     public AccionReciente() {
     }
 
-    public AccionReciente(BigInteger ACCIONRECIENTEID, BigInteger ACCIONID, BigInteger ESTADOID, String ESTADO, BigInteger BANCOID, BigInteger CAJEROID, String CAJERO, BigInteger AGENDAID, String TITULO, String MENSAJE, String ACTIVO, String VISTOBANCO, String VISTOTECNICO, Date FECHA, Date FECHAAGENDADA, Date FECHAEJECUCION) {
+    public AccionReciente(BigInteger ACCIONRECIENTEID, BigInteger ACCIONID, BigInteger ESTADOID, String ESTADO, BigInteger BANCOID, BigInteger CAJEROID, String CAJERO, BigInteger AGENDAID, String TITULO, String MENSAJE, String ACTIVO, String AUTORIZADO, String VISTOBANCO, String VISTOTECNICO, Date FECHA, Date FECHAAGENDADA, Date FECHAEJECUCION) {
         this.ACCIONRECIENTEID = ACCIONRECIENTEID;
         this.ACCIONID = ACCIONID;
         this.ESTADOID = ESTADOID;
@@ -130,12 +138,23 @@ public class AccionReciente implements Serializable {
         this.TITULO = TITULO;
         this.MENSAJE = MENSAJE;
         this.ACTIVO = ACTIVO;
+        this.AUTORIZADO = AUTORIZADO;
         this.VISTOBANCO = VISTOBANCO;
         this.VISTOTECNICO = VISTOTECNICO;
         this.FECHA = FECHA;
         this.FECHAAGENDADA = FECHAAGENDADA;
         this.FECHAEJECUCION = FECHAEJECUCION;
     }
+
+    public String getAUTORIZADO() {
+        return AUTORIZADO;
+    }
+
+    public void setAUTORIZADO(String AUTORIZADO) {
+        this.AUTORIZADO = AUTORIZADO;
+    }
+
+   
 
     
     
