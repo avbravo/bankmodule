@@ -210,7 +210,7 @@ public class DashboardController implements Serializable, Page {
 // <editor-fold defaultstate="collapsed" desc="onCommandButtonSelectCajero ">
     public String onCommandButtonSelectCajero(Cajero cajero) {
         try {
-            ConsoleUtil.greenBackground(" onCommandButtonSelectCajero");
+           
             JmoordbContext.put("cajero", cajero);
 
             JsfUtil.infoDialog("Selecciono el cajero ", cajero.getCAJEROID().toString());

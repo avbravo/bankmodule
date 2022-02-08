@@ -59,9 +59,17 @@
                 </button>
                 <ul class="navbar-nav navbar-nav-right">	
                     <li class="nav-item">
+                        <p:commandLink class="nav-link" action="#{navigatorController.go('notificaciones.xhtml')}" 
+                                       title="Notificaciones">
+                            <i class="menu-icon ti-bell"></i>
+
+                        </p:commandLink>
+
+                    </li>
+                    <li class="nav-item">
 
                         <p:commandButton value="Cerrar Sesion"   styleClass="rounded-button ui-button-danger"                                                   
-               action="#{accessController.logout()}"/>
+                                         action="#{accessController.logout()}"/>
 
                     </li>
                 </ul>

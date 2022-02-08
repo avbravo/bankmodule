@@ -134,16 +134,16 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                  */
                 accionList = new ArrayList<>();
                 
-                ConsoleUtil.info("grupoAccion.toJSOON() -> "+grupoAccion.toJSON());
+             
                 
-                ConsoleUtil.info("grupoAccionEncenderSubirPlantillaId -> " +JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId").toString());
+              
 
                 if (grupoAccion.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId"))) {
-ConsoleUtil.info("va a buscar la lista...");
+
                     accionList = accionRepository.findByGrupoAccionIdAndPredeterminado(grupoAccion, "SI");
 
                 } else {
-                    ConsoleUtil.info("El grupoAccion debe ser Encender Subir Plantilla para realizar las operaciones");
+                    
                     JsfUtil.warningMessage("El grupoAccion debe ser Encender Subir Plantilla para realizar las operaciones");
                 }
                 if (accionList == null || accionList.isEmpty()) {
@@ -281,11 +281,11 @@ ConsoleUtil.info("la lista esta vacia..");
                 if (!emailServices.sendTokenToEmailSincrono(token, user)) {
                     JsfUtil.errorMessage("No se logro enviar el token a su correo. Reintente la operación");
                     tokenEnviado = Boolean.FALSE;
-                    ConsoleUtil.info("No lo pude enviar el dialogo...");
+               
                 } else {
                     JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
                     tokenEnviado = Boolean.TRUE;
-                    ConsoleUtil.info("mostrare el dialogo...");
+              
                     openDialogToken();
                 }
                 //Envia el token asincrono

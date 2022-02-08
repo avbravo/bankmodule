@@ -6,7 +6,6 @@
 package com.peopleinmotion.horizonreinicioremoto.controller;
 // <editor-fold defaultstate="collapsed" desc="import ">
 
-
 import com.peopleinmotion.horizonreinicioremoto.entity.AccionReciente;
 import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.entity.Cajero;
@@ -41,6 +40,7 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 // </editor-fold>
+
 /**
  *
  * @author avbravo
@@ -49,7 +49,7 @@ import org.primefaces.model.ScheduleModel;
 @Named
 @ViewScoped
 @Data
-public class AgendadosController implements Serializable, Page {
+public class NotificacionesController implements Serializable, Page {
 
 // <editor-fold defaultstate="collapsed" desc="field ">
     private static final long serialVersionUID = 1L;
@@ -69,14 +69,14 @@ public class AgendadosController implements Serializable, Page {
     List<Banco> bancoList = new ArrayList<>();
     List<AccionReciente> accionRecienteList = new ArrayList<>();
     List<AccionReciente> accionRecienteSelectedList = new ArrayList<>();
-    
+
     //Totales en el dashboard por grupo
     List<GrupoEstado> grupoEstadoList = new ArrayList<>();
     private BigInteger totalSolicitado = new BigInteger("0");
     private BigInteger totalFinalizado = new BigInteger("0");
     private BigInteger totalEnProceso = new BigInteger("0");
     private BigInteger totalNoSePuedeEjecutar = new BigInteger("0");
-    
+
     Banco selectOneMenuBancoValue = new Banco();
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
@@ -105,65 +105,51 @@ public class AgendadosController implements Serializable, Page {
     /**
      * Creates a new instance of DashboadController
      */
-    public AgendadosController() {
+    public NotificacionesController() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="init()">
     @PostConstruct
     public void init() {
         try {
-       
-          
-            
+
             if (JmoordbContext.get("user") == null) {
 
             } else {
-              
-               
-              
+
                 /**
                  * Leer de la sesion
                  */
                 user = (Usuario) JmoordbContext.get("user");
                 banco = (Banco) JmoordbContext.get("banco");
-                
-     if(JsfUtil.contextToInteger("rowForPage") != null){
-                    rowForPage=JsfUtil.contextToInteger("rowForPage");
+
+                if (JsfUtil.contextToInteger("rowForPage") != null) {
+                    rowForPage = JsfUtil.contextToInteger("rowForPage");
                 }
                 fillAccionRecienteList();
-                
-                
-                
 
-               
             }
         } catch (Exception e) {
-          JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
 
         }
 
     }
 
     // </editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="fillAccionRecienteList()">
-    public String fillAccionRecienteList(){
+    public String fillAccionRecienteList() {
         try {
-             banco = (Banco) JmoordbContext.get("banco");
-              accionRecienteList = accionRecienteRepository.findByBancoIdAndActivo(banco.getBANCOID(), "SI");
-             
+            banco = (Banco) JmoordbContext.get("banco");
+            accionRecienteList = accionRecienteRepository.findByBancoIdAndActivo(banco.getBANCOID(), "SI");
 
         } catch (Exception e) {
-             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
         }
         return "";
     }
-          
+
 // </editor-fold>
-
-
-
-   
     // <editor-fold defaultstate="collapsed" desc="String showDate(Date date) ">
     public String showDate(Date date) {
         return DateUtil.showDate(date);
@@ -175,8 +161,6 @@ public class AgendadosController implements Serializable, Page {
         return DateUtil.showHour(date);
     }
     // </editor-fold>
-
-
 
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonSelectAccionReciente(AccionReciente accionReciente)">
     public String onCommandButtonSelectAccionReciente(AccionReciente accionReciente, String formularioretorno) {
@@ -194,9 +178,9 @@ public class AgendadosController implements Serializable, Page {
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
-        
-       JmoordbContext.put("pageInView", "reagendar.xhtml");
-        return "reagendar.xhtml";
+
+        JmoordbContext.put("pageInView", "notificacionesformulario.xhtml");
+        return "notificacionesformulario.xhtml";
     }
 // </editor-fold>
 

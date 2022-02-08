@@ -276,11 +276,11 @@ public class BajarPlantillaController implements Serializable, Page {
                 if (!emailServices.sendTokenToEmailSincrono(token, user)) {
                     JsfUtil.errorMessage("No se logro enviar el token a su correo. Reintente la operación");
                     tokenEnviado = Boolean.FALSE;
-                    ConsoleUtil.info("No lo pude enviar el dialogo...");
+    
                 } else {
                     JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
                     tokenEnviado = Boolean.TRUE;
-                    ConsoleUtil.info("mostrare el dialogo...");
+             
         openDialogToken();
                 }
                 //Envia el token asincrono
@@ -375,7 +375,7 @@ public class BajarPlantillaController implements Serializable, Page {
              */
             Integer count = agendaRepository.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
             if (count > 0) {
-                ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha");
+            
                 JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
 
                 return "";
