@@ -19,7 +19,6 @@ import com.peopleinmotion.horizonreinicioremoto.entity.Token;
 import com.peopleinmotion.horizonreinicioremoto.entity.Usuario;
 import com.peopleinmotion.horizonreinicioremoto.interfaces.Page;
 import com.peopleinmotion.horizonreinicioremoto.jmoordb.JmoordbContext;
-import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
 import com.peopleinmotion.horizonreinicioremoto.repository.AccionRecienteRepository;
 import com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil;
 import java.io.Serializable;
@@ -31,7 +30,6 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import com.peopleinmotion.horizonreinicioremoto.repository.AccionRepository;
-import com.peopleinmotion.horizonreinicioremoto.repository.AgendaRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.CajeroRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.EmailConfigurationRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.EstadoRepository;
@@ -39,11 +37,11 @@ import com.peopleinmotion.horizonreinicioremoto.repository.GrupoAccionRepository
 import com.peopleinmotion.horizonreinicioremoto.repository.TokenRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AccionRecienteServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
+import com.peopleinmotion.horizonreinicioremoto.services.AgendaServices;
 import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
-import java.math.BigInteger;
 import java.util.Date;
 import lombok.Data;
 import org.primefaces.PrimeFaces;
@@ -98,7 +96,7 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
     @Inject
     EstadoRepository estadoRepository;
     @Inject
-    AgendaRepository agendaRepository;
+    AgendaServices agendaServices;
 
     @Inject
     AgendaHistorialServices agendaHistorialServices;
@@ -371,7 +369,7 @@ ConsoleUtil.info("la lista esta vacia..");
             /**
              * Valida que no se hay un agendamiento en la misma hora
              */
-            Integer count = agendaRepository.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
+            Integer count = agendaServices.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
             if (count > 0) {
                 ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha");
                 JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
@@ -385,30 +383,13 @@ ConsoleUtil.info("la lista esta vacia..");
 
                 Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
 
-                Agenda agenda = new Agenda();
-                agenda.setACTIVO("SI");
-                agenda.setCODIGOTRANSACCION(JsfUtil.generateUniqueID());
-                agenda.setCAJEROID(cajero.getCAJEROID());
-                agenda.setCAJERO(cajero.getCAJERO());
-                agenda.setBANCOID(cajero.getBANCOID().getBANCOID());
-                agenda.setESTADOID(estado.getESTADOID());
-                agenda.setACCIONID(accion.getACCIONID());
-                agenda.setFECHA(DateUtil.getFechaHoraActual());
-                agenda.setFECHAAGENDADA(DateUtil.getFechaHoraActual());
-                agenda.setFECHAEJECUCION(DateUtil.getFechaHoraActual());
-                agenda.setUSUARIOIDATIENDE(JsfUtil.toBigInteger(0));
-                agenda.setUSUARIOIDSOLICITA(user.getUSUARIOID());
+                  Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
+                if (!agendaOptional.isPresent()) {
+                    JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
+                } else {
+                    agendaHistorialServices.createHistorial(agendaOptional.get(), "REINICIO REMOTO", user);
 
-                if (agendaRepository.create(agenda)) {
-
-                    Optional<Agenda> agendaOptional = agendaRepository.findByCodigoTransaccion(agenda.getCODIGOTRANSACCION());
-                    if (!agendaOptional.isPresent()) {
-                        JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
-                    } else {
-
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REINICIO REMOTO", user);
-
-                        AccionReciente accionReciente = accionRecienteServices.create(agenda, bank, cajero, accion, grupoAccion, estado, "SI");
+                        AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI");
                         JmoordbContext.put("accionReciente", accionReciente);
                         /**
                          * Envio de email
@@ -434,11 +415,15 @@ ConsoleUtil.info("la lista esta vacia..");
 
                         JmoordbContext.put("pageInView", "messagesform.xhtml");
                         return "messagesform.xhtml";
-                    }
-
                 }
-
+                
             }
+                        
+                    
+
+                
+
+            
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }

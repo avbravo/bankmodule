@@ -43,6 +43,7 @@ import com.peopleinmotion.horizonreinicioremoto.repository.GrupoAccionRepository
 import com.peopleinmotion.horizonreinicioremoto.repository.TokenRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AccionRecienteServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
+import com.peopleinmotion.horizonreinicioremoto.services.AgendaServices;
 import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
@@ -117,7 +118,7 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
     @Inject
     EstadoRepository estadoRepository;
     @Inject
-    AgendaRepository agendaRepository;
+    AgendaServices agendaServices;
 
     @Inject
     AgendaHistorialServices agendaHistorialServices;
@@ -424,7 +425,7 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
                 /**
                  * Valida que no se hay un agendamiento en la misma hora
                  */
-                Integer count = agendaRepository.countAgendamiento(programarEvento.getCajero().getBANCOID().getBANCOID(),
+                Integer count = agendaServices.countAgendamiento(programarEvento.getCajero().getBANCOID().getBANCOID(),
                         programarEvento.getCajero().getCAJEROID(), programarEvento.getAccion().getACCIONID(),
                         estado.getESTADOID(), programarEvento.getFechahora(), "SI");
                 if (count > 0) {
@@ -434,31 +435,14 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
                     return "";
                 }
 
-                // Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
-                Agenda agenda = new Agenda();
-                agenda.setACTIVO("SI");
-                agenda.setCODIGOTRANSACCION(JsfUtil.generateUniqueID());
-                agenda.setCAJEROID(cajero.getCAJEROID());
-                agenda.setCAJERO(cajero.getCAJERO());
-                agenda.setBANCOID(cajero.getBANCOID().getBANCOID());
-                agenda.setESTADOID(estado.getESTADOID());
-                agenda.setACCIONID(accion.getACCIONID());
-                agenda.setFECHA(DateUtil.getFechaHoraActual());
-                agenda.setFECHAAGENDADA(fechahoraBaja);
-                agenda.setFECHAEJECUCION(fechahoraBaja);
-                agenda.setUSUARIOIDATIENDE(JsfUtil.toBigInteger(0));
-                agenda.setUSUARIOIDSOLICITA(user.getUSUARIOID());
-
-                if (agendaRepository.create(agenda)) {
-
-                    Optional<Agenda> agendaOptional = agendaRepository.findByCodigoTransaccion(agenda.getCODIGOTRANSACCION());
-                    if (!agendaOptional.isPresent()) {
-                        JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
-                    } else {
+             Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
+                if (!agendaOptional.isPresent()) {
+                    JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
+                } else {
 
                         agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user);
 
-                        AccionReciente accionReciente = accionRecienteServices.create(agenda, bank, cajero, accion, grupoAccion, estado,"SI");
+                        AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado,"SI");
                         JmoordbContext.put("accionReciente", accionReciente);
                         /**
                          * Envio de email
@@ -470,7 +454,7 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
 
                 }
 
-            }
+            
             MessagesForm messagesForm = new MessagesForm.Builder()
                     .id(accionReciente.getCAJERO())
                     .header("Operación Exitosa")

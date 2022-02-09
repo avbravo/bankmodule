@@ -43,6 +43,7 @@ import com.peopleinmotion.horizonreinicioremoto.repository.GrupoAccionRepository
 import com.peopleinmotion.horizonreinicioremoto.repository.TokenRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AccionRecienteServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
+import com.peopleinmotion.horizonreinicioremoto.services.AgendaServices;
 import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
@@ -116,9 +117,11 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
     AccionRepository accionRepository;
     @Inject
     EstadoRepository estadoRepository;
-    @Inject
-    AgendaRepository agendaRepository;
+//    @Inject
+//    AgendaRepository agendaRepository;
 
+    @Inject
+    AgendaServices agendaServices;
     @Inject
     AgendaHistorialServices agendaHistorialServices;
     @Inject
@@ -160,17 +163,15 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                     programarEventoList = (List<ProgramarEvento>) JmoordbContext.get("programarEventoListInProgramarEvento");
                 }
                 if (JmoordbContext.get("cajeroListInProgramarEvento") != null) {
-                       /*
+                    /*
                 Lista de Cajeros del Banco
-                 */
+                     */
                     cajeroList = (List<Cajero>) JmoordbContext.get("cajeroListInProgramarEvento");
                 } else {
                     cajeroList = cajeroRepository.findByBancoIdAndActivo(bank, "SI");
                 }
-             
 
-
- /*
+                /*
                 * Carga el evento al datatable
                  */
                 //     fillDataTableProgramarEvento();
@@ -425,7 +426,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                 /**
                  * Valida que no se hay un agendamiento en la misma hora
                  */
-                Integer count = agendaRepository.countAgendamiento(programarEvento.getCajero().getBANCOID().getBANCOID(),
+                Integer count = agendaServices.countAgendamiento(programarEvento.getCajero().getBANCOID().getBANCOID(),
                         programarEvento.getCajero().getCAJEROID(), programarEvento.getAccion().getACCIONID(),
                         estado.getESTADOID(), programarEvento.getFechahora(), "SI");
                 if (count > 0) {
@@ -435,48 +436,27 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                     return "";
                 }
 
-                // Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
-                Agenda agenda = new Agenda();
-                agenda.setACTIVO("SI");
-                agenda.setCODIGOTRANSACCION(JsfUtil.generateUniqueID());
-                agenda.setCAJEROID(cajero.getCAJEROID());
-                agenda.setCAJERO(cajero.getCAJERO());
-                agenda.setBANCOID(cajero.getBANCOID().getBANCOID());
-                agenda.setESTADOID(estado.getESTADOID());
-                agenda.setACCIONID(accion.getACCIONID());
-                agenda.setFECHA(DateUtil.getFechaHoraActual());
-                agenda.setFECHAAGENDADA(fechahoraBaja);
-                agenda.setFECHAEJECUCION(fechahoraBaja);
-                agenda.setUSUARIOIDATIENDE(JsfUtil.toBigInteger(0));
-                agenda.setUSUARIOIDSOLICITA(user.getUSUARIOID());
+                Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
+                if (!agendaOptional.isPresent()) {
+                    JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
+                } else {
+                    agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user);
 
-                if (agendaRepository.create(agenda)) {
-
-                    Optional<Agenda> agendaOptional = agendaRepository.findByCodigoTransaccion(agenda.getCODIGOTRANSACCION());
-                    if (!agendaOptional.isPresent()) {
-                        JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
-                    } else {
-
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user);
-
-                        AccionReciente accionReciente = accionRecienteServices.create(agenda, bank, cajero, accion, grupoAccion, estado,"SI");
-                        JmoordbContext.put("accionReciente", accionReciente);
-                        /**
-                         * Envio de email
-                         */
-                        emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
-                        countExitosos++;
-
-                    }
+                    AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI");
+                    JmoordbContext.put("accionReciente", accionReciente);
+                    /**
+                     * Envio de email
+                     */
+                    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
+                    countExitosos++;
 
                 }
 
             }
             //Limpio los arrayList del context
-               JmoordbContext.put("cajeroListInProgramarEvento", null);
+            JmoordbContext.put("cajeroListInProgramarEvento", null);
             JmoordbContext.put("programarEventoListInProgramarEvento", null);
 
-            
             MessagesForm messagesForm = new MessagesForm.Builder()
                     .id(accionReciente.getCAJERO())
                     .header("Operación Exitosa")
@@ -604,7 +584,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
             } else {
                 // JsfUtil.copyBeans(selectOneMenuCajeroValue, cajeroList.get(0));
             }
-         //   JsfUtil.successMessage("Se agrego a la lista el evento para ser agendado");
+            //   JsfUtil.successMessage("Se agrego a la lista el evento para ser agendado");
             // onComnandButtonRegresarDataTable();
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
