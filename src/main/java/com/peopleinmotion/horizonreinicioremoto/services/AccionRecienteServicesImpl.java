@@ -32,7 +32,7 @@ public class AccionRecienteServicesImpl implements AccionRecienteServices {
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="AccionReciente create(Agenda agenda, Banco banco, Cajero cajero, Accion accion, GrupoAccion grupoAccion, Estado estado,String autorizado) ">
     @Override
-    public AccionReciente create(Agenda agenda, Banco banco, Cajero cajero, Accion accion, GrupoAccion grupoAccion, Estado estado, String autorizado) {
+    public AccionReciente create(Agenda agenda, Banco banco, Cajero cajero, Accion accion, GrupoAccion grupoAccion, Estado estado, String autorizado, String modulo) {
         AccionReciente accionReciente = new AccionReciente();
         try {
 

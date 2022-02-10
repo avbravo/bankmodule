@@ -92,6 +92,12 @@ public class AccionReciente implements Serializable {
     @Column(name = "ACTIVO")
     private String ACTIVO;
     
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MODULO")
+    private String MODULO;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 2, max = 2)
