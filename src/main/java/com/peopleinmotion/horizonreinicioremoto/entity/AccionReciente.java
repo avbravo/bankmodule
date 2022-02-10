@@ -6,9 +6,7 @@
 package com.peopleinmotion.horizonreinicioremoto.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,12 +23,14 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Builder;
+import lombok.Data;
 
 /**
  *
  * @author avbravo
  */
 @Builder
+@Data
 @Entity
 @Table(name = "ACCIONRECIENTE")
 @NamedQueries({
@@ -132,7 +131,7 @@ public class AccionReciente implements Serializable {
     public AccionReciente() {
     }
 
-    public AccionReciente(BigInteger ACCIONRECIENTEID, BigInteger ACCIONID, BigInteger ESTADOID, String ESTADO, BigInteger BANCOID, BigInteger CAJEROID, String CAJERO, BigInteger AGENDAID, String TITULO, String MENSAJE, String ACTIVO, String AUTORIZADO, String VISTOBANCO, String VISTOTECNICO, Date FECHA, Date FECHAAGENDADA, Date FECHAEJECUCION) {
+    public AccionReciente(BigInteger ACCIONRECIENTEID, BigInteger ACCIONID, BigInteger ESTADOID, String ESTADO, BigInteger BANCOID, BigInteger CAJEROID, String CAJERO, BigInteger AGENDAID, String TITULO, String MENSAJE, String ACTIVO, String MODULO, String AUTORIZADO, String VISTOBANCO, String VISTOTECNICO, Date FECHA, Date FECHAAGENDADA, Date FECHAEJECUCION) {
         this.ACCIONRECIENTEID = ACCIONRECIENTEID;
         this.ACCIONID = ACCIONID;
         this.ESTADOID = ESTADOID;
@@ -144,6 +143,7 @@ public class AccionReciente implements Serializable {
         this.TITULO = TITULO;
         this.MENSAJE = MENSAJE;
         this.ACTIVO = ACTIVO;
+        this.MODULO = MODULO;
         this.AUTORIZADO = AUTORIZADO;
         this.VISTOBANCO = VISTOBANCO;
         this.VISTOTECNICO = VISTOTECNICO;
@@ -151,6 +151,8 @@ public class AccionReciente implements Serializable {
         this.FECHAAGENDADA = FECHAAGENDADA;
         this.FECHAEJECUCION = FECHAEJECUCION;
     }
+
+    
 
     public String getAUTORIZADO() {
         return AUTORIZADO;
