@@ -50,6 +50,7 @@ public class AccionRecienteServicesImpl implements AccionRecienteServices {
             accionReciente.setFECHA(agenda.getFECHA());
             accionReciente.setFECHAAGENDADA(agenda.getFECHAAGENDADA());
             accionReciente.setFECHAEJECUCION(agenda.getFECHAEJECUCION());
+            accionReciente.setMODULO(modulo);
             accionReciente.setVISTOBANCO("NO");
             accionReciente.setVISTOTECNICO("NO");
             if (accionRecienteRepository.create(accionReciente)) {
