@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                             </div>
-             
+
 
                             <div class="col-12 col-lg-12">
                                 <div class="table-responsive">
@@ -82,7 +82,7 @@
                                                  var="item" 
                                                  id="dataTable"
                                                  widgetVar="widgetVardataTable"
-                                    
+
                                                  lazy="false"
                                                  filteredValue="#{bajarPlantillaProgramarEventoController.programarEventoSelectedList}" 
                                                  binding="#{table1}"
@@ -97,14 +97,14 @@
                                         <p:autoUpdate/>
                                         <p:ajax event="cellEdit" listener="#{bajarPlantillaProgramarEventoController.onCellEdit}" update=":form:growl, :form:dataTable"/>
                                         <f:facet name="header">
-                                           <p:commandButton   styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
-                                                            
-                                                            icon="pi pi-search" 
-                                                             value="Buscar Cajero" process="@this"
-                                                            
-                                                             action="#{bajarPlantillaProgramarEventoController.onComnandButtonBuscarCajero()}"
-                                                             update=" :form:growl, :form:dataTable"
-                                                             >
+                                            <p:commandButton   styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
+
+                                                               icon="pi pi-search" 
+                                                               value="Buscar Cajero" process="@this"
+
+                                                               action="#{bajarPlantillaProgramarEventoController.onComnandButtonBuscarCajero()}"
+                                                               update=" :form:growl, :form:dataTable"
+                                                               >
                                             </p:commandButton>  
 
 
@@ -157,7 +157,7 @@
                                     <p:commandButton value="Solicitar Token" icon="pi pi-inbox" 
                                                      title="Envia el token al correo"
                                                      id="commandButtonSendToken"
-                                                    
+
                                                      action="#{bajarPlantillaProgramarEventoController.onCommandButtonSendToken()}"
                                                      update=":form:growl"                                                                    
                                                      styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
@@ -166,7 +166,7 @@
 
 
                                     <p:commandButton value="REGRESAR"
-                                                     
+
                                                      id="commandButtonRegresarMain"
                                                      styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                                      icon ="pi pi-arrow-left"
@@ -220,13 +220,16 @@
 
 
 
-            <h:panelGroup id="panelGroupToken">
-                <p:dialog widgetVar="widgetVarTokenDialog" header="Token" showEffect="fade" hideEffect="fade"
-                          width="40%"
+            <div style="position: absolute; left: 1px; top: 1px;">
+                <p:dialog widgetVar="widgetVarTokenDialog" header="Token"
+                          showEffect="fade" hideEffect="fade"
+                          minHeight="40" width="350" 
+
                           style="width:20%;margin:0 auto"
                           position="center center"
                           onShow="PF('widgetVarTokenDialog').initPosition()"
                           resizable="false"
+
                           >
 
                     <f:facet name="header">
@@ -350,7 +353,7 @@
                     </f:facet>
                     <p:messages id="tokenmessage" />
                 </p:dialog>
-            </h:panelGroup>
+            </div>
 
             <h:panelGroup id="panelGroupdeleteProgramarEventoDialog">
                 <p:confirmDialog widgetVar="deleteProgramarEventoDialog" showEffect="fade" width="300"

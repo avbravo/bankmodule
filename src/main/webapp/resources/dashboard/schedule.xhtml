@@ -51,17 +51,18 @@
 
         </p:outputPanel>
 
-        <p:outputPanel id="outputPanelDialogoSchedule">
+       <div style="position: absolute; left: 1px; top: 1px;">
 
 
-            <p:dialog widgetVar="widgetVarscheduleDialog" header="Accion Reciente" showEffect="fade" hideEffect="fade"
-                      width="50%"
+            <p:dialog widgetVar="widgetVarscheduleDialog" header="Accion Reciente" 
+                     showEffect="fade" hideEffect="fade"
+                          minHeight="150" width="350" 
+               
+                          style="width:20%;margin:0 auto"
+                          position="center center"
+                          onShow="PF('widgetVarscheduleDialog').initPosition()"
+                          resizable="false"
 
-                      style="width:20%;margin:0 auto"
-                      position="center center"
-                      onShow="PF('widgetVarscheduleDialog').initPosition()"
-                      resizable="false"
-                      focus="commandButtonProcesar"
                       >
                 <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
                     <p:outputLabel  value="Cajero" styleClass="p-text-bold"/>
@@ -117,7 +118,7 @@
 
                 </f:facet>
             </p:dialog>
-        </p:outputPanel>
+</div>
 
 
 

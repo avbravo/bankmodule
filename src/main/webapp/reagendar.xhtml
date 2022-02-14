@@ -175,22 +175,27 @@
                 </div>
                 <!-- page-body-wrapper ends -->
             </div>
+            
+             <div style="position: absolute; left: 1px; top: 1px;">
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
                 <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
             </p:confirmDialog>
+    </div>
 
 
+<div style="position: absolute; left: 1px; top: 1px;">
 
-            <h:panelGroup id="panelGroupToken">
-
-                <p:dialog widgetVar="widgetVarTokenDialog" header="Token" showEffect="fade" hideEffect="fade"
-                          width="50%"
-
+                <p:dialog widgetVar="widgetVarTokenDialog" header="Token" 
+               showEffect="fade" hideEffect="fade"
+                          minHeight="40" width="350" 
+               
                           style="width:20%;margin:0 auto"
                           position="center center"
                           onShow="PF('widgetVarTokenDialog').initPosition()"
                           resizable="false"
+
+
                           >
 
 
@@ -318,16 +323,18 @@
                     </f:facet>
                     <p:messages id="tokenmessage" />
                 </p:dialog>
-            </h:panelGroup>     
-            <h:panelGroup id="panelGroupTokenReagendar">
+</div>  
+           <div style="position: absolute; left: 1px; top: 1px;">
 
-                <p:dialog widgetVar="widgetVarTokenDialogReagendar" header="Token" showEffect="fade" hideEffect="fade"
-                          width="50%"
-
+                <p:dialog widgetVar="widgetVarTokenDialogReagendar" header="Token" 
+                        showEffect="fade" hideEffect="fade"
+                          minHeight="40" width="350" 
+               
                           style="width:20%;margin:0 auto"
                           position="center center"
                           onShow="PF('widgetVarTokenDialogReagendar').initPosition()"
                           resizable="false"
+
                           >
 
 
@@ -455,8 +462,7 @@
                     </f:facet>
                     <p:messages id="tokenmessageReagendar" />
                 </p:dialog>
-            </h:panelGroup>     
-
+          </div>  
 
 
 

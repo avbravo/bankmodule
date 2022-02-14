@@ -214,13 +214,16 @@
 
 
 
-            <h:panelGroup id="panelGroupToken">
-                <p:dialog widgetVar="widgetVarTokenDialog" header="Token" showEffect="fade" hideEffect="fade"
-                          width="40%"
+          <div style="position: absolute; left: 1px; top: 1px;">
+                <p:dialog widgetVar="widgetVarTokenDialog" header="Token" 
+                        showEffect="fade" hideEffect="fade"
+                          minHeight="40" width="350" 
+               
                           style="width:20%;margin:0 auto"
                           position="center center"
                           onShow="PF('widgetVarTokenDialog').initPosition()"
                           resizable="false"
+
                           >
 
                     <f:facet name="header">
@@ -345,7 +348,7 @@
                     </f:facet>
                     <p:messages id="tokenmessage" />
                 </p:dialog>
-            </h:panelGroup>
+        </div>
 
             
         </h:form>    

@@ -174,15 +174,17 @@
 
 
       
-            <h:panelGroup id="panelGroupTokenEjecutar">
+     <div style="position: absolute; left: 1px; top: 1px;">
 
-                <p:dialog widgetVar="widgetVarTokenDialogEjecutar" header="Token" showEffect="fade" hideEffect="fade"
-                          width="50%"
-
+                <p:dialog widgetVar="widgetVarTokenDialogEjecutar" header="Token" 
+                          showEffect="fade" hideEffect="fade"
+                          minHeight="40" width="350" 
+               
                           style="width:20%;margin:0 auto"
                           position="center center"
                           onShow="PF('widgetVarTokenDialogEjecutar').initPosition()"
                           resizable="false"
+
                           >
 
 
@@ -310,7 +312,7 @@
                     </f:facet>
                     <p:messages id="tokenmessageReagendar" />
                 </p:dialog>
-            </h:panelGroup>     
+   </div>    
 
 
 

@@ -222,14 +222,15 @@
 
 
 
-            <h:panelGroup id="panelGroupToken">
+            <!--<h:panelGroup id="panelGroupToken">-->
+            <div style="position: absolute; left: 1px; top: 1px;">
                 <p:dialog widgetVar="widgetVarTokenDialog" header="Token" showEffect="fade" hideEffect="fade"
-                          width="40%"
+                          minHeight="40" width="350" 
+               
                           style="width:20%;margin:0 auto"
                           position="center center"
                           onShow="PF('widgetVarTokenDialog').initPosition()"
                           resizable="false"
-                 
                           >
 
                     <f:facet name="header">
@@ -353,9 +354,9 @@
                     </f:facet>
                     <p:messages id="tokenmessage" />
                 </p:dialog>
-            </h:panelGroup>
+            <!--</h:panelGroup>-->
 
-
+</div>
         </h:form>    
         <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">
 
