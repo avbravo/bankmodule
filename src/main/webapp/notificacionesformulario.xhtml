@@ -117,7 +117,7 @@
                                     <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
                                                  style="border:0px none; background-color:transparent;">
 
-                                        <p:commandButton value="Ejecutar" 
+                                        <p:commandButton value="EJECUTAR" 
                                                          styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                                                          update=":form:growl"
                                                          icon="pi pi-calendar-plus"
@@ -167,8 +167,8 @@
                 <!-- page-body-wrapper ends -->
             </div>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" />
             </p:confirmDialog>
 
 
@@ -293,7 +293,7 @@
                     <f:facet name="footer">
                         <p:commandButton  oncomplete="PF('widgetVarTokenDialogEjecutar').hide();" 
                                           action="#{notificacionesFormularioController.remoteCommand()}"
-                                          value="Cerrar"
+                                          value="CERRAR"
                                           process="@this"
                                           icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                           />
@@ -303,7 +303,7 @@
                                         
                                          icon="pi pi-unlock"
                                          title="Reagendar"
-                                         value="Aceptar"
+                                         value="ACEPTAR"
                                          action="#{notificacionesFormularioController.onCommandButtonEjecutar()}">
 
                         </p:commandButton>

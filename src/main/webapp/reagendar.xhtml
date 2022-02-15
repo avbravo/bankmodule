@@ -117,7 +117,7 @@
                                     <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
                                                  style="border:0px none; background-color:transparent;">
 
-                                        <p:commandButton value="Reagendar" 
+                                        <p:commandButton value="REAGENDAR" 
                                                          styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                                                          update=":form:growl"
                                                          icon="pi pi-calendar-plus"
@@ -127,7 +127,7 @@
 
                                         </p:commandButton>
 
-                                        <p:commandButton value="Cancelar Acción" 
+                                        <p:commandButton value="CANCELAR ACCIÓN" 
                                                          update=":form:growl"
                                                          icon="pi pi-trash"            
                                                          rendered="#{!reagendarController.accionReciente.ESTADO.trim().equals('Ejecutada')}"
@@ -178,8 +178,8 @@
             
              <div style="position: absolute; left: 1px; top: 1px;">
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" />
             </p:confirmDialog>
     </div>
 
@@ -304,7 +304,7 @@
                     <f:facet name="footer">
                         <p:commandButton  oncomplete="PF('widgetVarTokenDialog').hide();" 
                                           action="#{reagendarController.remoteCommand()}"
-                                          value="Cerrar"
+                                          value="CERRAR"
                                           process="@this"
                                           icon="pi pi-times" 
                                           styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
@@ -315,7 +315,7 @@
                                 
                                          icon="pi pi-unlock"
                                          title="Cancelar Agenda"
-                                         value="Aceptar"
+                                         value="ACEPTAR"
                                          action="#{reagendarController.onCommandButtonCancelar()}"
                                          >
                         </p:commandButton>
@@ -443,7 +443,7 @@
                     <f:facet name="footer">
                         <p:commandButton  oncomplete="PF('widgetVarTokenDialogReagendar').hide();" 
                                           action="#{reagendarController.remoteCommand()}"
-                                          value="Cerrar"
+                                          value="CERRAR"
                                           process="@this"
                                           icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                           />
@@ -453,7 +453,7 @@
                                         
                                          icon="pi pi-unlock"
                                          title="Reagendar"
-                                         value="Aceptar"
+                                         value="ACEPTAR"
                                          action="#{reagendarController.onCommandButtonReagendar()}">
 
                         </p:commandButton>

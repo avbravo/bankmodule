@@ -100,7 +100,7 @@
                                             <p:commandButton   styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
 
                                                                icon="pi pi-search" 
-                                                               value="Buscar Cajero" process="@this"
+                                                               value="BUSCAR CAJERO" process="@this"
 
                                                                action="#{bajarPlantillaProgramarEventoController.onComnandButtonBuscarCajero()}"
                                                                update=" :form:growl, :form:dataTable"
@@ -154,7 +154,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-12 col-lg-12 ">
 
-                                    <p:commandButton value="Solicitar Token" icon="pi pi-inbox" 
+                                    <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
                                                      title="Envia el token al correo"
                                                      id="commandButtonSendToken"
 
@@ -336,7 +336,7 @@
                     <f:facet name="footer">
                         <p:commandButton  oncomplete="PF('widgetVarTokenDialog').hide();" 
                                           action="#{bajarPlantillaProgramarEventoController.remoteCommand()}"
-                                          value="Cerrar"
+                                          value="CERRAR"
                                           process="@this"
                                           icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                           />
@@ -344,7 +344,7 @@
 
                                          update="tokenDialogDetails, tokenmessage"
                                          icon="pi pi-unlock"
-                                         value="Aceptar"
+                                         value="ACEPTAR"
                                          action="#{bajarPlantillaProgramarEventoController.onCommandButtonBajarPlantillaProgramarEvento()}">
 
                         </p:commandButton>
@@ -358,9 +358,9 @@
             <h:panelGroup id="panelGroupdeleteProgramarEventoDialog">
                 <p:confirmDialog widgetVar="deleteProgramarEventoDialog" showEffect="fade" width="300"
                                  message="Desea quitar este agendamiento?" header="Confirmar" severity="warn">
-                    <p:commandButton value="Si" icon="pi pi-check" actionListener="#{bajarPlantillaProgramarEventoController.deleteProgramarEvento()}"
+                    <p:commandButton value="SI" icon="pi pi-check" actionListener="#{bajarPlantillaProgramarEventoController.deleteProgramarEvento()}"
                                      process="@this" oncomplete="PF('deleteProgramarEventoDialog').hide()"/>
-                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                    <p:commandButton value="NO" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
                                      onclick="PF('deleteProgramarEventoDialog').hide()"/>
                 </p:confirmDialog>
             </h:panelGroup>

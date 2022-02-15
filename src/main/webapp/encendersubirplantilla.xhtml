@@ -150,7 +150,7 @@
                                             <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
                                                          style="border:0px none; background-color:transparent;">
                                                 <c:if test="${encenderSubirPlantillaController.showButton}">
-                                                    <p:commandButton value="Solicitar Token" icon="pi pi-inbox" 
+                                                    <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
                                                                      title="Envia el token al correo"
                                                                      id="commandButtonSendToken"
                                                                      action="#{encenderSubirPlantillaController.onCommandButtonSendToken()}"
@@ -328,18 +328,18 @@
                     </p:panelGrid>					
 
                     <f:facet name="footer">
-                        <p:commandButton  oncomplete="PF('widgetVarTokenDialog').hide();" 
+                        <p:commandButton value="CERRAR" oncomplete="PF('widgetVarTokenDialog').hide();" 
                                           action="#{encenderSubirPlantillaController.remoteCommand()}"
-                                          value="Cerrar"
+                                          
                                           process="@this"
                                           icon="pi pi-times"
                                      styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                           />
-                        <p:commandButton styleClass="rounded-button ui-button-danger" 
+                        <p:commandButton   value="ACEPTAR" styleClass="rounded-button ui-button-danger" 
 
                                          update="tokenDialogDetails, tokenmessage"
                                          icon="pi pi-unlock"
-                                         value="Aceptar"
+                                        
                                          action="#{encenderSubirPlantillaController.onCommandButtonEncenderSubirPlantilla()}">
 
                         </p:commandButton>
