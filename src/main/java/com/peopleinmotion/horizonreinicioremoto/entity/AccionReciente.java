@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.QueryHint;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,6 +25,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
+import org.eclipse.persistence.config.HintValues;
+import org.eclipse.persistence.config.QueryHints;
 
 /**
  *
@@ -34,7 +37,7 @@ import lombok.Data;
 @Entity
 @Table(name = "ACCIONRECIENTE")
 @NamedQueries({
-    @NamedQuery(name = "AccionReciente.findAll", query = "SELECT a FROM AccionReciente a"),
+    @NamedQuery(name = "AccionReciente.findAll", query = "SELECT a FROM AccionReciente a", hints = {@QueryHint(name=QueryHints.REFRESH, value=HintValues.TRUE)}),
     @NamedQuery(name = "AccionReciente.findByAccionRecienteId", query = "SELECT a FROM AccionReciente a WHERE a.ACCIONRECIENTEID = :ACCIONRECIENTEID"),
     @NamedQuery(name = "AccionReciente.findByAccionId", query = "SELECT a FROM AccionReciente a WHERE a.ACCIONID = :ACCIONID"),
     @NamedQuery(name = "AccionReciente.findByCajeroId", query = "SELECT a FROM AccionReciente a WHERE a.CAJEROID = :CAJEROID"),

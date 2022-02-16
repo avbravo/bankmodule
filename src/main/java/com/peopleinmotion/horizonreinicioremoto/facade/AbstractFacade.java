@@ -47,6 +47,9 @@ public abstract class AbstractFacade<T> {
             //Agregar esto para persistir los datos en la base de datos
             getEntityManager().flush();
             // getEntityManager().refresh(entity);
+            
+//          getEntityManager().clear();
+//getEntityManager().close();
         } catch (Exception e) {
                  JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
@@ -71,6 +74,7 @@ public abstract class AbstractFacade<T> {
 
     public List<T> findAll() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+     
         cq.select(cq.from(entityClass));
         return getEntityManager().createQuery(cq).getResultList();
     }
@@ -79,6 +83,7 @@ public abstract class AbstractFacade<T> {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
+//        javax.persistence.Query q = getEntityManager().createQuery(cq).setHint("javax.persistence.cache.storeMode", "REFRESH");
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
         return q.getResultList();
@@ -89,6 +94,7 @@ public abstract class AbstractFacade<T> {
         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
+//        javax.persistence.Query q = getEntityManager().createQuery(cq).setHint("javax.persistence.cache.storeMode", "REFRESH");
         return ((Long) q.getSingleResult()).intValue();
     }
 
@@ -97,7 +103,9 @@ public abstract class AbstractFacade<T> {
     public List<T> sql(QuerySQL querySQL) {
         List<T> list = new ArrayList<>();
         try {
-            Query query = getEntityManager().createQuery(querySQL.getQuery());           
+            Query query = getEntityManager().createQuery(querySQL.getQuery());   
+//            Query query = getEntityManager().createQuery(querySQL.getQuery()).setHint("javax.persistence.cache.storeMode", "REFRESH");   
+            
             list = query.getResultList();
         } catch (Exception e) {
              ConsoleUtil.error(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
@@ -113,6 +121,7 @@ public abstract class AbstractFacade<T> {
         List<T> list = new ArrayList<>();
         try {
             Query query = getEntityManager().createQuery(querySQL.getQuery());
+//            Query query = getEntityManager().createQuery(querySQL.getQuery()).setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setFirstResult(pageNumber).setMaxResults(rowForPage);
             list = query.getResultList();
         } catch (Exception e) {

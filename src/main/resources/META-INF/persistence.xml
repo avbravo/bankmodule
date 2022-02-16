@@ -4,6 +4,8 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>jdbc/teleredDS</jta-data-source>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <!-- Para el cache-->
+         <!--<shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>-->
         <properties>
             <!--<property name="eclipselink.ddl-generation" value="create-tables" />-->
             <!--<property name="eclipselink.logging.level" value="FINE"/>--> 

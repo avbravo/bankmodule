@@ -18,6 +18,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
+import org.eclipse.persistence.config.HintValues;
+import org.eclipse.persistence.config.QueryHints;
 
 /**
  *
@@ -125,8 +127,10 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
             
             Query query = em.createQuery("SELECT a FROM AccionReciente a WHERE a.BANCOID = :BANCOID AND a.CAJEROID = :CAJEROID AND (a.ESTADOID <= 2) ORDER BY a.AGENDAID DESC");
                  query.setParameter("BANCOID", BANCOID).setParameter("CAJEROID", CAJEROID);
+          query.setHint(QueryHints.REFRESH, HintValues.TRUE);
             query.setFirstResult(0);
             query.setMaxResults(1);
+            
             AccionReciente accionReciente = (AccionReciente) query.getSingleResult();
             return Optional.of(accionReciente);
         } catch (Exception ex) {

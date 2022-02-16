@@ -139,7 +139,7 @@ public class ReagendarController implements Serializable, Page {
     @PostConstruct
     public void init() {
         try {
-            ConsoleUtil.info("ReagendarController.init()..");
+          
            
             updateByOtherUser = Boolean.FALSE;
             if (JmoordbContext.get("user") == null) {
