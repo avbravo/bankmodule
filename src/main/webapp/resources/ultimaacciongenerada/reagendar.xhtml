@@ -23,6 +23,8 @@
                         <dd class="atm-title-mar01"><strong>#{reagendarController.accionReciente.TITULO}</strong>(<p:outputLabel value="#{reagendarController.accionReciente.MENSAJE}"/>)</dd>                        
                         <dd class="atm-title-mar01"><p:outputLabel value="Se Agendo el: #{reagendarController.showDate(reagendarController.accionReciente.FECHAAGENDADA)}"/></dd>
                         <dd class="atm-title-mar01"><p:outputLabel value="Hora Agendada:#{reagendarController.showHour(reagendarController.accionReciente.FECHAAGENDADA)}"/></dd>
+                                                <dd class="atm-title-mar01"><p:outputLabel value="Fecha Creación: #{reagendarController.showDate(reagendarController.accionReciente.FECHA)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Creación:#{reagendarController.showHour(reagendarController.accionReciente.FECHA)}"/></dd>
                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{!reagendarController.renderedByEstadoSolicitado()}" value="Fecha Ejecución: #{reagendarController.showDate(reagendarController.accionReciente.FECHAEJECUCION)}"/></dd>
                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{!reagendarController.renderedByEstadoSolicitado()}" value="Hora Ejecución: #{reagendarController.showHour(reagendarController.accionReciente.FECHAEJECUCION)}"/></dd>
                         <dd class="atm-title-mar01"><p:outputLabel value="Estado:"/> <strong><p:outputLabel value="#{reagendarController.accionReciente.ESTADO}"/></strong><p:spacer width="5"/><p:outputLabel value="| Transacción No:"/><strong><p:outputLabel value="#{reagendarController.accionReciente.ACCIONRECIENTEID}"/></strong></dd>
