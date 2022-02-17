@@ -108,9 +108,9 @@
                                                 </div>
                                             </f:facet>
                                             <p:column headerText="Cajero"  style="width:4%; color:'#02A1DE'">
-                                                <p:graphicImage name="atm-blue02.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'NO'}"/>
-                                                <p:graphicImage name="atm-green01.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'SI'}"/>
-                                                <p:graphicImage name="atm-liblue01.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'PE'}"/>
+                                                <p:graphicImage title="Rechazado" name="atm-blue02.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'NO'}"/>
+                                                <p:graphicImage title="Autorizado" name="atm-green01.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'SI'}"/>
+                                                <p:graphicImage title="Pendiente" name="atm-liblue01.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'PE'}"/>
                                             </p:column>
                                             <p:column headerText="" style="width:8%;" filterBy="#{item.CAJERO}">
 
@@ -119,7 +119,9 @@
                                                                 value="#{item.CAJERO}"
                                                                 update=":form:growl"
                                                                 title="Ir a control manual"
-                                                                action="#{notificacionesController.onCommandButtonSelectAccionReciente(item,'notificaciones')}"/>
+                                                                action="#{notificacionesController.onCommandButtonSelectAccionReciente(item,'notificaciones')}">
+                                                    
+                                                </p:commandLink>
 
                                             </p:column>
 
@@ -128,12 +130,12 @@
 
                                                 <label class="text-black">#{item.ESTADO}</label>
                                             </p:column>
-                                            <p:column headerText="Autorizado" >
+<!--                                            <p:column headerText="Autorizado" >
 
                                                 <p:outputLabel value="Autorizado" rendered="#{item.AUTORIZADO eq 'SI'}"/>
                                                 <p:outputLabel value="Denegado" rendered="#{item.AUTORIZADO eq 'NO'}"/>
                                                 <p:outputLabel value="Pendiente" rendered="#{item.AUTORIZADO eq 'PE'}"/>
-                                            </p:column>
+                                            </p:column>-->
                                             <p:column headerText="Acción" filterBy="#{item.TITULO}">
                                                 <label class="badge badge-danger">#{item.TITULO}</label>
 
@@ -146,9 +148,9 @@
                                             <p:column headerText="Hora" >
                                                 <label class="text-black">#{notificacionesController.showHour(item.FECHAAGENDADA)}</label>
                                             </p:column>
-                                            <p:column headerText="#" >
+<!--                                            <p:column headerText="#" >
                                                 <label class="text-black">#{item.ACCIONRECIENTEID}</label>
-                                            </p:column>
+                                            </p:column>-->
 
                                         </p:dataTable>
 
