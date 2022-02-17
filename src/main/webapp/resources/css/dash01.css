@@ -279,7 +279,7 @@ a.bot-regresar01:hover{
     border: 0px solid #F5B041;
     background-color: #02a1de;
 	
-	background-image: url("../images/bg-token01.png");
+	/*background-image: url("../images/bg-token01.png");*/
 	background-attachment: scroll;
 	background-position: left center;
 	background-repeat: no-repeat;
@@ -290,9 +290,9 @@ a.bot-regresar01:hover{
 	padding-left:15px;
 	padding-right:0px;
 	margin-right:0px;
-    font-size: 45pt;
+    font-size: 50pt;
     width: 278px;
-    height: 64px;
+    height: 30px;
     margin-bottom: 0px;
 	letter-spacing: 41px;
 	overflow-y: hidden;

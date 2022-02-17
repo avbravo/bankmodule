@@ -341,9 +341,6 @@ public class BajarPlantillaController implements Serializable, Page {
     
     
    
-    
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonBajarPlantillaProgramarEvento()">
     /**

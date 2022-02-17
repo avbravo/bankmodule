@@ -57,9 +57,9 @@ public class EmailServicesImpl implements EmailServices {
             String supervisadoMessage = "";
 
             messages = "\n  "
-                    + "\n----------------------ACCION RECIENTE---------------------------------------"
+                    + "\n----------------------Acción Reciente---------------------------------------"
                     + "\n"
-                    + header
+                    + header.toLowerCase()
                     + "\n"
                     + accionReciente.getTITULO()
                     + "\nFecha : "
@@ -99,7 +99,7 @@ public class EmailServicesImpl implements EmailServices {
             String supervisadoMessage = "";
 
             messages = "\n  "
-                    + "\n----------------------TOKEN GENERADO---------------------------------------"
+                    + "\n----------------------Token Generado---------------------------------------"
                     + "\n"
                     + header
                     + "\n"
@@ -167,7 +167,7 @@ public class EmailServicesImpl implements EmailServices {
             @Override
             public Object call() throws Exception {
 
-                jmoordbEmailSender.sendOutlook(emailreceptor, titulo, mensaje, emailemisor, passwordemisor);
+                jmoordbEmailSender.sendOutlook(emailreceptor, titulo.toLowerCase(), mensaje, emailemisor, passwordemisor);
 
                 completableFuture.complete("enviado");
 
@@ -190,7 +190,7 @@ public class EmailServicesImpl implements EmailServices {
             @Override
             public Object call() throws Exception {
 
-                jmoordbEmailSender.sendOutlook(to, cc, bcc, titulo, mensaje, emailemisor, passwordemisor, false);
+                jmoordbEmailSender.sendOutlook(to, cc, bcc, titulo.toLowerCase(), mensaje, emailemisor, passwordemisor, false);
                 completableFuture.complete("enviado");
 
                 return null;
