@@ -53,23 +53,20 @@
               </div>
 
         </p:outputPanel>
-       
-              <div style="position: absolute; left: 1px; top: 1px;" 
-                  >
-            
-                  <!--<c:if test="${dashboardController.showDialog}">-->
-           
+<!--        <c:if test="${dashboardController.showDialog}">-->
+              <div style="position: absolute; left: 1px; top: 1px;"  jsf:rendered="#{dashboardController.showDialog}">
+                  <p:autoComplete/>
+
             <p:dialog widgetVar="widgetVarscheduleDialog" header="Accion Reciente" 
                      showEffect="fade" hideEffect="fade"
                           minHeight="150" width="450" 
-             
+                          visible="#{dashboardController.showDialog}"
                           style="width:20%;margin:0 auto"
                           position="center center"
                           onShow="PF('widgetVarscheduleDialog').initPosition()"
                           resizable="false"
 
                       >
-         
                 <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
                     <p:outputLabel  value="Cajero" styleClass="p-text-bold"/>
                     <p:outputLabel id="cajero" value="#{dashboardController.accionRecienteSelected.CAJERO}" />
@@ -124,7 +121,6 @@
 
                 </f:facet>
             </p:dialog>
-                             <!--</c:if>-->
 </div>
         <!--</c:if>-->
      

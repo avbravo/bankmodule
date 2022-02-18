@@ -32,7 +32,7 @@
     <h:body >
         <h:form id="form" prependId="false" rendered="#{accessController.loged}"
                 >
-           
+         
             <p:ajaxStatus onsuccess="limpiartiempo()" />
             <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
          

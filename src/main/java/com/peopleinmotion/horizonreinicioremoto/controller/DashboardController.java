@@ -79,6 +79,7 @@ public class DashboardController implements Serializable, Page {
     private TotalesEstadoBanco totalesEstadoBanco = new TotalesEstadoBanco();
 
     Banco selectOneMenuBancoValue = new Banco();
+    private Boolean showDialog=Boolean.FALSE;
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
     Paginator paginator = new Paginator();
@@ -122,7 +123,7 @@ public class DashboardController implements Serializable, Page {
             //    cajeroList = new ArrayList<>();
             accionRecienteList = new ArrayList<>();
             accionRecienteScheduleList = new ArrayList<>();
-            
+            showDialog=Boolean.FALSE;
             if(JsfUtil.contextToInteger("rowForPage") != null){
                     rowForPage=JsfUtil.contextToInteger("rowForPage");
                 }
@@ -386,7 +387,7 @@ public class DashboardController implements Serializable, Page {
     // <editor-fold defaultstate="collapsed" desc="String onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent)">
     public String onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent) {
         try {
-
+showDialog=Boolean.TRUE;
             event = selectEvent.getObject();
             String id = event.getId();
 
@@ -409,7 +410,11 @@ public class DashboardController implements Serializable, Page {
                 JmoordbContext.put("cajero", cajeroSelected);
             }
             JmoordbContext.put("formularioRetorno", "dashboard");
+ PrimeFaces.current().ajax().update("widgetVarscheduleDialog");
+        PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').initPosition()");
+            PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').show()");
 
+ ConsoleUtil.info("Actualizo el dialogo");
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + ": " + e.getLocalizedMessage());
         }
