@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +40,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Banco.findByOrden", query = "SELECT b FROM Banco b WHERE b.ORDEN = :ORDEN"),
     @NamedQuery(name = "Banco.findByEsControl", query = "SELECT b FROM Banco b WHERE b.ESCONTROL = :ESCONTROL")
 })
+@Cacheable(false)
 public class Banco implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import static java.util.stream.Collectors.toCollection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,6 +49,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Usuario.findByOrden", query = "SELECT u FROM Usuario u WHERE u.ORDEN = :ORDEN"),
     @NamedQuery(name = "Usuario.findByNombreLike", query = "SELECT u FROM Usuario u WHERE lower(u.NOMBRE) like :NOMBRE"),
     @NamedQuery(name = "Usuario.contadorActivo", query = "SELECT COUNT(u) FROM Usuario u WHERE u.ACTIVO= :ACTIVO")})
+@Cacheable(false)
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;

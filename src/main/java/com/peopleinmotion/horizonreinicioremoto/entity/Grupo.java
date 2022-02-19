@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +39,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Grupo.findByDescripcion", query = "SELECT g FROM Grupo g WHERE g.DESCRIPCION = :DESCRIPCION"),
     @NamedQuery(name = "Grupo.findByOrden", query = "SELECT g FROM Grupo g WHERE g.ORDEN = :ORDEN")
     })
+@Cacheable(false)
 public class Grupo implements Serializable {
 
     private static final long serialVersionUID = 1L;

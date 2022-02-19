@@ -8,6 +8,7 @@ package com.peopleinmotion.horizonreinicioremoto.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,6 +40,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Cajero.findByOrden", query = "SELECT c FROM Cajero c WHERE c.ORDEN = :ORDEN")
     
     })
+@Cacheable(false)
 public class Cajero implements Serializable {
 
     private static final long serialVersionUID = 1L;

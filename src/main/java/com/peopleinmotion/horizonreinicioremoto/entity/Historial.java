@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,6 +40,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Historial.findByEvento", query = "SELECT h FROM Historial h WHERE h.EVENTO = :EVENTO"),
     @NamedQuery(name = "Historial.findByUsuarioId", query = "SELECT h FROM Historial h WHERE h.USUARIOID = :USUARIOID"),
     @NamedQuery(name = "Historial.findByFecha", query = "SELECT h FROM Historial h WHERE h.FECHA= :FECHA")})
+@Cacheable(false)
 public class Historial implements Serializable {
 
     private static final long serialVersionUID = 1L;

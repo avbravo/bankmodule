@@ -9,6 +9,7 @@ package com.peopleinmotion.horizonreinicioremoto.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,6 +38,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Estado.findByPredeterminado", query = "SELECT e FROM Estado e WHERE e.PREDETERMINADO = :PREDETERMINADO"),
     @NamedQuery(name = "Estado.findByOrden", query = "SELECT e FROM Estado e WHERE e.ORDEN = :ORDEN")
     })
+@Cacheable(false)
 public class Estado implements Serializable {
 
     private static final long serialVersionUID = 1L;

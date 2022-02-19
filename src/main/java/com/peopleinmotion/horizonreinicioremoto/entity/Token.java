@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ import lombok.Builder;
     @NamedQuery(name = "Token.findByActivo", query = "SELECT t FROM Token t WHERE t.ACTIVO = :ACTIVO")
     
 })
-
+@Cacheable(false)
 public class Token implements Serializable {
 
     private static final long serialVersionUID = 1L;

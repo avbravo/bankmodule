@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,6 +43,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Accion.findByActivo", query = "SELECT a FROM Accion a WHERE a.ACTIVO = :ACTIVO"),
     @NamedQuery(name = "Accion.findByOrden", query = "SELECT a FROM Accion a WHERE a.ORDEN = :ORDEN")
     })
+@Cacheable(false)
 public class Accion implements Serializable {
 
     private static final long serialVersionUID = 1L;

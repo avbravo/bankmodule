@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "EmailConfiguration.findByActivo", query = "SELECT e FROM EmailConfiguration e WHERE e.ACTIVO = :ACTIVO"),
     @NamedQuery(name = "EmailConfiguration.findByOrden", query = "SELECT e FROM EmailConfiguration e WHERE e.ORDEN = :ORDEN")
     })
+@Cacheable(false)
 public class EmailConfiguration implements Serializable {
 
     private static final long serialVersionUID = 1L;

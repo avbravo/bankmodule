@@ -8,6 +8,7 @@ package com.peopleinmotion.horizonreinicioremoto.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Agenda.findByCodigoTransaccion", query = "SELECT a FROM Agenda a WHERE a.CODIGOTRANSACCION = :CODIGOTRANSACCION")
     
     })
+@Cacheable(false)
 public class Agenda implements Serializable {
 
     private static final long serialVersionUID = 1L;

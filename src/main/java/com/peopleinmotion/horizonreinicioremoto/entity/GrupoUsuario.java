@@ -8,6 +8,7 @@ package com.peopleinmotion.horizonreinicioremoto.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "GrupoUsuario.findByGrupoUsuarioId", query = "SELECT g FROM GrupoUsuario g WHERE g.GRUPOUSUARIOID = :GRUPOUSUARIOID"),
     @NamedQuery(name = "GrupoUsuario.findByActivo", query = "SELECT g FROM GrupoUsuario g WHERE g.ACTIVO = :ACTIVO")
     })
+@Cacheable(false)
 public class GrupoUsuario implements Serializable {
 
     private static final long serialVersionUID = 1L;

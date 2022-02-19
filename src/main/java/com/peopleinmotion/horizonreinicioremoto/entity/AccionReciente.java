@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,6 +46,7 @@ import org.eclipse.persistence.config.QueryHints;
     @NamedQuery(name = "AccionReciente.findByActivo", query = "SELECT a FROM AccionReciente a WHERE a.ACTIVO = :ACTIVO"),
     @NamedQuery(name = "AccionReciente.findByAgendaId", query = "SELECT a FROM AccionReciente a WHERE a.AGENDAID = :AGENDAID")
 })
+@Cacheable(false)
 public class AccionReciente implements Serializable { 
 
     private static final long serialVersionUID = 1L;
