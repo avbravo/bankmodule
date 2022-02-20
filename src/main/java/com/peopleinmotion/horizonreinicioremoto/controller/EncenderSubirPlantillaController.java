@@ -145,7 +145,7 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                     JsfUtil.warningMessage("El grupoAccion debe ser Encender Subir Plantilla para realizar las operaciones");
                 }
                 if (accionList == null || accionList.isEmpty()) {
-ConsoleUtil.info("la lista esta vacia..");
+
                     JsfUtil.warningMessage("No hay acciones para el grupo seleccionado");
                 } else {
                     ConsoleUtil.info("la lista NO esta vacia..");

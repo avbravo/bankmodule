@@ -149,7 +149,8 @@ public class ReagendarController implements Serializable, Page {
                 grupoAccionList = new ArrayList<>();
                 user = (Usuario) JmoordbContext.get("user");
                 bank = (Banco) JmoordbContext.get("banco");
-                accionReciente = (AccionReciente) JmoordbContext.get("accionRecienteDashboard");
+               // findAccionReciente();
+ accionReciente = (AccionReciente) JmoordbContext.get("accionRecienteDashboard");
                 JsfUtil.copyBeans(accionRecienteOld, accionReciente);
                 cajero = (Cajero) JmoordbContext.get("cajero");
                 haveAccionReciente = Boolean.TRUE;
@@ -623,5 +624,5 @@ if(isReagendar){
         return "";
     }
 // </editor-fold>
-   
+    
 }
