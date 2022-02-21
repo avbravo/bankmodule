@@ -102,7 +102,11 @@
                                 <dashboard:resumenacciontotal id="dashboardresumenacciontotal"/>
                             </div>
 
-                      
+                       <p:idleMonitor timeout="10000">
+            <p:ajax event="idle" listener="#{dashboardController.onIdle}" update=":form:carousel"/>
+            <p:ajax event="active" listener="#{dashboardController.onActive}" update=":form:carousel"/>
+                       </p:idleMonitor>
+                            
                             <p:carousel var="item"  value="#{dashboardController.accionRecienteList}" numVisible="3"
                                         responsive="true" circular="true" id="carousel"
                                         >
@@ -128,6 +132,7 @@
                                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha Ejecución: #{dashboardController.showDate(item.FECHAEJECUCION)}"/></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora Ejecución: #{dashboardController.showHour(item.FECHAEJECUCION)}"/></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel value="Estado:"/> <strong><p:outputLabel value="#{item.ESTADO}"/></strong></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Transsacción No."/> <p:outputLabel value="#{item.ACCIONRECIENTEID}"/></dd>
 
                                     </p>
                                     <f:facet name="footer">
