@@ -26,11 +26,16 @@ import com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import lombok.Data;
+import org.primefaces.PrimeFaces;
+import org.primefaces.model.FilterMeta;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortMeta;
 // </editor-fold>
 /**
  *
@@ -52,6 +57,7 @@ public class BuscarCajeroController implements Serializable, Page {
 
     Usuario user = new Usuario();
     Banco banco = new Banco();
+       private LazyDataModel<Cajero> lazyDataModelCajero;
 
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
@@ -106,6 +112,41 @@ if(JsfUtil.contextToInteger("rowForPage") != null){
                 }
 
             }
+            
+            
+            this.lazyDataModelCajero = new LazyDataModel<Cajero>() {
+                @Override
+                public List<Cajero> load(int offset, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
+
+                    
+                         QuerySQL querySQL = new QuerySQL.Builder()
+                        .query("SELECT b FROM Banco b WHERE b.ESCONTROL = 'NO' AND b.ACTIVO = 'SI' ")
+                        .count("SELECT COUNT(b) FROM Banco b WHERE b.ESCONTROL = 'NO' AND b.ACTIVO = 'SI'")
+                        .build();
+                        
+                System.out.println("Voy a contar cuantos hay");
+
+                Integer count = bancoRepository.count(querySQL);
+                    Integer totalRecords = areaServices.countJsonQuery(JmoordbDocument.bsonToJson(paginator.getQuery()));
+
+                    List<Paginator> list = processLazyDataModel(paginator, paginatorOld, offset, rowPage.get(), totalRecords, sortBy);
+                    paginator = list.get(0);
+                    paginatorOld = list.get(1);
+                    paginator.setNumberOfPage(numberOfPages(totalRecords, rowPage.get()));
+
+                    List<Cajero> result = areaServices.jsonQuery(
+                            JmoordbDocument.documentToJson(paginator.getQuery()),
+                            JmoordbDocument.documentToJson(paginator.getSort()),
+                            paginator.getPage(),
+                            rowPage.get());
+
+                    lazyDataModelCajero.setRowCount(totalRecords);
+                    PrimeFaces.current().executeScript("setDataTableWithPageStart()");
+                    return result;
+                }
+
+            };
+            
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
 

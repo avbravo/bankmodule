@@ -5,11 +5,9 @@
  */
 package com.peopleinmotion.horizonreinicioremoto.facade;
 
-import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
 import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -83,7 +81,6 @@ public abstract class AbstractFacade<T> {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
-//        javax.persistence.Query q = getEntityManager().createQuery(cq).setHint("javax.persistence.cache.storeMode", "REFRESH");
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
         return q.getResultList();
@@ -94,7 +91,6 @@ public abstract class AbstractFacade<T> {
         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
-//        javax.persistence.Query q = getEntityManager().createQuery(cq).setHint("javax.persistence.cache.storeMode", "REFRESH");
         return ((Long) q.getSingleResult()).intValue();
     }
 
@@ -104,7 +100,6 @@ public abstract class AbstractFacade<T> {
         List<T> list = new ArrayList<>();
         try {
             Query query = getEntityManager().createQuery(querySQL.getQuery());   
-//            Query query = getEntityManager().createQuery(querySQL.getQuery()).setHint("javax.persistence.cache.storeMode", "REFRESH");   
             
             list = query.getResultList();
         } catch (Exception e) {
@@ -121,7 +116,7 @@ public abstract class AbstractFacade<T> {
         List<T> list = new ArrayList<>();
         try {
             Query query = getEntityManager().createQuery(querySQL.getQuery());
-//            Query query = getEntityManager().createQuery(querySQL.getQuery()).setHint("javax.persistence.cache.storeMode", "REFRESH");
+
             query.setFirstResult(pageNumber).setMaxResults(rowForPage);
             list = query.getResultList();
         } catch (Exception e) {
