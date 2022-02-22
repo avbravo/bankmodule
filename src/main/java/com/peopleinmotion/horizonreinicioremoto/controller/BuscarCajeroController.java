@@ -6,13 +6,13 @@
 package com.peopleinmotion.horizonreinicioremoto.controller;
 
 // <editor-fold defaultstate="collapsed" desc="import ">
-
 import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.entity.Cajero;
 import com.peopleinmotion.horizonreinicioremoto.entity.Usuario;
 import com.peopleinmotion.horizonreinicioremoto.interfaces.Page;
 import com.peopleinmotion.horizonreinicioremoto.jmoordb.JmoordbContext;
 import com.peopleinmotion.horizonreinicioremoto.paginator.Paginator;
+import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
 import com.peopleinmotion.horizonreinicioremoto.repository.AccionRecienteRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.AgendaHistorialRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.AgendaRepository;
@@ -20,9 +20,8 @@ import com.peopleinmotion.horizonreinicioremoto.repository.BancoRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.CajeroRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
 import com.peopleinmotion.horizonreinicioremoto.services.DashboardServices;
-import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
-import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil;
+import static com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil.numberOfPages;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +36,7 @@ import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
 // </editor-fold>
+
 /**
  *
  * @author avbravo
@@ -57,7 +57,8 @@ public class BuscarCajeroController implements Serializable, Page {
 
     Usuario user = new Usuario();
     Banco banco = new Banco();
-       private LazyDataModel<Cajero> lazyDataModelCajero;
+    private LazyDataModel<Cajero> lazyDataModelCajero;
+    QuerySQL querySQL = new QuerySQL();
 
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
@@ -77,6 +78,7 @@ public class BuscarCajeroController implements Serializable, Page {
     BancoRepository bancoRepository;
     @Inject
     CajeroRepository cajeroRepository;
+
     @Inject
     DashboardServices dashboardServices;
     @Inject
@@ -93,9 +95,7 @@ public class BuscarCajeroController implements Serializable, Page {
     @PostConstruct
     public void init() {
         try {
-            
 
- 
             if (JmoordbContext.get("user") == null) {
 
             } else {
@@ -106,47 +106,37 @@ public class BuscarCajeroController implements Serializable, Page {
                 user = (Usuario) JmoordbContext.get("user");
                 banco = (Banco) JmoordbContext.get("banco");
 
-                cajeroList = cajeroRepository.findByBancoIdAndActivo(banco,"SI");
-if(JsfUtil.contextToInteger("rowForPage") != null){
-                    rowForPage=JsfUtil.contextToInteger("rowForPage");
+                cajeroList = cajeroRepository.findByBancoIdAndActivo(banco, "SI");
+                if (JsfUtil.contextToInteger("rowForPage") != null) {
+                    rowForPage = JsfUtil.contextToInteger("rowForPage");
                 }
 
             }
-            
-            
+            /**
+             * Query inicial
+             */
+            querySQL = new QuerySQL.Builder()
+                    .query(" SELECT c FROM Cajero c WHERE c.BANCOID = '" + banco.getBANCOID() + "' AND c.ACTIVO = 'SI' ORDER BY c.CAJERO")
+                    .count("SELECT COUNT(c) FROM Cajero c WHERE c.BANCOID = '" + banco.getBANCOID() + "' AND c.ACTIVO = 'SI'")
+                    .build();
+
             this.lazyDataModelCajero = new LazyDataModel<Cajero>() {
                 @Override
                 public List<Cajero> load(int offset, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
 
-                    
-                         QuerySQL querySQL = new QuerySQL.Builder()
-                        .query("SELECT b FROM Banco b WHERE b.ESCONTROL = 'NO' AND b.ACTIVO = 'SI' ")
-                        .count("SELECT COUNT(b) FROM Banco b WHERE b.ESCONTROL = 'NO' AND b.ACTIVO = 'SI'")
-                        .build();
-                        
-                System.out.println("Voy a contar cuantos hay");
+              
+                    Integer count = cajeroRepository.count(querySQL);
+                    Integer paginas = JsfUtil.numberOfPages(count, rowForPage);
 
-                Integer count = bancoRepository.count(querySQL);
-                    Integer totalRecords = areaServices.countJsonQuery(JmoordbDocument.bsonToJson(paginator.getQuery()));
+                    List<Cajero> result = cajeroRepository.pagination(querySQL, offset, rowForPage);
 
-                    List<Paginator> list = processLazyDataModel(paginator, paginatorOld, offset, rowPage.get(), totalRecords, sortBy);
-                    paginator = list.get(0);
-                    paginatorOld = list.get(1);
-                    paginator.setNumberOfPage(numberOfPages(totalRecords, rowPage.get()));
-
-                    List<Cajero> result = areaServices.jsonQuery(
-                            JmoordbDocument.documentToJson(paginator.getQuery()),
-                            JmoordbDocument.documentToJson(paginator.getSort()),
-                            paginator.getPage(),
-                            rowPage.get());
-
-                    lazyDataModelCajero.setRowCount(totalRecords);
+                    lazyDataModelCajero.setRowCount(count);
                     PrimeFaces.current().executeScript("setDataTableWithPageStart()");
                     return result;
                 }
 
             };
-            
+
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
 

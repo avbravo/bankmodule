@@ -7,6 +7,7 @@ package com.peopleinmotion.horizonreinicioremoto.repository;
 
 import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.entity.Cajero;
+import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -31,5 +32,14 @@ public interface CajeroRepository {
     public Boolean create(Cajero cajero);
     public List<Cajero> findByCajeroIdBancoIdAndActivo(Banco BANCOID, String CAJERO, String ACTIVO);
     public List<Cajero> findByDireccionCortaBancoIdAndActivo(Banco BANCOID, String DIRECCIONCORTA, String ACTIVO);
+
+    
+     public Boolean changed(Cajero cajero);
+
+    public List<Cajero> sql(QuerySQL querySQL);
+
+    public List<Cajero> pagination(QuerySQL querySQL, Integer pageNumber, Integer rowForPage);
+
+    public int count(QuerySQL querySQL);
 
 }

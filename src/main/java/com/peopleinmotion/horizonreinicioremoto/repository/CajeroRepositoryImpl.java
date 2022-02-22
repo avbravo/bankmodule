@@ -8,6 +8,8 @@ package com.peopleinmotion.horizonreinicioremoto.repository;
 import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.entity.Cajero;
 import com.peopleinmotion.horizonreinicioremoto.facade.CajeroFacade;
+import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
+import com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
@@ -76,6 +78,45 @@ public class CajeroRepositoryImpl implements CajeroRepository {
        return cajeroFacade.find(id);
     }
 
+// <editor-fold defaultstate="collapsed" desc="Boolean changed(Cajero cajero)>
+
+    @Override
+    public Boolean changed(Cajero cajero) {
+        try {
+            
+            Optional<Cajero> live = cajeroFacade.find(cajero.getCAJEROID());
+            if (!live.isPresent()) {
+                return Boolean.TRUE;
+            }
+            String jsonLive = live.get().toJSON();
+
+            String json =cajero.toJSON();
+
+            if (!json.equals(jsonLive)) {
+                //Otro usuario lo cambio mientras se estaba procesando
+                return Boolean.TRUE;
+            }
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return Boolean.FALSE;
+    }
+    // </editor-fold>
+
+    @Override
+    public List<Cajero> sql(QuerySQL querySQL) {
+       return cajeroFacade.sql(querySQL);
+    }
+
+    @Override
+    public List<Cajero> pagination(QuerySQL querySQL, Integer pageNumber, Integer rowForPage) {
+     return cajeroFacade.pagination(querySQL, pageNumber, rowForPage);
+    }
+
+    @Override
+    public int count(QuerySQL querySQL) {
+       return cajeroFacade.count(querySQL);
+    }
 
   
     
