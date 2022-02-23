@@ -84,7 +84,7 @@
                                                      widgetVar="widgetVardataTable"
 
                                                      lazy="false"
-                                                     
+                                                     filteredValue="#{buscarCajeroController.cajeroSelectedList}" 
                                                      binding="#{table1}"
                                                      paginator="true"
                                                      rows="#{buscarCajeroController.rowForPage}"
@@ -95,10 +95,10 @@
                                                 <div class="products-table-header">
                                                     <span style="font-weight: bold">BUSCAR</span>
 
-<!--                                                    <span class="filter-container ui-input-icon-left">
+                                                    <span class="filter-container ui-input-icon-left">
                                                         <i class="pi pi-search"></i>
                                                         <p:inputText id="globalFilter" onkeyup="PF('widgetVardataTable').filter()" placeholder="Search"/>
-                                                    </span>-->
+                                                    </span>
 
 
                                                 </div>
@@ -108,7 +108,7 @@
                                             <p:column headerText="Cajero"  style="width:5%; color:'#02A1DE'">
                                                 <p:graphicImage name="atm-blue02.png" library="images" alt="" class="" />
                                             </p:column>
-                                            <p:column headerText="" style="width:20%;"  >
+                                            <p:column headerText="" style="width:20%;" filterBy="#{item.CAJERO}" >
 
                                                 <p:commandLink  class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" 
                                                                 style="text-decoration:none;color:black;"
@@ -117,11 +117,11 @@
                                                                 action="#{buscarCajeroController.onCommandButtonSelectCajero(item)}"/>
 
                                             </p:column>
-                                            <p:column headerText="Dirección" >
+                                            <p:column headerText="Dirección" filterBy="#{item.DIRECCION}">
 
                                                 <label class="text-black">#{item.DIRECCION}</label>
                                             </p:column>
-                                            <p:column headerText="Alias" >
+                                            <p:column headerText="Alias" filterBy="#{item.DIRECCIONCORTA}">
                                                 <label class="badge badge-danger">#{item.DIRECCIONCORTA}</label>
 
                                             </p:column>

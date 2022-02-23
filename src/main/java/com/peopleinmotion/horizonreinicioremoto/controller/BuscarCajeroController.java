@@ -20,6 +20,8 @@ import com.peopleinmotion.horizonreinicioremoto.repository.BancoRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.CajeroRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
 import com.peopleinmotion.horizonreinicioremoto.services.DashboardServices;
+import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
+import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil;
 import static com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil.numberOfPages;
 import java.io.Serializable;
@@ -116,20 +118,24 @@ public class BuscarCajeroController implements Serializable, Page {
              * Query inicial
              */
             querySQL = new QuerySQL.Builder()
-                    .query(" SELECT c FROM Cajero c WHERE c.BANCOID = '" + banco.getBANCOID() + "' AND c.ACTIVO = 'SI' ORDER BY c.CAJERO")
+                    .query(" SELECT c FROM Cajero c WHERE c.BANCOID = '" + banco + "' AND c.ACTIVO = 'SI' ORDER BY c.CAJERO")
                     .count("SELECT COUNT(c) FROM Cajero c WHERE c.BANCOID = '" + banco.getBANCOID() + "' AND c.ACTIVO = 'SI'")
                     .build();
 
+             cajeroList = cajeroRepository.sql(querySQL);
+            ConsoleUtil.info("init at "+DateUtil.fechaHoraActual());
+            
+            
             this.lazyDataModelCajero = new LazyDataModel<Cajero>() {
                 @Override
                 public List<Cajero> load(int offset, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
 
-              
+                ConsoleUtil.info("load  at "+DateUtil.fechaHoraActual());
                     Integer count = cajeroRepository.count(querySQL);
                     Integer paginas = JsfUtil.numberOfPages(count, rowForPage);
 
                     List<Cajero> result = cajeroRepository.pagination(querySQL, offset, rowForPage);
-
+                    ConsoleUtil.info("count "+count + "paginas "+paginas + " size "+result.size());
                     lazyDataModelCajero.setRowCount(count);
                     PrimeFaces.current().executeScript("setDataTableWithPageStart()");
                     return result;

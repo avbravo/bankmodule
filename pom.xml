@@ -4,7 +4,7 @@
 
     <groupId>com.people-inmotion</groupId>
     <artifactId>bankmodule</artifactId>
-    <version>0.3.115</version>
+    <version>0.3.116</version>
     <packaging>war</packaging>
 
     <name>bankmodule</name>
