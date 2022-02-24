@@ -41,5 +41,8 @@ public interface CajeroRepository {
     public List<Cajero> pagination(QuerySQL querySQL, Integer pageNumber, Integer rowForPage);
 
     public int count(QuerySQL querySQL);
+    
+        public int countBancoIdAndActivo(Banco BANCOID, String ACTIVO);
+        public List<Cajero> findBancoIdAndActivoPaginacion(Banco BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage);
 
 }

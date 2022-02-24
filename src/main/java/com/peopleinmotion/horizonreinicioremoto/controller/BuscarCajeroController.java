@@ -117,25 +117,21 @@ public class BuscarCajeroController implements Serializable, Page {
             /**
              * Query inicial
              */
-            querySQL = new QuerySQL.Builder()
-                    .query(" SELECT c FROM Cajero c WHERE c.BANCOID = '" + banco + "' AND c.ACTIVO = 'SI' ORDER BY c.CAJERO")
-                    .count("SELECT COUNT(c) FROM Cajero c WHERE c.BANCOID = '" + banco.getBANCOID() + "' AND c.ACTIVO = 'SI'")
-                    .build();
 
-             cajeroList = cajeroRepository.sql(querySQL);
-            ConsoleUtil.info("init at "+DateUtil.fechaHoraActual());
-            
-            
+          
+          
+
+
             this.lazyDataModelCajero = new LazyDataModel<Cajero>() {
                 @Override
                 public List<Cajero> load(int offset, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
 
-                ConsoleUtil.info("load  at "+DateUtil.fechaHoraActual());
-                    Integer count = cajeroRepository.count(querySQL);
+                   
+                     Integer count = cajeroRepository.countBancoIdAndActivo(banco, "SI");
                     Integer paginas = JsfUtil.numberOfPages(count, rowForPage);
 
-                    List<Cajero> result = cajeroRepository.pagination(querySQL, offset, rowForPage);
-                    ConsoleUtil.info("count "+count + "paginas "+paginas + " size "+result.size());
+                    List<Cajero> result =cajeroRepository.findBancoIdAndActivoPaginacion(banco, "SI", offset, rowForPage);
+                   
                     lazyDataModelCajero.setRowCount(count);
                     PrimeFaces.current().executeScript("setDataTableWithPageStart()");
                     return result;
