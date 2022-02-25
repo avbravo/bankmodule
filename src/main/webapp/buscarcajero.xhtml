@@ -94,6 +94,18 @@
                                             <f:facet name="header">
                                                 <div class="products-table-header">
                                                     <span style="font-weight: bold">BUSCAR</span>
+         <p:selectOneMenu id="selectOneMenuAccion" 
+                                                         class="form-control rounded-pill solosel01"
+                                                         value="#{buscarCajeroController.selectOneMenuCajeroValue}" 
+                                                         converter="#{cajeroConverter}"
+                                                         >
+                                            <f:selectItem itemLabel="Seleccione una Cajero" itemValue="#{null}"  noSelectionOption="true"/>
+                                            <f:selectItems value="#{buscarCajeroController.cajeroList}" 
+                                                           var="var" 
+                                                            itemValue="#{var}" itemLabel="#{var.CAJERO} " />
+
+
+
 
 <!--                                                    <span class="filter-container ui-input-icon-left">
                                                         <i class="pi pi-search"></i>
