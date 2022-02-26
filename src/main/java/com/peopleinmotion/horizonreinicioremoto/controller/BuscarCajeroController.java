@@ -108,7 +108,7 @@ public class BuscarCajeroController implements Serializable, Page {
                 user = (Usuario) JmoordbContext.get("user");
                 banco = (Banco) JmoordbContext.get("banco");
 
-                cajeroList = cajeroRepository.findByBancoIdAndActivo(banco, "SI");
+                //cajeroList = cajeroRepository.findByBancoIdAndActivo(banco, "SI");
                 if (JsfUtil.contextToInteger("rowForPage") != null) {
                     rowForPage = JsfUtil.contextToInteger("rowForPage");
                 }
@@ -126,12 +126,12 @@ public class BuscarCajeroController implements Serializable, Page {
                 @Override
                 public List<Cajero> load(int offset, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
 
-                   
+                   ConsoleUtil.info("Ingreseo al load.....");
                      Integer count = cajeroRepository.countBancoIdAndActivo(banco, "SI");
                     Integer paginas = JsfUtil.numberOfPages(count, rowForPage);
 
                     List<Cajero> result =cajeroRepository.findBancoIdAndActivoPaginacion(banco, "SI", offset, rowForPage);
-                   
+                   ConsoleUtil.info("load--->result.size() "+result.size());
                     lazyDataModelCajero.setRowCount(count);
                     PrimeFaces.current().executeScript("setDataTableWithPageStart()");
                     return result;
