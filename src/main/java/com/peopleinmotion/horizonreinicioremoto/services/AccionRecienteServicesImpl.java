@@ -25,7 +25,7 @@ import javax.inject.Inject;
 @Stateless
 public class AccionRecienteServicesImpl implements AccionRecienteServices {
 
-    // <editor-fold defaultstate="collapsed" desc="@Inkect ">
+    // <editor-fold defaultstate="collapsed" desc="@Inject ">
     @Inject
     AccionRecienteRepository accionRecienteRepository;
 
@@ -47,6 +47,7 @@ public class AccionRecienteServicesImpl implements AccionRecienteServices {
             accionReciente.setCAJERO(cajero.getCAJERO());
             accionReciente.setMENSAJE(accion.getACCION());
             accionReciente.setTITULO(grupoAccion.getGRUPOACCION());
+            accionReciente.setFECHACREACION(agenda.getFECHA());
             accionReciente.setFECHA(agenda.getFECHA());
             accionReciente.setFECHAAGENDADA(agenda.getFECHAAGENDADA());
             accionReciente.setFECHAEJECUCION(agenda.getFECHAEJECUCION());

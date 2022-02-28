@@ -38,7 +38,8 @@ import org.eclipse.persistence.config.QueryHints;
 @Entity
 @Table(name = "ACCIONRECIENTE")
 @NamedQueries({
-    @NamedQuery(name = "AccionReciente.findAll", query = "SELECT a FROM AccionReciente a", hints = {@QueryHint(name=QueryHints.REFRESH, value=HintValues.TRUE)}),
+    @NamedQuery(name = "AccionReciente.findAll", query = "SELECT a FROM AccionReciente a", hints = {
+        @QueryHint(name = QueryHints.REFRESH, value = HintValues.TRUE)}),
     @NamedQuery(name = "AccionReciente.findByAccionRecienteId", query = "SELECT a FROM AccionReciente a WHERE a.ACCIONRECIENTEID = :ACCIONRECIENTEID"),
     @NamedQuery(name = "AccionReciente.findByAccionId", query = "SELECT a FROM AccionReciente a WHERE a.ACCIONID = :ACCIONID"),
     @NamedQuery(name = "AccionReciente.findByCajeroId", query = "SELECT a FROM AccionReciente a WHERE a.CAJEROID = :CAJEROID"),
@@ -47,7 +48,7 @@ import org.eclipse.persistence.config.QueryHints;
     @NamedQuery(name = "AccionReciente.findByAgendaId", query = "SELECT a FROM AccionReciente a WHERE a.AGENDAID = :AGENDAID")
 })
 @Cacheable(false)
-public class AccionReciente implements Serializable { 
+public class AccionReciente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -57,7 +58,7 @@ public class AccionReciente implements Serializable {
     @NotNull
     @Column(name = "ACCIONRECIENTEID")
     private BigInteger ACCIONRECIENTEID;
-   @NotNull
+    @NotNull
     @Column(name = "ACCIONID")
     private BigInteger ACCIONID;
     @NotNull
@@ -66,8 +67,7 @@ public class AccionReciente implements Serializable {
     @NotNull
     @Column(name = "ESTADO")
     private String ESTADO;
-    
-    
+
     @NotNull
     @Column(name = "BANCOID")
     private BigInteger BANCOID;
@@ -95,20 +95,18 @@ public class AccionReciente implements Serializable {
     @Size(min = 2, max = 2)
     @Column(name = "ACTIVO")
     private String ACTIVO;
-    
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "MODULO")
     private String MODULO;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 2, max = 2)
     @Column(name = "AUTORIZADO")
     private String AUTORIZADO;
-    
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 2, max = 2)
@@ -119,10 +117,16 @@ public class AccionReciente implements Serializable {
     @Size(min = 2, max = 2)
     @Column(name = "VISTOTECNICO")
     private String VISTOTECNICO;
+
     @NotNull
     @Column(name = "FECHA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date FECHA;
+
+    @NotNull
+    @Column(name = "FECHACREACION")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date FECHACREACION;
 
     @NotNull
     @Column(name = "FECHAAGENDADA")
@@ -136,7 +140,7 @@ public class AccionReciente implements Serializable {
     public AccionReciente() {
     }
 
-    public AccionReciente(BigInteger ACCIONRECIENTEID, BigInteger ACCIONID, BigInteger ESTADOID, String ESTADO, BigInteger BANCOID, BigInteger CAJEROID, String CAJERO, BigInteger AGENDAID, String TITULO, String MENSAJE, String ACTIVO, String MODULO, String AUTORIZADO, String VISTOBANCO, String VISTOTECNICO, Date FECHA, Date FECHAAGENDADA, Date FECHAEJECUCION) {
+    public AccionReciente(BigInteger ACCIONRECIENTEID, BigInteger ACCIONID, BigInteger ESTADOID, String ESTADO, BigInteger BANCOID, BigInteger CAJEROID, String CAJERO, BigInteger AGENDAID, String TITULO, String MENSAJE, String ACTIVO, String MODULO, String AUTORIZADO, String VISTOBANCO, String VISTOTECNICO, Date FECHA, Date FECHACREACION, Date FECHAAGENDADA, Date FECHAEJECUCION) {
         this.ACCIONRECIENTEID = ACCIONRECIENTEID;
         this.ACCIONID = ACCIONID;
         this.ESTADOID = ESTADOID;
@@ -153,11 +157,10 @@ public class AccionReciente implements Serializable {
         this.VISTOBANCO = VISTOBANCO;
         this.VISTOTECNICO = VISTOTECNICO;
         this.FECHA = FECHA;
+        this.FECHACREACION = FECHACREACION;
         this.FECHAAGENDADA = FECHAAGENDADA;
         this.FECHAEJECUCION = FECHAEJECUCION;
     }
-
-    
 
     public String getAUTORIZADO() {
         return AUTORIZADO;
@@ -167,12 +170,6 @@ public class AccionReciente implements Serializable {
         this.AUTORIZADO = AUTORIZADO;
     }
 
-   
-
-    
-    
-    
-    
     public Date getFECHAEJECUCION() {
         return FECHAEJECUCION;
     }
@@ -181,9 +178,6 @@ public class AccionReciente implements Serializable {
         this.FECHAEJECUCION = FECHAEJECUCION;
     }
 
-    
-    
-    
     public AccionReciente(BigInteger ACCIONID) {
         this.ACCIONID = ACCIONID;
     }
@@ -204,10 +198,6 @@ public class AccionReciente implements Serializable {
         this.ESTADO = ESTADO;
     }
 
-    
-    
-    
-    
     public String getCAJERO() {
         return CAJERO;
     }
@@ -339,18 +329,56 @@ public class AccionReciente implements Serializable {
 
     @Override
     public String toString() {
-        return "AccionReciente{" + "ACCIONRECIENTEID=" + ACCIONRECIENTEID + ", ACCIONID=" + ACCIONID + ", ESTADOID=" + ESTADOID + ", ESTADO=" + ESTADO + ", BANCOID=" + BANCOID + ", CAJEROID=" + CAJEROID + ", CAJERO=" + CAJERO + ", AGENDAID=" + AGENDAID + ", TITULO=" + TITULO + ", MENSAJE=" + MENSAJE + ", ACTIVO=" + ACTIVO + ", VISTOBANCO=" + VISTOBANCO + ", VISTOTECNICO=" + VISTOTECNICO + ", FECHA=" + FECHA + ", FECHAAGENDADA=" + FECHAAGENDADA + ", FECHAEJECUCION=" + FECHAEJECUCION + '}';
+        return "AccionReciente{" 
+                + "ACCIONRECIENTEID=" + ACCIONRECIENTEID 
+                + ", ACCIONID=" + ACCIONID 
+                + ", ESTADOID=" + ESTADOID 
+                + ", ESTADO=" + ESTADO 
+                + ", BANCOID=" + BANCOID 
+                + ", CAJEROID=" + CAJEROID 
+                + ", CAJERO=" + CAJERO 
+                + ", AGENDAID=" + AGENDAID 
+                + ", TITULO=" + TITULO 
+                + ", MENSAJE=" + MENSAJE 
+                + ", ACTIVO=" + ACTIVO 
+                + ", MODULO=" + MODULO 
+                + ", AUTORIZADO=" + AUTORIZADO 
+                + ", VISTOBANCO=" + VISTOBANCO
+                + ", VISTOTECNICO=" + VISTOTECNICO 
+                + ", FECHA=" + FECHA 
+                + ", FECHACREACION=" + FECHACREACION 
+                + ", FECHAAGENDADA=" + FECHAAGENDADA 
+                + ", FECHAEJECUCION=" + FECHAEJECUCION + '}';
     }
-  
-    public String toJSON() {
-        return "{" + "\"ACCIONRECIENTEID\":\"" + ACCIONRECIENTEID + "\", \" ACCIONID\":\"" + ACCIONID + "\", \"ESTADOID\":\"" + ESTADOID + "\", \" ESTADO\":\"" + ESTADO + "\", \"BANCOID\":\"" + BANCOID + "\", \" CAJEROID=" + CAJEROID + "\", \"CAJERO\":\"" + CAJERO + "\", \" AGENDAID\":\"" + AGENDAID + "\", \" TITULO\":\"" + TITULO + "\", \" MENSAJE\":\"" + MENSAJE + "\", \" ACTIVO\":\"" + ACTIVO + ", VISTOBANCO\":\"" + VISTOBANCO + "\", \"VISTOTECNICO\":\"" + VISTOTECNICO + "\", \" FECHA\":\"" + FECHA + "\", \" FECHAAGENDADA\":\"" + FECHAAGENDADA + "\", \"FECHAEJECUCION=\":\"" + FECHAEJECUCION + "\"}";
-    }
+    
 
-  
-   
-
-  
 
     
-    
+     public String toJSON() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        sb.append("\n  \"ACCIONRECIENTEID\":\"").append(ACCIONRECIENTEID).append("\"");
+        sb.append("\n, \"ACCIONID\":\"").append(ACCIONID ).append("\"");
+        sb.append("\n, \"ESTADOID\":\"").append(ESTADOID ).append("\"");
+        sb.append("\n, \"BANCOID\":\"").append(BANCOID ).append("\"");
+        sb.append("\n, \"CAJEROID\":\"").append(CAJEROID ).append("\"");
+        sb.append("\n, \"CAJERO\":\"").append(CAJERO).append("\"");
+        sb.append("\n, \"AGENDAID\":\"").append(AGENDAID).append("\"");
+        sb.append("\n, \"TITULO\":\"").append(TITULO).append("\"");
+        sb.append("\n, \"MENSAJE\":\"").append(MENSAJE).append("\"");
+        sb.append("\n, \"ACTIVO\":\"").append(ACTIVO).append("\"");
+        sb.append("\n, \"MODULO\":\"").append(MODULO).append("\"");
+        sb.append("\n, \"AUTORIZADO\":\"").append(AUTORIZADO).append("\"");
+        sb.append("\n, \"VISTOBANCO\":\"").append(VISTOBANCO).append("\"");
+        sb.append("\n, \"VISTOTECNICO\":\"").append(VISTOTECNICO).append("\"");
+        sb.append("\n, \"FECHA\":\"").append(FECHA).append("\"");
+        sb.append("\n, \"FECHACREACION\":\"").append(FECHACREACION).append("\"");
+        sb.append("\n, \"FECHAAGENDADA\":\"").append(FECHAAGENDADA).append("\"");
+        sb.append("\n, \"FECHAEJECUCION\":\"").append(FECHAEJECUCION).append("\"");
+     
+
+        sb.append("\n}");
+        return sb.toString();
+    }
 }

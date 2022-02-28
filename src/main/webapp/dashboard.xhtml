@@ -12,7 +12,7 @@
     <h:head>
         <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
         <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
-       <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
+        <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
         <link rel="stylesheet" href="./resources/css/style.css"/>
         <link rel="stylesheet" href="./resources/css/dash01.css"/>
         <link rel="stylesheet" href="./resources/css/mantenimiento.css"/>
@@ -22,21 +22,21 @@
 
         <title>Modulo Banco</title>    
 
-     
-   <f:metadata>
-             <f:viewAction    action="#{dashboardController.browserEventFromPage('login.xhtml')}" />
-             
+
+        <f:metadata>
+            <f:viewAction    action="#{dashboardController.browserEventFromPage('login.xhtml')}" />
+
         </f:metadata>
-      
+
     </h:head>
     <h:body >
         <h:form id="form" prependId="false" rendered="#{accessController.loged}"
                 >
-         
+
             <p:ajaxStatus onsuccess="limpiartiempo()" />
             <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
-         
-                
+
+
             <script type="text/javascript">
                 function setDataTableWithPageStart() {
 
@@ -46,11 +46,11 @@
 
 
             </script>
-            
+
 
             <p:growl id='growl' widgetVar="widgetVarGrowl"/>
             <div class="container-scroller">
-   
+
                 <template:top/>
 
 
@@ -73,7 +73,7 @@
                                             <h4 class="text-secondary">GESTIÓN DE CAJEROS</h4>
 
                                         </div>
-                                       
+
 
                                         <div>
 
@@ -83,7 +83,7 @@
 
                                             </p:commandButton>
 
-                                      
+
                                         </div>
                                     </div>
                                 </div>
@@ -102,11 +102,11 @@
                                 <dashboard:resumenacciontotal id="dashboardresumenacciontotal"/>
                             </div>
 
-                       <p:idleMonitor timeout="10000">
-            <p:ajax event="idle" listener="#{dashboardController.onIdle}" update=":form:carousel"/>
-            <p:ajax event="active" listener="#{dashboardController.onActive}" update=":form:carousel"/>
-                       </p:idleMonitor>
-                            
+                            <p:idleMonitor timeout="10000">
+                                <p:ajax event="idle" listener="#{dashboardController.onIdle}" update=":form:carousel"/>
+                                <p:ajax event="active" listener="#{dashboardController.onActive}" update=":form:carousel"/>
+                            </p:idleMonitor>
+
                             <p:carousel var="item"  value="#{dashboardController.accionRecienteList}" numVisible="3"
                                         responsive="true" circular="true" id="carousel"
                                         >
@@ -132,7 +132,7 @@
                                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha Ejecución: #{dashboardController.showDate(item.FECHAEJECUCION)}"/></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora Ejecución: #{dashboardController.showHour(item.FECHAEJECUCION)}"/></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel value="Estado:"/> <strong><p:outputLabel value="#{item.ESTADO}"/></strong></dd>
-                                        <dd class="atm-title-mar01"><p:outputLabel value="Transsacción No."/> <p:outputLabel value="#{item.ACCIONRECIENTEID}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Transacción No."/> <p:outputLabel value="#{item.ACCIONRECIENTEID}"/></dd>
 
                                     </p>
                                     <f:facet name="footer">
@@ -150,7 +150,7 @@
 
                         <!--AGENDAMIENTOS-->
 
-            
+
                         <dashboard:schedule id="dashboardschedule"/> 
 
 
@@ -178,7 +178,7 @@
         </h:form>
         <!-- container-scroller -->
         <!-- container-scroller -->
-      <template:script/> 
+        <template:script/> 
     </h:body>
 
 </html>

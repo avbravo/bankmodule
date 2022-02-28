@@ -151,7 +151,7 @@ public class CajeroFacade extends AbstractFacade<Cajero> {
      * @return 
      */
     public int countBancoIdAndActivo(Banco BANCOID, String ACTIVO) {
-        List<Cajero> list = new ArrayList<>();
+
         try {
 
             Query query = em.createQuery("SELECT COUNT(c) FROM Cajero c WHERE c.BANCOID = :BANCOID AND c.ACTIVO = :ACTIVO ");

@@ -55,7 +55,7 @@ import org.primefaces.model.ScheduleModel;
 @Named
 @ViewScoped
 @Data
-public class DashboardController implements Serializable, Page {
+public class CalendarioController implements Serializable, Page {
 
 // <editor-fold defaultstate="collapsed" desc="field ">
     private static final long serialVersionUID = 1L;
@@ -111,7 +111,7 @@ public class DashboardController implements Serializable, Page {
     /**
      * Creates a new instance of DashboadController
      */
-    public DashboardController() {
+    public CalendarioController() {
     }
 
     // <editor-fold defaultstate="collapsed" desc="init()">
@@ -151,8 +151,8 @@ public class DashboardController implements Serializable, Page {
 //                bancoList = bancoRepository.sql(querySQL);
                 selectOneMenuBancoValue = banco;
 
-                fillCarouselAccionReciente();
-                calcularTotales();
+//                fillCarouselAccionReciente();
+//                calcularTotales();
                 loadSchedule();
 
             } else {
@@ -321,8 +321,7 @@ public class DashboardController implements Serializable, Page {
 
                     Date DESDE = DateUtil.setHourToDate(DateUtil.convertLocalDateTimeToJavaDate(start), 0, 00);
                     Date HASTA = DateUtil.setHourToDate(DateUtil.convertLocalDateTimeToJavaDate(end), 23, 59);
-//                    accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDate(banco.getBANCOID(), DESDE, HASTA, "SI");
-                    accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("estadoProcesandoId"), JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId"));
+                    accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDate(banco.getBANCOID(), DESDE, HASTA, "SI");
 
                     if (accionRecienteScheduleList == null || accionRecienteScheduleList.isEmpty()) {
                         JsfUtil.successMessage("No hay registros de acciones recientes");

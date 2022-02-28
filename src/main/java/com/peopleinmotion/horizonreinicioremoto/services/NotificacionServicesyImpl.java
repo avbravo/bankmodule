@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.peopleinmotion.horizonreinicioremoto.repository;
+package com.peopleinmotion.horizonreinicioremoto.services;
 
 import com.peopleinmotion.horizonreinicioremoto.entity.Notificacion;
 import com.peopleinmotion.horizonreinicioremoto.facade.NotificacionFacade;
 import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
+import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil;
 import java.math.BigInteger;
 import java.util.List;
@@ -20,7 +21,7 @@ import javax.inject.Inject;
  * @author avbravo
  */
 @Stateless
-public class NotificacionRepositoryImpl implements NotificacionRepository {
+public class NotificacionServicesyImpl implements NotificacionServices {
 
     @Inject
     NotificacionFacade notificacionFacade;
@@ -36,6 +37,9 @@ public class NotificacionRepositoryImpl implements NotificacionRepository {
         return notificacionFacade.findByNotificacionId(NOTIFICACIONID);
     }
 
+    
+    
+    
     // <editor-fold defaultstate="collapsed" desc="Boolean create(Notificacion notificacion) ">
     @Override
     public Boolean create(Notificacion notificacion) {
@@ -127,6 +131,40 @@ public class NotificacionRepositoryImpl implements NotificacionRepository {
     @Override
     public int countBancoIdAndActivo(BigInteger ID, String TIPODID) {
       return notificacionFacade.countBancoIdAndActivo(ID, TIPODID);
+    }
+
+    @Override
+    public Boolean process(BigInteger ID, String TIPODID) {
+        
+        try {
+            
+            Optional<Notificacion> optional =notificacionFacade.findByIDANDTIPOID( ID, TIPODID);
+            if(optional.isPresent()){
+               Notificacion notificacion = optional.get();
+               notificacion.setTRANSACCION(JsfUtil.generateUniqueID());
+               if(update(notificacion)){
+                   return Boolean.TRUE;
+               }else{
+                   ConsoleUtil.warning("No se pudo actualizar el codigo de transacción de la notificacion");
+               }
+            }else{
+                 Notificacion notificacion = new  Notificacion();
+                 notificacion.setID(ID);
+                 notificacion.setTIPODID(TIPODID);
+                 
+               notificacion.setTRANSACCION(JsfUtil.generateUniqueID());
+                if(create(notificacion)){
+                   return Boolean.TRUE;
+               }else{
+                   ConsoleUtil.warning("No se pudo crear el registro  de la notificacion");
+               }
+            }
+            
+            return Boolean.TRUE;
+        } catch (Exception e) {
+            ConsoleUtil.error(JsfUtil.nameOfClass() + "."+JsfUtil.nameOfMethod() + " "+e.getLocalizedMessage());
+        }
+        return Boolean.FALSE;
     }
 
    

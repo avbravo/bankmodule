@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.peopleinmotion.horizonreinicioremoto.repository;
+package com.peopleinmotion.horizonreinicioremoto.services;
 
 import com.peopleinmotion.horizonreinicioremoto.entity.Notificacion;
 import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
@@ -15,15 +15,14 @@ import java.util.Optional;
  *
  * @author avbravo
  */
-public interface NotificacionRepository {
-
-    public List<Notificacion> findAll();
+public interface NotificacionServices {
+   public List<Notificacion> findAll();
 
     public Optional<Notificacion> find(BigInteger id);
 
     public Optional<Notificacion> findByNotificacionId(BigInteger NOTIFICACIONID);
 
-
+public Boolean process(BigInteger ID, String TIPODID) ;
     public Boolean create(Notificacion  notificacion);
 
     public Boolean update(Notificacion notificacion);

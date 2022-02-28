@@ -139,7 +139,6 @@ public class NotificacionesFormularioController implements Serializable, Page {
     @PostConstruct
     public void init() {
         try {
-         
 
             updateByOtherUser = Boolean.FALSE;
             if (JmoordbContext.get("user") == null) {
@@ -256,7 +255,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
 
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonReagendar()">
     public String onCommandButtonEjecutar() {
-        
+
         try {
 
             if (!tokenEnviado) {
@@ -293,7 +292,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
             } else {
                 estado = optional.get();
             }
-//
+            accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
 //                //Actualizar la agenda
 //
@@ -322,7 +321,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Se cambio el estado de autorizado")
-                                .mensaje("Se realizo con exito el cambio de autorizado a "+showAutorizadoName(accionReciente.getAUTORIZADO()))
+                                .mensaje("Se realizo con exito el cambio de autorizado a " + showAutorizadoName(accionReciente.getAUTORIZADO()))
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -347,7 +346,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonReagendar()">
     public String onCommandButtonEjecutarOld() {
-        
+
         try {
 
             if (!tokenEnviado) {
@@ -385,7 +384,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
             } else {
                 estado = optional.get();
             }
-
+            accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
                 //Actualizar la agenda
 
@@ -414,7 +413,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Se cambio el estado de autorizado")
-                                .mensaje("Se realizo con exito el cambio de autorizado a "+showAutorizadoName(accionReciente.getAUTORIZADO()))
+                                .mensaje("Se realizo con exito el cambio de autorizado a " + showAutorizadoName(accionReciente.getAUTORIZADO()))
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -480,6 +479,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
             }
 
             accionReciente.setACTIVO("NO");
+            accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
                 //Actualizar la agenda
 
@@ -534,7 +534,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
     // <editor-fold defaultstate="collapsed" desc="reagendarAccion() ">
     public String reagendarAccion() {
         try {
-
+            accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
                 //Actualizar la agenda
                 Optional<Agenda> agendaOptional = agendaRepository.findByAgendaId(accionReciente.getAGENDAID());
@@ -603,9 +603,9 @@ public class NotificacionesFormularioController implements Serializable, Page {
     public String onCommandButtonSendToken(Boolean isReagendar) {
 
         try {
-      
+
             this.showCommandButtonReagendar = isReagendar;
-            if(accionReciente.getAUTORIZADO().trim().toUpperCase().equals("PE")) {
+            if (accionReciente.getAUTORIZADO().trim().toUpperCase().equals("PE")) {
                 JsfUtil.warningMessage("Seleccione un estado diferente para proceder a realizar la acción.");
                 return "";
             }

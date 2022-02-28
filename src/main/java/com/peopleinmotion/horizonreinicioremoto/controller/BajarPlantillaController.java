@@ -39,6 +39,7 @@ import com.peopleinmotion.horizonreinicioremoto.services.AccionRecienteServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaServices;
 import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
+import com.peopleinmotion.horizonreinicioremoto.services.NotificacionServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
 import java.util.Date;
@@ -101,7 +102,8 @@ public class BajarPlantillaController implements Serializable, Page {
     AgendaHistorialServices agendaHistorialServices;
     @Inject
     TokenServices tokenServices;
-
+@Inject
+NotificacionServices notificacionServices;
 // </editor-fold>
     /**
      * Creates a new instance of CajeroAccionController
@@ -387,8 +389,12 @@ public class BajarPlantillaController implements Serializable, Page {
                 } else {
                      agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user);
 
+                    
+                     
                         AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado,"SI","BA");
                         JmoordbContext.put("accionReciente", accionReciente);
+                        
+                         notificacionServices.process(bank.getBANCOID(), "BANCO");
                         /**
                          * Envio de email
                          */

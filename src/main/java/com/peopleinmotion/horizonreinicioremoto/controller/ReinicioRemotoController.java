@@ -39,6 +39,7 @@ import com.peopleinmotion.horizonreinicioremoto.services.AccionRecienteServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaServices;
 import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
+import com.peopleinmotion.horizonreinicioremoto.services.NotificacionServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
@@ -102,6 +103,8 @@ public class ReinicioRemotoController implements Serializable, Page {
     AgendaHistorialServices agendaHistorialServices;
     @Inject
     TokenServices tokenServices;
+    @Inject
+      NotificacionServices notificacionServices;
 
 // </editor-fold>
     /**
@@ -387,6 +390,8 @@ public class ReinicioRemotoController implements Serializable, Page {
 
                     AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI","BA");
                     JmoordbContext.put("accionReciente", accionReciente);
+                    
+                      notificacionServices.process(bank.getBANCOID(), "BANCO");
                     /**
                      * Envio de email
                      */

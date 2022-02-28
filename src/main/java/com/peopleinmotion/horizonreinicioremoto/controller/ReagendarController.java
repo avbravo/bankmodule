@@ -26,6 +26,7 @@ import com.peopleinmotion.horizonreinicioremoto.repository.TokenRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AccionRecienteServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
 import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
+import com.peopleinmotion.horizonreinicioremoto.services.NotificacionServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
@@ -91,6 +92,8 @@ public class ReagendarController implements Serializable, Page {
     TokenRepository tokenRepository;
     @Inject
     TokenServices tokenServices;
+    @Inject
+NotificacionServices notificacionServices;
 
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Boolean getShowCommandButtonProcesando() ">
@@ -294,9 +297,11 @@ public class ReagendarController implements Serializable, Page {
             } else {
                 estado = optional.get();
             }
-
+accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
                 //Actualizar la agenda
+                notificacionServices.process(bank.getBANCOID(), "BANCO");
+
 
                 Optional<Agenda> agendaOptional = agendaRepository.findByAgendaId(accionReciente.getAGENDAID());
                 if (!agendaOptional.isPresent()) {
@@ -389,9 +394,10 @@ public class ReagendarController implements Serializable, Page {
             }
 
             accionReciente.setACTIVO("NO");
+            accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
                 //Actualizar la agenda
-
+  notificacionServices.process(bank.getBANCOID(), "BANCO");
                 Optional<Agenda> agendaOptional = agendaRepository.findByAgendaId(accionReciente.getAGENDAID());
                 if (!agendaOptional.isPresent()) {
                     JsfUtil.warningMessage("No se encontro registros de ese agendamiento");
@@ -443,8 +449,9 @@ public class ReagendarController implements Serializable, Page {
     // <editor-fold defaultstate="collapsed" desc="reagendarAccion() ">
     public String reagendarAccion() {
         try {
-
+accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
+                  notificacionServices.process(bank.getBANCOID(), "BANCO");
                 //Actualizar la agenda
                 Optional<Agenda> agendaOptional = agendaRepository.findByAgendaId(accionReciente.getAGENDAID());
                 if (!agendaOptional.isPresent()) {
