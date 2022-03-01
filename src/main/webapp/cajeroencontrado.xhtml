@@ -133,7 +133,7 @@
                                                             </c:if>
 
                                                             <c:if test="${cajeroEncontradoController.haveAccionReciente}">
-                                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
+                                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="2">
                                                                     <p:outputLabel  value="Acción" styleClass="p-text-bold"/>
                                                                     <p:outputLabel  value="#{cajeroEncontradoController.accionReciente.TITULO}"/>
                                                                     <p:outputLabel  value="Evento" styleClass="p-text-bold"/>
@@ -152,7 +152,7 @@
                                                                     <p:outputLabel value="#{cajeroEncontradoController.showHour(cajeroEncontradoController.accionReciente.FECHAEJECUCION)}" rendered="#{!cajeroEncontradoController.renderedByEstadoSolicitado()}" />
                                                                     <p:outputLabel value="Estado"/> 
                                                                     <p:outputLabel value="#{cajeroEncontradoController.accionReciente.ESTADO}"/>
-                                                                    <p:outputLabel value="Transacción No:"/>
+                                                                    <p:outputLabel value="Transacción No"/>
                                                                     <p:outputLabel value="#{cajeroEncontradoController.accionReciente.ACCIONRECIENTEID}"/>
                                                                     <f:facet name="footer">
 

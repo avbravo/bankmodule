@@ -120,15 +120,14 @@
                                                         <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
                                                             <c:if test="${!bajarPlantillaController.haveAccionReciente}">
                                                                 <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
-                                                                <p:commandButton value="REGRESAR"
-                                                                                 styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                                                 icon ="pi pi-arrow-left"
-                                                                                 action="#{navigatorController.go('cajeroencontrado.xhtml')}"
-                                                                                 />
+                                                             
                                                             </c:if>
-                                                            <c:if test="${bajarPlantillaController.haveAccionReciente}">
 
-                                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
+
+                                                            <h:panelGrid id="eventDetails" columns="2" cellpadding="2">
+                                                                <c:if test="${bajarPlantillaController.haveAccionReciente}">
+
+
                                                                     <p:outputLabel  value="Acción" styleClass="p-text-bold"/>
                                                                     <p:outputLabel  value="#{bajarPlantillaController.accionReciente.TITULO}" />
 
@@ -158,69 +157,61 @@
                                                                     <p:outputLabel value="Estado"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.accionReciente.ESTADO}"/>
 
-                                                                    <p:outputLabel value="Transacción No:"/>
+                                                                    <p:outputLabel value="Transacción No"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.accionReciente.ACCIONRECIENTEID}"/>
-                                                                    <p:outputLabel value="Acción"/>
-
-                                                                    <p:selectOneMenu id="selectOneMenuAccion" 
-                                                                                     class="form-control rounded-pill solosel01"
-                                                                                     value="#{bajarPlantillaController.selectOneMenuAccionValue}" 
-                                                                                     converter="#{accionConverter}"
-                                                                                     >
-                                                                        <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
-                                                                        <f:selectItems value="#{bajarPlantillaController.accionList}" 
-                                                                                       var="var" 
-                                                                                       itemValue="#{var}" itemLabel="#{var.ACCION} " />
-
-
-
-
-                                                                    </p:selectOneMenu>
+                                                                </c:if>
+                                                                <p:outputLabel value="Acción"/>
+                                                                <p:selectOneMenu id="selectOneMenuAccion" 
+                                                                                 class="form-control rounded-pill solosel01"
+                                                                                 value="#{bajarPlantillaController.selectOneMenuAccionValue}" 
+                                                                                 converter="#{accionConverter}"
+                                                                                 >
+                                                                    <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
+                                                                    <f:selectItems value="#{bajarPlantillaController.accionList}" 
+                                                                                   var="var" 
+                                                                                   itemValue="#{var}" itemLabel="#{var.ACCION} " />
+                                                                </p:selectOneMenu>
 
 
-                                                                    <p:outputLabel value="Fecha"/>
+                                                                <p:outputLabel value="Fecha"/>
+                                                                <p:datePicker  hourFormat="12" id="time1" 
+                                                                               pattern="dd/MM/yyyy hh:mm a"
+                                                                               value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
+                                                                </p:datePicker>
+                                                                <f:facet name="footer">
 
+                                                                    <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                                                                 style="border:0px none; background-color:transparent;">
+                                                                        <c:if test="${bajarPlantillaController.showButton}">
+                                                                            <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
+                                                                                             title="Envia el token al correo"
+                                                                                             id="commandButtonSendToken"
+                                                                                             action="#{bajarPlantillaController.onCommandButtonSendToken()}"
+                                                                                             update=":form:growl"                                                                    
+                                                                                             styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
+                                                                            </p:commandButton>
 
-                                                                    <p:datePicker  hourFormat="12" id="time1" 
-                                                                                   pattern="dd/MM/yyyy hh:mm a"
-
-                                                                                   value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
-
-                                                                    </p:datePicker>
-                                                                    <f:facet name="footer">
-
-                                                                        <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
-                                                                                     style="border:0px none; background-color:transparent;">
-                                                                            <c:if test="${bajarPlantillaController.showButton}">
-                                                                                <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
-                                                                                                 title="Envia el token al correo"
-                                                                                                 id="commandButtonSendToken"
-                                                                                                 action="#{bajarPlantillaController.onCommandButtonSendToken()}"
-                                                                                                 update=":form:growl"                                                                    
-                                                                                                 styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
-                                                                                </p:commandButton>
-
-                                                                            </c:if>
+                                                                        </c:if>
 
 
 
 
-                                                                            <p:commandButton value="REGRESAR"
-                                                                                             styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                                                             icon ="pi pi-arrow-left"
-                                                                                             action="#{navigatorController.go('cajeroencontrado.xhtml')}"
-                                                                                             />
+                                                                        <p:commandButton value="REGRESAR"
+                                                                                         styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                         icon ="pi pi-arrow-left"
+                                                                                         action="#{navigatorController.go('cajeroencontrado.xhtml')}"
+                                                                                         />
 
-                                                                        </p:panelGrid>
+                                                                    </p:panelGrid>
 
-                                                                    </f:facet>
+                                                                </f:facet>
 
-                                                                </h:panelGrid>
-
-
+                                                            </h:panelGrid>
 
 
-                                                            </c:if>
+
+
+                                                           
                                                         </div>
 
                                                     </div>

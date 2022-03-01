@@ -125,16 +125,26 @@
                                     <f:facet name="subtitle">
                                         <dd class="atm-title-mar01"> <p:outputLabel value="#{dashboardController.cortarTexto(item.MENSAJE)}"/></dd>
                                     </f:facet>
-                                    <p>
+                                    <h:panelGrid id="eventDetails" columns="2" cellpadding="2">
+                                        <p:outputLabel value="Se Agendo el"/>
+                                        <p:outputLabel value="#{dashboardController.showDate(item.FECHAAGENDADA)}"/>
+                                        <p:outputLabel value="Hora Agendada"/>
+                                        <p:outputLabel value="#{dashboardController.showHour(item.FECHAAGENDADA)}"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha Ejecución"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="#{dashboardController.showDate(item.FECHAEJECUCION)}"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora Ejecución"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="#{dashboardController.showHour(item.FECHAEJECUCION)}"/>
+                                        <p:outputLabel value="Estado:"/> 
+                                        <p:outputLabel value="#{item.ESTADO}"/>
+                                        <p:outputLabel value="Transacción No."/> 
+                                        <p:outputLabel value="#{item.ACCIONRECIENTEID}"/>
 
-                                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendo el: #{dashboardController.showDate(item.FECHAAGENDADA)}"/></dd>
-                                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Agendada:#{dashboardController.showHour(item.FECHAAGENDADA)}"/></dd>
-                                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha Ejecución: #{dashboardController.showDate(item.FECHAEJECUCION)}"/></dd>
-                                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora Ejecución: #{dashboardController.showHour(item.FECHAEJECUCION)}"/></dd>
-                                        <dd class="atm-title-mar01"><p:outputLabel value="Estado:"/> <strong><p:outputLabel value="#{item.ESTADO}"/></strong></dd>
-                                        <dd class="atm-title-mar01"><p:outputLabel value="Transacción No."/> <p:outputLabel value="#{item.ACCIONRECIENTEID}"/></dd>
 
-                                    </p>
+                                    </h:panelGrid>
+
+
+
+
                                     <f:facet name="footer">
 
 

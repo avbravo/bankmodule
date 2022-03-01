@@ -5,7 +5,8 @@
       xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ultimaacciongenerada="http://xmlns.jcp.org/jsf/composite/ultimaacciongenerada"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
         <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
@@ -107,34 +108,93 @@
                                                 </div>
 
 
-                                                <ultimaacciongenerada:notificacionesformulario id="ultimaacciongeneradanotificacionesformulario"  />
+                                                <div class="card-body ">
+                                                    <div class="row justify-content-center align-content-center">
+                                                        <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
+                                                            <c:if test="${!notificacionesFormularioController.haveAccionReciente}">
+                                                                <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
+
+
+                                                                <p:commandButton value="REGRESAR" class="bot-regresar01" 
+                                                                                 styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                 icon ="pi pi-arrow-left"
+                                                                                 action="#{notificacionesFormularioController.regresar()}"/>
+                                                            </c:if>
+                                                            <c:if test="${notificacionesFormularioController.haveAccionReciente}">
+
+                                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
+                                                                    <p:outputLabel  value="Acción" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="#{notificacionesFormularioController.accionReciente.TITULO}"/>
+                                                                    <p:outputLabel  value="Evento" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel value="#{notificacionesFormularioController.accionReciente.MENSAJE}"/>   
+
+                                                                    <p:outputLabel value="Se Agendo el"/>
+                                                                    <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/>
+                                                                    <p:outputLabel value="Hora Agendada"/>
+                                                                    <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/>
+                                                                    <p:outputLabel value="Fecha Creación"/>
+                                                                    <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHACREACION)}"/>
+                                                                    <p:outputLabel value="Hora Creación"/>
+                                                                    <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHACREACION)}"/>
+                                                                    <p:outputLabel value="Fecha Ejecución" />
+                                                                    <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}" />
+                                                                    <p:outputLabel value="Hora Ejecución"/>
+                                                                    <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
+                                                                    <p:outputLabel value="Estado"/>
+                                                                    <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ESTADO}"/> 
+                                                                    <p:outputLabel value="Autorizado"/>
+                                                                    <p:outputLabel value="#{notificacionesFormularioController.showAutorizadoName(notificacionesFormularioController.accionReciente.AUTORIZADO)}"/>
+                                                                    <p:outputLabel value="Transacción No"/>
+                                                                    <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ACCIONRECIENTEID}"/>
+
+                                                                    <p:outputLabel value="Autorización"  rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"/>
+                                                                    <p:selectOneRadio id="autorizado" value="#{notificacionesFormularioController.accionReciente.AUTORIZADO}"
+                                                                                      layout="responsive" columns="2"
+                                                                                      rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
+                                                                                      required="true" requiredMessage="Seleccione una opción para activo">
+                                                                        <f:selectItem itemLabel="Pendiente" itemValue="PE"/>
+                                                                        <f:selectItem itemLabel="Autorizado" itemValue="SI"/>                        
+                                                                        <f:selectItem itemLabel="Denegado" itemValue="NO"/>                        
+                                                                    </p:selectOneRadio>
+
+                                                                    <f:facet name="footer">
+                                                                        <p:commandButton value="EJECUTAR" 
+                                                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
+                                                                                         update=":form:growl"
+                                                                                         icon="pi pi-calendar-plus"
+                                                                                         rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
+                                                                                         action="#{notificacionesFormularioController.onCommandButtonSendToken(true)}"
+                                                                                         >
+
+                                                                        </p:commandButton>
+
+
+
+                                                                        <p:commandButton value="REGRESAR" class="bot-regresar01" 
+                                                                                         styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                         icon ="pi pi-arrow-left"
+                                                                                         action="#{notificacionesFormularioController.regresar()}"/>
+
+
+                                                                    </f:facet>
+                                                                </h:panelGrid>
+
+
+
+
+                                                            </c:if>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
 
                                             </div>
 
                                         </div>
                                     </div>
 
-                                    <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
-                                                 style="border:0px none; background-color:transparent;">
-
-                                        <p:commandButton value="EJECUTAR" 
-                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
-                                                         update=":form:growl"
-                                                         icon="pi pi-calendar-plus"
-                                                         rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
-                                                         action="#{notificacionesFormularioController.onCommandButtonSendToken(true)}"
-                                                        >
-
-                                        </p:commandButton>
-
-                                       
-
-                                        <p:commandButton value="REGRESAR" class="bot-regresar01" 
-                                                        styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                         icon ="pi pi-arrow-left"
-                                                         action="#{notificacionesFormularioController.regresar()}"/>
-
-                                    </p:panelGrid>
 
 
 
@@ -173,13 +233,13 @@
 
 
 
-      
-     <div style="position: absolute; left: 1px; top: 1px;">
+
+            <div style="position: absolute; left: 1px; top: 1px;">
 
                 <p:dialog widgetVar="widgetVarTokenDialogEjecutar" header="Token" 
                           showEffect="fade" hideEffect="fade"
                           minHeight="40" width="350" 
-               
+
                           style="width:20%;margin:0 auto"
                           position="center center"
                           onShow="PF('widgetVarTokenDialogEjecutar').initPosition()"
@@ -297,22 +357,22 @@
                                           process="@this"
                                           icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                           />
-                    
+
                         <p:commandButton styleClass="rounded-button ui-button-danger"
                                          update="tokenDialogDetailsReagendar, tokenmessageReagendar"
-                                        
+
                                          icon="pi pi-unlock"
                                          title="Reagendar"
                                          value="ACEPTAR"
                                          action="#{notificacionesFormularioController.onCommandButtonEjecutar()}">
 
                         </p:commandButton>
-                       
+
 
                     </f:facet>
                     <p:messages id="tokenmessageReagendar" />
                 </p:dialog>
-   </div>    
+            </div>    
 
 
 
