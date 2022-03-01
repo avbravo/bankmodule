@@ -22,14 +22,14 @@
                     </c:if>
                     <c:if test="${notificacionesFormularioController.haveAccionReciente}">
                         <dd class="atm-title-mar01"><strong>#{notificacionesFormularioController.accionReciente.TITULO}</strong>(<p:outputLabel value="#{notificacionesFormularioController.accionReciente.MENSAJE}"/>)</dd>                        
-                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendo el: #{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/></dd>
-                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Agendada:#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/></dd>
-                        <dd class="atm-title-mar01"><p:outputLabel value="Fecha Creación: #{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHACREACION)}"/></dd>
-                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Creación:#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHACREACION)}"/></dd>
-                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}" value="Fecha Ejecución: #{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}"/></dd>
-                        <dd class="atm-title-mar01"><p:outputLabel rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}" value="Hora Ejecución: #{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}"/></dd>
-                        <dd class="atm-title-mar01"><p:outputLabel value="Estado:"/> <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ESTADO}"/>     </dd>
-                        <dd class="atm-title-mar01"><p:outputLabel value="Autorizado:"/> <strong><p:outputLabel value="#{notificacionesFormularioController.showAutorizadoName(notificacionesFormularioController.accionReciente.AUTORIZADO)}"/>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendo el   : #{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Agendada  :#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Fecha Creación : #{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHACREACION)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Creación  :#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHACREACION)}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Fecha Ejecución: #{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}" /></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Hora Ejecución : #{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/></dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Estado         :"/> <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ESTADO}"/>     </dd>
+                        <dd class="atm-title-mar01"><p:outputLabel value="Autorizado     :"/> <strong><p:outputLabel value="#{notificacionesFormularioController.showAutorizadoName(notificacionesFormularioController.accionReciente.AUTORIZADO)}"/>
                             </strong><p:spacer width="5"/><p:outputLabel value="| Transacción No:"/><strong><p:outputLabel value="#{notificacionesFormularioController.accionReciente.ACCIONRECIENTEID}"/>
                             </strong>
                         </dd>

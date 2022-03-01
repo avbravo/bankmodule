@@ -5,7 +5,8 @@
       xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ultimaacciongenerada="http://xmlns.jcp.org/jsf/composite/ultimaacciongenerada"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
         <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
@@ -106,44 +107,90 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="card-body ">
+                                                    <div class="row justify-content-center align-content-center">
+                                                        <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
+                                                            <c:if test="${!reagendarController.haveAccionReciente}">
+                                                                <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
+                                                                <p:commandButton value="REGRESAR" class="bot-regresar01" 
+                                                                                 styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                 icon ="pi pi-arrow-left"
+                                                                                 action="#{reagendarController.regresar()}"/>
+                                                            </c:if>
+                                                            <c:if test="${reagendarController.haveAccionReciente}">
+                                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
+                                                                    <p:outputLabel value="Acción" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel value="#{reagendarController.accionReciente.TITULO}"/>
+                                                                    <p:outputLabel value="Evento" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel value="#{reagendarController.accionReciente.MENSAJE}"/>                      
+                                                                    <p:outputLabel value="Se Agendo el"/>
+                                                                    <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAAGENDADA)}"/>
+                                                                    <p:outputLabel value="Hora Agendada"/>
+                                                                    <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAAGENDADA)}"/>
+                                                                    <p:outputLabel value="Fecha Creación"/>
+                                                                    <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHACREACION)}"/>
+                                                                    <p:outputLabel value="Hora Creación"/>
+                                                                    <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHACREACION)}"/>
+                                                                    <p:outputLabel value="Fecha Ejecución"/>
+                                                                    <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/>
+                                                                    <p:outputLabel value="Hora Ejecución"/>
+                                                                    <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/>
+                                                                    <p:outputLabel value="Estado"/> 
+                                                                    <p:outputLabel value="#{reagendarController.accionReciente.ESTADO}"/>
+                                                                    <p:outputLabel value="Transacción No:"/>
+                                                                    <p:outputLabel value="#{reagendarController.accionReciente.ACCIONRECIENTEID}"/>
+                                                                    <p:outputLabel value="Nueva Fecha"/>
+                                                                    <p:datePicker id="time1" 
+                                                                                  showIcon="true"
+                                                                                  monthNavigator="true"
+                                                                                  rendered="#{!reagendarController.accionReciente.ESTADO.trim().equals('Ejecutada')}"
+                                                                                  hourFormat="12"
+                                                                                  pattern="dd/MM/yyyy hh:mm a"
+                                                                                  value="#{reagendarController.accionReciente.FECHAAGENDADA}" showTime="true">
 
-                                                <ultimaacciongenerada:reagendar id="ultimaacciongeneradareagendar"  />
+                                                                    </p:datePicker>
+                                                                    <f:facet name="footer">
+                                                                        <p:commandButton value="REAGENDAR" 
+                                                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
+                                                                                         update=":form:growl"
+                                                                                         icon="pi pi-calendar-plus"
+                                                                                         rendered="#{reagendarController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
+                                                                                         action="#{reagendarController.onCommandButtonSendToken(true)}"
+                                                                                         >
+
+                                                                        </p:commandButton>
+
+                                                                        <p:commandButton value="CANCELAR ACCIÓN" 
+                                                                                         update=":form:growl"
+                                                                                         icon="pi pi-trash"            
+                                                                                         rendered="#{!reagendarController.accionReciente.ESTADO.trim().equals('Ejecutada')}"
+                                                                                         action="#{reagendarController.onCommandButtonSendToken(false)}"
+                                                                                         title="Envia el token al correo"
+                                                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
+                                                                                         >
+                                                                            <p:confirm header="Confirmación" message="Desea cancelar la accción" icon="pi pi-info-circle"/>
+                                                                        </p:commandButton>
+
+                                                                        <p:commandButton value="REGRESAR" class="bot-regresar01" 
+                                                                                         styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                         icon ="pi pi-arrow-left"
+                                                                                         action="#{reagendarController.regresar()}"/>
+
+                                                                    </f:facet>
+                                                                </h:panelGrid>
+
+                                                            </c:if>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
 
                                             </div>
 
                                         </div>
                                     </div>
 
-                                    <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
-                                                 style="border:0px none; background-color:transparent;">
 
-                                        <p:commandButton value="REAGENDAR" 
-                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
-                                                         update=":form:growl"
-                                                         icon="pi pi-calendar-plus"
-                                                         rendered="#{reagendarController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
-                                                         action="#{reagendarController.onCommandButtonSendToken(true)}"
-                                                        >
-
-                                        </p:commandButton>
-
-                                        <p:commandButton value="CANCELAR ACCIÓN" 
-                                                         update=":form:growl"
-                                                         icon="pi pi-trash"            
-                                                         rendered="#{!reagendarController.accionReciente.ESTADO.trim().equals('Ejecutada')}"
-                                                         action="#{reagendarController.onCommandButtonSendToken(false)}"
-                                                         title="Envia el token al correo"
-                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
-                                                         >
-                                             <p:confirm header="Confirmación" message="Desea cancelar la accción" icon="pi pi-info-circle"/>
-                                        </p:commandButton>
-
-                                        <p:commandButton value="REGRESAR" class="bot-regresar01" 
-                                                        styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                         icon ="pi pi-arrow-left"
-                                                         action="#{reagendarController.regresar()}"/>
-
-                                    </p:panelGrid>
 
 
 
@@ -175,21 +222,21 @@
                 </div>
                 <!-- page-body-wrapper ends -->
             </div>
-            
-             <div style="position: absolute; left: 1px; top: 1px;">
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" />
-            </p:confirmDialog>
-    </div>
+
+            <div style="position: absolute; left: 1px; top: 1px;">
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" />
+                </p:confirmDialog>
+            </div>
 
 
-<div style="position: absolute; left: 1px; top: 1px;">
+            <div style="position: absolute; left: 1px; top: 1px;">
 
                 <p:dialog widgetVar="widgetVarTokenDialog" header="Token" 
-               showEffect="fade" hideEffect="fade"
+                          showEffect="fade" hideEffect="fade"
                           minHeight="40" width="350" 
-               
+
                           style="width:20%;margin:0 auto"
                           position="center center"
                           onShow="PF('widgetVarTokenDialog').initPosition()"
@@ -309,10 +356,10 @@
                                           icon="pi pi-times" 
                                           styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                           />
-                      
+
                         <p:commandButton styleClass="rounded-button ui-button-danger"
                                          update="tokenDialogDetails, tokenmessage"
-                                
+
                                          icon="pi pi-unlock"
                                          title="Cancelar Agenda"
                                          value="ACEPTAR"
@@ -323,13 +370,13 @@
                     </f:facet>
                     <p:messages id="tokenmessage" />
                 </p:dialog>
-</div>  
-           <div style="position: absolute; left: 1px; top: 1px;">
+            </div>  
+            <div style="position: absolute; left: 1px; top: 1px;">
 
                 <p:dialog widgetVar="widgetVarTokenDialogReagendar" header="Token" 
-                        showEffect="fade" hideEffect="fade"
+                          showEffect="fade" hideEffect="fade"
                           minHeight="40" width="350" 
-               
+
                           style="width:20%;margin:0 auto"
                           position="center center"
                           onShow="PF('widgetVarTokenDialogReagendar').initPosition()"
@@ -447,22 +494,22 @@
                                           process="@this"
                                           icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                           />
-                    
+
                         <p:commandButton styleClass="rounded-button ui-button-danger"
                                          update="tokenDialogDetailsReagendar, tokenmessageReagendar"
-                                        
+
                                          icon="pi pi-unlock"
                                          title="Reagendar"
                                          value="ACEPTAR"
                                          action="#{reagendarController.onCommandButtonReagendar()}">
 
                         </p:commandButton>
-                       
+
 
                     </f:facet>
                     <p:messages id="tokenmessageReagendar" />
                 </p:dialog>
-          </div>  
+            </div>  
 
 
 

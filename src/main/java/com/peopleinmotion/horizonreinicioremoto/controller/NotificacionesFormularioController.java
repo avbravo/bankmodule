@@ -306,10 +306,10 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIO EL ESTADO AUTORIZADO", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIO LA AUTORIZACIÓN", user);
 
                         JmoordbContext.put("accionReciente", accionReciente);
-                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIO ESTADO DE AUTORIZADO", user, cajero, bank);
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIO LA AUTORIZACIÓN", user, cajero, bank);
 
                         /*
                         *Mensajes exitosos
@@ -398,10 +398,10 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIO EL ESTADO AUTORIZADO", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIO LA AUTORIZACION", user);
 
                         JmoordbContext.put("accionReciente", accionReciente);
-                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIO ESTADO DE AUTORIZADO", user, cajero, bank);
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIO LA AUTORIZACION", user, cajero, bank);
 
                         /*
                         *Mensajes exitosos

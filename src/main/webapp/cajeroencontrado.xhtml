@@ -4,9 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"         
       xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ultimaacciongenerada="http://xmlns.jcp.org/jsf/composite/ultimaacciongenerada"
-      xmlns:grupoaccion="http://xmlns.jcp.org/jsf/composite/grupoaccion"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
     <h:head>
@@ -112,43 +111,85 @@
                                                 </div>
 
 
-                                                <ultimaacciongenerada:cajeroencontrado id="ultimaacciongeneradacajeroencontrado"  />
+                                                <div class="card-body ">
+                                                    <div class="row justify-content-center align-content-center">
+                                                        <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
+                                                            <c:if test="${!cajeroEncontradoController.haveAccionReciente}">
+                                                                <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
+                                                                <p:menuButton value="ACCIÓN" styleClass="rounded-button ui-button-outlined ui-button-danger">
+                                                                    <p:menuitem value="Bajar Plantilla (Ahora)"   update=":form:growl" icon="pi pi-chevron-circle-down" action="#{cajeroEncontradoController.onCommandButtonGrupoAccionBajarPlantilla()}"/>
+                                                                    <p:menuitem value="Bajar Plantilla (Programar Evento)"   update=":form:growl" icon="pi pi-calendar" action="#{cajeroEncontradoController.onCommandButtonGrupoAccionBajarPlantillaProgramarEvento()}"/>
+                                                                    <p:menuitem value="Reinicio Remoto"  update=":form:growl" icon="pi pi-globe"  action="#{cajeroEncontradoController.onCommandButtonGrupoAccionReinicioRemoto()}" />
+                                                                    <p:divider/>
+                                                                    <p:menuitem value="Encender (Subir Plantilla)" update=":form:growl"  icon="pi pi-chevron-circle-up"  action="#{cajeroEncontradoController.onCommandButtonGrupoAccionEncenderSubirPlantilla()}" />
+
+
+                                                                </p:menuButton>
+                                                                <p:commandButton value="REGRESAR"   
+                                                                                 styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                 icon ="pi pi-arrow-left" 
+                                                                                 action="#{navigatorController.go('buscarcajero.xhtml')}"
+                                                                                 />
+                                                            </c:if>
+
+                                                            <c:if test="${cajeroEncontradoController.haveAccionReciente}">
+                                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
+                                                                    <p:outputLabel  value="Acción" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="#{cajeroEncontradoController.accionReciente.TITULO}"/>
+                                                                    <p:outputLabel  value="Evento" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel value="#{cajeroEncontradoController.accionReciente.MENSAJE}"/>                        
+                                                                    <p:outputLabel value="Se Agendo el"/>
+                                                                    <p:outputLabel value="#{cajeroEncontradoController.showDate(cajeroEncontradoController.accionReciente.FECHAAGENDADA)}"/>
+                                                                    <p:outputLabel value="Hora Agendada  "/>
+                                                                    <p:outputLabel value="#{cajeroEncontradoController.showHour(cajeroEncontradoController.accionReciente.FECHAAGENDADA)}"/>
+                                                                    <p:outputLabel value="Fecha Creación "/>
+                                                                    <p:outputLabel value="#{cajeroEncontradoController.showDate(cajeroEncontradoController.accionReciente.FECHACREACION)}"/>
+                                                                    <p:outputLabel value="Hora Creación"/>
+                                                                    <p:outputLabel value="#{cajeroEncontradoController.showHour(cajeroEncontradoController.accionReciente.FECHACREACION)}"/>
+                                                                    <p:outputLabel value="Fecha Ejecución"/>
+                                                                    <p:outputLabel value="#{cajeroEncontradoController.showDate(cajeroEncontradoController.accionReciente.FECHAEJECUCION)}" rendered="#{!cajeroEncontradoController.renderedByEstadoSolicitado()}"/>
+                                                                    <p:outputLabel value="Hora Ejecución" />
+                                                                    <p:outputLabel value="#{cajeroEncontradoController.showHour(cajeroEncontradoController.accionReciente.FECHAEJECUCION)}" rendered="#{!cajeroEncontradoController.renderedByEstadoSolicitado()}" />
+                                                                    <p:outputLabel value="Estado"/> 
+                                                                    <p:outputLabel value="#{cajeroEncontradoController.accionReciente.ESTADO}"/>
+                                                                    <p:outputLabel value="Transacción No:"/>
+                                                                    <p:outputLabel value="#{cajeroEncontradoController.accionReciente.ACCIONRECIENTEID}"/>
+                                                                    <f:facet name="footer">
+
+                                                                        <p:menuButton value="ACCIÓN" styleClass="rounded-button ui-button-outlined ui-button-danger">
+                                                                            <p:menuitem value="Bajar Plantilla (Ahora)"   update=":form:growl" icon="pi pi-chevron-circle-down" action="#{cajeroEncontradoController.onCommandButtonGrupoAccionBajarPlantilla()}"/>
+                                                                            <p:menuitem value="Bajar Plantilla (Programar Evento)"   update=":form:growl" icon="pi pi-calendar" action="#{cajeroEncontradoController.onCommandButtonGrupoAccionBajarPlantillaProgramarEvento()}"/>
+                                                                            <p:menuitem value="Reinicio Remoto"  update=":form:growl" icon="pi pi-globe"  action="#{cajeroEncontradoController.onCommandButtonGrupoAccionReinicioRemoto()}" />
+                                                                            <p:divider/>
+                                                                            <p:menuitem value="Encender (Subir Plantilla)" update=":form:growl"  icon="pi pi-chevron-circle-up"  action="#{cajeroEncontradoController.onCommandButtonGrupoAccionEncenderSubirPlantilla()}" />
+
+
+                                                                        </p:menuButton>
+
+                                                                        <p:commandButton value="REGRESAR"   
+                                                                                         styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                         icon ="pi pi-arrow-left" 
+                                                                                         action="#{navigatorController.go('buscarcajero.xhtml')}"
+                                                                                         />
+
+                                                                    </f:facet>
+                                                                </h:panelGrid>
+
+                                                            </c:if>
+
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
 
                                             </div>
 
                                         </div>
                                     </div>
-
-
-
-
-
-
-                                    <p:panelGrid columns="4"  styleClass="ui-panelgrid-blank ui-fluid"
-                                                 style="border:0px none; background-color:transparent;">
-
-
-
-
-
-
-                                        <p:menuButton value="ACCIÓN" styleClass="rounded-button ui-button-outlined ui-button-danger">
-                                            <p:menuitem value="Bajar Plantilla (Ahora)"   update=":form:growl" icon="pi pi-chevron-circle-down" action="#{cajeroEncontradoController.onCommandButtonGrupoAccionBajarPlantilla()}"/>
-                                            <p:menuitem value="Bajar Plantilla (Programar Evento)"   update=":form:growl" icon="pi pi-calendar" action="#{cajeroEncontradoController.onCommandButtonGrupoAccionBajarPlantillaProgramarEvento()}"/>
-                                            <p:menuitem value="Reinicio Remoto"  update=":form:growl" icon="pi pi-globe"  action="#{cajeroEncontradoController.onCommandButtonGrupoAccionReinicioRemoto()}" />
-                                            <p:divider/>
-                                            <p:menuitem value="Encender (Subir Plantilla)" update=":form:growl"  icon="pi pi-chevron-circle-up"  action="#{cajeroEncontradoController.onCommandButtonGrupoAccionEncenderSubirPlantilla()}" />
-
-
-                                        </p:menuButton>
-
-                                        <p:commandButton value="REGRESAR"   
-                                                         styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                         icon ="pi pi-arrow-left" 
-                                                         action="#{navigatorController.go('buscarcajero.xhtml')}"
-                                                         />
-                                    </p:panelGrid>
-
 
 
 

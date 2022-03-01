@@ -115,7 +115,83 @@
                                                     </div>
                                                 </div>
 
-                                                <ultimaacciongenerada:reinicioremoto id="ultimaacciongeneradareinicioremoto"  />
+                                                <div class="card-body ">
+                                                    <div class="row justify-content-center align-content-center">
+                                                        <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
+                                                            <c:if test="${!reinicioRemotoController.haveAccionReciente}">
+                                                                <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
+                                                                <p:commandButton value="REGRESAR"
+                                                                                 styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                 icon ="pi pi-arrow-left"
+                                                                                 action="#{navigatorController.go('cajeroencontrado.xhtml')}"
+                                                                                 />
+                                                            </c:if>
+                                                            <c:if test="${reinicioRemotoController.haveAccionReciente}">
+                                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
+
+                                                                    <p:outputLabel  value="Acción" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="#{reinicioRemotoController.accionReciente.TITULO}"/>
+
+                                                                    <p:outputLabel  value="Evento" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel value="#{reinicioRemotoController.accionReciente.MENSAJE}"/>                        
+                                                                    <p:outputLabel value="Se Agendo el"/>
+                                                                    <p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHAAGENDADA)}"/>
+                                                                    <p:outputLabel value="Hora Agendada"/>
+                                                                    <p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHAAGENDADA)}"/>
+                                                                    <p:outputLabel value="Fecha Creación"/>
+                                                                    <p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHACREACION)}"/>
+                                                                    <p:outputLabel value="Hora Creación"/>
+                                                                    <p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHACREACION)}"/>
+                                                                    <p:outputLabel value="Fecha Ejecución" />
+                                                                    <p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHAEJECUCION)}" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}" />
+                                                                    <p:outputLabel value="Hora Ejecución"/>
+                                                                    <p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHAEJECUCION)}" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}"/>
+                                                                    <p:outputLabel value="Estado"/> 
+                                                                    <p:outputLabel value="#{reinicioRemotoController.accionReciente.ESTADO}"/>
+                                                                    <p:outputLabel value="Transacción No:"/>
+                                                                    <p:outputLabel value="#{reinicioRemotoController.accionReciente.ACCIONRECIENTEID}"/>
+
+                                                                    <p:outputLabel value="Acción"/>
+
+                                                                    <p:selectOneMenu id="selectOneMenuAccion" 
+                                                                                     class="form-control rounded-pill solosel01"
+                                                                                     value="#{reinicioRemotoController.selectOneMenuAccionValue}" 
+                                                                                     converter="#{accionConverter}"
+                                                                                     >
+                                                                        <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
+                                                                        <f:selectItems value="#{reinicioRemotoController.accionList}" 
+                                                                                       var="var" 
+                                                                                       itemValue="#{var}" itemLabel="#{var.ACCION} " />
+
+
+
+
+                                                                    </p:selectOneMenu>
+                                                                    <f:facet name="footer">
+                                                                        <c:if test="${reinicioRemotoController.showButton}">
+                                                                            <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
+                                                                                             title="Envia el token al correo"
+                                                                                             id="commandButtonSendToken"
+                                                                                             action="#{reinicioRemotoController.onCommandButtonSendToken()}"
+                                                                                             update=":form:growl"                                                                    
+                                                                                             styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
+                                                                            </p:commandButton>
+
+                                                                        </c:if>
+
+                                                                        <p:commandButton value="REGRESAR"
+                                                                                         styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                         icon ="pi pi-arrow-left"
+                                                                                         action="#{navigatorController.go('cajeroencontrado.xhtml')}"
+                                                                                         />
+
+                                                                    </f:facet>
+                                                                </h:panelGrid>
+                                                            </c:if>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
 
 
 
@@ -124,56 +200,7 @@
                                         </div>
                                     </div>
 
-                                    <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
-                                                 style="border:0px none; background-color:transparent;">
-                                        <p:outputLabel value="Acción"/>
-
-                                        <p:selectOneMenu id="selectOneMenuAccion" 
-                                                         class="form-control rounded-pill solosel01"
-                                                         value="#{reinicioRemotoController.selectOneMenuAccionValue}" 
-                                                         converter="#{accionConverter}"
-                                                         >
-                                            <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
-                                            <f:selectItems value="#{reinicioRemotoController.accionList}" 
-                                                           var="var" 
-                                                           itemValue="#{var}" itemLabel="#{var.ACCION} " />
-
-
-
-
-                                        </p:selectOneMenu>
-
-
-
-                                        <f:facet name="footer">
-
-                                            <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
-                                                         style="border:0px none; background-color:transparent;">
-                                                <c:if test="${reinicioRemotoController.showButton}">
-                                                    <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
-                                                                     title="Envia el token al correo"
-                                                                     id="commandButtonSendToken"
-                                                                     action="#{reinicioRemotoController.onCommandButtonSendToken()}"
-                                                                     update=":form:growl"                                                                    
-                                                                     styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
-                                                    </p:commandButton>
-
-                                                </c:if>
-
-
-
-
-                                                <p:commandButton value="REGRESAR"
-                                                                 styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                                 icon ="pi pi-arrow-left"
-                                                                 action="#{navigatorController.go('cajeroencontrado.xhtml')}"
-                                                                 />
-
-                                            </p:panelGrid>
-
-                                        </f:facet>
-
-                                    </p:panelGrid>
+                          
 
 
 

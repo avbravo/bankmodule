@@ -102,9 +102,9 @@
                                 <dashboard:resumenacciontotal id="dashboardresumenacciontotal"/>
                             </div>
 
-                            <p:idleMonitor timeout="10000">
-                                <p:ajax event="idle" listener="#{dashboardController.onIdle}" update=":form:carousel"/>
-                                <p:ajax event="active" listener="#{dashboardController.onActive}" update=":form:carousel"/>
+                            <p:idleMonitor timeout="5000">
+                                <p:ajax event="idle" listener="#{dashboardController.onIdle}" update=":form:carousel, :form:dashboardresumenacciontotal,:form:dashboardschedule"/>
+                                <p:ajax event="active" listener="#{dashboardController.onActive}" update=":form:carousel,:form:dashboardresumenacciontotal,:form:dashboardschedule"/>
                             </p:idleMonitor>
 
                             <p:carousel var="item"  value="#{dashboardController.accionRecienteList}" numVisible="3"

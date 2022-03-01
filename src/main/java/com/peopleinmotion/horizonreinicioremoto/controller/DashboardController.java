@@ -9,6 +9,7 @@ import com.peopleinmotion.horizonreinicioremoto.domains.TotalesEstadoBanco;
 import com.peopleinmotion.horizonreinicioremoto.entity.AccionReciente;
 import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.entity.Cajero;
+import com.peopleinmotion.horizonreinicioremoto.entity.Notificacion;
 import com.peopleinmotion.horizonreinicioremoto.entity.Usuario;
 import com.peopleinmotion.horizonreinicioremoto.interfaces.Page;
 import com.peopleinmotion.horizonreinicioremoto.jmoordb.JmoordbContext;
@@ -22,6 +23,7 @@ import com.peopleinmotion.horizonreinicioremoto.repository.CajeroRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AccionRecienteServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
 import com.peopleinmotion.horizonreinicioremoto.services.DashboardServices;
+import com.peopleinmotion.horizonreinicioremoto.services.NotificacionServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TotalesEstadoBancoServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
@@ -35,8 +37,6 @@ import java.util.List;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -79,7 +79,8 @@ public class DashboardController implements Serializable, Page {
     private TotalesEstadoBanco totalesEstadoBanco = new TotalesEstadoBanco();
 
     Banco selectOneMenuBancoValue = new Banco();
-    private Boolean showDialog=Boolean.FALSE;
+    private Boolean showDialog = Boolean.FALSE;
+    private Notificacion notificacionOld = new Notificacion();
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
     Paginator paginator = new Paginator();
@@ -106,6 +107,8 @@ public class DashboardController implements Serializable, Page {
     AccionRecienteRepository accionRecienteRepository;
     @Inject
     TotalesEstadoBancoServices totalesEstadoBancoServices;
+    @Inject
+    NotificacionServices notificacionServices;
 // </editor-fold>
 
     /**
@@ -120,14 +123,21 @@ public class DashboardController implements Serializable, Page {
         try {
             user = (Usuario) JmoordbContext.get("user");
             banco = (Banco) JmoordbContext.get("banco");
+            /**
+             * Para validar las notificaciones
+             */
+            Optional<Notificacion> optional = notificacionServices.findByIDANDTIPOID(banco.getBANCOID(), "BANCO");
+            if (optional.isPresent()) {
+                notificacionOld = optional.get();
+            }
+
             //    cajeroList = new ArrayList<>();
             accionRecienteList = new ArrayList<>();
             accionRecienteScheduleList = new ArrayList<>();
-            showDialog=Boolean.FALSE;
-            if(JsfUtil.contextToInteger("rowForPage") != null){
-                    rowForPage=JsfUtil.contextToInteger("rowForPage");
-                }
-
+            showDialog = Boolean.FALSE;
+            if (JsfUtil.contextToInteger("rowForPage") != null) {
+                rowForPage = JsfUtil.contextToInteger("rowForPage");
+            }
 
             if (JmoordbContext.get("countViewAction") == null) {
                 JmoordbContext.put("countViewAction", 0);
@@ -211,7 +221,7 @@ public class DashboardController implements Serializable, Page {
 // <editor-fold defaultstate="collapsed" desc="onCommandButtonSelectCajero ">
     public String onCommandButtonSelectCajero(Cajero cajero) {
         try {
-           
+
             JmoordbContext.put("cajero", cajero);
 
             JsfUtil.infoDialog("Selecciono el cajero ", cajero.getCAJEROID().toString());
@@ -251,7 +261,9 @@ public class DashboardController implements Serializable, Page {
     public String calcularTotales() {
         try {
             totalesEstadoBanco = totalesEstadoBancoServices.calcularTotalesDelBanco();
-
+ConsoleUtil.info("calcularTotales() getTotalEnProceso()"+totalesEstadoBanco.getTotalEnProceso());
+ConsoleUtil.info("calcularTotales() getTotalFinalizado()"+totalesEstadoBanco.getTotalFinalizado());
+ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.getTotalSolicitado());
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
@@ -388,8 +400,14 @@ public class DashboardController implements Serializable, Page {
     // <editor-fold defaultstate="collapsed" desc="String onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent)">
     public String onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent) {
         try {
-showDialog=Boolean.TRUE;
+            showDialog = Boolean.TRUE;
+            if(selectEvent == null){
+                JsfUtil.warningMessage("No se puede procesar este evento");
+                return "";
+            }
             event = selectEvent.getObject();
+            
+            
             String id = event.getId();
 
             Optional<AccionReciente> accionRecienteOptional = accionRecienteRepository.findByAccionRecienteId(JsfUtil.toBigInteger(Integer.parseInt(id)));
@@ -411,11 +429,11 @@ showDialog=Boolean.TRUE;
                 JmoordbContext.put("cajero", cajeroSelected);
             }
             JmoordbContext.put("formularioRetorno", "dashboard");
- PrimeFaces.current().ajax().update("widgetVarscheduleDialog");
-        PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').initPosition()");
+            PrimeFaces.current().ajax().update("widgetVarscheduleDialog");
+            PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').initPosition()");
             PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').show()");
 
- ConsoleUtil.info("Actualizo el dialogo");
+            ConsoleUtil.info("Actualizo el dialogo");
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + ": " + e.getLocalizedMessage());
         }
@@ -494,7 +512,7 @@ showDialog=Boolean.TRUE;
             Integer length = texto.length();
             if (length > limite) {
 
-                texto = texto.substring(0, (limite -1));
+                texto = texto.substring(0, (limite - 1));
             }
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
@@ -502,20 +520,61 @@ showDialog=Boolean.TRUE;
         return texto;
     }
 // </editor-fold>
-    
-     public void onIdle() {
-         ConsoleUtil.info("onIdle() "+DateUtil.fechaHoraActual());
-         fillCarouselAccionReciente();
-         JsfUtil.warningMessage("No activity."+ "User is idle");
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-//                "No activity.", "User is idle"));
-    }
 
+    // <editor-fold defaultstate="collapsed" desc="onIdle()">
+    public void onIdle() {
+        try {
+            ConsoleUtil.info("------onIdle() " + "Modulo Banco "+ DateUtil.fechaHoraActual());
+            /**
+             * Si una accionreciente fue cambiada por otro usuario
+             */
+            if (notificacionServices.changed(notificacionOld)) {
+
+                ConsoleUtil.info("onIdle()--> hubo cambios " + DateUtil.fechaHoraActual());
+                Optional<Notificacion> optional = notificacionServices.findByIDANDTIPOID(banco.getBANCOID(), "BANCO");
+                if (optional.isPresent()) {
+                    ConsoleUtil.info("onIdle() --> actualizare notifiacionOld" + DateUtil.fechaHoraActual());
+                    JsfUtil.copyBeans(notificacionOld, optional.get());
+                }
+                ConsoleUtil.info("onIdle()--> relleno carrousel y loadSchedule" + DateUtil.fechaHoraActual());
+                fillCarouselAccionReciente();
+                loadSchedule();
+                calcularTotales();
+            } else {
+                ConsoleUtil.info("onIdle()-->No hubo cambios no hare nada " + DateUtil.fechaHoraActual());
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+
+    }
+// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="onActive() ">
     public void onActive() {
-          ConsoleUtil.info("onActive() "+DateUtil.fechaHoraActual());
-                 JsfUtil.warningMessage(     "Activity detected"+ "User is active");
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-//                "Activity detected", "User is active"));
-    }
+        try {
+            ConsoleUtil.info("-----onActive() " + "Modulo Banco "+ DateUtil.fechaHoraActual());
+            /**
+             * Si una accionreciente fue cambiada por otro usuario
+             */
+            if (notificacionServices.changed(notificacionOld)) {
+                Optional<Notificacion> optional = notificacionServices.findByIDANDTIPOID(banco.getBANCOID(), "BANCO");
+                if (optional.isPresent()) {
+                    ConsoleUtil.info("onActive()() --> actualizare notifiacionOld" + DateUtil.fechaHoraActual());
+                    JsfUtil.copyBeans(notificacionOld, optional.get());
+                }
+                ConsoleUtil.info("onActive()()--> relleno carrousel y loadSchedule" + DateUtil.fechaHoraActual());
+                fillCarouselAccionReciente();
+                loadSchedule();
+                calcularTotales();
+            } else {
+                ConsoleUtil.info("onActive()()-->No hubo cambios no hare nada " + DateUtil.fechaHoraActual());
+            }
 
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+    }
+// </editor-fold>
 }
