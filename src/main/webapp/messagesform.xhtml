@@ -4,29 +4,30 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"         
       xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
       xmlns:p="http://primefaces.org/ui"
-          
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
         <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
-       <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
+        <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
         <link rel="stylesheet" href="./resources/css/style.css"/>
         <link rel="stylesheet" href="./resources/css/dash01.css"/>
         <link rel="stylesheet" href="./resources/css/mantenimiento.css"/>
-         <link rel="stylesheet" href="./resources/css/dataTables.bootstrap.min.css"/>
+        <link rel="stylesheet" href="./resources/css/dataTables.bootstrap.min.css"/>
         <meta name="referrer" content="no-referrer"/>
         <meta name="referrer" content="strict-origin-when-cross-origin"/>
 
         <title>Modulo Banco</title>      
-     <f:metadata>
-             <f:viewAction    action="#{messagesFormController.browserEventFromPage('login.xhtml')}"/>
+        <f:metadata>
+            <f:viewAction    action="#{messagesFormController.browserEventFromPage('login.xhtml')}"/>
         </f:metadata>
 
     </h:head>
     <h:body>
-           <h:form id="form" prependId="false" rendered="#{accessController.loged}">
-                 
-  <p:ajaxStatus onsuccess="limpiartiempo()" />
+        <h:form id="form" prependId="false" rendered="#{accessController.loged}">
+
+            <p:ajaxStatus onsuccess="limpiartiempo()" />
             <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
             <script type="text/javascript">
                 function setDataTableWithPageStart() {
@@ -59,15 +60,15 @@
                                         <div>
                                             <h3 class="text-secondary">
                                                 <p:outputLabel value="#{messagesFormController.messagesForm.header.toUpperCase()}"/>
-                                            
+
                                             </h3>
-                                            
+
 
                                             <p:messages id="message" showSummary="true" />
 
                                         </div>
 
-                                        
+
 
 
 
@@ -96,34 +97,61 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="card-body atm-body02">
-                                                    <div class="row justify-content-center align-content-center atm-row01">
-                                                        <div class="col-1 col-lg-auto atm-card-marbody01 atm-mar01" >
-                                                            <p:graphicImage name="#{messagesFormController.messagesForm.image}"
-                                                                            library="#{messagesFormController.messagesForm.library}" alt="" class="card-icono01" />
+                                                <c:if test="${messagesFormController.messagesForm.errorWindows}">
+                                                    <div class="card-body atm-body02 bg-danger text-white">
+                                                        <div class="row justify-content-center align-content-center atm-row01">
+                                                            <div class="col-1 col-lg-auto atm-card-marbody01 atm-mar01" >
+                                                                <p:graphicImage name="#{messagesFormController.messagesForm.image}"
+                                                                                library="#{messagesFormController.messagesForm.library}" alt="" class="card-icono01" />
 
-                                                        </div>
-                                                        <div class="col-2 col-lg-auto atm-card-marbody01" >
-                                                            <button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" >
-                                                                #{messagesFormController.messagesForm.id}
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-8 col-lg-9 atm-card-marbody01 atm-mar02" >
-                                                            <dl>
-                                                                <dd class="atm-title-mar01"><strong></strong></dd>
-                                                                <dd class="atm-title-mar01"></dd>
-                                                            </dl>
+                                                            </div>
+                                                            <div class="col-2 col-lg-auto atm-card-marbody01" >
+                                                                <button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" >
+                                                                    #{messagesFormController.messagesForm.id}
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-8 col-lg-9 atm-card-marbody01 atm-mar02" >
+                                                                <dl>
+                                                                    <dd class="atm-title-mar01"><strong></strong></dd>
+                                                                    <dd class="atm-title-mar01"></dd>
+                                                                </dl>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </c:if>
+                                                <c:if test="${!messagesFormController.messagesForm.errorWindows}">
+                                                    <div class="card-body atm-body02  text-white">
+                                                        <div class="row justify-content-center align-content-center atm-row01">
+                                                            <div class="col-1 col-lg-auto atm-card-marbody01 atm-mar01" >
+                                                                <p:graphicImage name="#{messagesFormController.messagesForm.image}"
+                                                                                library="#{messagesFormController.messagesForm.library}" alt="" class="card-icono01" />
+
+                                                            </div>
+                                                            <div class="col-2 col-lg-auto atm-card-marbody01" >
+                                                                <button type="button" class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" >
+                                                                    #{messagesFormController.messagesForm.id}
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-8 col-lg-9 atm-card-marbody01 atm-mar02" >
+                                                                <dl>
+                                                                    <dd class="atm-title-mar01"><strong></strong></dd>
+                                                                    <dd class="atm-title-mar01"></dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </c:if>
+
+
+
 
                                                 <div class="card-body ">
                                                     <div class="row justify-content-center align-content-center">
                                                         <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
 
-                                                            <dd class="atm-title-mar01"><strong> Evento realizado: #{messagesFormController.messagesForm.titulo}</strong></dd>
+                                                            <dd class="atm-title-mar01"><strong> Evento: #{messagesFormController.messagesForm.titulo}</strong></dd>
                                                             <dd class="atm-title-mar01"><p:outputLabel value="#{messagesFormController.messagesForm.mensaje}"/></dd>
-                                                            
+
 
 
 
@@ -138,19 +166,19 @@
                                         </div>
                                     </div>
 
-                       
+
 
 
 
                                     <div class="row justify-content-center">
                                         <div class="col-2 col-lg-2 pt-3 pb-3 ali-desc-mov01">
                                             <p:commandButton value="DASHBOARD"
-                                                      styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                             styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
                                                              icon="pi pi-home"
-                                                           action="#{messagesFormController.onCommandButtonReturn()}">
-                                            
+                                                             action="#{messagesFormController.onCommandButtonReturn()}">
+
                                             </p:commandButton>
-                                            
+
 
 
 
@@ -165,7 +193,7 @@
                                 </div>
                             </div>
 
-              
+
 
 
                         </div>
@@ -193,15 +221,15 @@
 
 
         </h:form>    
-         <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">
+        <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">
 
             <template:accesodenegado/>
-          
+
         </h:form>
         <!-- container-scroller -->
 
-          <!-- container-scroller -->
-         <template:script/> 
+        <!-- container-scroller -->
+        <template:script/> 
     </h:body>
 
 </html>

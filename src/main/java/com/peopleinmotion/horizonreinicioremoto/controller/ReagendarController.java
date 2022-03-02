@@ -275,6 +275,7 @@ NotificacionServices notificacionServices;
              */
             if (accionRecienteServices.changed(accionRecienteOld)) {
                 MessagesForm messagesForm = new MessagesForm.Builder()
+                        .errorWindows(Boolean.TRUE)
                         .id(accionReciente.getCAJERO())
                         .header("Operación Incompleta")
                         .header2("La acción no fue completada")
@@ -322,6 +323,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                         *Mensajes exitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
+                                .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación Exitosa")
                                 .header2("La acción se realizo exitosamente")
@@ -369,6 +371,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
 
             if (accionRecienteServices.changed(accionRecienteOld)) {
                 MessagesForm messagesForm = new MessagesForm.Builder()
+                        .errorWindows(Boolean.TRUE)
                         .id(accionReciente.getCAJERO())
                         .header("Operación Incompleta")
                         .header2("La acción no fue completada")
@@ -417,6 +420,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                         *Mensajes exitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
+                                .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación Exitosa")
                                 .header2("La acción se realizo exitosamente")
@@ -470,6 +474,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                         *Mensajes exitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
+                                  .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación Exitosa")
                                 .header2("La acción se realizo exitosamente")

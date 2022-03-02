@@ -458,6 +458,8 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
             JmoordbContext.put("programarEventoListInProgramarEvento", null);
 
             MessagesForm messagesForm = new MessagesForm.Builder()
+                    .errorWindows(Boolean.FALSE)
+                    
                     .id(accionReciente.getCAJERO())
                     .header("Operación Exitosa")
                     .header2("Se procesaron exitosamente " + countExitosos)

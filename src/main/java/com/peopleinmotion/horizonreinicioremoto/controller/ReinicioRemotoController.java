@@ -403,6 +403,7 @@ public class ReinicioRemotoController implements Serializable, Page {
 //                        ConsoleUtil.error("No envio el email");
 //                    }
                     MessagesForm messagesForm = new MessagesForm.Builder()
+                              .errorWindows(Boolean.FALSE)
                             .id(accionReciente.getCAJERO())
                             .header("Operación Exitosa")
                             .header2("La acción se realizo exitosamente")

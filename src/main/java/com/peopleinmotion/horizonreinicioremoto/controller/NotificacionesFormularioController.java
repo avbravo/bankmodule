@@ -271,6 +271,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
 //             */
             if (accionRecienteServices.changed(accionRecienteOld)) {
                 MessagesForm messagesForm = new MessagesForm.Builder()
+                        .errorWindows(Boolean.TRUE)
                         .id(accionReciente.getCAJERO())
                         .header("Operación Incompleta")
                         .header2("La acción no fue completada")
@@ -315,6 +316,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                         *Mensajes exitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
+                                .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación Exitosa")
                                 .header2("La acción se realizo exitosamente")
@@ -362,6 +364,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
              */
             if (accionRecienteServices.changed(accionRecienteOld)) {
                 MessagesForm messagesForm = new MessagesForm.Builder()
+                        .errorWindows(Boolean.TRUE)
                         .id(accionReciente.getCAJERO())
                         .header("Operación Incompleta")
                         .header2("La acción no fue completada")
@@ -407,6 +410,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                         *Mensajes exitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
+                                .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación Exitosa")
                                 .header2("La acción se realizo exitosamente")
@@ -454,6 +458,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
 
             if (accionRecienteServices.changed(accionRecienteOld)) {
                 MessagesForm messagesForm = new MessagesForm.Builder()
+                        .errorWindows(Boolean.TRUE)
                         .id(accionReciente.getCAJERO())
                         .header("Operación Incompleta")
                         .header2("La acción no fue completada")
@@ -502,6 +507,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                         *Mensajes exitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
+                                .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación Exitosa")
                                 .header2("La acción se realizo exitosamente")
@@ -554,6 +560,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                         *Mensajes exitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
+                                .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación Exitosa")
                                 .header2("La acción se realizo exitosamente")
