@@ -28,19 +28,80 @@
                 <div class="main-panel">
                     <div class="content-wrapper" id="bgarc01">
 
-                        <div class="card text-white bg-danger mb-3 justify-content-center" style="max-width: 18rem;">
-                            <div class="card-header">ACCESO DENEGADO</div>
-                            <div class="card-body">
-                                <h5 class="card-title">Ingrese credenciales </h5>
-                                <p class="card-text">No cuenta con credenciales de acceso.</p>
-                                <p>
-                                    <p:commandButton 
-                                        icon="pi pi-user"
-                                        value="LOGIN" class="btn btn-block btn-danger btn-sm font-weight-medium auth-form-btn rounded-pill"
-                                        action="login">
+                        <div class="row up01">
+                            <div class="col-md-12 grid-margin">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h3 class="text-secondary">ACCESO DENEGADO</h3>
+                                        <h4 class="text-secondary"> Debe ingresar sus credenciales</h4>
 
-                                    </p:commandButton> 
-                                </p>
+                                        <p:messages id="message" showSummary="true" />
+
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-12 ">
+
+                                <div class="row justify-content-center">
+                                    <div class="col-12 col-lg-10">
+
+                                        <div class="card card-bor-bottom01 card-bor-top01 ">
+
+
+                                            <div class="card-header atm-head01 card-bor-top01">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-12 col-lg-11">
+                                                        <p class="card-title text-md-center text-xl-left textmvl01"><font color="#fff">No cuenta con credenciales de acceso</font></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-body atm-body02">
+                                                <div class="row justify-content-center align-content-center atm-row01">
+                                                    <div class="col-1 col-lg-auto atm-card-marbody01 atm-mar01" >
+                                                        <!--<p:graphicImage name="atm-green01.png" library="images" alt="" class="card-icono01" />-->
+                                                        <i class="pi pi-lock" style="font-size: 2rem"></i>
+                                                    </div>
+                                                    <div class="col-2 col-lg-auto atm-card-marbody01" >
+
+
+                                                        <p:commandButton 
+                                                            icon="pi pi-user"
+                                                            value="LOGIN" class="btn btn-block btn-danger btn-sm font-weight-medium auth-form-btn rounded-pill"
+                                                            action="login">
+
+                                                        </p:commandButton>
+                                                    </div>
+                                                    <div class="col-8 col-lg-9 atm-card-marbody01 atm-mar02" >
+                                                        <dl>
+                                                            <dd class="atm-title-mar01"><strong></strong></dd>
+
+                                                        </dl>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+
+
                             </div>
                         </div>
 

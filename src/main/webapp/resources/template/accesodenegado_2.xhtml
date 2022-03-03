@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:template="http://xmlns.jcp.org/jsf/composite/template">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <div class="container-scroller">
+            <!-- partial:partials/_navbar.html -->
+            <template:top_denegado/>
+
+
+            <!-- Body -->
+            <div class="container-fluid page-body-wrapper">
+                <template:navigator_denegado/>
+
+                <!-- partial -->
+
+
+                <!-- partial -->
+
+                <div class="main-panel">
+                    <div class="content-wrapper" id="bgarc01">
+
+                        <div class="card text-white bg-danger mb-3 justify-content-center" style="max-width: 18rem;">
+                            <div class="card-header">ACCESO DENEGADO</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Ingrese credenciales </h5>
+                                <p class="card-text">No cuenta con credenciales de acceso.</p>
+                                <p>
+                                    <p:commandButton 
+                                        icon="pi pi-user"
+                                        value="LOGIN" class="btn btn-block btn-danger btn-sm font-weight-medium auth-form-btn rounded-pill"
+                                        action="login">
+
+                                    </p:commandButton> 
+                                </p>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <!-- content-wrapper ends -->
+
+
+
+
+
+                    <!-- FOOTER -->
+                    <template:footer/>
+
+
+
+                    <!-- partial -->
+                </div>
+                <!-- main-panel ends -->
+
+
+
+            </div>
+            <!-- page-body-wrapper ends -->
+        </div>
+    </cc:implementation>
+</html>
