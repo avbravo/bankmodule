@@ -112,6 +112,14 @@ public class AccessController implements Serializable, Page {
     // <editor-fold defaultstate="collapsed" desc="String login()">
     public String login() {
         try {
+            if(username == null  || username.equals("")){
+                JsfUtil.warningMessage("Ingrese el nombre del usuario");
+                return "";
+            }
+            if(password== null  || password.equals("")){
+                JsfUtil.warningMessage("Ingrese el password del usuario");
+                return "";
+            }
             setLoged(Boolean.FALSE);
             if (intentos > 2) {
                 JsfUtil.warningMessage("Usted ha intentado ingresar en mas de tres ocasiones de manera fallida.");
