@@ -143,9 +143,18 @@
 
                                                 <f:setPropertyActionListener value="#{item}" target="#{bajarPlantillaProgramarEventoController.programarEventoSelected}"/>
                                             </p:commandButton>
-                                        </p:column>    
-                                        <f:facet name="footer">
-                                               <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
+                                        </p:column>           
+
+                                    </p:dataTable>
+
+                                </div>
+                            </div>
+
+
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-lg-12 ">
+
+                                    <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
                                                      title="Envia el token al correo"
                                                      id="commandButtonSendToken"
 
@@ -164,16 +173,16 @@
                                                      action="#{navigatorController.go('cajeroencontrado.xhtml')}"
                                                      />
 
-                                            
-                                        </f:facet>
 
-                                    </p:dataTable>
+
+
+
+
+
+
 
                                 </div>
                             </div>
-
-
-                
 
                             <!--<token:tokenbajarplantilla id="tokenmodal"/>-->
 

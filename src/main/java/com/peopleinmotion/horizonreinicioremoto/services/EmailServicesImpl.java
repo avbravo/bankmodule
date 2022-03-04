@@ -72,29 +72,29 @@ switch(accionReciente.getAUTORIZADO()){
 }
 
             messages = "\n  "
-                    + "\n----------------------Acción Reciente---------------------------------------"
+                    + "\n------------------Acción Reciente---------------------------------------"
                     + "\n"
                     + header.toLowerCase()
                     + "\n"
                     + accionReciente.getTITULO()
-                    + "\nFecha : "
+                    + "\nFecha              : "
                     + DateUtil.showDate(accionReciente.getFECHAAGENDADA())
                     + " "
                     + DateUtil.showHour(accionReciente.getFECHAAGENDADA())
-                    + "\nMensaje: "
+                    + "\nMensaje            : "
                     + accionReciente.getMENSAJE()
-                    + "\nCajero: "
+                    + "\nCajero             : "
                     + cajero.getCAJERO()
-                    + "\nBanco: "
+                    + "\nBanco              : "
                     + banco.getBANCO()
-                    + "\nEstado: "
+                    + "\nEstado             : "
                     + accionReciente.getESTADO()
-                    + "\nAutorizado: "
+                    + "\nAutorizado         : "
                     +autorizado
                     
-                    + "\nAccion generada por: "
+                    + "\nAcción generada por: "
                     + usuario.getNOMBRE()               
-                    + "\n\nTransacción No.: "
+                    + "\n\nTransacción No.  : "
                     + accionReciente.getACCIONRECIENTEID()
                     + "\n\n\b"
                     + "\nPor favor no responda este correo..."
