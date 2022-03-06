@@ -107,12 +107,12 @@ public class AccessServicesImpl implements AccessServices {
             Usuario u = list.get(0);
             
             if(u.getACTIVO().toUpperCase().equals("NO")){
-          JsfUtil.successMessage("El usuario no esta activo en el sistema");
+         JsfUtil.warningMessage("El usuario no esta activo en el sistema");
                 return Boolean.FALSE;
             }
 
             if (!JsfUtil.desencriptar(u.getPASSWORD()).equals(password)) {
-                JsfUtil.successMessage("El password no valido");
+               JsfUtil.warningMessage("El password no valido");
                 return Boolean.FALSE;
             }
 
@@ -147,12 +147,12 @@ public class AccessServicesImpl implements AccessServices {
             Usuario u = list.get(0);
             
                if(u.getACTIVO().toUpperCase().equals("NO")){
-          JsfUtil.successMessage("El usuario no esta activo en el sistema");
+          JsfUtil.warningMessage("El usuario no esta activo en el sistema");
                 return Boolean.FALSE;
             }
 
             if (!JsfUtil.desencriptar(u.getPASSWORD()).equals(password)) {
-                JsfUtil.successMessage("El password no valido");
+            JsfUtil.warningMessage("El password no valido");
                 return Boolean.FALSE;
             }
 

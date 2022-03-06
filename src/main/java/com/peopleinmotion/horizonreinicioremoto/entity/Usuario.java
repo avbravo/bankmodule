@@ -7,15 +7,10 @@ package com.peopleinmotion.horizonreinicioremoto.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Collection;
-import static java.util.stream.Collectors.toCollection;
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,17 +18,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Data;
 
 /**
  *
  * @author avbravo
  */
 @Entity
+@Data
 @Table(name = "USUARIO")
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
@@ -96,11 +92,30 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 35)
     @Column(name = "CELULAR")
     private String CELULAR;
+    
     @Basic(optional = false)
     @NotNull
-
     @Column(name = "ACTIVO")
     private String ACTIVO;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MODULOBANCO")
+    private String MODULOBANCO;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MODULOTECNICO")
+    private String MODULOTECNICO;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MODULOCONTROLMANUAL")
+    private String MODULOCONTROLMANUAL;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MODULOMANTENIMIENTO")
+    private String MODULOMANTENIMIENTO;
+    
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "ORDEN")
@@ -113,6 +128,58 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
+    public Usuario(BigInteger USUARIOID, String USERNAME, String PASSWORD, String NOMBRE, String CEDULA, String EMAIL, String TELEFONO, String CELULAR, String ACTIVO, String MODULOBANCO, String MODULOTECNICO, String MODULOCONTROLMANUAL, BigInteger ORDEN, Banco BANCOID) {
+        this.USUARIOID = USUARIOID;
+        this.USERNAME = USERNAME;
+        this.PASSWORD = PASSWORD;
+        this.NOMBRE = NOMBRE;
+        this.CEDULA = CEDULA;
+        this.EMAIL = EMAIL;
+        this.TELEFONO = TELEFONO;
+        this.CELULAR = CELULAR;
+        this.ACTIVO = ACTIVO;
+        this.MODULOBANCO = MODULOBANCO;
+        this.MODULOTECNICO = MODULOTECNICO;
+        this.MODULOCONTROLMANUAL = MODULOCONTROLMANUAL;
+        this.ORDEN = ORDEN;
+        this.BANCOID = BANCOID;
+    }
+
+    public String getMODULOBANCO() {
+        return MODULOBANCO;
+    }
+
+    public void setMODULOBANCO(String MODULOBANCO) {
+        this.MODULOBANCO = MODULOBANCO;
+    }
+
+    public String getMODULOTECNICO() {
+        return MODULOTECNICO;
+    }
+
+    public void setMODULOTECNICO(String MODULOTECNICO) {
+        this.MODULOTECNICO = MODULOTECNICO;
+    }
+
+    public String getMODULOCONTROLMANUAL() {
+        return MODULOCONTROLMANUAL;
+    }
+
+    public void setMODULOCONTROLMANUAL(String MODULOCONTROLMANUAL) {
+        this.MODULOCONTROLMANUAL = MODULOCONTROLMANUAL;
+    }
+
+    public String getMODULOMANTENIMIENTO() {
+        return MODULOMANTENIMIENTO;
+    }
+
+    public void setMODULOMANTENIMIENTO(String MODULOMANTENIMIENTO) {
+        this.MODULOMANTENIMIENTO = MODULOMANTENIMIENTO;
+    }
+
+    
+    
+    
     public Usuario(BigInteger USUARIOID) {
         this.USUARIOID = USUARIOID;
     }

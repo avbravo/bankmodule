@@ -83,8 +83,6 @@ public class AccessController implements Serializable, Page {
         try {
             intentos = 0;
 
-           
-
             /**
              * Lee las configuraciones iniciales
              */
@@ -99,7 +97,6 @@ public class AccessController implements Serializable, Page {
 //                    .build();
 //
 //            bancoList = bancoRepository.sql(querySQL);
-
             JmoordbContext.put("countViewAction", 0);
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
@@ -112,14 +109,19 @@ public class AccessController implements Serializable, Page {
     // <editor-fold defaultstate="collapsed" desc="String login()">
     public String login() {
         try {
-            if(username == null  || username.equals("")){
+          
+            if (username == null || username.equals("")) {
+            
                 JsfUtil.warningMessage("Ingrese el nombre del usuario");
                 return "";
             }
-            if(password== null  || password.equals("")){
+
+            if (password == null || password.equals("")) {
+                     ConsoleUtil.info("Ingrese password.........");
                 JsfUtil.warningMessage("Ingrese el password del usuario");
                 return "";
             }
+
             setLoged(Boolean.FALSE);
             if (intentos > 2) {
                 JsfUtil.warningMessage("Usted ha intentado ingresar en mas de tres ocasiones de manera fallida.");
@@ -127,14 +129,19 @@ public class AccessController implements Serializable, Page {
             }
 
             if (accessServices.validateCredentials(usuario, username, password)) {
+                 ConsoleUtil.info("is validateCredential.........");
+                usuario = (Usuario) JmoordbContext.get("user");
+                if (usuario.getMODULOBANCO().toUpperCase().equals("NO")) {
+                    JsfUtil.warningMessage("No tiene permisos para usar este módulo ");
+                    return "";
+                }
                 setLoged(Boolean.TRUE);
                 JsfUtil.successMessage("Bienvenido " + usuario.getNOMBRE());
 
-                usuario = (Usuario) JmoordbContext.get("user");
-
-              
-                JmoordbContext.put("banco", usuario.getBANCOID());
                 
+
+                JmoordbContext.put("banco", usuario.getBANCOID());
+
                 Historial historial = new Historial.Builder()
                         .EVENTO("Login")
                         .FECHA(DateUtil.fechaHoraActual())
@@ -150,8 +157,8 @@ public class AccessController implements Serializable, Page {
 
                 JmoordbContext.put("countViewAction", 0);
                 JmoordbContext.put("pageInView", "dashboard.xhtml");
-intentos=0;
-  return "dashboard.xhtml";
+                intentos = 0;
+                return "dashboard.xhtml";
 //               return "index.xhtml";
             } else {
                 intentos++;
@@ -163,8 +170,6 @@ intentos=0;
         return "";
     }
 // </editor-fold>
-
-  
 
     // <editor-fold defaultstate="collapsed" desc="expired()">
     public String expired() {

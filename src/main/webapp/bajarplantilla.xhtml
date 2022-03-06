@@ -120,6 +120,7 @@
                                                         <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
                                                             <c:if test="${!bajarPlantillaController.haveAccionReciente}">
                                                                 <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
+                                                              
                                                              
                                                             </c:if>
 
@@ -160,6 +161,16 @@
                                                                     <p:outputLabel value="Transacción No"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.accionReciente.ACCIONRECIENTEID}"/>
                                                                 </c:if>
+                                                                <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
+                                                                <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
+                                                                <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
+                                                                <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
+                                                      
+                                                                <p:outputLabel value="Fecha"/>
+                                                                <p:datePicker  hourFormat="12" id="time1" 
+                                                                               pattern="dd/MM/yyyy hh:mm a"
+                                                                               value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
+                                                                </p:datePicker>
                                                                 <p:outputLabel value="Acción"/>
                                                                 <p:selectOneMenu id="selectOneMenuAccion" 
                                                                                  class="form-control rounded-pill solosel01"
@@ -173,11 +184,7 @@
                                                                 </p:selectOneMenu>
 
 
-                                                                <p:outputLabel value="Fecha"/>
-                                                                <p:datePicker  hourFormat="12" id="time1" 
-                                                                               pattern="dd/MM/yyyy hh:mm a"
-                                                                               value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
-                                                                </p:datePicker>
+                                                                
                                                                 <f:facet name="footer">
 
                                                                     <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
