@@ -14,6 +14,7 @@ import com.peopleinmotion.horizonreinicioremoto.entity.Usuario;
 import com.peopleinmotion.horizonreinicioremoto.interfaces.Page;
 import com.peopleinmotion.horizonreinicioremoto.jmoordb.JmoordbContext;
 import com.peopleinmotion.horizonreinicioremoto.paginator.Paginator;
+import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
 import com.peopleinmotion.horizonreinicioremoto.repository.AccionRecienteRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.AgendaHistorialRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.AgendaRepository;
@@ -29,16 +30,20 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import lombok.Data;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+import org.primefaces.model.SortMeta;
 // </editor-fold>
 
 /**
@@ -78,6 +83,10 @@ public class NotificacionesController implements Serializable, Page {
     private BigInteger totalNoSePuedeEjecutar = new BigInteger("0");
 
     Banco selectOneMenuBancoValue = new Banco();
+    
+    
+       private LazyDataModel<AccionReciente> lazyDataModelAccionReciente;
+    QuerySQL querySQL = new QuerySQL();
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
     Paginator paginator = new Paginator();
@@ -126,7 +135,23 @@ public class NotificacionesController implements Serializable, Page {
                 if (JsfUtil.contextToInteger("rowForPage") != null) {
                     rowForPage = JsfUtil.contextToInteger("rowForPage");
                 }
-                fillAccionRecienteList();
+               // fillAccionRecienteList();
+                this.lazyDataModelAccionReciente = new LazyDataModel<AccionReciente>() {
+                @Override
+                public List<AccionReciente> load(int offset, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
+
+                 
+                     Integer count = accionRecienteRepository.countBancoIdAndActivo(banco.getBANCOID(), "SI");
+                    Integer paginas = JsfUtil.numberOfPages(count, rowForPage);
+
+                    List<AccionReciente> result =accionRecienteRepository.findBancoIdAndActivoPaginacion(banco.getBANCOID(), "SI", offset, rowForPage);
+                  
+                    lazyDataModelAccionReciente.setRowCount(count);
+                    PrimeFaces.current().executeScript("setDataTableWithPageStart()");
+                    return result;
+                }
+
+            };
 
             }
         } catch (Exception e) {

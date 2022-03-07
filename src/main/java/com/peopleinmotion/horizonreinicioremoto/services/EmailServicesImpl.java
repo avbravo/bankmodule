@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.peopleinmotion.horizonreinicioremoto.services;
-
 import com.peopleinmotion.horizonreinicioremoto.emails.EmailRecipients;
 import com.peopleinmotion.horizonreinicioremoto.emails.JmoordbEmailSender;
 import com.peopleinmotion.horizonreinicioremoto.entity.Accion;
@@ -89,7 +88,7 @@ switch(accionReciente.getAUTORIZADO()){
                     + banco.getBANCO()
                     + "\nEstado             : "
                     + accionReciente.getESTADO()
-                    + "\nAutorizado         : "
+                    + "\nAutorización      : "
                     +autorizado
                     
                     + "\nAcción generada por: "

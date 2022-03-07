@@ -7,6 +7,7 @@ package com.peopleinmotion.horizonreinicioremoto.repository;
 
 
 import com.peopleinmotion.horizonreinicioremoto.entity.AccionReciente;
+import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.facade.AccionRecienteFacade;
 import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
 import com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil;
@@ -170,6 +171,16 @@ public class AccionRecienteRepositoryImpl implements AccionRecienteRepository {
     @Override
     public int count(QuerySQL querySQL) {
        return accionRecienteFacade.count(querySQL);
+    }
+
+    @Override
+    public int countBancoIdAndActivo(BigInteger BANCOID, String ACTIVO) {
+       return accionRecienteFacade.countBancoIdAndActivo(BANCOID, ACTIVO);
+    }
+
+    @Override
+    public List<AccionReciente> findBancoIdAndActivoPaginacion(BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+        return accionRecienteFacade.findBancoIdAndActivoPaginacion(BANCOID, ACTIVO, pageNumber, rowForPage);
     }
 
 }

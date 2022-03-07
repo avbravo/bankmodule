@@ -48,4 +48,7 @@ public interface AccionRecienteRepository {
     public List<AccionReciente> pagination(QuerySQL querySQL, Integer pageNumber, Integer rowForPage);
 
     public int count(QuerySQL querySQL);
+    
+    public int countBancoIdAndActivo(BigInteger BANCOID, String ACTIVO);
+     public List<AccionReciente> findBancoIdAndActivoPaginacion(BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage);
 }

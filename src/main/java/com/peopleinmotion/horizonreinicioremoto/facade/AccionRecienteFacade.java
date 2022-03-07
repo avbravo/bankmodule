@@ -6,6 +6,8 @@
 package com.peopleinmotion.horizonreinicioremoto.facade;
 
 import com.peopleinmotion.horizonreinicioremoto.entity.AccionReciente;
+import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
+import com.peopleinmotion.horizonreinicioremoto.entity.Cajero;
 import com.peopleinmotion.horizonreinicioremoto.utils.JsfUtil;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -284,4 +286,45 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
 // </editor-fold>
     
 
+    
+      // <editor-fold defaultstate="collapsed" desc="int countBancoIdAndActivo(BigInteger BANCOID, String ACTIVO)">
+    /**
+     * Cuenta los cajeros del banco y por activo
+     * @param BANCOID
+     * @param ACTIVO
+     * @return 
+     */
+    public int countBancoIdAndActivo(BigInteger BANCOID, String ACTIVO) {
+
+        try {
+
+            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
+
+            query.setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
+            return ((Long) query.getSingleResult()).intValue();
+
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return 0;
+    }
+// </editor-fold>
+    
+     // <editor-fold defaultstate="collapsed" desc="List<AccionReciente> findByBancoIdAndActivoPaginacion(BigIntegerBANCOID, String ACTIVO)">
+
+    public List<AccionReciente> findBancoIdAndActivoPaginacion(BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+        List<AccionReciente> list = new ArrayList<>();
+        try {
+
+            Query query = em.createQuery("SELECT a FROM AccionReciente a WHERE a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA DESC");
+
+             query.setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);
+  query.setFirstResult(pageNumber).setMaxResults(rowForPage);
+  list = query.getResultList();
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return list;
+    }
+// </editor-fold>
 }

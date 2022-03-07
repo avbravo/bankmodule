@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:template="http://xmlns.jcp.org/jsf/composite/template">
+      xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <!-- INTERFACE -->
     <cc:interface>
@@ -26,23 +27,108 @@
                 <!-- partial -->
 
                 <div class="main-panel">
-                    <div class="content-wrapper" id="bgarc01">
+                    <div class="content-wrapper bg-danger" id="bgarc01">
+                        <div class="row up01">
+                            <div class="col-md-12 grid-margin">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h3 class="text-secondary">
+                                            <p:outputLabel value="ACCESO DENEGADO"/>
 
-                        <div class="card text-white bg-danger mb-3 justify-content-center" style="max-width: 18rem;">
-                            <div class="card-header">ACCESO DENEGADO</div>
-                            <div class="card-body">
-                                <h5 class="card-title">Ingrese credenciales </h5>
-                                <p class="card-text">No cuenta con credenciales de acceso.</p>
-                                <p>
-                                    <p:commandButton 
-                                        icon="pi pi-user"
-                                        value="LOGIN" class="btn btn-block btn-danger btn-sm font-weight-medium auth-form-btn rounded-pill"
-                                        action="login">
+                                        </h3>
 
-                                    </p:commandButton> 
-                                </p>
+
+                                      
+
+                                    </div>
+
+
+
+
+
+                                </div>
                             </div>
                         </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-12 ">
+
+                                <div class="row justify-content-center">
+                                    <div class="col-12 col-lg-10">
+
+                                        <div class="card card-bor-bottom01 card-bor-top01 ">
+
+
+                                            <div class="card-header atm-head01 card-bor-top01">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-12 col-lg-11">
+                                                        <p class="card-title text-md-center text-xl-left textmvl01
+                                                           "><font color="#fff"> <p:outputLabel value="NO TIENE AUTORIZACIÓN"/> </font></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                          
+                                           
+
+
+
+
+                                            <div class="card-body ">
+                                                <div class="row justify-content-center align-content-center">
+                                                    <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
+
+                                                        <dd class="atm-title-mar01"><strong> Evento:</strong></dd>
+                                                        <dd class="atm-title-mar01"><p:outputLabel value="Dirigase al formulario Login"/></dd>
+                                                        <dd class="atm-title-mar01"><p:outputLabel value="Ingrese con sus credencialenciales"/></dd>
+
+
+
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <div class="row justify-content-center">
+                                    <div class="col-2 col-lg-2 pt-3 pb-3 ali-desc-mov01">
+                                        <p:commandButton value="LOGIN"
+                                                         styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                         
+                                                         
+                                                         icon="pi pi-user"
+                                         class="btn btn-block btn-danger btn-sm font-weight-medium auth-form-btn rounded-pill"
+                                        action="login"
+                                                         >
+
+                                        </p:commandButton>
+
+
+
+
+
+
+
+                                    </div>
+                                </div>	
+
+
+
+                            </div>
+                        </div>
+
+
+
 
 
 
