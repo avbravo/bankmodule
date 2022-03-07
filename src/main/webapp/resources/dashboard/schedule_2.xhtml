@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:outputPanel id="outputPanelschedule">
+
+            <div class="row borlat01">
+                <div class="col-12 col-lg-12 ">
+                    <div class="row justify-content-center titulosec01">
+                        <font class="titulosec02">Agendamientos |</font>&nbsp;Panel de Horizon
+                    </div>
+
+                    <p:schedule id="schedule"  
+                                showHeader="true"
+                                rightHeaderTemplate="month,agendaWeek,agendaDay,basicDay"
+                                value="#{dashboardController.lazyEventModel}"
+                                widgetVar="myschedule" 
+                                class="schedule-forecolor-black1"
+                                draggable="false"
+                                
+
+                                >
+
+                        <p:ajax event="eventSelect"  listener="#{dashboardController.onEventSelect}" update="eventDetails"
+
+                                oncomplete="PF('widgetVarscheduleDialog').show();"
+                                />
+                    </p:schedule>
+                    
+                   
+                </div>  
+            </div>
+              <div class="row borlat01">
+                <div class="col-12 col-lg-12 ">
+                    <div class="row justify-content-center titulosec01">
+                   <p:commandLink value="VER TODO"  class="bot-ver01"  action="#{navigatorController.go('notificaciones.xhtml')}" />  <font color="#737373;"> | </font>&nbsp; <p:commandLink value="AGENDAR"  class="bot-agre01"   action="#{dashboardController.onCommnandButtonGoBuscarCajero()}"/>
+                    
+                    </div>
+                    
+                </div>
+              </div>
+
+        </p:outputPanel>
+       
+              <!--<div style="position: absolute; left: 1px; top: 1px;"  >-->
+            
+                  <!--<c:if test="${dashboardController.showDialog}">-->
+           
+            <p:dialog widgetVar="widgetVarscheduleDialog" header="Acción Reciente" 
+                     showEffect="fade" hideEffect="fade"
+                          minHeight="150" width="450" 
+                       
+             style="position: absolute; left: 1px; top: 1px; width:20%;margin:0 auto" 
+                        
+                          position="center center"
+                          onShow="PF('widgetVarscheduleDialog').initPosition()"
+                          resizable="false"
+                    
+                      >
+         
+                <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
+                    <p:outputLabel  value="Cajero" styleClass="p-text-bold"/>
+                    <p:outputLabel id="cajero" value="#{dashboardController.accionRecienteSelected.CAJERO}" />
+
+                    <p:outputLabel  value="Dirección" styleClass="p-text-bold"/>
+                    <p:outputLabel id="direccion" value="#{dashboardController.cajeroSelected.DIRECCIONCORTA}" />
+
+                    <p:outputLabel  value="Acción" styleClass="p-text-bold"/>
+                    <p:outputLabel id="titulo" value="#{dashboardController.accionRecienteSelected.TITULO}"/>
+
+                    
+                    <p:outputLabel  value="Mensaje" styleClass="p-text-bold"/>
+                    <p:outputLabel id="mensaje2" value="#{dashboardController.cortarTexto(dashboardController.accionRecienteSelected.MENSAJE)}"/>
+
+                    <p:outputLabel value="Agendado" styleClass="p-text-bold" rendered="false"/>
+                    <p:calendar  value="#{dashboardController.event.startDate}" pattern="dd/MM/yyyy hh:mm a"
+                                 rendered="false"
+                                 />
+                  
+                    <p:outputLabel value="Agendado" styleClass="p-text-bold" />
+                    <p:outputLabel value="#{dashboardController.showDate(dashboardController.accionRecienteSelected.FECHAAGENDADA)}  #{dashboardController.showHour(dashboardController.accionRecienteSelected.FECHAAGENDADA) }"/>
+                    <p:outputLabel value="Fecha/Ejecución" styleClass="p-text-bold" rendered="#{!dashboardController.renderedByEstadoSolicitado()}"/>
+                    <p:outputLabel rendered="#{!dashboardController.renderedByEstadoSolicitado()}" value=" #{dashboardController.showDate(dashboardController.accionRecienteSelected.FECHAEJECUCION)}"/>
+                    <p:outputLabel value="Hora/Ejecución" styleClass="p-text-bold" rendered="#{!dashboardController.renderedByEstadoSolicitado()}"/>
+                    <p:outputLabel rendered="#{!dashboardController.renderedByEstadoSolicitado()}" value=" #{dashboardController.showHour(dashboardController.accionRecienteSelected.FECHAEJECUCION)}"/>
+
+
+
+                    <p:outputLabel  value="Estado" styleClass="p-text-bold"/>
+                    <p:outputLabel id="estado" value="#{dashboardController.accionRecienteSelected.ESTADO}" />
+
+                </h:panelGrid>
+
+
+
+                <f:facet name="footer">
+                    <p:commandButton  oncomplete="PF('widgetVarscheduleDialog').hide();" 
+                                      value="CERRAR"
+                                      icon="pi pi-times"
+                                      styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"/>
+                    <p:commandButton 
+
+                        styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
+                        id="commandButtonProcesar"
+                        value="CONTINUAR"
+
+
+                        icon="pi pi-calendar-plus"
+                        update=":form:growl"
+                        action="#{dashboardController.onCommandButtonSelectAccionReciente(dashboardController.accionRecienteSelected,'dashboard')}"/>
+
+
+                </f:facet>
+            </p:dialog>
+                             <!--</c:if>-->
+<!--</div>-->
+        <!--</c:if>-->
+     
+
+
+
+
+    </cc:implementation>
+</html>
