@@ -97,12 +97,14 @@
  
 
 
-<!--                                                    <span class="filter-container ui-input-icon-left">
+-                                                    <span class="filter-container ui-input-icon-left">
                                                         <i class="pi pi-search"></i>
-                                                        <p:inputText id="globalFilter" onkeyup="PF('widgetVardataTable').filter()" placeholder="Search"/>
-                                                    </span>-->
+                                                        <p:inputText  value="#{buscarCajeroController.cajeroText}" id="globalFilter" 
+                                                                      onkeyup="remoTe()" placeholder="Search"/>
+                                                    </span>
 
-
+<p:remoteCommand name="remoTe" update=":form:dataTable"
+                 action="#{buscarCajeroController.like()}"/>
                                                 </div>
                                             </f:facet>
 

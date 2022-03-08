@@ -61,6 +61,8 @@ public class BuscarCajeroController implements Serializable, Page {
     Banco banco = new Banco();
     private LazyDataModel<Cajero> lazyDataModelCajero;
     QuerySQL querySQL = new QuerySQL();
+    
+    String cajeroText = "";
 
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
@@ -158,6 +160,26 @@ public class BuscarCajeroController implements Serializable, Page {
         }
         JmoordbContext.put("pageInView", "cajeroencontrado.xhtml");
         return "cajeroencontrado.xhtml";
+    }
+// </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="method() ">
+    public String like(){
+        try {
+            ConsoleUtil.info("llego a like");
+            if(cajeroText == null || cajeroText.isEmpty()){
+                JsfUtil.warningMessage("Ingrese un texto");
+            }
+        List<Cajero> l=    cajeroRepository.findCajeroBancoIdAndActivoLikePaginacion(cajeroText, banco, cajeroText, 0, rowForPage);
+        if(l == null || l.isEmpty()){
+               JsfUtil.warningMessage("No encontro cajeros");
+        }else{
+             JsfUtil.warningMessage("Encontro cajeros "+l.size());
+        }
+        } catch (Exception e) {
+             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+        }
+        return "";
     }
 // </editor-fold>
 
