@@ -84,7 +84,7 @@
                                                      widgetVar="widgetVardataTable"
 
                                                      lazy="true"
-                                                     
+
                                                      binding="#{table1}"
                                                      paginator="true"
                                                      rows="#{buscarCajeroController.rowForPage}"
@@ -94,17 +94,23 @@
                                             <f:facet name="header">
                                                 <div class="products-table-header">
                                                     <span style="font-weight: bold">BUSCAR</span>
- 
 
-
--                                                    <span class="filter-container ui-input-icon-left">
+                                                    <span class="filter-container ui-input-icon-left">
                                                         <i class="pi pi-search"></i>
-                                                        <p:inputText  value="#{buscarCajeroController.cajeroText}" id="globalFilter" 
-                                                                      onkeyup="remoTe()" placeholder="Search"/>
+                                                        <p:inputText  value="#{buscarCajeroController.cajeroSearch}"  id="cajeroSearch"
+                                                                      onkeyup="remoteCommandCajero()" placeholder="Cajero"/>
+                                                    </span>
+                                                    <span class="filter-container ui-input-icon-left">
+                                                        <i class="pi pi-search"></i>
+                                                        <p:inputText  value="#{buscarCajeroController.direccionSearch}" id="direccionSearch"
+                                                                      onkeyup="remoteCommandDireccion()" placeholder="Dirección"/>
                                                     </span>
 
-<p:remoteCommand name="remoTe" update=":form:dataTable"
-                 action="#{buscarCajeroController.like()}"/>
+
+                                                    <p:remoteCommand name="remoteCommandCajero" update=":form:dataTable,:form:growl"
+                                                                     action="#{buscarCajeroController.searchByCajero()}"/>
+                                                    <p:remoteCommand name="remoteCommandDireccion" update=":form:dataTable,:form:growl"
+                                                                     action="#{buscarCajeroController.searchByDireccion()}"/>
                                                 </div>
                                             </f:facet>
 

@@ -61,11 +61,19 @@ public class Cajero implements Serializable {
 
     @Column(name = "ACTIVO")
     private String ACTIVO;
+   
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "DESCRIPCION")
     private String DESCRIPCION;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "INFORMACIONADICIONAL")
+    private String INFORMACIONADICIONAL;
+    
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)

@@ -44,7 +44,13 @@ public interface CajeroRepository {
     
         public int countBancoIdAndActivo(Banco BANCOID, String ACTIVO);
         public List<Cajero> findBancoIdAndActivoPaginacion(Banco BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage);
+        
+        public int countCajeroBancoIdAndActivoLike(String cajero,Banco BANCOID, String ACTIVO);
  public List<Cajero> findCajeroBancoIdAndActivoLikePaginacion(String cajero, Banco BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage);
  public List<Cajero> findCajeroBancoIdAndActivoLike(String cajero, Banco BANCOID, String ACTIVO);
- public int countBancoIdAndActivoLike(String cajero,Banco BANCOID, String ACTIVO);
+ 
+ public int countDireccionBancoIdAndActivoLike(String DIRECCION,Banco BANCOID, String ACTIVO);
+ public List<Cajero> findDireccionBancoIdAndActivoLikePaginacion(String DIRECCION, Banco BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage);
+ 
+ public List<Cajero> findDireccionBancoIdAndActivoLike(String DIRECCION, Banco BANCOID, String ACTIVO);
 }

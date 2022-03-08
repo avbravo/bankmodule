@@ -138,9 +138,25 @@ public class CajeroRepositoryImpl implements CajeroRepository {
         return cajeroFacade.findCajeroBancoIdAndActivoLike( cajero, BANCOID, ACTIVO);
     }
 
+   
     @Override
-    public int countBancoIdAndActivoLike(String  cajero, Banco BANCOID, String ACTIVO) {
-       return cajeroFacade.countBancoIdAndActivoLike(cajero, BANCOID, ACTIVO);
+    public int countCajeroBancoIdAndActivoLike(String cajero, Banco BANCOID, String ACTIVO) {
+      return cajeroFacade.countCajeroBancoIdAndActivoLike(cajero, BANCOID, ACTIVO);
+    }
+
+    @Override
+    public int countDireccionBancoIdAndActivoLike(String DIRECCION, Banco BANCOID, String ACTIVO) {
+     return cajeroFacade.countDireccionBancoIdAndActivoLike(DIRECCION, BANCOID, ACTIVO);
+    }
+
+    @Override
+    public List<Cajero> findDireccionBancoIdAndActivoLikePaginacion(String DIRECCION, Banco BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+       return cajeroFacade.findDireccionBancoIdAndActivoLikePaginacion(DIRECCION, BANCOID, ACTIVO, pageNumber, rowForPage);
+    }
+
+    @Override
+    public List<Cajero> findDireccionBancoIdAndActivoLike(String DIRECCION, Banco BANCOID, String ACTIVO) {
+        return cajeroFacade.findDireccionBancoIdAndActivoLikePaginacion(DIRECCION, BANCOID, ACTIVO, Integer.MAX_VALUE, Integer.MIN_VALUE);
     }
 
   

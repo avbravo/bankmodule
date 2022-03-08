@@ -61,8 +61,10 @@ public class BuscarCajeroController implements Serializable, Page {
     Banco banco = new Banco();
     private LazyDataModel<Cajero> lazyDataModelCajero;
     QuerySQL querySQL = new QuerySQL();
-    
-    String cajeroText = "";
+
+    String cajeroSearch = "";
+    String direccionSearch = "";
+    String queryType = "init";
 
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
@@ -119,21 +121,32 @@ public class BuscarCajeroController implements Serializable, Page {
             /**
              * Query inicial
              */
-
-          
-          
-
-
+            queryType = "init";
             this.lazyDataModelCajero = new LazyDataModel<Cajero>() {
                 @Override
                 public List<Cajero> load(int offset, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
+                    Integer count =0, paginas;
+                    List<Cajero> result = new ArrayList<>();
 
-                
-                     Integer count = cajeroRepository.countBancoIdAndActivo(banco, "SI");
-                    Integer paginas = JsfUtil.numberOfPages(count, rowForPage);
+                    switch (queryType) {
+                        case "init":
+                            count = cajeroRepository.countBancoIdAndActivo(banco, "SI");
+                            paginas = JsfUtil.numberOfPages(count, rowForPage);
 
-                    List<Cajero> result =cajeroRepository.findBancoIdAndActivoPaginacion(banco, "SI", offset, rowForPage);
-       
+                            result = cajeroRepository.findBancoIdAndActivoPaginacion(banco, "SI", offset, rowForPage);
+                            break;
+                        case "cajero":
+                            count = cajeroRepository.countCajeroBancoIdAndActivoLike(cajeroSearch, banco, "SI");
+                            paginas = JsfUtil.numberOfPages(count, rowForPage);
+                            result = cajeroRepository.findCajeroBancoIdAndActivoLikePaginacion(cajeroSearch, banco, "SI", 0, rowForPage);
+                            break;
+                        case "direccion":
+                            count = cajeroRepository.countDireccionBancoIdAndActivoLike(direccionSearch, banco, "SI");
+                            paginas = JsfUtil.numberOfPages(count, rowForPage);
+                            result = cajeroRepository.findDireccionBancoIdAndActivoLikePaginacion(direccionSearch, banco, "SI", 0, rowForPage);
+                            break;
+                    }
+
                     lazyDataModelCajero.setRowCount(count);
                     PrimeFaces.current().executeScript("setDataTableWithPageStart()");
                     return result;
@@ -162,22 +175,26 @@ public class BuscarCajeroController implements Serializable, Page {
         return "cajeroencontrado.xhtml";
     }
 // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="method() ">
-    public String like(){
+
+    // <editor-fold defaultstate="collapsed" desc="String searchByCajero()">
+    public String searchByCajero() {
         try {
-            ConsoleUtil.info("llego a like");
-            if(cajeroText == null || cajeroText.isEmpty()){
-                JsfUtil.warningMessage("Ingrese un texto");
-            }
-        List<Cajero> l=    cajeroRepository.findCajeroBancoIdAndActivoLikePaginacion(cajeroText, banco, cajeroText, 0, rowForPage);
-        if(l == null || l.isEmpty()){
-               JsfUtil.warningMessage("No encontro cajeros");
-        }else{
-             JsfUtil.warningMessage("Encontro cajeros "+l.size());
-        }
+            queryType="cajero";
+            direccionSearch="";
+
         } catch (Exception e) {
-             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String searchByDireccion()">
+    public String searchByDireccion() {
+        try {
+            queryType="direccion";
+            cajeroSearch="";
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
         }
         return "";
     }
