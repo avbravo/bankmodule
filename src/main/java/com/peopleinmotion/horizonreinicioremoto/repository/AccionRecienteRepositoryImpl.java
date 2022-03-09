@@ -183,4 +183,65 @@ public class AccionRecienteRepositoryImpl implements AccionRecienteRepository {
         return accionRecienteFacade.findBancoIdAndActivoPaginacion(BANCOID, ACTIVO, pageNumber, rowForPage);
     }
 
+    @Override
+    public int countCajeroBancoIdAndActivoLike(String CAJERO, Banco BANCOID, String ACTIVO) {
+       return accionRecienteFacade.countCajeroBancoIdAndActivoLike(CAJERO, BANCOID, ACTIVO);
+    }
+
+    @Override
+    public List<AccionReciente> findCajeroBancoIdAndActivoLikePaginacion(String CAJERO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+        return accionRecienteFacade.findCajeroBancoIdAndActivoLikePaginacion(CAJERO, BANCOID, ACTIVO, pageNumber, rowForPage);
+    }
+
+    @Override
+    public List<AccionReciente> findCajeroBancoIdAndActivoLike(String CAJERO, BigInteger BANCOID, String ACTIVO) {
+      return accionRecienteFacade.findCajeroBancoIdAndActivoLike(CAJERO, BANCOID, ACTIVO);
+    }
+
+    @Override
+    public int countEstadoBancoIdAndActivoLike(String ESTADO, Banco BANCOID, String ACTIVO) {
+      return accionRecienteFacade.countEstadoBancoIdAndActivoLike(ESTADO, BANCOID, ACTIVO);
+    }
+
+    @Override
+    public List<AccionReciente> findEstadoBancoIdAndActivoLikePaginacion(String ESTADO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+         return accionRecienteFacade.findEstadoBancoIdAndActivoLikePaginacion(ESTADO, BANCOID, ACTIVO, pageNumber, rowForPage);
+    }
+
+    @Override
+    public List<AccionReciente> findEstadoBancoIdAndActivoLike(String ESTADO, BigInteger BANCOID, String ACTIVO) {
+          return accionRecienteFacade.findEstadoBancoIdAndActivoLike(ESTADO, BANCOID, ACTIVO);
+
+    }
+
+    @Override
+    public int countTituloBancoIdAndActivoLike(String TITULO, Banco BANCOID, String ACTIVO) {
+         return accionRecienteFacade.countTituloBancoIdAndActivoLike(TITULO, BANCOID, ACTIVO);
+    }
+
+    @Override
+    public List<AccionReciente> findTituloBancoIdAndActivoLikePaginacion(String TITULO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+        return accionRecienteFacade.findTituloBancoIdAndActivoLikePaginacion(TITULO, BANCOID, ACTIVO, pageNumber, rowForPage);
+    }
+
+    @Override
+    public List<AccionReciente> findTituloBancoIdAndActivoLike(String TITULO, BigInteger BANCOID, String ACTIVO) {
+        return accionRecienteFacade.findTituloBancoIdAndActivoLike(TITULO, BANCOID, ACTIVO);
+    }
+
+    @Override
+    public int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO, Banco BANCOID, String ACTIVO) {
+      return accionRecienteFacade.countAutorizadoBancoIdAndActivoLike(AUTORIZADO, BANCOID, ACTIVO);
+    }
+
+    @Override
+    public List<AccionReciente> findAutorizadoBancoIdAndActivoLikePaginacion(String AUTORIZADO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+      return accionRecienteFacade.findAutorizadoBancoIdAndActivoLikePaginacion(AUTORIZADO, BANCOID, ACTIVO, pageNumber, rowForPage);
+    }
+
+    @Override
+    public List<AccionReciente> findAutorizadoBancoIdAndActivoLike(String AUTORIZADO, BigInteger BANCOID, String ACTIVO) {
+         return accionRecienteFacade.findAutorizadoBancoIdAndActivoLike(AUTORIZADO, BANCOID, ACTIVO);
+    }
+
 }

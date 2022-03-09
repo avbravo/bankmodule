@@ -340,7 +340,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
     public int countCajeroBancoIdAndActivoLike(String CAJERO,Banco BANCOID, String ACTIVO) {
 
         try {
-            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(c.CAJERO) LIKE UPPER(:CAJERO)) AND c.BANCOID = :BANCOID AND c.ACTIVO = :ACTIVO ");
+            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
             query.setParameter("CAJERO",CAJERO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
             return ((Long) query.getSingleResult()).intValue();
 

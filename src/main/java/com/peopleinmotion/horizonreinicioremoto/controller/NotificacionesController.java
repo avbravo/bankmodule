@@ -83,10 +83,15 @@ public class NotificacionesController implements Serializable, Page {
     private BigInteger totalNoSePuedeEjecutar = new BigInteger("0");
 
     Banco selectOneMenuBancoValue = new Banco();
-    
-    
-       private LazyDataModel<AccionReciente> lazyDataModelAccionReciente;
+
+    private LazyDataModel<AccionReciente> lazyDataModelAccionReciente;
     QuerySQL querySQL = new QuerySQL();
+
+    String cajeroSearch = "";
+    String tituloSearch = "";
+    String estadoSearch = "";
+    String autorizadoSearch = "";
+    String queryType = "init";
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
     Paginator paginator = new Paginator();
@@ -135,23 +140,56 @@ public class NotificacionesController implements Serializable, Page {
                 if (JsfUtil.contextToInteger("rowForPage") != null) {
                     rowForPage = JsfUtil.contextToInteger("rowForPage");
                 }
-               // fillAccionRecienteList();
+                // fillAccionRecienteList();
+
+                queryType = "init";
+
                 this.lazyDataModelAccionReciente = new LazyDataModel<AccionReciente>() {
-                @Override
-                public List<AccionReciente> load(int offset, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
+                    @Override
+                    public List<AccionReciente> load(int offset, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
 
-                 
-                     Integer count = accionRecienteRepository.countBancoIdAndActivo(banco.getBANCOID(), "SI");
-                    Integer paginas = JsfUtil.numberOfPages(count, rowForPage);
+                        Integer count = 0, paginas;
+                        List<AccionReciente> result = new ArrayList<>();
 
-                    List<AccionReciente> result =accionRecienteRepository.findBancoIdAndActivoPaginacion(banco.getBANCOID(), "SI", offset, rowForPage);
-                  
-                    lazyDataModelAccionReciente.setRowCount(count);
-                    PrimeFaces.current().executeScript("setDataTableWithPageStart()");
-                    return result;
-                }
+                        switch (queryType) {
+                            case "init":
+                                count = cajeroRepository.countBancoIdAndActivo(banco, "SI");
+                                paginas = JsfUtil.numberOfPages(count, rowForPage);
 
-            };
+                                result = accionRecienteRepository.findBancoIdAndActivoPaginacion(banco.getBANCOID(), "SI", offset, rowForPage);
+                                break;
+                            case "cajero":
+                                count = accionRecienteRepository.countCajeroBancoIdAndActivoLike(cajeroSearch, banco, "SI");
+                                paginas = JsfUtil.numberOfPages(count, rowForPage);
+                                result = accionRecienteRepository.findCajeroBancoIdAndActivoLikePaginacion(cajeroSearch, banco.getBANCOID(), "SI", 0, rowForPage);
+                                break;
+                            case "titulo":
+                                count = accionRecienteRepository.countTituloBancoIdAndActivoLike(tituloSearch, banco, "SI");
+                                paginas = JsfUtil.numberOfPages(count, rowForPage);
+                                result = accionRecienteRepository.findTituloBancoIdAndActivoLikePaginacion(tituloSearch, banco.getBANCOID(), "SI", 0, rowForPage);
+                                break;
+                            case "estado":
+                                count = accionRecienteRepository.countEstadoBancoIdAndActivoLike(estadoSearch, banco, "SI");
+                                paginas = JsfUtil.numberOfPages(count, rowForPage);
+                                result = accionRecienteRepository.findEstadoBancoIdAndActivoLikePaginacion(estadoSearch, banco.getBANCOID(), "SI", 0, rowForPage);
+                                break;
+                            case "autorizado":
+                                count = accionRecienteRepository.countEstadoBancoIdAndActivoLike(autorizadoSearch, banco, "SI");
+                                paginas = JsfUtil.numberOfPages(count, rowForPage);
+                                result = accionRecienteRepository.findEstadoBancoIdAndActivoLikePaginacion(autorizadoSearch, banco.getBANCOID(), "SI", 0, rowForPage);
+                                break;
+                        }
+
+//                        Integer count = accionRecienteRepository.countBancoIdAndActivo(banco.getBANCOID(), "SI");
+//                        Integer paginas = JsfUtil.numberOfPages(count, rowForPage);
+//
+//                        List<AccionReciente> result = accionRecienteRepository.findBancoIdAndActivoPaginacion(banco.getBANCOID(), "SI", offset, rowForPage);
+                        lazyDataModelAccionReciente.setRowCount(count);
+                        PrimeFaces.current().executeScript("setDataTableWithPageStart()");
+                        return result;
+                    }
+
+                };
 
             }
         } catch (Exception e) {
@@ -206,6 +244,62 @@ public class NotificacionesController implements Serializable, Page {
 
         JmoordbContext.put("pageInView", "notificacionesformulario.xhtml");
         return "notificacionesformulario.xhtml";
+    }
+// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="String searchByCajero()">
+    public String searchByCajero() {
+        try {
+            queryType = "cajero";
+            tituloSearch = "";
+ autorizadoSearch="";
+                    estadoSearch="";
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String String searchByTitulo()">
+
+    public String searchByTitulo() {
+        try {
+            queryType = "titulo";
+            cajeroSearch = "";
+                   autorizadoSearch="";
+                    estadoSearch="";
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String String searchByEstado()">
+
+    public String searchByEstado() {
+        try {
+            queryType = "titulo";
+            cajeroSearch = "";
+                      tituloSearch = "";
+            autorizadoSearch = "";
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String String searchByAutorizado()">
+
+    public String searchByAutorizado() {
+        try {
+            queryType = "titulo";
+            cajeroSearch = "";
+            tituloSearch = "";
+            estadoSearch = "";
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
+        }
+        return "";
     }
 // </editor-fold>
 

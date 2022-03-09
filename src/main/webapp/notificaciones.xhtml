@@ -8,7 +8,7 @@
     <h:head>
         <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
         <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
-       <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
+        <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
         <link rel="stylesheet" href="./resources/css/style.css"/>
         <link rel="stylesheet" href="./resources/css/dash01.css"/>
         <link rel="stylesheet" href="./resources/css/mantenimiento.css"/>
@@ -17,17 +17,17 @@
         <meta name="referrer" content="strict-origin-when-cross-origin"/>
 
         <title>Modulo Banco</title>    
-   <f:metadata>
-             <f:viewAction    action="#{notificacionesController.browserEventFromPage('login.xhtml')}"/>
+        <f:metadata>
+            <f:viewAction    action="#{notificacionesController.browserEventFromPage('login.xhtml')}"/>
         </f:metadata>
 
     </h:head>
     <h:body>
         <h:form id="form" prependId="false" rendered="#{accessController.loged}">
-            
-              
-            
-              <p:ajaxStatus onsuccess="limpiartiempo()" />
+
+
+
+            <p:ajaxStatus onsuccess="limpiartiempo()" />
             <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
             <style type="text/css">
                 .ui-filter-column .ui-column-customfilter .custom-filter {
@@ -67,9 +67,9 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h4 class="text-secondary">NOTIFICACIONES #{notificacionesController.banco.BANCO}</h4>
-                                            
+
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -84,8 +84,8 @@
                                     <div class="table-responsive">
                                         <p:dataTable value="#{notificacionesController.lazyDataModelAccionReciente}"  
                                                      var="item" 
-                                                     id="dataTableagendadosmodal"
-                                                     widgetVar="widgetVardataTableagendadosmodal"
+                                                     id="dataTable"
+                                                     widgetVar="widgetVardataTable"
                                                      lazy="true"
                                                      paginator="true"
                                                      rows="#{notificacionesController.rowForPage}"
@@ -95,14 +95,38 @@
 
                                             <f:facet name="header">
                                                 <div class="products-table-header">
-                                                    <span style="font-weight: bold">Notificaciones</span>
+                                                    <span style="font-weight: bold">BUSCAR</span>
 
                                                     <span class="filter-container ui-input-icon-left">
                                                         <i class="pi pi-search"></i>
-                                                        <p:inputText id="globalFilter" onkeyup="PF('widgetVardataTableagendadosmodal').filter()" placeholder="Search"/>
+                                                        <p:inputText  value="#{notificacionesController.cajeroSearch}"  id="cajeroSearch"
+                                                                      onkeyup="remoteCommandCajero()" placeholder="Cajero"/>
+                                                    </span>
+                                                    <span class="filter-container ui-input-icon-left">
+                                                        <i class="pi pi-search"></i>
+                                                        <p:inputText  value="#{notificacionesController.tituloSearch}" id="tituloSearch"
+                                                                      onkeyup="remoteCommandTitulo()" placeholder="Acción"/>
+                                                    </span>
+                                                    <span class="filter-container ui-input-icon-left">
+                                                        <i class="pi pi-search"></i>
+                                                        <p:inputText  value="#{notificacionesController.estadoSearch}" id="estadoSearch"
+                                                                      onkeyup="remoteCommandEstado()" placeholder="Estado"/>
+                                                    </span>
+                                                    <span class="filter-container ui-input-icon-left">
+                                                        <i class="pi pi-search"></i>
+                                                        <p:inputText  value="#{notificacionesController.autorizadoSearch}" id="autorizadoSearch"
+                                                                      onkeyup="remoteCommandAutorizado()" placeholder="Autorizado"/>
                                                     </span>
 
 
+                                                    <p:remoteCommand name="remoteCommandCajero" update=":form:dataTable,:form:growl"
+                                                                     action="#{notificacionesController.searchByCajero()}"/>
+                                                    <p:remoteCommand name="remoteCommandTitulo" update=":form:dataTable,:form:growl"
+                                                                     action="#{notificacionesController.searchByTitulo()}"/>
+                                                    <p:remoteCommand name="remoteCommandEstado" update=":form:dataTable,:form:growl"
+                                                                     action="#{notificacionesController.searchByEstado()}"/>
+                                                    <p:remoteCommand name="remoteCommandAutorizado" update=":form:dataTable,:form:growl"
+                                                                     action="#{notificacionesController.searchByAutorizado()}"/>
                                                 </div>
                                             </f:facet>
                                             <p:column headerText=""  style="width:3%; color:'#02A1DE'">
@@ -118,7 +142,7 @@
                                                                 update=":form:growl"
                                                                 title="Ir a control manual"
                                                                 action="#{notificacionesController.onCommandButtonSelectAccionReciente(item,'notificaciones')}">
-                                                    
+
                                                 </p:commandLink>
 
                                             </p:column>
@@ -145,7 +169,7 @@
                                             <p:column headerText="Hora" >
                                                 <label class="text-black">#{notificacionesController.showHour(item.FECHAAGENDADA)}</label>
                                             </p:column>
-                                           <p:column headerText="#" >
+                                            <p:column headerText="#" >
                                                 <label class="text-black">#{item.ACCIONRECIENTEID}</label>
                                             </p:column>
 
