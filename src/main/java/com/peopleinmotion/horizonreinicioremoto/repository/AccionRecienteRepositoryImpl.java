@@ -184,7 +184,7 @@ public class AccionRecienteRepositoryImpl implements AccionRecienteRepository {
     }
 
     @Override
-    public int countCajeroBancoIdAndActivoLike(String CAJERO, Banco BANCOID, String ACTIVO) {
+    public int countCajeroBancoIdAndActivoLike(String CAJERO, BigInteger BANCOID, String ACTIVO) {
        return accionRecienteFacade.countCajeroBancoIdAndActivoLike(CAJERO, BANCOID, ACTIVO);
     }
 
@@ -199,7 +199,7 @@ public class AccionRecienteRepositoryImpl implements AccionRecienteRepository {
     }
 
     @Override
-    public int countEstadoBancoIdAndActivoLike(String ESTADO, Banco BANCOID, String ACTIVO) {
+    public int countEstadoBancoIdAndActivoLike(String ESTADO, BigInteger BANCOID, String ACTIVO) {
       return accionRecienteFacade.countEstadoBancoIdAndActivoLike(ESTADO, BANCOID, ACTIVO);
     }
 
@@ -215,7 +215,7 @@ public class AccionRecienteRepositoryImpl implements AccionRecienteRepository {
     }
 
     @Override
-    public int countTituloBancoIdAndActivoLike(String TITULO, Banco BANCOID, String ACTIVO) {
+    public int countTituloBancoIdAndActivoLike(String TITULO, BigInteger BANCOID, String ACTIVO) {
          return accionRecienteFacade.countTituloBancoIdAndActivoLike(TITULO, BANCOID, ACTIVO);
     }
 
@@ -230,7 +230,7 @@ public class AccionRecienteRepositoryImpl implements AccionRecienteRepository {
     }
 
     @Override
-    public int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO, Banco BANCOID, String ACTIVO) {
+    public int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO, BigInteger BANCOID, String ACTIVO) {
       return accionRecienteFacade.countAutorizadoBancoIdAndActivoLike(AUTORIZADO, BANCOID, ACTIVO);
     }
 

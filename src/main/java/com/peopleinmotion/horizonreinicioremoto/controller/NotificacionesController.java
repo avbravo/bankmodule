@@ -159,22 +159,22 @@ public class NotificacionesController implements Serializable, Page {
                                 result = accionRecienteRepository.findBancoIdAndActivoPaginacion(banco.getBANCOID(), "SI", offset, rowForPage);
                                 break;
                             case "cajero":
-                                count = accionRecienteRepository.countCajeroBancoIdAndActivoLike(cajeroSearch, banco, "SI");
+                                count = accionRecienteRepository.countCajeroBancoIdAndActivoLike(cajeroSearch, banco.getBANCOID(), "SI");
                                 paginas = JsfUtil.numberOfPages(count, rowForPage);
                                 result = accionRecienteRepository.findCajeroBancoIdAndActivoLikePaginacion(cajeroSearch, banco.getBANCOID(), "SI", 0, rowForPage);
                                 break;
                             case "titulo":
-                                count = accionRecienteRepository.countTituloBancoIdAndActivoLike(tituloSearch, banco, "SI");
+                                count = accionRecienteRepository.countTituloBancoIdAndActivoLike(tituloSearch, banco.getBANCOID(), "SI");
                                 paginas = JsfUtil.numberOfPages(count, rowForPage);
                                 result = accionRecienteRepository.findTituloBancoIdAndActivoLikePaginacion(tituloSearch, banco.getBANCOID(), "SI", 0, rowForPage);
                                 break;
                             case "estado":
-                                count = accionRecienteRepository.countEstadoBancoIdAndActivoLike(estadoSearch, banco, "SI");
+                                count = accionRecienteRepository.countEstadoBancoIdAndActivoLike(estadoSearch, banco.getBANCOID(), "SI");
                                 paginas = JsfUtil.numberOfPages(count, rowForPage);
                                 result = accionRecienteRepository.findEstadoBancoIdAndActivoLikePaginacion(estadoSearch, banco.getBANCOID(), "SI", 0, rowForPage);
                                 break;
                             case "autorizado":
-                                count = accionRecienteRepository.countEstadoBancoIdAndActivoLike(autorizadoSearch, banco, "SI");
+                                count = accionRecienteRepository.countEstadoBancoIdAndActivoLike(autorizadoSearch, banco.getBANCOID(), "SI");
                                 paginas = JsfUtil.numberOfPages(count, rowForPage);
                                 result = accionRecienteRepository.findEstadoBancoIdAndActivoLikePaginacion(autorizadoSearch, banco.getBANCOID(), "SI", 0, rowForPage);
                                 break;

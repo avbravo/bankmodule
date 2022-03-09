@@ -329,7 +329,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
 // </editor-fold>
     
     
-        // <editor-fold defaultstate="collapsed" desc="int countCajeroBancoIdAndActivoLike(String Cajero,Banco BANCOID, String ACTIVO) ">
+        // <editor-fold defaultstate="collapsed" desc="int countCajeroBancoIdAndActivoLike(String Cajero,BigInteger BANCOID, String ACTIVO) ">
     /**
      * Cuenta los cajeros del banco y por activo
      *
@@ -337,7 +337,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
      * @param ACTIVO
      * @return
      */
-    public int countCajeroBancoIdAndActivoLike(String CAJERO,Banco BANCOID, String ACTIVO) {
+    public int countCajeroBancoIdAndActivoLike(String CAJERO,BigInteger BANCOID, String ACTIVO) {
 
         try {
             Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
@@ -390,7 +390,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
      * @param ACTIVO
      * @return
      */
-    public int countEstadoBancoIdAndActivoLike(String ESTADO,Banco BANCOID, String ACTIVO) {
+    public int countEstadoBancoIdAndActivoLike(String ESTADO,BigInteger BANCOID, String ACTIVO) {
 
         try {
             Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
@@ -437,7 +437,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
 // </editor-fold>
     
  
-       // <editor-fold defaultstate="collapsed" desc="int countTituloBancoIdAndActivoLike(String TITULO,Banco BANCOID, String ACTIVO) ">
+       // <editor-fold defaultstate="collapsed" desc="int countTituloBancoIdAndActivoLike(String TITULO,BigInteger BANCOID, String ACTIVO) ">
     /**
      * Cuenta los cajeros del banco y por activo
      *
@@ -445,7 +445,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
      * @param ACTIVO
      * @return
      */
-    public int countTituloBancoIdAndActivoLike(String TITULO,Banco BANCOID, String ACTIVO) {
+    public int countTituloBancoIdAndActivoLike(String TITULO,BigInteger BANCOID, String ACTIVO) {
 
         try {
             Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
@@ -491,7 +491,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
     }
 // </editor-fold>
     
-      // <editor-fold defaultstate="collapsed" desc="int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO,Banco BANCOID, String ACTIVO) ">
+      // <editor-fold defaultstate="collapsed" desc="int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO,BigInteger BANCOID, String ACTIVO) ">
     /**
      * Cuenta los cajeros del banco y por activo
      *
@@ -499,7 +499,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
      * @param ACTIVO
      * @return
      */
-    public int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO,Banco BANCOID, String ACTIVO) {
+    public int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO,BigInteger BANCOID, String ACTIVO) {
 
         try {
             Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");

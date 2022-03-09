@@ -68,24 +68,24 @@ public interface AccionRecienteRepository {
 
     public List<AccionReciente> findBancoIdAndActivoPaginacion(BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage);
 
-    public int countCajeroBancoIdAndActivoLike(String CAJERO, Banco BANCOID, String ACTIVO);
+    public int countCajeroBancoIdAndActivoLike(String CAJERO, BigInteger BANCOID, String ACTIVO);
 
     public List<AccionReciente> findCajeroBancoIdAndActivoLikePaginacion(String CAJERO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage);
 
     public List<AccionReciente> findCajeroBancoIdAndActivoLike(String CAJERO, BigInteger BANCOID, String ACTIVO);
 
-    public int countEstadoBancoIdAndActivoLike(String ESTADO, Banco BANCOID, String ACTIVO);
+    public int countEstadoBancoIdAndActivoLike(String ESTADO, BigInteger BANCOID, String ACTIVO);
 
     public List<AccionReciente> findEstadoBancoIdAndActivoLikePaginacion(String ESTADO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage);
 
     public List<AccionReciente> findEstadoBancoIdAndActivoLike(String ESTADO, BigInteger BANCOID, String ACTIVO);
 
-    public int countTituloBancoIdAndActivoLike(String TITULO, Banco BANCOID, String ACTIVO);
+    public int countTituloBancoIdAndActivoLike(String TITULO,BigInteger BANCOID, String ACTIVO);
    public List<AccionReciente> findTituloBancoIdAndActivoLikePaginacion(String TITULO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage);
 
     public List<AccionReciente> findTituloBancoIdAndActivoLike(String TITULO, BigInteger BANCOID, String ACTIVO);
     
-     public int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO,Banco BANCOID, String ACTIVO);
+     public int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO,BigInteger BANCOID, String ACTIVO);
   public List<AccionReciente> findAutorizadoBancoIdAndActivoLikePaginacion(String AUTORIZADO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage);
   
      public List<AccionReciente> findAutorizadoBancoIdAndActivoLike(String AUTORIZADO, BigInteger BANCOID, String ACTIVO);
