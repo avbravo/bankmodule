@@ -327,4 +327,222 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
         return list;
     }
 // </editor-fold>
+    
+    
+        // <editor-fold defaultstate="collapsed" desc="int countCajeroBancoIdAndActivoLike(String Cajero,Banco BANCOID, String ACTIVO) ">
+    /**
+     * Cuenta los cajeros del banco y por activo
+     *
+     * @param BANCOID
+     * @param ACTIVO
+     * @return
+     */
+    public int countCajeroBancoIdAndActivoLike(String CAJERO,Banco BANCOID, String ACTIVO) {
+
+        try {
+            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(c.CAJERO) LIKE UPPER(:CAJERO)) AND c.BANCOID = :BANCOID AND c.ACTIVO = :ACTIVO ");
+            query.setParameter("CAJERO",CAJERO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
+            return ((Long) query.getSingleResult()).intValue();
+
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return 0;
+    }
+// </editor-fold>
+    
+       // <editor-fold defaultstate="collapsed" desc="List<Cajero> findCajeroBancoIdAndActivoLikePaginacion(String Cajero, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage)">
+
+    public List<AccionReciente> findCajeroBancoIdAndActivoLikePaginacion(String CAJERO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+        List<AccionReciente> list = new ArrayList<>();
+        try {
+
+            Query query = em.createQuery("SELECT a FROM AccionReciente  a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+
+            query.setParameter("CAJERO", CAJERO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);
+            query.setFirstResult(pageNumber).setMaxResults(rowForPage);
+            list = query.getResultList();
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return list;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="List<AccionReciente> findCajeroBancoIdAndActivoLike(String Cajero, BigInteger BANCOID, String ACTIVO)">
+
+    public List<AccionReciente> findCajeroBancoIdAndActivoLike(String CAJERO, BigInteger BANCOID, String ACTIVO) {
+        List<AccionReciente> list = new ArrayList<>();
+        try {
+            Query query = em.createQuery("SELECT a FROM AccionReciente a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+            query.setParameter("CAJERO", CAJERO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);     
+            list = query.getResultList();
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return list;
+    }
+// </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="int countEstadoBancoIdAndActivoLike(String ESTADO,Banco BANCOID, String ACTIVO) ">
+    /**
+     * Cuenta los cajeros del banco y por activo
+     *
+     * @param BANCOID
+     * @param ACTIVO
+     * @return
+     */
+    public int countEstadoBancoIdAndActivoLike(String ESTADO,Banco BANCOID, String ACTIVO) {
+
+        try {
+            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
+            query.setParameter("ESTADO",ESTADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
+            return ((Long) query.getSingleResult()).intValue();
+
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return 0;
+    }
+// </editor-fold>
+    
+       // <editor-fold defaultstate="collapsed" desc="List<AccionReciente> findEstadoBancoIdAndActivoLikePaginacion(String ESTADO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage)">
+
+    public List<AccionReciente> findEstadoBancoIdAndActivoLikePaginacion(String ESTADO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+        List<AccionReciente> list = new ArrayList<>();
+        try {
+
+            Query query = em.createQuery("SELECT a FROM AccionReciente  a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+
+            query.setParameter("ESTADO",ESTADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);
+            query.setFirstResult(pageNumber).setMaxResults(rowForPage);
+            list = query.getResultList();
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return list;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="List<AccionReciente> findEstadoBancoIdAndActivoLike(String ESTADO, BigInteger BANCOID, String ACTIVO)">
+
+    public List<AccionReciente> findEstadoBancoIdAndActivoLike(String ESTADO, BigInteger BANCOID, String ACTIVO) {
+        List<AccionReciente> list = new ArrayList<>();
+        try {
+            Query query = em.createQuery("SELECT a FROM AccionReciente a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+            query.setParameter("ESTADO",ESTADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);     
+            list = query.getResultList();
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return list;
+    }
+// </editor-fold>
+    
+ 
+       // <editor-fold defaultstate="collapsed" desc="int countTituloBancoIdAndActivoLike(String TITULO,Banco BANCOID, String ACTIVO) ">
+    /**
+     * Cuenta los cajeros del banco y por activo
+     *
+     * @param BANCOID
+     * @param ACTIVO
+     * @return
+     */
+    public int countTituloBancoIdAndActivoLike(String TITULO,Banco BANCOID, String ACTIVO) {
+
+        try {
+            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
+            query.setParameter("TITULO",TITULO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
+            return ((Long) query.getSingleResult()).intValue();
+
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return 0;
+    }
+// </editor-fold>
+    
+       // <editor-fold defaultstate="collapsed" desc="List<AccionReciente> findTituloBancoIdAndActivoLikePaginacion(String TITULO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage)">
+
+    public List<AccionReciente> findTituloBancoIdAndActivoLikePaginacion(String TITULO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+        List<AccionReciente> list = new ArrayList<>();
+        try {
+
+            Query query = em.createQuery("SELECT a FROM AccionReciente  a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+
+            query.setParameter("TITULO",TITULO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);
+            query.setFirstResult(pageNumber).setMaxResults(rowForPage);
+            list = query.getResultList();
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return list;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="List<AccionReciente> findTituloBancoIdAndActivoLike(String TITULO, BigInteger BANCOID, String ACTIVO)">
+
+    public List<AccionReciente> findTituloBancoIdAndActivoLike(String TITULO, BigInteger BANCOID, String ACTIVO) {
+        List<AccionReciente> list = new ArrayList<>();
+        try {
+            Query query = em.createQuery("SELECT a FROM AccionReciente a WHERE (UPPER(a.TITULO) LIKE UPPER(:TITULO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+            query.setParameter("TITULO",TITULO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);     
+            list = query.getResultList();
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return list;
+    }
+// </editor-fold>
+    
+      // <editor-fold defaultstate="collapsed" desc="int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO,Banco BANCOID, String ACTIVO) ">
+    /**
+     * Cuenta los cajeros del banco y por activo
+     *
+     * @param BANCOID
+     * @param ACTIVO
+     * @return
+     */
+    public int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO,Banco BANCOID, String ACTIVO) {
+
+        try {
+            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
+            query.setParameter("AUTORIZADO",AUTORIZADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
+            return ((Long) query.getSingleResult()).intValue();
+
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return 0;
+    }
+// </editor-fold>
+    
+       // <editor-fold defaultstate="collapsed" desc="List<AccionReciente> findAutorizadoBancoIdAndActivoLikePaginacion(String AUTORIZADO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage)">
+
+    public List<AccionReciente> findAutorizadoBancoIdAndActivoLikePaginacion(String AUTORIZADO, BigInteger BANCOID, String ACTIVO, Integer pageNumber, Integer rowForPage) {
+        List<AccionReciente> list = new ArrayList<>();
+        try {
+
+            Query query = em.createQuery("SELECT a FROM AccionReciente  a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+
+            query.setParameter("AUTORIZADO",AUTORIZADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);
+            query.setFirstResult(pageNumber).setMaxResults(rowForPage);
+            list = query.getResultList();
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return list;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="List<AccionReciente> findAutorizadoBancoIdAndActivoLike(String AUTORIZADO, BigInteger BANCOID, String ACTIVO)">
+
+    public List<AccionReciente> findAutorizadoBancoIdAndActivoLike(String AUTORIZADO, BigInteger BANCOID, String ACTIVO) {
+        List<AccionReciente> list = new ArrayList<>();
+        try {
+            Query query = em.createQuery("SELECT a FROM AccionReciente a WHERE (UPPER(a.AUTORIZADO) LIKE UPPER(:AUTORIZADO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+            query.setParameter("AUTORIZADO",AUTORIZADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);     
+            list = query.getResultList();
+        } catch (Exception ex) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());
+        }
+        return list;
+    }
+// </editor-fold>
+    
 }

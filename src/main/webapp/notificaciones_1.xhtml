@@ -18,7 +18,7 @@
 
         <title>Modulo Banco</title>    
    <f:metadata>
-             <f:viewAction    action="#{bajarPlantillaController.browserEventFromPage('login.xhtml')}"/>
+             <f:viewAction    action="#{notificacionesController.browserEventFromPage('login.xhtml')}"/>
         </f:metadata>
 
     </h:head>
@@ -82,13 +82,11 @@
 
                                 <div class="col-12 col-lg-12">
                                     <div class="table-responsive">
-                                        <p:dataTable value="#{notificacionesController.accionRecienteList}"  
+                                        <p:dataTable value="#{notificacionesController.lazyDataModelAccionReciente}"  
                                                      var="item" 
                                                      id="dataTableagendadosmodal"
                                                      widgetVar="widgetVardataTableagendadosmodal"
-                                                     lazy="false"
-                                                     filteredValue="#{notificacionesController.accionRecienteSelectedList}" 
-
+                                                     lazy="true"
                                                      paginator="true"
                                                      rows="#{notificacionesController.rowForPage}"
                                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
@@ -107,12 +105,12 @@
 
                                                 </div>
                                             </f:facet>
-                                            <p:column headerText="Cajero"  style="width:4%; color:'#02A1DE'">
+                                            <p:column headerText=""  style="width:3%; color:'#02A1DE'">
                                                 <p:graphicImage title="Rechazado" name="atm-blue02.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'NO'}"/>
                                                 <p:graphicImage title="Autorizado" name="atm-green01.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'SI'}"/>
                                                 <p:graphicImage title="Pendiente" name="atm-liblue01.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'PE'}"/>
                                             </p:column>
-                                            <p:column headerText="" style="width:8%;" filterBy="#{item.CAJERO}">
+                                            <p:column headerText="Cajero" style="width:8%;" >
 
                                                 <p:commandLink  class="btn btn-rounded btn-fw text-nowrap btn-secondary btn-sm" 
                                                                 style="text-decoration:none;color:black;"
@@ -125,8 +123,7 @@
 
                                             </p:column>
 
-
-                                            <p:column headerText="Estado" filterBy="#{item.ESTADO}">
+                                            <p:column headerText="Estado" style="width:20%;">
 
                                                 <label class="text-black">#{item.ESTADO}</label>
                                             </p:column>
@@ -136,7 +133,7 @@
                                                 <p:outputLabel value="Denegado" rendered="#{item.AUTORIZADO eq 'NO'}"/>
                                                 <p:outputLabel value="Pendiente" rendered="#{item.AUTORIZADO eq 'PE'}"/>
                                             </p:column>
-                                            <p:column headerText="Acción" filterBy="#{item.TITULO}">
+                                            <p:column headerText="Acción" >
                                                 <label class="badge badge-danger">#{item.TITULO}</label>
 
                                             </p:column>
