@@ -246,7 +246,7 @@ public class CajeroFacade extends AbstractFacade<Cajero> {
 
         try {
             Query query = em.createQuery("SELECT COUNT(c) FROM Cajero c WHERE (UPPER(c.DIRECCION) LIKE UPPER(:DIRECCION)) AND c.BANCOID = :BANCOID AND c.ACTIVO = :ACTIVO ");
-            query.setParameter("DIRECCION",DIRECCION+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
+            query.setParameter("DIRECCION","%"+DIRECCION+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
             return ((Long) query.getSingleResult()).intValue();
 
         } catch (Exception ex) {
@@ -265,7 +265,7 @@ public class CajeroFacade extends AbstractFacade<Cajero> {
 
             Query query = em.createQuery("SELECT c FROM Cajero c WHERE (UPPER(c.DIRECCION) LIKE UPPER(:DIRECCION)) AND c.BANCOID = :BANCOID AND c.ACTIVO = :ACTIVO ORDER BY c.CAJERO");
 
-            query.setParameter("DIRECCION", DIRECCION+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);
+            query.setParameter("DIRECCION", "%"+DIRECCION+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);
             query.setFirstResult(pageNumber).setMaxResults(rowForPage);
             list = query.getResultList();
         } catch (Exception ex) {
@@ -280,7 +280,7 @@ public class CajeroFacade extends AbstractFacade<Cajero> {
         List<Cajero> list = new ArrayList<>();
         try {
             Query query = em.createQuery("SELECT c FROM Cajero c WHERE (UPPER(c.DIRECCION) LIKE (UPPER:DIRECCION)) AND c.BANCOID = :BANCOID AND c.ACTIVO = :ACTIVO ORDER BY c.CAJERO");
-            query.setParameter("DIRECCION", DIRECCION+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);     
+            query.setParameter("DIRECCION","%"+ DIRECCION+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);     
             list = query.getResultList();
         } catch (Exception ex) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + ex.getLocalizedMessage());

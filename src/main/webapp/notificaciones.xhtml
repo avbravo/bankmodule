@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"         
       xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
         <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
@@ -75,6 +76,53 @@
                             </div>
 
 
+                            <span style="font-weight: bold">BUSCAR</span>
+
+                            <div class="row justify-content-center" jsf:id="divSearch">
+                                <span class="filter-container ui-input-icon-left">
+                                    <i class="pi pi-search"></i>
+                                    <p:inputText  value="#{notificacionesController.cajeroSearch}"  id="cajeroSearch"
+                                                  onkeyup="remoteCommandCajero()" placeholder="Cajero"/>
+                                </span>
+                                <span class="filter-container ui-input-icon-left">
+                                    <i class="pi pi-search"></i>
+                                    <p:inputText  value="#{notificacionesController.tituloSearch}" id="tituloSearch"
+                                                  onkeyup="remoteCommandTitulo()" placeholder="Acción"/>
+                                </span>
+                                <span class="filter-container ui-input-icon-left">
+                                    <i class="pi pi-search"></i>
+                                    <p:inputText  value="#{notificacionesController.estadoSearch}" id="estadoSearch"
+                                                  onkeyup="remoteCommandEstado()" placeholder="Estado"/>
+                                </span>
+                                <span class="filter-container ui-input-icon-left">
+                                    <i class="pi pi-search"></i>
+                                    <h:selectOneMenu id="autorizadoSearch" class="form-control col-lg-auto solosel01 rounded-pill" 
+                                                     value="#{notificacionesController.autorizadoSearch}"
+                                                     label="Autorización"
+
+                                                     >
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItem itemLabel="Pendiente" itemValue="PE"/>
+                                        <f:selectItem itemLabel="Autorizado" itemValue="SI"/>                        
+                                        <f:selectItem itemLabel="Denegado" itemValue="NO"/>                        
+                                        <p:ajax process="autorizadoSearch" event="change"
+                                                update=":form:dataTable, :form:growl,:form:cajeroSearch,:form:tituloSearch,form:estadoSearch"
+                                                listener="#{notificacionesController.searchByAutorizado()}"/>
+
+                                    </h:selectOneMenu>
+                                </span>
+
+
+                                <p:remoteCommand name="remoteCommandCajero" update=":form:dataTable,:form:growl ,:form:tituloSearch,form:estadoSearch,:form:autorizadoSearch"
+                                                 action="#{notificacionesController.searchByCajero()}"/>
+                                <p:remoteCommand name="remoteCommandTitulo" update=":form:dataTable,:form:growl, :form:cajeroSearch,form:estadoSearch,:form:autorizadoSearch"
+                                                 action="#{notificacionesController.searchByTitulo()}"/>
+                                <p:remoteCommand name="remoteCommandEstado" update=":form:dataTable,:form:growl,:form:cajeroSearch,:form:tituloSearch,:form:autorizadoSearch"
+                                                 action="#{notificacionesController.searchByEstado()}"/>
+                                <p:remoteCommand name="remoteCommandAutorizado" update=":form:dataTable,:form:growl,:form:growl,:form:cajeroSearch,:form:tituloSearch,form:estadoSearch"
+                                                 action="#{notificacionesController.searchByAutorizado()}"/>
+                            </div>
+
 
 
                             <div class="row justify-content-center">
@@ -93,42 +141,7 @@
                                                      tableStyleClass="table table-hover"
                                                      >
 
-                                            <f:facet name="header">
-                                                <div class="products-table-header">
-                                                    <span style="font-weight: bold">BUSCAR</span>
 
-                                                    <span class="filter-container ui-input-icon-left">
-                                                        <i class="pi pi-search"></i>
-                                                        <p:inputText  value="#{notificacionesController.cajeroSearch}"  id="cajeroSearch"
-                                                                      onkeyup="remoteCommandCajero()" placeholder="Cajero"/>
-                                                    </span>
-                                                    <span class="filter-container ui-input-icon-left">
-                                                        <i class="pi pi-search"></i>
-                                                        <p:inputText  value="#{notificacionesController.tituloSearch}" id="tituloSearch"
-                                                                      onkeyup="remoteCommandTitulo()" placeholder="Acción"/>
-                                                    </span>
-                                                    <span class="filter-container ui-input-icon-left">
-                                                        <i class="pi pi-search"></i>
-                                                        <p:inputText  value="#{notificacionesController.estadoSearch}" id="estadoSearch"
-                                                                      onkeyup="remoteCommandEstado()" placeholder="Estado"/>
-                                                    </span>
-                                                    <span class="filter-container ui-input-icon-left">
-                                                        <i class="pi pi-search"></i>
-                                                        <p:inputText  value="#{notificacionesController.autorizadoSearch}" id="autorizadoSearch"
-                                                                      onkeyup="remoteCommandAutorizado()" placeholder="Autorizado"/>
-                                                    </span>
-
-
-                                                    <p:remoteCommand name="remoteCommandCajero" update=":form:dataTable,:form:growl"
-                                                                     action="#{notificacionesController.searchByCajero()}"/>
-                                                    <p:remoteCommand name="remoteCommandTitulo" update=":form:dataTable,:form:growl"
-                                                                     action="#{notificacionesController.searchByTitulo()}"/>
-                                                    <p:remoteCommand name="remoteCommandEstado" update=":form:dataTable,:form:growl"
-                                                                     action="#{notificacionesController.searchByEstado()}"/>
-                                                    <p:remoteCommand name="remoteCommandAutorizado" update=":form:dataTable,:form:growl"
-                                                                     action="#{notificacionesController.searchByAutorizado()}"/>
-                                                </div>
-                                            </f:facet>
                                             <p:column headerText=""  style="width:3%; color:'#02A1DE'">
                                                 <p:graphicImage title="Rechazado" name="atm-blue02.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'NO'}"/>
                                                 <p:graphicImage title="Autorizado" name="atm-green01.png" library="images" alt="" class="" rendered="#{item.AUTORIZADO eq 'SI'}"/>

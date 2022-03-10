@@ -174,9 +174,10 @@ public class NotificacionesController implements Serializable, Page {
                                 result = accionRecienteRepository.findEstadoBancoIdAndActivoLikePaginacion(estadoSearch, banco.getBANCOID(), "SI", 0, rowForPage);
                                 break;
                             case "autorizado":
-                                count = accionRecienteRepository.countEstadoBancoIdAndActivoLike(autorizadoSearch, banco.getBANCOID(), "SI");
+                         
+                                count = accionRecienteRepository.countAutorizadoBancoIdAndActivoLike(autorizadoSearch, banco.getBANCOID(), "SI");
                                 paginas = JsfUtil.numberOfPages(count, rowForPage);
-                                result = accionRecienteRepository.findEstadoBancoIdAndActivoLikePaginacion(autorizadoSearch, banco.getBANCOID(), "SI", 0, rowForPage);
+                                result = accionRecienteRepository.findAutorizadoBancoIdAndActivoLikePaginacion(autorizadoSearch, banco.getBANCOID(), "SI", 0, rowForPage);
                                 break;
                         }
 
@@ -278,7 +279,7 @@ public class NotificacionesController implements Serializable, Page {
 
     public String searchByEstado() {
         try {
-            queryType = "titulo";
+            queryType = "estado";
             cajeroSearch = "";
                       tituloSearch = "";
             autorizadoSearch = "";
@@ -292,7 +293,7 @@ public class NotificacionesController implements Serializable, Page {
 
     public String searchByAutorizado() {
         try {
-            queryType = "titulo";
+            queryType = "autorizado";
             cajeroSearch = "";
             tituloSearch = "";
             estadoSearch = "";

@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"         
       xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 
 
@@ -72,6 +73,29 @@
                             </div>
 
 
+                            
+                            
+                            
+                            <span style="font-weight: bold">BUSCAR</span>
+
+                            <div class="row justify-content-center" jsf:id="divSearch">
+                                  <span class="filter-container ui-input-icon-left">
+                                                        <i class="pi pi-search"></i>
+                                                        <p:inputText  value="#{buscarCajeroController.cajeroSearch}"  id="cajeroSearch"
+                                                                      onkeyup="remoteCommandCajero()" placeholder="Cajero"/>
+                                                    </span>
+                                                    <span class="filter-container ui-input-icon-left">
+                                                        <i class="pi pi-search"></i>
+                                                        <p:inputText  value="#{buscarCajeroController.direccionSearch}" id="direccionSearch"
+                                                                      onkeyup="remoteCommandDireccion()" placeholder="Dirección"/>
+                                                    </span>
+
+
+                                                    <p:remoteCommand name="remoteCommandCajero" update=":form:dataTable,:form:growl, :form:direccionSearch"
+                                                                     action="#{buscarCajeroController.searchByCajero()}"/>
+                                                    <p:remoteCommand name="remoteCommandDireccion" update=":form:dataTable,:form:growl, :form:cajeroSearch"
+                                                                     action="#{buscarCajeroController.searchByDireccion()}"/>
+                            </div>
 
                             <div class="row justify-content-center">
 
@@ -89,28 +113,7 @@
                                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                                      tableStyleClass="table table-hover"
                                                      >
-                                            <f:facet name="header">
-                                                <div class="products-table-header">
-                                                    <span style="font-weight: bold">BUSCAR</span>
-
-                                                    <span class="filter-container ui-input-icon-left">
-                                                        <i class="pi pi-search"></i>
-                                                        <p:inputText  value="#{buscarCajeroController.cajeroSearch}"  id="cajeroSearch"
-                                                                      onkeyup="remoteCommandCajero()" placeholder="Cajero"/>
-                                                    </span>
-                                                    <span class="filter-container ui-input-icon-left">
-                                                        <i class="pi pi-search"></i>
-                                                        <p:inputText  value="#{buscarCajeroController.direccionSearch}" id="direccionSearch"
-                                                                      onkeyup="remoteCommandDireccion()" placeholder="Dirección"/>
-                                                    </span>
-
-
-                                                    <p:remoteCommand name="remoteCommandCajero" update=":form:dataTable,:form:growl"
-                                                                     action="#{buscarCajeroController.searchByCajero()}"/>
-                                                    <p:remoteCommand name="remoteCommandDireccion" update=":form:dataTable,:form:growl"
-                                                                     action="#{buscarCajeroController.searchByDireccion()}"/>
-                                                </div>
-                                            </f:facet>
+                                            
 
 
                                             <p:column headerText="Cajero"  style="width:5%; color:'#02A1DE'">
