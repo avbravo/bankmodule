@@ -393,7 +393,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
     public int countEstadoBancoIdAndActivoLike(String ESTADO,BigInteger BANCOID, String ACTIVO) {
 
         try {
-            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
+            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:ESTADO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
             query.setParameter("ESTADO",ESTADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
             return ((Long) query.getSingleResult()).intValue();
 
@@ -410,7 +410,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
         List<AccionReciente> list = new ArrayList<>();
         try {
 
-            Query query = em.createQuery("SELECT a FROM AccionReciente  a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+            Query query = em.createQuery("SELECT a FROM AccionReciente  a WHERE (UPPER(a.ESTADO) LIKE UPPER(:ESTADO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
 
             query.setParameter("ESTADO",ESTADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);
             query.setFirstResult(pageNumber).setMaxResults(rowForPage);
@@ -426,7 +426,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
     public List<AccionReciente> findEstadoBancoIdAndActivoLike(String ESTADO, BigInteger BANCOID, String ACTIVO) {
         List<AccionReciente> list = new ArrayList<>();
         try {
-            Query query = em.createQuery("SELECT a FROM AccionReciente a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+            Query query = em.createQuery("SELECT a FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:ESTADO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
             query.setParameter("ESTADO",ESTADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);     
             list = query.getResultList();
         } catch (Exception ex) {
@@ -448,7 +448,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
     public int countTituloBancoIdAndActivoLike(String TITULO,BigInteger BANCOID, String ACTIVO) {
 
         try {
-            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
+            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.TITULO) LIKE UPPER(:TITULO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
             query.setParameter("TITULO",TITULO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
             return ((Long) query.getSingleResult()).intValue();
 
@@ -465,7 +465,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
         List<AccionReciente> list = new ArrayList<>();
         try {
 
-            Query query = em.createQuery("SELECT a FROM AccionReciente  a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+            Query query = em.createQuery("SELECT a FROM AccionReciente  a WHERE (UPPER(a.TITULO) LIKE UPPER(:TITULO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
 
             query.setParameter("TITULO",TITULO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);
             query.setFirstResult(pageNumber).setMaxResults(rowForPage);
@@ -502,7 +502,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
     public int countAutorizadoBancoIdAndActivoLike(String AUTORIZADO,BigInteger BANCOID, String ACTIVO) {
 
         try {
-            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.ESTADO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
+            Query query = em.createQuery("SELECT COUNT(a) FROM AccionReciente a WHERE (UPPER(a.AUTORIZADO) LIKE UPPER(:AUTORIZADO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ");
             query.setParameter("AUTORIZADO",AUTORIZADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO).getResultList();
             return ((Long) query.getSingleResult()).intValue();
 
@@ -519,7 +519,7 @@ public class AccionRecienteFacade extends AbstractFacade<AccionReciente> {
         List<AccionReciente> list = new ArrayList<>();
         try {
 
-            Query query = em.createQuery("SELECT a FROM AccionReciente  a WHERE (UPPER(a.CAJERO) LIKE UPPER(:CAJERO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
+            Query query = em.createQuery("SELECT a FROM AccionReciente  a WHERE (UPPER(a.AUTORIZADO) LIKE UPPER(:AUTORIZADO)) AND a.BANCOID = :BANCOID AND a.ACTIVO = :ACTIVO ORDER BY a.FECHA");
 
             query.setParameter("AUTORIZADO",AUTORIZADO+"%").setParameter("BANCOID", BANCOID).setParameter("ACTIVO", ACTIVO);
             query.setFirstResult(pageNumber).setMaxResults(rowForPage);
