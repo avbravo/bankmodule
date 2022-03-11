@@ -119,7 +119,13 @@
                                         <p:commandButton styleClass="rounded-button ui-button-secondary"
                                                          value="#{item.CAJERO}"
                                                          update=":form:growl"
+                                                           rendered="#{item.AUTORIZADO eq 'SI'}"
+                                                            title="Procesar"
                                                          action="#{dashboardController.onCommandButtonSelectAccionReciente(item,'dashboard')}"/>
+                                          <p:outputLabel value="#{item.CAJERO}" title="Autorización denegada" rendered="#{item.AUTORIZADO eq 'NO'}"/>
+                                        <p:outputLabel value="#{item.CAJERO}" title="Autorización Pendiente" rendered="#{item.AUTORIZADO eq 'PE'}"/>
+
+                                        
 
 
                                     </f:facet>

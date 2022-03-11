@@ -418,6 +418,7 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
             }
 
             accionRecienteSelected = accionRecienteOptional.get();
+            ConsoleUtil.info("AccionReciente autorizdo "+accionRecienteSelected.getAUTORIZADO());
             JmoordbContext.put("accionRecienteDashboard", accionRecienteSelected);
             Optional<Cajero> cajeroOptional = cajeroRepository.findByCajeroId(accionRecienteSelected.getCAJEROID());
 
@@ -433,7 +434,7 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
             PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').initPosition()");
             PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').show()");
 
-            ConsoleUtil.info("Actualizo el dialogo");
+           
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + ": " + e.getLocalizedMessage());
         }

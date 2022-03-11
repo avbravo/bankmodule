@@ -29,11 +29,12 @@
                                 widgetVar="myschedule" 
                                 class="schedule-forecolor-black1"
                                 draggable="false"
-                        
+
 
                                 >
 
-                        <p:ajax event="eventSelect"  listener="#{dashboardController.onEventSelect}" update="eventDetails"
+                        <p:ajax event="eventSelect"  listener="#{dashboardController.onEventSelect}" 
+                                update="eventDetails,commandButtonProcesar"
 
                                 oncomplete="PF('widgetVarscheduleDialog').show();"
                                 />
@@ -108,16 +109,18 @@
                                   value="CERRAR"
                                   icon="pi pi-times"
                                   styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"/>
+                
+                     <p:outputLabel  value="Autorizado: #{dashboardController.accionRecienteSelected.AUTORIZADO}" />
                 <p:commandButton 
-
                     styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                     id="commandButtonProcesar"
                     value="CONTINUAR"
-
-
+                    rendered="#{dashboardController.accionRecienteSelected.AUTORIZADO eq 'SI'}"
                     icon="pi pi-calendar-plus"
                     update=":form:growl"
-                    action="#{dashboardController.onCommandButtonSelectAccionReciente(dashboardController.accionRecienteSelected,'dashboard')}"/>
+                    action="#{dashboardController.onCommandButtonSelectAccionReciente(dashboardController.accionRecienteSelected,'dashboard')}">
+                
+                    </p:commandButton>
 
 
             </f:facet>
