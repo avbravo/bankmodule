@@ -34,7 +34,7 @@
                                 >
 
                         <p:ajax event="eventSelect"  listener="#{dashboardController.onEventSelect}" 
-                                update="eventDetails,commandButtonProcesar"
+                                update="eventDetails,commandButtonProcesar, panelGridScheduleFooter"
 
                                 oncomplete="PF('widgetVarscheduleDialog').show();"
                                 />
@@ -94,33 +94,39 @@
                 <p:outputLabel rendered="#{!dashboardController.renderedByEstadoSolicitado()}" value=" #{dashboardController.showDate(dashboardController.accionRecienteSelected.FECHAEJECUCION)}"/>
                 <p:outputLabel value="Hora/Ejecución" styleClass="p-text-bold" rendered="#{!dashboardController.renderedByEstadoSolicitado()}"/>
                 <p:outputLabel rendered="#{!dashboardController.renderedByEstadoSolicitado()}" value=" #{dashboardController.showHour(dashboardController.accionRecienteSelected.FECHAEJECUCION)}"/>
-
-
-
                 <p:outputLabel  value="Estado" styleClass="p-text-bold"/>
                 <p:outputLabel id="estado" value="#{dashboardController.accionRecienteSelected.ESTADO}" />
+
+
+                <p:outputLabel  value="Autorizacion"   rendered="#{dashboardController.renderedPendiente()}"/>
+
+                <p:outputLabel  value="Pendiente" style="color:red;" rendered="#{dashboardController.renderedPendiente()}"/>
 
             </h:panelGrid>
 
 
 
             <f:facet name="footer">
-                <p:commandButton  oncomplete="PF('widgetVarscheduleDialog').hide();" 
-                                  value="CERRAR"
-                                  icon="pi pi-times"
-                                  styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"/>
-                
-                     <p:outputLabel  value="Autorizado: #{dashboardController.accionRecienteSelected.AUTORIZADO}" />
-                <p:commandButton 
-                    styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
-                    id="commandButtonProcesar"
-                    value="CONTINUAR"
-                    rendered="#{dashboardController.accionRecienteSelected.AUTORIZADO eq 'SI'}"
-                    icon="pi pi-calendar-plus"
-                    update=":form:growl"
-                    action="#{dashboardController.onCommandButtonSelectAccionReciente(dashboardController.accionRecienteSelected,'dashboard')}">
-                
+                <h:panelGrid id="panelGridScheduleFooter" columns="2" cellpadding="7">
+                    
+                    <p:commandButton  oncomplete="PF('widgetVarscheduleDialog').hide();" 
+                                      value="CERRAR"
+                                      icon="pi pi-times"
+                                      styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"/>
+
+                    
+                    <p:commandButton 
+                        styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
+                        id="commandButtonProcesar"
+                        value="CONTINUAR"
+                       rendered="#{dashboardController.renderedAutorizado()}"
+                        icon="pi pi-calendar-plus"
+                        update=":form:growl"
+                        action="#{dashboardController.onCommandButtonSelectAccionReciente(dashboardController.accionRecienteSelected,'dashboard')}">
+
                     </p:commandButton>
+
+                </h:panelGrid>
 
 
             </f:facet>

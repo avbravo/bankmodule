@@ -1,0 +1,35 @@
+Pasar todos los Facade
+Pasar los repository
+Pasar la carpeta services
+----------------------------------
+En el Dashboard agregar
+
+
+ // <editor-fold defaultstate="collapsed" desc="Boolean renderedAutorizado()">
+    public Boolean renderedAutorizado() {
+        return accionRecienteServices.renderedAutorizado(accionRecienteSelected);
+
+    }
+
+    // </editor-fold>
+      // <editor-fold defaultstate="collapsed" desc="Boolean renderedDenegado()">
+    public Boolean renderedDenegado() {
+        return accionRecienteServices.renderedDenegado(accionRecienteSelected);
+
+    }
+
+    // </editor-fold>
+    // </editor-fold>
+      // <editor-fold defaultstate="collapsed" desc="Boolean renderedPendiente()">
+    public Boolean renderedPendiente() {
+        return accionRecienteServices.renderedPendiente(accionRecienteSelected);
+
+    }
+
+    // </editor-fold>
+
+--------------------------------------
+
+schedule.xhtml
+dashboard.xhtml
+

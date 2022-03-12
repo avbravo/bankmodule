@@ -142,4 +142,49 @@ public class AccionRecienteServicesImpl implements AccionRecienteServices {
     }
 
     // </editor-fold>
+
+   // <editor-fold defaultstate="collapsed" desc="Boolean renderedAutorizado(AccionReciente accionReciente)">
+   
+    @Override
+    public Boolean renderedAutorizado(AccionReciente accionReciente) {
+       try {
+            if (accionReciente.getAUTORIZADO().equals("SI")) {
+                return Boolean.TRUE;
+            }
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return Boolean.FALSE;
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Boolean renderedPendiente(AccionReciente accionReciente)">
+    @Override
+    public Boolean renderedPendiente(AccionReciente accionReciente) {
+         try {
+            if (accionReciente.getAUTORIZADO().equals("PE")) {
+                return Boolean.TRUE;
+            }
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return Boolean.FALSE;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Boolean renderedDenegado(AccionReciente accionReciente)">
+    @Override
+    public Boolean renderedDenegado(AccionReciente accionReciente) {
+        try {
+            if (accionReciente.getAUTORIZADO().equals("SI")) {
+                return Boolean.TRUE;
+            }
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return Boolean.FALSE;
+    }
+        // </editor-fold>
 }

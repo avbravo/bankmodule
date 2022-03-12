@@ -44,7 +44,7 @@
                     alert("ejecutado la funcion setDataTableWithPageStart()")
                 }
 
-               
+
 
             </script>
 
@@ -119,13 +119,13 @@
                                         <p:commandButton styleClass="rounded-button ui-button-secondary"
                                                          value="#{item.CAJERO}"
                                                          update=":form:growl"
-                                                           rendered="#{item.AUTORIZADO eq 'SI'}"
-                                                            title="Procesar"
+                                                         rendered="#{item.AUTORIZADO eq 'SI'}"
+                                                         title="Procesar"
                                                          action="#{dashboardController.onCommandButtonSelectAccionReciente(item,'dashboard')}"/>
-                                          <p:outputLabel value="#{item.CAJERO}" title="Autorización denegada" rendered="#{item.AUTORIZADO eq 'NO'}"/>
+                                        <p:outputLabel value="#{item.CAJERO}" title="Autorización denegada" rendered="#{item.AUTORIZADO eq 'NO'}"/>
                                         <p:outputLabel value="#{item.CAJERO}" title="Autorización Pendiente" rendered="#{item.AUTORIZADO eq 'PE'}"/>
 
-                                        
+
 
 
                                     </f:facet>
@@ -142,7 +142,11 @@
                                         <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora Ejecución"/>
                                         <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="#{dashboardController.showHour(item.FECHAEJECUCION)}"/>
                                         <p:outputLabel value="Estado:"/> 
-                                        <p:outputLabel value="#{item.ESTADO}"/>
+                                        <p:outputLabel value="#{item.ESTADO}" style="font-size: 18px !important;"/>
+                                        <p:outputLabel  value="Autorizacion" />
+                                        <p:outputLabel  value="Pendiente" style="color:#026adf;" rendered="#{dashboardController.renderedPendiente(item)}"/>
+                                        <p:outputLabel  value="Autorizado" style="color:black;" rendered="#{dashboardController.renderedAutorizado(item)}"/>
+                                        <p:outputLabel  value="Denegado" style="color:red;" rendered="#{dashboardController.renderedDenegado(item)}"/>
                                         <p:outputLabel value="Transacción No."/> 
                                         <p:outputLabel value="#{item.ACCIONRECIENTEID}"/>
 
@@ -188,7 +192,7 @@
             </div>
 
         </h:form>    
-       
+
         <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">
 
             <template:accesodenegado/>

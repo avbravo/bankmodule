@@ -578,4 +578,49 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
         }
     }
 // </editor-fold>
+    
+    
+      // <editor-fold defaultstate="collapsed" desc="Boolean renderedAutorizado()">
+    public Boolean renderedAutorizado() {
+        return accionRecienteServices.renderedAutorizado(accionRecienteSelected);
+
+    }
+
+    // </editor-fold>
+      // <editor-fold defaultstate="collapsed" desc="Boolean renderedDenegado()">
+    public Boolean renderedDenegado() {
+        return accionRecienteServices.renderedDenegado(accionRecienteSelected);
+
+    }
+
+    // </editor-fold>
+
+      // <editor-fold defaultstate="collapsed" desc="Boolean renderedPendiente()">
+    public Boolean renderedPendiente() {
+        return accionRecienteServices.renderedPendiente(accionRecienteSelected);
+
+    }
+
+    // </editor-fold>
+      // <editor-fold defaultstate="collapsed" desc="Boolean renderedPendiente(AccionReciente accionReciente)">
+    public Boolean renderedPendiente(AccionReciente accionReciente) {
+        return accionReciente.getAUTORIZADO().equals("PE");
+
+    }
+
+    // </editor-fold>
+      // <editor-fold defaultstate="collapsed" desc="Boolean renderedDenegado(AccionReciente accionReciente)">
+    public Boolean renderedDenegado(AccionReciente accionReciente) {
+        return accionReciente.getAUTORIZADO().equals("NO");
+
+    }
+
+    // </editor-fold>
+      // <editor-fold defaultstate="collapsed" desc="Boolean renderedAutorizado(AccionReciente accionReciente)">
+    public Boolean renderedAutorizado(AccionReciente accionReciente) {
+        return accionReciente.getAUTORIZADO().equals("SI");
+
+    }
+
+    // </editor-fold>
 }
