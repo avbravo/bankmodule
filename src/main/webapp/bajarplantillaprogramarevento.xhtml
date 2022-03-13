@@ -126,7 +126,12 @@
 
                                         <p:column headerText="Fecha">
 
-                                            <p:outputLabel value="#{bajarPlantillaProgramarEventoController.showDate(item.fechahora)} :#{bajarPlantillaProgramarEventoController.showHour(item.fechahora)}"/>
+                                            <p:outputLabel value="#{bajarPlantillaProgramarEventoController.showDate(item.fechahora)}"/>
+
+                                        </p:column>
+                                        <p:column headerText="Hora">
+
+                                            <p:outputLabel value="#{bajarPlantillaProgramarEventoController.showHour(item.fechahora)}"/>
 
                                         </p:column>
 

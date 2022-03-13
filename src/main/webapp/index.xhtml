@@ -201,7 +201,7 @@
                                     </f:facet>
                                     <p>
 
-                                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendo el: #{dashboardController.showDate(item.FECHAAGENDADA)}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendò el: #{dashboardController.showDate(item.FECHAAGENDADA)}"/></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel value="Hora Agendada:#{dashboardController.showHour(item.FECHAAGENDADA)}"/></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha Ejecución: #{dashboardController.showDate(item.FECHAEJECUCION)}"/></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora Ejecución: #{dashboardController.showHour(item.FECHAEJECUCION)}"/></dd>
@@ -286,7 +286,7 @@
                     <p:outputLabel  value="Mensaje" styleClass="p-text-bold"/>
                     <p:outputLabel id="mensaje" value="#{dashboardController.accionRecienteSelected.MENSAJE}"/>
 
-                    <p:outputLabel value="Se Agendo el:" styleClass="p-text-bold"/>
+                    <p:outputLabel value="Se Agendò el:" styleClass="p-text-bold"/>
                     <p:outputLabel value="#{dashboardController.showDate(dashboardController.accionRecienteSelected.FECHAAGENDADA)}"/>
                     <p:outputLabel value="Hora Agendada:" styleClass="p-text-bold"/>
                     <p:outputLabel value="#{dashboardController.showHour(dashboardController.accionRecienteSelected.FECHAAGENDADA)}"/>

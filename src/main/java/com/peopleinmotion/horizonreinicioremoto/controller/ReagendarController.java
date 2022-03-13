@@ -314,10 +314,10 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDO EL EVENTO", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDÓ EL EVENTO", user);
 
                         JmoordbContext.put("accionReciente", accionReciente);
-                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE REAGENDO EL EVENTO", user, cajero, bank);
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE REAGENDÓ EL EVENTO", user, cajero, bank);
 
                         /*
                         *Mensajes exitosos
@@ -329,7 +329,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                                 .header2("La acción se realizo exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
-                                .titulo("Se Reagendo el evento")
+                                .titulo("Se Reagendó el evento")
                                 .mensaje("Se realizo con exito el regeandeamiento")
                                 .returnTo("dashboard.xhtml")
                                 .build();
@@ -411,10 +411,10 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                     agenda.setACTIVO("NO");
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELO EL EVENTO", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELÓ EL EVENTO", user);
 
                         JmoordbContext.put("accionReciente", accionReciente);
-                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELO EL EVENTO", user, cajero, bank);
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELÓ EL EVENTO", user, cajero, bank);
 
                         /*
                         *Mensajes exitosos

@@ -531,13 +531,13 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
              */
             if (notificacionServices.changed(notificacionOld)) {
 
-                ConsoleUtil.info("onIdle()--> hubo cambios " + DateUtil.fechaHoraActual());
+                
                 Optional<Notificacion> optional = notificacionServices.findByIDANDTIPOID(banco.getBANCOID(), "BANCO");
                 if (optional.isPresent()) {
-                    ConsoleUtil.info("onIdle() --> actualizare notifiacionOld" + DateUtil.fechaHoraActual());
+                 
                     JsfUtil.copyBeans(notificacionOld, optional.get());
                 }
-                ConsoleUtil.info("onIdle()--> relleno carrousel y loadSchedule" + DateUtil.fechaHoraActual());
+              
                 fillCarouselAccionReciente();
                 loadSchedule();
                 calcularTotales();

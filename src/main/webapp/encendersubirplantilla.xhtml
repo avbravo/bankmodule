@@ -130,7 +130,7 @@
                                                                     <p:outputLabel  value=" #{encenderSubirPlantillaController.accionReciente.TITULO}"/>
                                                                     <p:outputLabel  value="Evento" styleClass="p-text-bold"/>
                                                                     <p:outputLabel value="#{encenderSubirPlantillaController.accionReciente.MENSAJE}"/>                      
-                                                                    <p:outputLabel value="Se Agendo el"/>
+                                                                    <p:outputLabel value="Se Agendò el"/>
                                                                     <p:outputLabel value="#{encenderSubirPlantillaController.showDate(encenderSubirPlantillaController.accionReciente.FECHAAGENDADA)}"/>
                                                                     <p:outputLabel value="Hora Agendada"/>
                                                                     <p:outputLabel value="#{encenderSubirPlantillaController.showHour(encenderSubirPlantillaController.accionReciente.FECHAAGENDADA)}"/>
@@ -138,9 +138,9 @@
                                                                     <p:outputLabel value="#{encenderSubirPlantillaController.showDate(encenderSubirPlantillaController.accionReciente.FECHACREACION)}"/>
                                                                     <p:outputLabel value="Hora Creación"/>
                                                                     <p:outputLabel value="#{encenderSubirPlantillaController.showHour(encenderSubirPlantillaController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Fecha Ejecución" />
+                                                                    <p:outputLabel value="Fecha Ejecución" rendered="#{!encenderSubirPlantillaController.renderedByEstadoSolicitado()}"/>
                                                                     <p:outputLabel value="#{encenderSubirPlantillaController.showDate(encenderSubirPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!encenderSubirPlantillaController.renderedByEstadoSolicitado()}" />
-                                                                    <p:outputLabel value="Hora Ejecución" />
+                                                                    <p:outputLabel value="Hora Ejecución" rendered="#{!encenderSubirPlantillaController.renderedByEstadoSolicitado()}"/>
                                                                     <p:outputLabel value="#{encenderSubirPlantillaController.showHour(encenderSubirPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!encenderSubirPlantillaController.renderedByEstadoSolicitado()}" />
                                                                     <p:outputLabel value="Estado"/> 
                                                                     <p:outputLabel value="#{encenderSubirPlantillaController.accionReciente.ESTADO}"/>

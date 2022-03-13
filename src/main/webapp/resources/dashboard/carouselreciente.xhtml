@@ -46,7 +46,7 @@
                                     <dl>
                                         <dd class="atm-title-mar01"><strong>#{item.TITULO}</strong></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel value="Evento:#{item.MENSAJE}" style="font-size: 14px; color: blue"/></dd>
-                                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendo el: #{dashboardController.showDate(item.FECHAAGENDADA)}"/></dd>
+                                        <dd class="atm-title-mar01"><p:outputLabel value="Se Agendò el: #{dashboardController.showDate(item.FECHAAGENDADA)}"/></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel value="Hora Agendada:#{dashboardController.showHour(item.FECHAAGENDADA)}"/></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha Ejecución: #{dashboardController.showDate(item.FECHAEJECUCION)}"/></dd>
                                         <dd class="atm-title-mar01"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora Ejecución: #{dashboardController.showHour(item.FECHAEJECUCION)}"/></dd>

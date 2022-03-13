@@ -498,10 +498,10 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setACTIVO("NO");
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELO EL EVENTO", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELÓ EL EVENTO", user);
 
                         JmoordbContext.put("accionReciente", accionReciente);
-                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELO EL EVENTO", user, cajero, bank);
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELÓ EL EVENTO", user, cajero, bank);
 
                         /*
                         *Mensajes exitosos

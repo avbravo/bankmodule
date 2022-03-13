@@ -128,7 +128,7 @@
                                                                     <p:outputLabel  value="Evento" styleClass="p-text-bold"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.accionReciente.MENSAJE}"/>   
 
-                                                                    <p:outputLabel value="Se Agendo el"/>
+                                                                    <p:outputLabel value="Se Agendò el"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/>
                                                                     <p:outputLabel value="Hora Agendada"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/>
@@ -136,9 +136,9 @@
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHACREACION)}"/>
                                                                     <p:outputLabel value="Hora Creación"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Fecha Ejecución" />
+                                                                    <p:outputLabel value="Fecha Ejecución" /rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}">
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}" />
-                                                                    <p:outputLabel value="Hora Ejecución"/>
+                                                                    <p:outputLabel value="Hora Ejecución" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
                                                                     <p:outputLabel value="Estado"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ESTADO}"/> 

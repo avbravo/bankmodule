@@ -120,9 +120,9 @@ switch(accionReciente.getAUTORIZADO()){
                     + "\n"
                     + header
                     + "\n"
-                    + "\nToken generado: "
+                    + "\nToken generado     : "
                     + token.getTOKEN()
-                    + "\nUtilicelo antes de : "
+                    + "\nUtilizarlo antes de: "
                     + DateUtil.showDate(token.getFECHAVENCIMIENTO())
                     + " "
                     + DateUtil.showHour(token.getFECHAVENCIMIENTO())                   
@@ -303,7 +303,7 @@ switch(accionReciente.getAUTORIZADO()){
             Optional<EmailConfiguration> emailConfigurationOptional = emailConfigurationRepository.findByActivo("SI");
             if (!emailConfigurationOptional.isPresent()) {
 
-                JsfUtil.warningMessage("No hay ninguna configuracion de email establecida.");
+                JsfUtil.warningMessage("No hay ninguna configuración de email establecida.");
                 return Boolean.FALSE;
             }
             /**
@@ -339,13 +339,13 @@ switch(accionReciente.getAUTORIZADO()){
            
             List<String> emailList = new ArrayList<>();
             emailList.add(usuario.getEMAIL());
-            String message = generateTokenMessages(token, "Generacion Token", usuario);
+            String message = generateTokenMessages(token, "Generación de Token", usuario);
 
             //Busco el email
             Optional<EmailConfiguration> emailConfigurationOptional = emailConfigurationRepository.findByActivo("SI");
             if (!emailConfigurationOptional.isPresent()) {
 
-                JsfUtil.warningMessage("No hay ninguna configuracion de email establecida.");
+                JsfUtil.warningMessage("No hay ninguna configuración de email establecida.");
                 return Boolean.FALSE;
             }
             /**
@@ -385,7 +385,7 @@ switch(accionReciente.getAUTORIZADO()){
              Enviar el token al uuario
              */
           
-            String message = generateTokenMessages(token, "Generacion Token", usuario);
+            String message = generateTokenMessages(token, "Generación Token", usuario);
 
             //Busco el email
             Optional<EmailConfiguration> emailConfigurationOptional = emailConfigurationRepository.findByActivo("SI");

@@ -130,7 +130,7 @@
 
                                                                     <p:outputLabel  value="Evento" styleClass="p-text-bold"/>
                                                                     <p:outputLabel value="#{reinicioRemotoController.accionReciente.MENSAJE}"/>                        
-                                                                    <p:outputLabel value="Se Agendo el"/>
+                                                                    <p:outputLabel value="Se Agendò el"/>
                                                                     <p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHAAGENDADA)}"/>
                                                                     <p:outputLabel value="Hora Agendada"/>
                                                                     <p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHAAGENDADA)}"/>
@@ -138,9 +138,9 @@
                                                                     <p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHACREACION)}"/>
                                                                     <p:outputLabel value="Hora Creación"/>
                                                                     <p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Fecha Ejecución" />
+                                                                    <p:outputLabel value="Fecha Ejecución" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}" />
                                                                     <p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHAEJECUCION)}" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}" />
-                                                                    <p:outputLabel value="Hora Ejecución"/>
+                                                                    <p:outputLabel value="Hora Ejecución" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}" />
                                                                     <p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHAEJECUCION)}" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}"/>
                                                                     <p:outputLabel value="Estado"/> 
                                                                     <p:outputLabel value="#{reinicioRemotoController.accionReciente.ESTADO}"/>
