@@ -36,6 +36,16 @@
                     alert("ejecutado la funcion setDataTableWithPageStart()")
                 }
             </script>
+            
+            <style type="text/css">
+    .ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell {
+        text-align: center;
+    }
+
+    .customPanelGrid .ui-panelgrid-content {
+        align-items: center;
+    }
+</style>
             <p:growl id='growl' widgetVar="widgetVarGrowl">
                 <p:autoUpdate/>
             </p:growl>
@@ -118,7 +128,7 @@
                                                                                  action="#{reagendarController.regresar()}"/>
                                                             </c:if>
                                                             <c:if test="${reagendarController.haveAccionReciente}">
-                                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
+                                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="7"  styleClass="showcase-text-align-center">
                                                                     <p:outputLabel value="Acción" styleClass="p-text-bold"/>
                                                                     <p:outputLabel value="#{reagendarController.accionReciente.TITULO}"/>
                                                                     <p:outputLabel value="Evento" styleClass="p-text-bold"/>
