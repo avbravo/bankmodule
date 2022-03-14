@@ -11,11 +11,7 @@
         <title>Login</title>
         <link rel="stylesheet" href="./resources/css/style.css"/>
         <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
-        <!--
-                <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>
-        -->
-
-
+        <!--<link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>-->
         <!--<h:outputStylesheet library="css" name="styles.css"/>-->
         <meta name="referrer" content="no-referrer"/>
         <meta name="referrer" content="strict-origin-when-cross-origin"/>
@@ -53,28 +49,28 @@
                                 <h6 class="font-weight-light text-center">Ingrese credenciales </h6>
                                 <h:form id="form" prependId="false" class="pt-3">
 
-
+                                   
                                     <div class="form-group">
                                         <p:outputLabel for="username">Usuario</p:outputLabel>
                                         <h:inputText id="username" class="form-control form-control-lg rounded-pill" pt:placeholder="Usuario"
-
+                                                   
                                                      value="#{accessController.username}">
                                         </h:inputText>
-
+                                
 
                                     </div>
                                     <p:message for="username" severity="error"/>
                                     <div class="form-group">
                                         <p:outputLabel for="password">Password</p:outputLabel>
                                         <h:inputSecret  id="password"
-
+                                                       
                                                         class="form-control form-control-lg rounded-pill" pt:placeholder="Contraseña"
                                                         value="#{accessController.password}"
                                                         ></h:inputSecret>
 
 
                                     </div>
-
+                       
 
 
                                     <div class="mt-3">

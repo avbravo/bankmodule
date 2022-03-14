@@ -97,6 +97,7 @@ switch(accionReciente.getAUTORIZADO()){
                     + accionReciente.getACCIONRECIENTEID()
                     + "\n\n\b"
                     + "\nPor favor no responda este correo..."
+          
                     + "\n-------------------------------------------------------------";
 
         } catch (Exception e) {
@@ -128,6 +129,7 @@ switch(accionReciente.getAUTORIZADO()){
                     + DateUtil.showHour(token.getFECHAVENCIMIENTO())                   
                     + "\n\n\b"
                     + "\nPor favor no responda este correo..."
+             
                     + "\n-------------------------------------------------------------";
 
         } catch (Exception e) {
