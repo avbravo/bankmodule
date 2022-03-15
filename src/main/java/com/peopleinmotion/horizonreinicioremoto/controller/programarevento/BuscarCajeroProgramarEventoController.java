@@ -417,7 +417,7 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
             /*
             Revisar si tieen agendamiento en esa hora
              */
-            Integer countExitosos = 0;
+            Integer countéxitosos = 0;
             for (ProgramarEvento programarEvento : programarEventoList) {
                 JsfUtil.copyBeans(cajero, programarEvento.getCajero());
                 JsfUtil.copyBeans(accion, programarEvento.getAccion());
@@ -448,7 +448,7 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
                          * Envio de email
                          */
                         emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
-                        countExitosos++;
+                        countéxitosos++;
 
                     }
 
@@ -458,12 +458,12 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
             MessagesForm messagesForm = new MessagesForm.Builder()
                       .errorWindows(Boolean.FALSE)
                     .id(accionReciente.getCAJERO())
-                    .header("Operación Exitosa")
-                    .header2("Se procesaron exitosamente " + countExitosos)
+                    .header("Operación éxitosa")
+                    .header2("Se procesaron éxitosamente " + countéxitosos)
                     .image("atm-green01.png")
                     .libary("images")
                     .titulo("Bajar plantilla Programar evento")
-                    .mensaje("Se realizo exitosamente la baja de plantilla ")
+                    .mensaje("Se realizó éxitosamente la baja de plantilla ")
                     .returnTo("dashboard.xhtml")
                     .build();
             JmoordbContext.put("messagesForm", messagesForm);

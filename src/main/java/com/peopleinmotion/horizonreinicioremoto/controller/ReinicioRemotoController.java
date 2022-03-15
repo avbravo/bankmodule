@@ -405,12 +405,12 @@ public class ReinicioRemotoController implements Serializable, Page {
                     MessagesForm messagesForm = new MessagesForm.Builder()
                               .errorWindows(Boolean.FALSE)
                             .id(accionReciente.getCAJERO())
-                            .header("Operación Exitosa")
-                            .header2("La acción se realizo exitosamente")
+                            .header("Operación éxitosa")
+                            .header2("La acción se realizó éxitosamente")
                             .image("atm-green01.png")
                             .libary("images")
                             .titulo("Reinicio Remoto")
-                            .mensaje("Se realizo exitosamente el registro de Reinicio Remoto")
+                            .mensaje("Se realizó éxitosamente el registro de Reinicio Remoto")
                             .returnTo("dashboard.xhtml")
                             .build();
                     JmoordbContext.put("messagesForm", messagesForm);

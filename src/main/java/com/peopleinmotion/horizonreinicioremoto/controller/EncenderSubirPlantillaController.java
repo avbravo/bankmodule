@@ -404,12 +404,12 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación Exitosa")
-                                .header2("La acción se realizo exitosamente")
+                                .header("Operación éxitosa")
+                                .header2("La acción se realizó éxitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Encender Subir Plantilla")
-                                .mensaje("Se realizo exitosamente el registro de Encender Subir Plantilla")
+                                .mensaje("Se realizó éxitosamente el registro de Encender Subir Plantilla")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);

@@ -307,23 +307,23 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIO LA AUTORIZACIÓN", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIÒ LA AUTORIZACIÓN", user);
 
                         JmoordbContext.put("accionReciente", accionReciente);
-                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIO LA AUTORIZACIÓN", user, cajero, bank);
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIÒ LA AUTORIZACIÓN", user, cajero, bank);
 
                         /*
-                        *Mensajes exitosos
+                        *Mensajes éxitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación Exitosa")
-                                .header2("La acción se realizo exitosamente")
+                                .header("Operación éxitosa")
+                                .header2("La acción se realizó éxitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
-                                .titulo("Se cambio el estado de autorizado")
-                                .mensaje("Se realizo con exito el cambio de autorizado a " + showAutorizadoName(accionReciente.getAUTORIZADO()))
+                                .titulo("Se cambió el estado de autorizado")
+                                .mensaje("Se realizó con éxito el cambio de autorizado a " + showAutorizadoName(accionReciente.getAUTORIZADO()))
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -401,23 +401,23 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIO LA AUTORIZACION", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIÒ LA AUTORIZACION", user);
 
                         JmoordbContext.put("accionReciente", accionReciente);
-                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIO LA AUTORIZACION", user, cajero, bank);
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIÒ LA AUTORIZACION", user, cajero, bank);
 
                         /*
-                        *Mensajes exitosos
+                        *Mensajes éxitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación Exitosa")
-                                .header2("La acción se realizo exitosamente")
+                                .header("Operación éxitosa")
+                                .header2("La acción se realizó éxitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
-                                .titulo("Se cambio el estado de autorizado")
-                                .mensaje("Se realizo con exito el cambio de autorizado a " + showAutorizadoName(accionReciente.getAUTORIZADO()))
+                                .titulo("Se cambió el estado de autorizado")
+                                .mensaje("Se realizó con éxito el cambio de autorizado a " + showAutorizadoName(accionReciente.getAUTORIZADO()))
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -504,17 +504,17 @@ public class NotificacionesFormularioController implements Serializable, Page {
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELÓ EL EVENTO", user, cajero, bank);
 
                         /*
-                        *Mensajes exitosos
+                        *Mensajes éxitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación Exitosa")
-                                .header2("La acción se realizo exitosamente")
+                                .header("Operación éxitosa")
+                                .header2("La acción se realizó éxitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Cancelación de evento")
-                                .mensaje("Se realizo exitosamente la cancelación del evento")
+                                .mensaje("Se realizó éxitosamente la cancelación del evento")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -557,17 +557,17 @@ public class NotificacionesFormularioController implements Serializable, Page {
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "REAGENDAR ACCION", user, cajero, bank);
                         /*
-                        *Mensajes exitosos
+                        *Mensajes éxitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación Exitosa")
-                                .header2("La acción se realizo exitosamente")
+                                .header("Operación éxitosa")
+                                .header2("La acción se realizó éxitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Reagendar accion")
-                                .mensaje("Se realizo exitosamente el reagendamiento ")
+                                .mensaje("Se realizó éxitosamente el reagendamiento ")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);

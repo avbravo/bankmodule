@@ -408,12 +408,12 @@ NotificacionServices notificacionServices;
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación Exitosa")
-                                .header2("La acción se realizo exitosamente")
+                                .header("Operación éxitosa")
+                                .header2("La acción se realizó éxitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Bajar plantilla Programar evento")
-                                .mensaje("Se realizo exitosamente la baja de plantilla ")
+                                .mensaje("Se realizó éxitosamente la baja de plantilla ")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);

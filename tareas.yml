@@ -97,9 +97,9 @@ SPRINT-2:
     -US-72:COMO arquitecto, QUIERO mostrar en un datatable todas las acciones recientes, PARA que el usuario pueda visualizarlas todas.
     -US-46:COMO arquitecto, QUIERO mostrar la fecha y hora de la ultima accion agendada, PARA que el usuario tenga informacióna actualizada.          
     -US-75:COMO arquitecto, QUIERO hacer la presentación de avancaes del modulo banco a TELERED, PARA que  sea valido los avances.   
-    -US-61:COMO arquitecto, QUIERO diseñar la pagina de operacion exitosa en la opción SUBIR PLANTILLA, PARA que el usuario pueda observar la notifación del proceso antes de ir al Dashboard.
-    -US-62:COMO arquitecto, QUIERO diseñar la pagina de operacion exitosa en la opción BAJAR PLANTILLA, PARA que el usuario pueda observar la notifación del proceso antes de ir al Dashboard.
-    -US-63:COMO arquitecto, QUIERO diseñar la pagina de operacion exitosa en la opción REINICIO-REMOTO, PARA que el usuario pueda observar la notifación del proceso antes de ir al Dashboard.    
+    -US-61:COMO arquitecto, QUIERO diseñar la pagina de operacion éxitosa en la opción SUBIR PLANTILLA, PARA que el usuario pueda observar la notifación del proceso antes de ir al Dashboard.
+    -US-62:COMO arquitecto, QUIERO diseñar la pagina de operacion éxitosa en la opción BAJAR PLANTILLA, PARA que el usuario pueda observar la notifación del proceso antes de ir al Dashboard.
+    -US-63:COMO arquitecto, QUIERO diseñar la pagina de operacion éxitosa en la opción REINICIO-REMOTO, PARA que el usuario pueda observar la notifación del proceso antes de ir al Dashboard.    
     -US-32:COMO arquitecto, QUIERO generar tokens para enviar al usuario. PARA que pueda usarlos para confirmar las acciones.    
     -US-51:COMO arquitecto, QUIERO crear la interface que envia emails con las notificaiones, PARA que los usuarios puedan recibirlas en sus correos.       
     -US-37:COMO arquitecto  QUIERO implementar el filtro de acciones recientes por cajero y vistobanco = "no" PARA mostrar las acciones mas recientes de ese cajero        
@@ -185,7 +185,7 @@ SPRINT-1:
 
     4 TENGO QUE ENVIAR LOS EMAILS
 
-    5 ENVIAR NOTIFACION DE EXITOSO
+    5 ENVIAR NOTIFACION DE éxitoSO
 
     6 BAJA DE PLANTILLA 
     CON UNA TABLA TEMPORAL DE CAJEROS A PROGRAMARA CON LA LISTA

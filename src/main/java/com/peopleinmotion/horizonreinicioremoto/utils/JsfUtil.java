@@ -2179,7 +2179,7 @@ public class JsfUtil implements Serializable {
             writer.append(text);
 
             writer.close();
-            //   Util.infoDialog("save", "Exitoso");
+            //   Util.infoDialog("save", "éxitoso");
         } catch (Exception e) {
             //   errorServices.errorMessage(Util.nameOfClass(), Util.nameOfMethod(), e.getLocalizedMessage(), e);
             //   Util.errorDialog("Error)(", e.getLocalizedMessage());

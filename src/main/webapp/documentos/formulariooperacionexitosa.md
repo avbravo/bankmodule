@@ -1,4 +1,4 @@
-#FORMULARIO DE OPERACION EXITOSA
+#FORMULARIO DE OPERACION éxitoSA
 
 1.En el controller anterior guardar la accion reciente en JmoordbContext
      AccionReciente accionReciente = accionRecienteServices.create(agenda, bank, cajero, accion, grupoAccion, estado);
@@ -8,7 +8,7 @@
 
      emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 
-    return "/faces/operacionexitosa.xhtml";
+    return "/faces/operacionéxitosa.xhtml";
    generalmente despues de enviar el email de notificaciones
 
 3. Este formulario muestra la accion que se acaba de ejecutar

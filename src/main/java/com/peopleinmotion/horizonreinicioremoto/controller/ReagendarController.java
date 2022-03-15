@@ -320,17 +320,17 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE REAGENDÓ EL EVENTO", user, cajero, bank);
 
                         /*
-                        *Mensajes exitosos
+                        *Mensajes éxitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación Exitosa")
-                                .header2("La acción se realizo exitosamente")
+                                .header("Operación éxitosa")
+                                .header2("La acción se realizó éxitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Se Reagendó el evento")
-                                .mensaje("Se realizo con exito el regeandeamiento")
+                                .mensaje("Se realizó con éxito el regeandeamiento")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -417,17 +417,17 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELÓ EL EVENTO", user, cajero, bank);
 
                         /*
-                        *Mensajes exitosos
+                        *Mensajes éxitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación Exitosa")
-                                .header2("La acción se realizo exitosamente")
+                                .header("Operación éxitosa")
+                                .header2("La acción se realizó éxitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Cancelación de evento")
-                                .mensaje("Se realizo exitosamente la cancelación del evento")
+                                .mensaje("Se realizó éxitosamente la cancelación del evento")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -471,17 +471,17 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "REAGENDAR ACCION", user, cajero, bank);
                         /*
-                        *Mensajes exitosos
+                        *Mensajes éxitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                   .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación Exitosa")
-                                .header2("La acción se realizo exitosamente")
+                                .header("Operación éxitosa")
+                                .header2("La acción se realizó éxitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Reagendar accion")
-                                .mensaje("Se realizo exitosamente el reagendamiento ")
+                                .mensaje("Se realizó éxitosamente el reagendamiento ")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
