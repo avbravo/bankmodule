@@ -23,8 +23,6 @@ import javax.inject.Inject;
 import com.peopleinmotion.horizonreinicioremoto.repository.AccionRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.CajeroRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.GrupoAccionRepository;
-import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
-import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
 
 /**
  *

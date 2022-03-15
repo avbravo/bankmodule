@@ -413,7 +413,7 @@ NotificacionServices notificacionServices;
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Bajar plantilla Programar evento")
-                                .mensaje("Se realizó éxitosamente la baja de plantilla ")
+                                .mensaje("Se realizó éxitosamente la baja de plantilla")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
