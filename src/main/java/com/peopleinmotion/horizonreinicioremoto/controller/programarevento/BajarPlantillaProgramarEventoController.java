@@ -461,7 +461,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                     .errorWindows(Boolean.FALSE)
                     
                     .id(accionReciente.getCAJERO())
-                    .header("Operación éxitosa")
+                    .header("Operación exitosa")
                     .header2("Acciones procesadas exitosamente: " + countéxitosos)
                     .image("atm-green01.png")
                     .libary("images")

@@ -458,7 +458,7 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
             MessagesForm messagesForm = new MessagesForm.Builder()
                       .errorWindows(Boolean.FALSE)
                     .id(accionReciente.getCAJERO())
-                    .header("Operación éxitosa")
+                    .header("Operación exitosa")
                     .header2("Acciones procesadas exitosamente: " + countéxitosos)
                     .image("atm-green01.png")
                     .libary("images")

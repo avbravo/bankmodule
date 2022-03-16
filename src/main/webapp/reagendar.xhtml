@@ -129,27 +129,27 @@
                                                             </c:if>
                                                             <c:if test="${reagendarController.haveAccionReciente}">
                                                                 <h:panelGrid id="eventDetails" columns="2" cellpadding="2"  styleClass="showcase-text-align-center">
-                                                                    <p:outputLabel value="Acción" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel value="Acción:" styleClass="p-text-bold"/>
                                                                     <p:outputLabel value="#{reagendarController.accionReciente.TITULO}"/>
-                                                                    <p:outputLabel value="Evento" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel value="Evento:" styleClass="p-text-bold"/>
                                                                     <p:outputLabel value="#{reagendarController.accionReciente.MENSAJE}"/>                      
-                                                                    <p:outputLabel value="Se agendò el"/>
+                                                                    <p:outputLabel value="Se agendó el:"/>
                                                                     <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAAGENDADA)}"/>
-                                                                    <p:outputLabel value="Hora agendada"/>
+                                                                    <p:outputLabel value="Hora agendada:"/>
                                                                     <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAAGENDADA)}"/>
-                                                                    <p:outputLabel value="Fecha creación"/>
+                                                                    <p:outputLabel value="Fecha creación:"/>
                                                                     <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Hora creación"/>
+                                                                    <p:outputLabel value="Hora creación:"/>
                                                                     <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Fecha ejecución"/>
+                                                                    <p:outputLabel value="Fecha ejecución:"/>
                                                                     <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/>
-                                                                    <p:outputLabel value="Hora ejecución"/>
+                                                                    <p:outputLabel value="Hora ejecución:"/>
                                                                     <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/>
-                                                                    <p:outputLabel value="Estado"/> 
+                                                                    <p:outputLabel value="Estado:"/> 
                                                                     <p:outputLabel value="#{reagendarController.accionReciente.ESTADO}"/>
-                                                                    <p:outputLabel value="Transacción"/>
+                                                                    <p:outputLabel value="Transacción No:"/>
                                                                     <p:outputLabel value="#{reagendarController.accionReciente.ACCIONRECIENTEID}"/>
-                                                                    <p:outputLabel value="Nueva fecha"/>
+                                                                    <p:outputLabel value="Nueva fecha:"/>
                                                                     <p:datePicker id="time1" 
                                                                                   showIcon="true"
                                                                                   monthNavigator="true"

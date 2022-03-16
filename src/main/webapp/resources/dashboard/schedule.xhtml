@@ -88,17 +88,17 @@
                              rendered="false"
                              />
 
-                <p:outputLabel value="Agendado" styleClass="p-text-bold" />
+                <p:outputLabel value="Agendado:" styleClass="p-text-bold" />
                 <p:outputLabel value="#{dashboardController.showDate(dashboardController.accionRecienteSelected.FECHAAGENDADA)}  #{dashboardController.showHour(dashboardController.accionRecienteSelected.FECHAAGENDADA) }"/>
-                <p:outputLabel value="Fecha/Ejecución" styleClass="p-text-bold" rendered="#{!dashboardController.renderedByEstadoSolicitado()}"/>
+                <p:outputLabel value="Fecha/Ejecución:" styleClass="p-text-bold" rendered="#{!dashboardController.renderedByEstadoSolicitado()}"/>
                 <p:outputLabel rendered="#{!dashboardController.renderedByEstadoSolicitado()}" value=" #{dashboardController.showDate(dashboardController.accionRecienteSelected.FECHAEJECUCION)}"/>
-                <p:outputLabel value="Hora/Ejecución" styleClass="p-text-bold" rendered="#{!dashboardController.renderedByEstadoSolicitado()}"/>
+                <p:outputLabel value="Hora/Ejecución:" styleClass="p-text-bold" rendered="#{!dashboardController.renderedByEstadoSolicitado()}"/>
                 <p:outputLabel rendered="#{!dashboardController.renderedByEstadoSolicitado()}" value=" #{dashboardController.showHour(dashboardController.accionRecienteSelected.FECHAEJECUCION)}"/>
-                <p:outputLabel  value="Estado" styleClass="p-text-bold"/>
+                <p:outputLabel  value="Estado:" styleClass="p-text-bold"/>
                 <p:outputLabel id="estado" value="#{dashboardController.accionRecienteSelected.ESTADO}" />
 
 
-                <p:outputLabel  value="Autorizacion"   rendered="#{dashboardController.renderedPendiente()}"/>
+                <p:outputLabel  value="Autorización:"   rendered="#{dashboardController.renderedPendiente()}"/>
 
                 <p:outputLabel  value="Pendiente" style="color:red;" rendered="#{dashboardController.renderedPendiente()}"/>
 

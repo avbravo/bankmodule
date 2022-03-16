@@ -282,13 +282,13 @@ public class TestController implements Serializable {
 
             Optional<Accion> accionOptional = accionRepository.findByAccionId(JsfUtil.toBigInteger(2));
             if (!accionOptional.isPresent()) {
-                JsfUtil.warningMessage("no existe cajero con el codigo 10");
+                JsfUtil.warningMessage("No existe cajero con el código 10");
             } else {
                 accion = accionOptional.get();
             }
             Optional<GrupoAccion> grupoAccionOptional = grupoAccionRepository.findByGrupoAccionId(JsfUtil.toBigInteger(3));
             if (!grupoAccionOptional.isPresent()) {
-                JsfUtil.warningMessage("no existe grupo accion con el codigo 10");
+                JsfUtil.warningMessage("No existe grupo acción con el código 10");
             } else {
                 grupoAccion = grupoAccionOptional.get();
             }
@@ -298,7 +298,7 @@ public class TestController implements Serializable {
              */
             Optional<EmailConfiguration> emailConfigurationOptional = emailConfigurationRepository.findByEmailConfigurationId(JsfUtil.toBigInteger(1));
             if (!emailConfigurationOptional.isPresent()) {
-                JsfUtil.warningMessage("no existe emailconfiguration con codigo 1");
+                JsfUtil.warningMessage("No existe emailconfiguration con código 1");
             } else {
                 emailConfiguration = emailConfigurationOptional.get();
             }
@@ -322,7 +322,7 @@ public class TestController implements Serializable {
 //            }
             Optional<Estado> optional = estadoRepository.findByPredeterminado("SI");
             if (!optional.isPresent()) {
-                JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignalor a esta operacion.");
+                JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignarlo a esta operación.");
             } else {
                 estado = optional.get();
             }
@@ -680,7 +680,7 @@ public class TestController implements Serializable {
                                 // JsfUtil.warningMessage("No se pudo actualizar el token");
                             }
                         } else {
-                            JsfUtil.successMessage("Validacion Correcta se procede con la accion..");
+                            JsfUtil.successMessage("Validación correcta, se procede con la acción..");
                             token.setACTIVO("NO");
                             token.setVENCIDO("XX");
                             token.setUSADO("SI");

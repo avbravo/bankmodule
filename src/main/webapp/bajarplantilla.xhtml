@@ -129,36 +129,36 @@
                                                                 <c:if test="${bajarPlantillaController.haveAccionReciente}">
 
 
-                                                                    <p:outputLabel  value="Acción" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="Acción:" styleClass="p-text-bold"/>
                                                                     <p:outputLabel  value="#{bajarPlantillaController.accionReciente.TITULO}" />
 
-                                                                    <p:outputLabel  value="Evento" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="Evento:" styleClass="p-text-bold"/>
                                                                     <p:outputLabel  value="#{bajarPlantillaController.accionReciente.MENSAJE}" />
 
-                                                                    <p:outputLabel  value="Se agendò el" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="Se agendó el:" styleClass="p-text-bold"/>
                                                                     <p:outputLabel  value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAAGENDADA)}" />
 
 
-                                                                    <p:outputLabel value="Hora agendada" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel value="Hora agendada:" styleClass="p-text-bold"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAAGENDADA)}"/>
 
 
-                                                                    <p:outputLabel value="Fecha creación"/>
+                                                                    <p:outputLabel value="Fecha creación:"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHACREACION)}"/>
 
-                                                                    <p:outputLabel value="Hora creación"/>
+                                                                    <p:outputLabel value="Hora creación:"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHACREACION)}"/>
 
-                                                                    <p:outputLabel value="Fecha ejecución"/>
+                                                                    <p:outputLabel value="Fecha ejecución:"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/>
 
-                                                                    <p:outputLabel value="Hora ejecución"/>
+                                                                    <p:outputLabel value="Hora ejecución:"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/>
 
-                                                                    <p:outputLabel value="Estado"/>
+                                                                    <p:outputLabel value="Estado:"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.accionReciente.ESTADO}"/>
 
-                                                                    <p:outputLabel value="Transacción"/>
+                                                                    <p:outputLabel value="Transacción No:"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.accionReciente.ACCIONRECIENTEID}"/>
                                                                 </c:if>
                                                                 <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
@@ -166,12 +166,12 @@
                                                                 <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
                                                                 <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
                                                       
-                                                                <p:outputLabel value="Fecha"/>
+                                                                <p:outputLabel value="Fecha:"/>
                                                                 <p:datePicker  hourFormat="12" id="time1" 
                                                                                pattern="dd/MM/yyyy hh:mm a"
                                                                                value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
                                                                 </p:datePicker>
-                                                                <p:outputLabel value="Acción"/>
+                                                                <p:outputLabel value="Acción:"/>
                                                                 <p:selectOneMenu id="selectOneMenuAccion" 
                                                                                  class="form-control rounded-pill solosel01"
                                                                                  value="#{bajarPlantillaController.selectOneMenuAccionValue}" 
@@ -191,7 +191,7 @@
                                                                                  style="border:0px none; background-color:transparent;">
                                                                         <c:if test="${bajarPlantillaController.showButton}">
                                                                             <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
-                                                                                             title="Envia el token al correo"
+                                                                                             title="Envía el token al correo"
                                                                                              id="commandButtonSendToken"
                                                                                              action="#{bajarPlantillaController.onCommandButtonSendToken()}"
                                                                                              update=":form:growl"                                                                    

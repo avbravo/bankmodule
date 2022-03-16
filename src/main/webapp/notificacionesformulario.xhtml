@@ -123,31 +123,31 @@
                                                             <c:if test="${notificacionesFormularioController.haveAccionReciente}">
 
                                                                 <h:panelGrid id="eventDetails" columns="2" cellpadding="2">
-                                                                    <p:outputLabel  value="Acción" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="Acción:" styleClass="p-text-bold"/>
                                                                     <p:outputLabel  value="#{notificacionesFormularioController.accionReciente.TITULO}"/>
-                                                                    <p:outputLabel  value="Evento" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="Evento:" styleClass="p-text-bold"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.accionReciente.MENSAJE}"/>   
 
-                                                                    <p:outputLabel value="Se agendò el"/>
+                                                                    <p:outputLabel value="Se agendó el:"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/>
-                                                                    <p:outputLabel value="Hora agendada"/>
+                                                                    <p:outputLabel value="Hora agendada:"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/>
-                                                                    <p:outputLabel value="Fecha creación"/>
+                                                                    <p:outputLabel value="Fecha creación:"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Hora creación"/>
+                                                                    <p:outputLabel value="Hora creación:"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Fecha ejecución" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
+                                                                    <p:outputLabel value="Fecha ejecución:" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}" />
-                                                                    <p:outputLabel value="Hora ejecución" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
+                                                                    <p:outputLabel value="Hora ejecución:" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
-                                                                    <p:outputLabel value="Estado"/>
+                                                                    <p:outputLabel value="Estado:"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ESTADO}"/> 
-                                                                    <p:outputLabel value="Autorizado"/>
+                                                                    <p:outputLabel value="Autorizado:"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.showAutorizadoName(notificacionesFormularioController.accionReciente.AUTORIZADO)}"/>
-                                                                    <p:outputLabel value="Transacción"/>
+                                                                    <p:outputLabel value="Transacción No:"/>
                                                                     <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ACCIONRECIENTEID}"/>
 
-                                                                    <p:outputLabel value="Autorización"  rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"/>
+                                                                    <p:outputLabel value="Autorización:"  rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"/>
                                                                  
                                                                     <p:selectOneMenu id="autorizado" class="form-control col-lg-auto solosel01 rounded-pill" 
                                                                           value="#{notificacionesFormularioController.accionReciente.AUTORIZADO}"

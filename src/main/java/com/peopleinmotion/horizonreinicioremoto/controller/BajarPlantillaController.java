@@ -408,7 +408,7 @@ NotificacionServices notificacionServices;
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación éxitosa")
+                                .header("Operación exitosa")
                                 .header2("La acción se realizó exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")

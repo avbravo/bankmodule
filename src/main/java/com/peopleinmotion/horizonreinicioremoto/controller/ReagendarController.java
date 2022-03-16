@@ -202,7 +202,7 @@ NotificacionServices notificacionServices;
                 JmoordbContext.put("pageInView", "bajarplantilla.xhtml");
                 return "bajarplantilla.xhtml";
             }
-            JsfUtil.warningMessage("No se identifico el grupo de accion para continuar esta operación");
+            JsfUtil.warningMessage("No se identificó el grupo de acción para continuar esta operación");
 
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
@@ -277,7 +277,7 @@ NotificacionServices notificacionServices;
                 MessagesForm messagesForm = new MessagesForm.Builder()
                         .errorWindows(Boolean.TRUE)
                         .id(accionReciente.getCAJERO())
-                        .header("Operación Incompleta")
+                        .header("Operación incompleta")
                         .header2("La acción no fue completada")
                         .image("robot01.png")
                         .libary("images")
@@ -325,7 +325,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación éxitosa")
+                                .header("Operación exitosa")
                                 .header2("La acción se realizó exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
@@ -373,7 +373,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                 MessagesForm messagesForm = new MessagesForm.Builder()
                         .errorWindows(Boolean.TRUE)
                         .id(accionReciente.getCAJERO())
-                        .header("Operación Incompleta")
+                        .header("Operación incompleta")
                         .header2("La acción no fue completada")
                         .image("robot01.png")
                         .libary("images")
@@ -422,7 +422,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación éxitosa")
+                                .header("Operación exitosa")
                                 .header2("La acción se realizó exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
@@ -476,11 +476,11 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                         MessagesForm messagesForm = new MessagesForm.Builder()
                                   .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
-                                .header("Operación éxitosa")
+                                .header("Operación exitosa")
                                 .header2("La acción se realizó exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
-                                .titulo("Reagendar accion")
+                                .titulo("Reagendar acción")
                                 .mensaje("Se realizó exitosamente el reagendamiento ")
                                 .returnTo("dashboard.xhtml")
                                 .build();
