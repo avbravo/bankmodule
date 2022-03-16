@@ -326,7 +326,7 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
                     tokenEnviado = Boolean.FALSE;
 
                 } else {
-                    JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
+                    JsfUtil.successMessage("El token fue enviado a su correo.");
                     tokenEnviado = Boolean.TRUE;
 
                     openDialogToken();
@@ -459,11 +459,11 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
                       .errorWindows(Boolean.FALSE)
                     .id(accionReciente.getCAJERO())
                     .header("Operación éxitosa")
-                    .header2("Se procesaron éxitosamente " + countéxitosos)
+                    .header2("Acciones procesadas exitosamente: " + countéxitosos)
                     .image("atm-green01.png")
                     .libary("images")
                     .titulo("Bajar plantilla Programar evento")
-                    .mensaje("Se realizó éxitosamente la baja de plantilla ")
+                    .mensaje("Se realizó exitosamente la baja de plantilla ")
                     .returnTo("dashboard.xhtml")
                     .build();
             JmoordbContext.put("messagesForm", messagesForm);

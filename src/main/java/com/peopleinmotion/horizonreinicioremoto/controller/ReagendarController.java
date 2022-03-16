@@ -326,7 +326,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación éxitosa")
-                                .header2("La acción se realizó éxitosamente")
+                                .header2("La acción se realizó exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Se Reagendó el evento")
@@ -423,11 +423,11 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación éxitosa")
-                                .header2("La acción se realizó éxitosamente")
+                                .header2("La acción se realizó exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Cancelación de evento")
-                                .mensaje("Se realizó éxitosamente la cancelación del evento")
+                                .mensaje("Se realizó exitosamente la cancelación del evento")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -477,11 +477,11 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                                   .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación éxitosa")
-                                .header2("La acción se realizó éxitosamente")
+                                .header2("La acción se realizó exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Reagendar accion")
-                                .mensaje("Se realizó éxitosamente el reagendamiento ")
+                                .mensaje("Se realizó exitosamente el reagendamiento ")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);
@@ -561,7 +561,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                     tokenEnviado = Boolean.FALSE;
 
                 } else {
-                    JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
+                    JsfUtil.successMessage("El token fue enviado a su correo.");
                     tokenEnviado = Boolean.TRUE;
 
                     openDialogToken(isReagendar);

@@ -279,7 +279,7 @@ public class ReinicioRemotoController implements Serializable, Page {
                     tokenEnviado = Boolean.FALSE;
                     ConsoleUtil.info("No lo pude enviar el dialogo...");
                 } else {
-                    JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
+                    JsfUtil.successMessage("El token fue enviado a su correo.");
                     tokenEnviado = Boolean.TRUE;
                     ConsoleUtil.info("mostrare el dialogo...");
                     openDialogToken();
@@ -406,11 +406,11 @@ public class ReinicioRemotoController implements Serializable, Page {
                               .errorWindows(Boolean.FALSE)
                             .id(accionReciente.getCAJERO())
                             .header("Operación éxitosa")
-                            .header2("La acción se realizó éxitosamente")
+                            .header2("La acción se realizó exitosamente")
                             .image("atm-green01.png")
                             .libary("images")
                             .titulo("Reinicio Remoto")
-                            .mensaje("Se realizó éxitosamente el registro de Reinicio Remoto")
+                            .mensaje("Se realizó exitosamente el registro de Reinicio Remoto")
                             .returnTo("dashboard.xhtml")
                             .build();
                     JmoordbContext.put("messagesForm", messagesForm);

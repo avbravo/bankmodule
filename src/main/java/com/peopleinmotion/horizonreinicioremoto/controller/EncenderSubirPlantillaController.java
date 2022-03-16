@@ -281,7 +281,7 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                     tokenEnviado = Boolean.FALSE;
                
                 } else {
-                    JsfUtil.successMessage("Se envio el token a su correo. Reviselo por favor");
+                    JsfUtil.successMessage("El token fue enviado a su correo.");
                     tokenEnviado = Boolean.TRUE;
               
                     openDialogToken();
@@ -405,11 +405,11 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                                 .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación éxitosa")
-                                .header2("La acción se realizó éxitosamente")
+                                .header2("La acción se realizó exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
                                 .titulo("Encender Subir Plantilla")
-                                .mensaje("Se realizó éxitosamente el registro de Encender Subir Plantilla")
+                                .mensaje("Se realizó exitosamente el registro de Encender Subir Plantilla")
                                 .returnTo("dashboard.xhtml")
                                 .build();
                         JmoordbContext.put("messagesForm", messagesForm);

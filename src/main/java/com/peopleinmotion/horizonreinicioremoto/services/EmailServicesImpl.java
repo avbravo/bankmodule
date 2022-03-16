@@ -71,29 +71,29 @@ switch(accionReciente.getAUTORIZADO()){
 }
 
             messages = "\n  "
-                    + "\n------------------Acción Reciente---------------------------------------"
+                    + "\n------------------ACCIÓN RECIENTE---------------------------------------"
                     + "\n"
                     + header.toLowerCase()
                     + "\n"
                     + accionReciente.getTITULO()
-                    + "\nFecha              : "
+                    + "\nFecha: "
                     + DateUtil.showDate(accionReciente.getFECHAAGENDADA())
                     + " "
                     + DateUtil.showHour(accionReciente.getFECHAAGENDADA())
-                    + "\nMensaje            : "
+                    + "\nMensaje: "
                     + accionReciente.getMENSAJE()
-                    + "\nCajero             : "
+                    + "\nCajero: "
                     + cajero.getCAJERO()
-                    + "\nBanco              : "
+                    + "\nBanco: "
                     + banco.getBANCO()
-                    + "\nEstado             : "
+                    + "\nEstado: "
                     + accionReciente.getESTADO()
-                    + "\nAutorización      : "
+                    + "\nAutorización: "
                     +autorizado
                     
                     + "\nAcción generada por: "
                     + usuario.getNOMBRE()               
-                    + "\n\nTransacción No.  : "
+                    + "\n\nTransacción No.: "
                     + accionReciente.getACCIONRECIENTEID()
                     + "\n\n\b"
                     + "\nPor favor no responda este correo..."
@@ -121,9 +121,9 @@ switch(accionReciente.getAUTORIZADO()){
                     + "\n"
                     + header
                     + "\n"
-                    + "\nToken generado     : "
+                    + "\nToken generado: "
                     + token.getTOKEN()
-                    + "\nUtilizarlo antes de: "
+                    + "\nUtilícelo antes de: "
                     + DateUtil.showDate(token.getFECHAVENCIMIENTO())
                     + " "
                     + DateUtil.showHour(token.getFECHAVENCIMIENTO())                   

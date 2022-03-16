@@ -135,30 +135,30 @@
                                                                     <p:outputLabel  value="Evento" styleClass="p-text-bold"/>
                                                                     <p:outputLabel  value="#{bajarPlantillaController.accionReciente.MENSAJE}" />
 
-                                                                    <p:outputLabel  value="Se Agendò el" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="Se agendò el" styleClass="p-text-bold"/>
                                                                     <p:outputLabel  value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAAGENDADA)}" />
 
 
-                                                                    <p:outputLabel value="Hora Agendada" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel value="Hora agendada" styleClass="p-text-bold"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAAGENDADA)}"/>
 
 
-                                                                    <p:outputLabel value="Fecha Creación"/>
+                                                                    <p:outputLabel value="Fecha creación"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHACREACION)}"/>
 
-                                                                    <p:outputLabel value="Hora Creación"/>
+                                                                    <p:outputLabel value="Hora creación"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHACREACION)}"/>
 
-                                                                    <p:outputLabel value="Fecha Ejecución"/>
+                                                                    <p:outputLabel value="Fecha ejecución"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/>
 
-                                                                    <p:outputLabel value="Hora Ejecución"/>
+                                                                    <p:outputLabel value="Hora ejecución"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/>
 
                                                                     <p:outputLabel value="Estado"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.accionReciente.ESTADO}"/>
 
-                                                                    <p:outputLabel value="Transacción No"/>
+                                                                    <p:outputLabel value="Transacción"/>
                                                                     <p:outputLabel value="#{bajarPlantillaController.accionReciente.ACCIONRECIENTEID}"/>
                                                                 </c:if>
                                                                 <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>

@@ -133,23 +133,23 @@
                                                                     <p:outputLabel value="#{reagendarController.accionReciente.TITULO}"/>
                                                                     <p:outputLabel value="Evento" styleClass="p-text-bold"/>
                                                                     <p:outputLabel value="#{reagendarController.accionReciente.MENSAJE}"/>                      
-                                                                    <p:outputLabel value="Se Agendò el"/>
+                                                                    <p:outputLabel value="Se agendò el"/>
                                                                     <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAAGENDADA)}"/>
-                                                                    <p:outputLabel value="Hora Agendada"/>
+                                                                    <p:outputLabel value="Hora agendada"/>
                                                                     <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAAGENDADA)}"/>
-                                                                    <p:outputLabel value="Fecha Creación"/>
+                                                                    <p:outputLabel value="Fecha creación"/>
                                                                     <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Hora Creación"/>
+                                                                    <p:outputLabel value="Hora creación"/>
                                                                     <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Fecha Ejecución"/>
+                                                                    <p:outputLabel value="Fecha ejecución"/>
                                                                     <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/>
-                                                                    <p:outputLabel value="Hora Ejecución"/>
+                                                                    <p:outputLabel value="Hora ejecución"/>
                                                                     <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/>
                                                                     <p:outputLabel value="Estado"/> 
                                                                     <p:outputLabel value="#{reagendarController.accionReciente.ESTADO}"/>
-                                                                    <p:outputLabel value="Transacción No"/>
+                                                                    <p:outputLabel value="Transacción"/>
                                                                     <p:outputLabel value="#{reagendarController.accionReciente.ACCIONRECIENTEID}"/>
-                                                                    <p:outputLabel value="Nueva Fecha"/>
+                                                                    <p:outputLabel value="Nueva fecha"/>
                                                                     <p:datePicker id="time1" 
                                                                                   showIcon="true"
                                                                                   monthNavigator="true"
@@ -178,7 +178,7 @@
                                                                                          title="Envia el token al correo"
                                                                                          styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                                                                                          >
-                                                                            <p:confirm header="Confirmación" message="Desea cancelar la accción" icon="pi pi-info-circle"/>
+                                                                            <p:confirm header="Confirmación" message="Desea cancelar la acción" icon="pi pi-info-circle"/>
                                                                         </p:commandButton>
 
                                                                         <p:commandButton value="REGRESAR" class="bot-regresar01" 

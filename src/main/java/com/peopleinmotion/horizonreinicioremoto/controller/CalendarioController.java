@@ -406,7 +406,7 @@ showDialog=Boolean.TRUE;
             Optional<AccionReciente> accionRecienteOptional = accionRecienteRepository.findByAccionRecienteId(JsfUtil.toBigInteger(Integer.parseInt(id)));
             if (!accionRecienteOptional.isPresent()) {
 
-                JsfUtil.warningMessage("No se encontro el codigo de accion reciente");
+                JsfUtil.warningMessage("No se encontro el codigo de acción reciente");
                 return "";
             }
 
