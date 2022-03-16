@@ -158,11 +158,11 @@ public class TokenServicesImpl implements TokenServices {
                     JsfUtil.warningMessage("Este token ya fue usado");
                 } else {
                     if (token.getVENCIDO().equals("SI")) {
-                        JsfUtil.warningMessage("Token ya vencio");
+                        JsfUtil.warningMessage("Token ya venció");
                     } else {
 
                         if (DateUtil.fechaMayor(DateUtil.getFechaHoraActual(), token.getFECHAVENCIMIENTO())) {
-                            JsfUtil.warningMessage("El plazo para usarlo ya se agoto. Genere otro token. Se colocara como vencido.");
+                            JsfUtil.warningMessage("El plazo para usarlo ya se agotó. Genere otro token. Se colocará como vencido.");
                             token.setACTIVO("NO");
                             token.setUSADO("XX");
                             token.setVENCIDO("SI");

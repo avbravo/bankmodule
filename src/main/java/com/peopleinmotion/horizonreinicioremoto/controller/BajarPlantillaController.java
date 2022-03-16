@@ -273,7 +273,7 @@ NotificacionServices notificacionServices;
 
                 //Envia el token sincrono y valida si fue o no enviado.
                 if (!emailServices.sendTokenToEmailSincrono(token, user)) {
-                    JsfUtil.errorMessage("No se logro enviar el token a su correo. Reintente la operación");
+                    JsfUtil.errorMessage("No se logró enviar el token a su correo. Reintente la operación");
                     tokenEnviado = Boolean.FALSE;
     
                 } else {

@@ -299,7 +299,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
 //
                 Optional<Agenda> agendaOptional = agendaRepository.findByAgendaId(accionReciente.getAGENDAID());
                 if (!agendaOptional.isPresent()) {
-                    JsfUtil.warningMessage("No se encontro registros de ese agendamiento");
+                    JsfUtil.warningMessage("No se encontró registros de ese agendamiento");
 
                     return "";
                 } else {
@@ -307,10 +307,10 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIÒ LA AUTORIZACIÓN", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIÓ LA AUTORIZACIÓN", user);
 
                         JmoordbContext.put("accionReciente", accionReciente);
-                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIÒ LA AUTORIZACIÓN", user, cajero, bank);
+                        emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIÓ LA AUTORIZACIÓN", user, cajero, bank);
 
                         /*
                         *Mensajes éxitosos
@@ -636,7 +636,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
             if (tokenRepository.create(token)) {
                 //Envia el token sincrono y valida si fue o no enviado.
                 if (!emailServices.sendTokenToEmailSincrono(token, user)) {
-                    JsfUtil.errorMessage("No se logro enviar el token a su correo. Reintente la operación");
+                    JsfUtil.errorMessage("No se logró enviar el token a su correo. Reintente la operación");
                     tokenEnviado = Boolean.FALSE;
 
                 } else {

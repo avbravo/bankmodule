@@ -659,18 +659,18 @@ public class TestController implements Serializable {
         try {
             List<Token> tokenList = tokenRepository.findByUsuarioIdTokenAndActivo(user.getUSUARIOID(), myToken, "SI");
             if (tokenList == null || tokenList.isEmpty()) {
-                JsfUtil.warningMessage("El token no es valido genere otro token");
+                JsfUtil.warningMessage("El token no es válido genere otro token");
             } else {
                 Token token = tokenList.get(0);
                 if (token.getUSADO().equals("SI")) {
                     JsfUtil.warningMessage("Este token ya fue usado");
                 } else {
                     if (token.getVENCIDO().equals("SI")) {
-                        JsfUtil.warningMessage("Token ya vencio");
+                        JsfUtil.warningMessage("Token ya venció");
                     } else {
 
                         if (DateUtil.fechaMayor(DateUtil.getFechaHoraActual(), token.getFECHAVENCIMIENTO())) {
-                            JsfUtil.warningMessage("El plazo para usarlo ya se agoto. Genere otro token. Se colocara como vencido.");
+                            JsfUtil.warningMessage("El plazo para usarlo ya se agotó. Genere otro token. Se colocará como vencido.");
                             token.setACTIVO("NO");
                             token.setUSADO("XX");
                             token.setVENCIDO("SI");
@@ -680,7 +680,7 @@ public class TestController implements Serializable {
                                 // JsfUtil.warningMessage("No se pudo actualizar el token");
                             }
                         } else {
-                            JsfUtil.successMessage("Validación correcta, se procede con la acción..");
+                            JsfUtil.successMessage("Validación correcta. Se procede con la acción..");
                             token.setACTIVO("NO");
                             token.setVENCIDO("XX");
                             token.setUSADO("SI");
