@@ -26,11 +26,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import lombok.Data;
 import org.primefaces.PrimeFaces;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
@@ -145,7 +147,12 @@ public class BuscarCajeroController implements Serializable, Page {
                     }
 
                     lazyDataModelCajero.setRowCount(count);
-                    PrimeFaces.current().executeScript("setDataTableWithPageStart()");
+                  //  PrimeFaces.current().executeScript("setDataTableWithPageStart()");
+//                    final DataTable d = (DataTable) FacesContext.getCurrentInstance().getViewRoot()
+//         .findComponent("widgetVardataTable");
+//int first = 0;
+//d.setFirst(first);
+//                    PF('widgetVar').getPaginator().setPage(0);
                     return result;
                 }
 

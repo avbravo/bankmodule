@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:dashboard="http://xmlns.jcp.org/jsf/composite/dashboard"         
+      xmlns:template="http://xmlns.jcp.org/jsf/composite/template"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <h:head>
+        <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
+<!--        <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>-->
+        <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
+        <link rel="stylesheet" href="./resources/css/style.css"/>
+        <link rel="stylesheet" href="./resources/css/dash01.css"/>
+        <link rel="stylesheet" href="./resources/css/mantenimiento.css"/>
+        <!--<link rel="stylesheet" href="./resources/css/dataTables.bootstrap.min.css"/>-->
+   -<h:outputStylesheet library="css" name="dataTables.bootstrap.min.css"/>
+        <meta name="referrer" content="no-referrer"/>
+        <meta name="referrer" content="strict-origin-when-cross-origin"/>
+
+        <title>Modulo Banco</title>    
+
+
+        <f:metadata>
+            <f:viewAction    action="#{dashboardController.browserEventFromPage('login.xhtml')}" />
+
+        </f:metadata>
+
+    </h:head>
+    <h:body >
+        <h:form id="form" prependId="false" rendered="#{accessController.loged}"
+                >
+
+            <p:ajaxStatus onsuccess="limpiartiempo()" />
+            <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
+
+
+            <script type="text/javascript">
+                function setDataTableWithPageStart() {
+
+                    widgetVardataTable.getPaginator().setPage(0);
+                    alert("ejecutado la funcion setDataTableWithPageStart()")
+                }
+
+
+
+            </script>
+
+
+            <p:growl id='growl' widgetVar="widgetVarGrowl"/>
+            <div class="container-scroller">
+
+                <template:top/>
+
+
+                <!-- Body -->
+                <div class="container-fluid page-body-wrapper">
+                    <template:navigator/>
+
+                    <!-- partial -->
+
+
+                    <!-- partial -->
+
+                    <div class="main-panel">
+                        <div class="content-wrapper" id="bgarc01">
+
+                            <div class="row up01">
+                                <div class="col-md-12 grid-margin">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h4 class="text-secondary">GESTIÓN DE CAJEROS</h4>
+
+                                        </div>
+
+
+                                        <div>
+
+
+                                            <p:commandButton icon= "pi pi-search" value="BUSCAR CAJERO"  class="btn btn-block btn-danger btn-sm font-weight-medium auth-form-btn rounded-pill"
+                                                             action="#{dashboardController.onCommnandButtonGoBuscarCajero()}">
+
+                                            </p:commandButton>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row bannerdash01">
+                                <div class="col-12 col-lg-7" id="bottomhide02">
+                                    <div class="row justify-content-end">
+                                        <div class="col-7 col-lg-7">
+                                            <p class="atm-title01">Bienvenid@s a la aplicación de Gestión de Cajeros de Telered</p>
+                                            <button type="button" class="btn btn-danger btn-rounded btn-fw text-nowrap"><i class="ti-light-bulb"></i>&nbsp;Cómo Funciona</button>
+                                        </div> 
+                                    </div>
+                                </div>
+
+                                <dashboard:resumenacciontotal id="dashboardresumenacciontotal"/>
+                            </div>
+
+                            <p:idleMonitor timeout="5000">
+                                <p:ajax event="idle" listener="#{dashboardController.onIdle}" update=":form:carousel, :form:dashboardresumenacciontotal,:form:dashboardschedule"/>
+                                <p:ajax event="active" listener="#{dashboardController.onActive}" update=":form:carousel,:form:dashboardresumenacciontotal,:form:dashboardschedule"/>
+                            </p:idleMonitor>
+
+                            <p:carousel var="item"  value="#{dashboardController.accionRecienteList}" numVisible="3"
+                                        responsive="true" circular="true" id="carousel"
+                                        
+                                        >
+                                <p:card style="width: 25em">
+                                    <f:facet name="header">
+                                        <strong><p:outputLabel value="#{item.TITULO}"/></strong>
+                                    </f:facet>
+                                    <f:facet name="title">
+                                        <p:commandButton styleClass="rounded-button ui-button-secondary"
+                                                         value="#{item.CAJERO}"
+                                                         update=":form:growl"
+                                                         rendered="#{item.AUTORIZADO eq 'SI'}"
+                                                         title="Procesar"
+                                                         action="#{dashboardController.onCommandButtonSelectAccionReciente(item,'dashboard')}"/>
+                                        <p:outputLabel value="#{item.CAJERO}" title="Autorización denegada" rendered="#{item.AUTORIZADO eq 'NO'}"/>
+                                        <p:outputLabel value="#{item.CAJERO}" title="Autorización Pendiente" rendered="#{item.AUTORIZADO eq 'PE'}"/>
+
+
+
+
+                                    </f:facet>
+                                    <f:facet name="subtitle">
+                                        <dd class="atm-title-mar01"> <p:outputLabel value="#{dashboardController.cortarTexto(item.MENSAJE)}"/></dd>
+                                    </f:facet>
+                                    <h:panelGrid id="eventDetails" columns="2" cellpadding="2" >
+                                        <p:outputLabel value="Se agendó el:"/>
+                                        <p:outputLabel value="#{dashboardController.showDate(item.FECHAAGENDADA)}"/>
+                                        <p:outputLabel  value="Hora agendada:"/>
+                                        <p:outputLabel value="#{dashboardController.showHour(item.FECHAAGENDADA)}"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha ejecución:"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="#{dashboardController.showDate(item.FECHAEJECUCION)}"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora ejecución:"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="#{dashboardController.showHour(item.FECHAEJECUCION)}"/>
+                                        <p:outputLabel  value="Estado:"/> 
+                                        <p:outputLabel value="#{item.ESTADO}" style="font-size: 18px !important;"/>
+                                        <p:outputLabel  value="Autorización:" />
+                                        <p:outputLabel  value="Pendiente" style="color:#026adf;" rendered="#{dashboardController.renderedPendiente(item)}"/>
+                                        <p:outputLabel  value="Autorizado" style="color:black;" rendered="#{dashboardController.renderedAutorizado(item)}"/>
+                                        <p:outputLabel  value="Denegado" style="color:red;" rendered="#{dashboardController.renderedDenegado(item)}"/>
+                                        <p:outputLabel  value="Transacción No:"/> 
+                                        <p:outputLabel value="#{item.ACCIONRECIENTEID}"/>
+
+
+                                    </h:panelGrid>
+
+
+
+
+                                    <f:facet name="footer">
+
+
+                                    </f:facet>
+                                </p:card>
+                            </p:carousel>
+
+
+
+                        </div>
+                        <!-- content-wrapper ends -->
+
+
+                        <!--AGENDAMIENTOS-->
+
+
+                        <dashboard:schedule id="dashboardschedule"/> 
+
+
+
+                        <!-- FOOTER -->
+                        <template:footer/>
+
+
+
+                        <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+
+
+
+                </div>
+                <!-- page-body-wrapper ends -->
+            </div>
+
+        </h:form>    
+
+        <h:form id="formaccesodenegado" prependId="false" rendered="#{!accessController.loged}">
+
+            <template:accesodenegado/>
+
+        </h:form>
+        <!-- container-scroller -->
+        <!-- container-scroller -->
+        <template:script/> 
+    </h:body>
+
+</html>
+

@@ -1,0 +1,31 @@
+DashboardController
+se agrego validacion try catch
+
+se cambio en buscare cajero el javascript
+ <script type="text/javascript">
+                function setDataTableWithPageStart() {
+
+                    widgetVardataTable.getPaginator().setPage(0);
+                   // alert("ejecutado la funcion setDataTableWithPageStart()")
+                }
+            </script>
+
+
+por
+ <script type="text/javascript">
+                function setDataTableWithPageStart() {
+
+                    widgetVardataTable.getPaginator().setPage(0);
+                   // alert("ejecutado la funcion setDataTableWithPageStart()")
+                }
+            </script>
+
+Se puso en comentarios
+-------------------------------------------------
+Se agrego en BuscarCajeroController.java
+
+  final DataTable d = (DataTable) FacesContext.getCurrentInstance().getViewRoot()
+         .findComponent("widgetVardataTable");
+int first = 0;
+d.setFirst(first);
+
