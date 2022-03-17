@@ -148,6 +148,9 @@ public class AccionRecienteServicesImpl implements AccionRecienteServices {
     @Override
     public Boolean renderedAutorizado(AccionReciente accionReciente) {
        try {
+            if(accionReciente == null ||accionReciente.getAUTORIZADO() ==null){
+                 return Boolean.FALSE;
+            }
             if (accionReciente.getAUTORIZADO().equals("SI")) {
                 return Boolean.TRUE;
             }
@@ -163,6 +166,9 @@ public class AccionRecienteServicesImpl implements AccionRecienteServices {
     @Override
     public Boolean renderedPendiente(AccionReciente accionReciente) {
          try {
+              if(accionReciente == null ||accionReciente.getAUTORIZADO() ==null){
+                 return Boolean.FALSE;
+            }
             if (accionReciente.getAUTORIZADO().equals("PE")) {
                 return Boolean.TRUE;
             }
@@ -177,6 +183,9 @@ public class AccionRecienteServicesImpl implements AccionRecienteServices {
     @Override
     public Boolean renderedDenegado(AccionReciente accionReciente) {
         try {
+             if(accionReciente == null ||accionReciente.getAUTORIZADO() ==null){
+                 return Boolean.FALSE;
+            }
             if (accionReciente.getAUTORIZADO().equals("SI")) {
                 return Boolean.TRUE;
             }

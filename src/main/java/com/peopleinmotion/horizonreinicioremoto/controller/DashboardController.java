@@ -580,43 +580,13 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
 // </editor-fold>
     
     
-//      // <editor-fold defaultstate="collapsed" desc="Boolean renderedAutorizado()">
-//    public Boolean renderedAutorizado() {
-//        try{
-//        return accionRecienteServices.renderedAutorizado(accionRecienteSelected);
-// } catch (Exception e) {
-//               JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
-//        }
-//       return Boolean.FALSE;
-//    }
-//
-//    // </editor-fold>
-//      // <editor-fold defaultstate="collapsed" desc="Boolean renderedDenegado()">
-//    public Boolean renderedDenegado() {
-//        try{
-//        return accionRecienteServices.renderedDenegado(accionRecienteSelected);
-// } catch (Exception e) {
-//               JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
-//        }
-//       return Boolean.FALSE;
-//    }
-//
-//    // </editor-fold>
-//
-//      // <editor-fold defaultstate="collapsed" desc="Boolean renderedPendiente()">
-//    public Boolean renderedPendiente() {
-//        try{
-//        return accionRecienteServices.renderedPendiente(accionRecienteSelected);
-// } catch (Exception e) {
-//               JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
-//        }
-//       return Boolean.FALSE;
-//    }
-//
-//    // </editor-fold>
+
       // <editor-fold defaultstate="collapsed" desc="Boolean renderedPendiente(AccionReciente accionReciente)">
     public Boolean renderedPendiente(AccionReciente accionReciente) {
         try {
+            if(accionReciente == null ||accionReciente.getAUTORIZADO() ==null){
+                 return Boolean.FALSE;
+            }
              return accionReciente.getAUTORIZADO().equals("PE");
         } catch (Exception e) {
                JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
@@ -629,6 +599,10 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
       // <editor-fold defaultstate="collapsed" desc="Boolean renderedDenegado(AccionReciente accionReciente)">
     public Boolean renderedDenegado(AccionReciente accionReciente) {
         try{
+
+             if(accionReciente == null ||accionReciente.getAUTORIZADO() ==null){
+                 return Boolean.FALSE;
+            }
         return accionReciente.getAUTORIZADO().equals("NO");
  } catch (Exception e) {
                JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
@@ -640,6 +614,9 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
       // <editor-fold defaultstate="collapsed" desc="Boolean renderedAutorizado(AccionReciente accionReciente)">
     public Boolean renderedAutorizado(AccionReciente accionReciente) {
         try{
+             if(accionReciente == null ||accionReciente.getAUTORIZADO() ==null){
+                 return Boolean.FALSE;
+            }
         return accionReciente.getAUTORIZADO().equals("SI");
          } catch (Exception e) {
                JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
