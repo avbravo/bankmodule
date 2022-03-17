@@ -98,9 +98,9 @@
                 <p:outputLabel id="estado" value="#{dashboardController.accionRecienteSelected.ESTADO}" />
 
 
-                <p:outputLabel  value="Autorización:"   rendered="#{dashboardController.renderedPendiente()}"/>
+                <p:outputLabel  value="Autorización:"   rendered="#{dashboardController.renderedPendiente(dashboardController.accionRecienteSelected)}"/>
 
-                <p:outputLabel  value="Pendiente" style="color:red;" rendered="#{dashboardController.renderedPendiente()}"/>
+                <p:outputLabel  value="Pendiente" style="color:red;" rendered="#{dashboardController.renderedPendiente(dashboardController.accionRecienteSelected)}"/>
 
             </h:panelGrid>
 
@@ -119,7 +119,7 @@
                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                         id="commandButtonProcesar"
                         value="CONTINUAR"
-                       rendered="#{dashboardController.renderedAutorizado()}"
+                       rendered="#{dashboardController.renderedAutorizado(dashboardController.accionRecienteSelected)}"
                         icon="pi pi-calendar-plus"
                         update=":form:growl"
                         action="#{dashboardController.onCommandButtonSelectAccionReciente(dashboardController.accionRecienteSelected,'dashboard')}">
