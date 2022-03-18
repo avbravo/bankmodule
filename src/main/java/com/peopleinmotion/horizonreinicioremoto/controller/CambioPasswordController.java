@@ -84,23 +84,23 @@ PasswordValidator passwordValidator;
           
                    
             if (passwordOld == null || passwordOld.equals("")) {
-                JsfUtil.warningMessage("Ingrese el password anterior");
+                JsfUtil.warningMessage("Ingrese la contraseña anterior");
                 return "";
             }
             if (passwordNew == null || passwordNew.equals("")) {
-                JsfUtil.warningMessage("Ingrese el password nuevo");
+                JsfUtil.warningMessage("Ingrese la nueva contraseña");
                 return "";
             }
             if (passwordRepetido == null || passwordRepetido.equals("")) {
-                JsfUtil.warningMessage("Ingrese el password repetido");
+                JsfUtil.warningMessage("Ingrese la contraseña en la casilla de contraseña repetida");
                 return "";
             }
             if (!passwordOld.trim().equals(passwordDesencriptado.trim())) {
-                JsfUtil.warningMessage("El password anterior no coincide con su password");
+                JsfUtil.warningMessage("La contraseña anterior no coincide con que tiene registrada en la base de datos");
                 return "";
             }
             if (!passwordNew.equals(passwordRepetido)) {
-                JsfUtil.warningMessage("El password nuevo no coincide con el password repetido");
+                JsfUtil.warningMessage("La nueva contraseña no coincide con la contraseña repetida");
                 return "";
             }
 
@@ -111,7 +111,7 @@ PasswordValidator passwordValidator;
 
             user.setPASSWORD(JsfUtil.encriptar(passwordNew));
             if(!passwordValidator.isValid(passwordNew)){
-                      JsfUtil.warningMessage("No es una contraseña valida..");
+                      JsfUtil.warningMessage("No es una contraseña válida. Consulte la ayuda");
                       return "";
             }
             if (usuarioRepository.update(user)) {
