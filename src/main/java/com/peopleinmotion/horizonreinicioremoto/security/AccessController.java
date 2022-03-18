@@ -124,7 +124,7 @@ public class AccessController implements Serializable, Page {
 
             setLoged(Boolean.FALSE);
             if (intentos > 2) {
-                JsfUtil.warningMessage("Usted ha intentado ingresar en mas de tres ocasiones de manera fallida.");
+                JsfUtil.warningMessage("Usted ha intentado ingresar en más de tres ocasiones sin éxito.");
                 return "";
             }
 

@@ -5,6 +5,7 @@
  */
 package com.peopleinmotion.horizonreinicioremoto.controller;
 
+import com.peopleinmotion.horizonreinicioremoto.domains.MessagesForm;
 import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.entity.Usuario;
 import com.peopleinmotion.horizonreinicioremoto.interfaces.Page;
@@ -76,8 +77,12 @@ PasswordValidator passwordValidator;
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonCambioPassword()">
     public String onCommandButtonCambiarPassword() {
         try {
-          ConsoleUtil.info("passwordOld "+passwordOld);
-          ConsoleUtil.info("userPassword desencriptado"+JsfUtil.desencriptar(user.getPASSWORD()));
+              user = (Usuario) JmoordbContext.get("user");
+//          ConsoleUtil.info("passwordOld "+passwordOld);
+          String passwordDesencriptado=JsfUtil.desencriptar(user.getPASSWORD());
+//          ConsoleUtil.info("userPassword desencriptado "+passwordDesencriptado);
+          
+                   
             if (passwordOld == null || passwordOld.equals("")) {
                 JsfUtil.warningMessage("Ingrese el password anterior");
                 return "";
@@ -90,7 +95,7 @@ PasswordValidator passwordValidator;
                 JsfUtil.warningMessage("Ingrese el password repetido");
                 return "";
             }
-            if (!passwordOld.trim().equals(JsfUtil.desencriptar(user.getPASSWORD()).trim())) {
+            if (!passwordOld.trim().equals(passwordDesencriptado.trim())) {
                 JsfUtil.warningMessage("El password anterior no coincide con su password");
                 return "";
             }
@@ -110,10 +115,26 @@ PasswordValidator passwordValidator;
                       return "";
             }
             if (usuarioRepository.update(user)) {
+                JmoordbContext.put("user",user);
                 passwordNew="";
                 passwordOld="";
                 passwordRepetido="";
-                JsfUtil.successMessage("Se realizo con éxito el cambio de contraseña");
+                //JsfUtil.successMessage("Se realizo con éxito el cambio de contraseña");
+                 MessagesForm messagesForm = new MessagesForm.Builder()
+                                .errorWindows(Boolean.FALSE)
+                                .id(user.getNOMBRE())
+                                .header("Operación exitosa")
+                                .header2("La acción se realizó exitosamente")
+                                .image("atm-green01.png")
+                                .libary("images")
+                                .titulo("Cambio de contraseña")
+                                .mensaje("Se realizó exitosamente el cambio de contraseña")
+                                .returnTo("dashboard.xhtml")
+                                .build();
+                        JmoordbContext.put("messagesForm", messagesForm);
+
+                        JmoordbContext.put("pageInView", "messagesform.xhtml");
+                        return "messagesform.xhtml";
             } else {
                 JsfUtil.warningMessage("No se logro realizar el cambio de contraseña");
             }
@@ -124,13 +145,14 @@ PasswordValidator passwordValidator;
     }
     // </editor-fold> 
     
-      // <editor-fold defaultstate="collapsed" desc="String onCommandButtonShowAyuda()>
-    public String onCommandButtonShowAyuda(){
+      // <editor-fold defaultstate="collapsed" desc="void onCommandButtonShowAyuda()>
+    public void onCommandButtonShowAyuda(){
         try {
             
         } catch (Exception e) {
+                JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
-        return "";
+      
     }
     // </editor-fold> 
 }
