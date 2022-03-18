@@ -22,5 +22,8 @@ public interface UsuarioRepository {
     public List<Usuario> findByUsername(String USERNAME);
     public List<Usuario> findByBancoIdAndActivo(Banco BANCOID, String ACTIVO);
     public Boolean create(Usuario usuario);
+        public Boolean update(Usuario usuario);
+
+    public Boolean delete(Usuario usuario);
     
 }

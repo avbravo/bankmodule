@@ -29,3 +29,10 @@ Se agrego en BuscarCajeroController.java
 int first = 0;
 d.setFirst(first);
 
+=========================
+en el carousel se quito la propiedad cicrular
+
+UsuarioRepository
+CambioPasswordController
+cambiopassword.xhtml
+paginator.xthml

@@ -59,5 +59,26 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
         return usuarioFacade.find(id);
     }
 
+      public Boolean update(Usuario usuario) {
+        try {
+            usuarioFacade.edit(usuario);
+            return true;
+        } catch (Exception e) {
+            // System.out.println("create() " + e.getLocalizedMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean delete(Usuario usuario) {
+       try {
+            usuarioFacade.remove(usuario);
+            return true;
+        } catch (Exception e) {
+            // System.out.println("create() " + e.getLocalizedMessage());
+        }
+        return false;
+    }
+
    
 }
