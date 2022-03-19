@@ -4,10 +4,13 @@
  */
 package com.peopleinmotion.horizonreinicioremoto.utils;
 
+import com.peopleinmotion.horizonreinicioremoto.entity.Usuario;
+
 /**
  *
  * @author avbravo
  */
 public interface PasswordValidator {
  public Boolean isValid(final String password);
+ public Boolean checkNull(String passwordOld, String passwordNew, String passwordRepetido, String passwordDesencriptado);
 }

@@ -40,13 +40,16 @@ public class CambioPasswordController implements Serializable, Page {
     private String passwordNew = "";
     private String passwordRepetido = "";
 
+
+
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="@Inject ">
     @Inject
     UsuarioRepository usuarioRepository;
-@Inject
-PasswordValidator passwordValidator;
+    @Inject
+    PasswordValidator passwordValidator;
 // </editor-fold>
+
     /**
      * Creates a new instance of CajeroAccionController
      */
@@ -57,7 +60,7 @@ PasswordValidator passwordValidator;
     @PostConstruct
     public void init() {
         try {
-
+    
             if (JmoordbContext.get("user") == null) {
 
             } else {
@@ -77,64 +80,50 @@ PasswordValidator passwordValidator;
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonCambioPassword()">
     public String onCommandButtonCambiarPassword() {
         try {
-              user = (Usuario) JmoordbContext.get("user");
-//          ConsoleUtil.info("passwordOld "+passwordOld);
-          String passwordDesencriptado=JsfUtil.desencriptar(user.getPASSWORD());
-//          ConsoleUtil.info("userPassword desencriptado "+passwordDesencriptado);
+            user = (Usuario) JmoordbContext.get("user");
+
+            String passwordDesencriptado = JsfUtil.desencriptar(user.getPASSWORD());
+            ConsoleUtil.info("userPassword desencriptado " + passwordDesencriptado);
           
-                   
-            if (passwordOld == null || passwordOld.equals("")) {
-                JsfUtil.warningMessage("Ingrese la contraseña anterior");
-                return "";
-            }
-            if (passwordNew == null || passwordNew.equals("")) {
-                JsfUtil.warningMessage("Ingrese la nueva contraseña");
-                return "";
-            }
-            if (passwordRepetido == null || passwordRepetido.equals("")) {
-                JsfUtil.warningMessage("Ingrese la contraseña en la casilla de contraseña repetida");
-                return "";
-            }
-            if (!passwordOld.trim().equals(passwordDesencriptado.trim())) {
-                JsfUtil.warningMessage("La contraseña anterior no coincide con que tiene registrada en la base de datos");
-                return "";
-            }
-            if (!passwordNew.equals(passwordRepetido)) {
-                JsfUtil.warningMessage("La nueva contraseña no coincide con la contraseña repetida");
-                return "";
-            }
+          
+                ConsoleUtil.info("passwordOld " + passwordOld);
+                if (!passwordValidator.checkNull(passwordOld, passwordNew, passwordRepetido, passwordDesencriptado)) {
+                    return "";
+                }
+            
+              
+         
 
-            if (passwordOld.equals(passwordNew)) {
-                JsfUtil.warningMessage("La contraseña nuevo debe ser diferente del password anterior");
+           
+            if (!passwordValidator.isValid(passwordNew)) {
+                JsfUtil.warningMessage("La nueva contraseña no cumple los requisitos para crearla. Consulte la ayuda.");
                 return "";
             }
-
-            user.setPASSWORD(JsfUtil.encriptar(passwordNew));
-            if(!passwordValidator.isValid(passwordNew)){
-                      JsfUtil.warningMessage("No es una contraseña válida. Consulte la ayuda");
-                      return "";
-            }
+             user.setPASSWORD(JsfUtil.encriptar(passwordNew));
             if (usuarioRepository.update(user)) {
-                JmoordbContext.put("user",user);
-                passwordNew="";
-                passwordOld="";
-                passwordRepetido="";
+                JmoordbContext.put("user", user);
+                passwordNew = "";
+                passwordOld = "";
+                passwordRepetido = "";
+              
+             
+             
                 //JsfUtil.successMessage("Se realizo con éxito el cambio de contraseña");
-                 MessagesForm messagesForm = new MessagesForm.Builder()
-                                .errorWindows(Boolean.FALSE)
-                                .id(user.getNOMBRE())
-                                .header("Operación exitosa")
-                                .header2("La acción se realizó exitosamente")
-                                .image("atm-green01.png")
-                                .libary("images")
-                                .titulo("Cambio de contraseña")
-                                .mensaje("Se realizó exitosamente el cambio de contraseña")
-                                .returnTo("dashboard.xhtml")
-                                .build();
-                        JmoordbContext.put("messagesForm", messagesForm);
+                MessagesForm messagesForm = new MessagesForm.Builder()
+                        .errorWindows(Boolean.FALSE)
+                        .id(user.getNOMBRE())
+                        .header("Operación exitosa")
+                        .header2("La acción se realizó exitosamente")
+                        .image("atm-green01.png")
+                        .libary("images")
+                        .titulo("Cambio de contraseña")
+                        .mensaje("Se realizó exitosamente el cambio de contraseña")
+                        .returnTo("dashboard.xhtml")
+                        .build();
+                JmoordbContext.put("messagesForm", messagesForm);
 
-                        JmoordbContext.put("pageInView", "messagesform.xhtml");
-                        return "messagesform.xhtml";
+                JmoordbContext.put("pageInView", "messagesform.xhtml");
+                return "messagesform.xhtml";
             } else {
                 JsfUtil.warningMessage("No se logro realizar el cambio de contraseña");
             }
@@ -144,15 +133,18 @@ PasswordValidator passwordValidator;
         return "";
     }
     // </editor-fold> 
-    
-      // <editor-fold defaultstate="collapsed" desc="void onCommandButtonShowAyuda()>
-    public void onCommandButtonShowAyuda(){
+
+    // <editor-fold defaultstate="collapsed" desc="void onCommandButtonShowAyuda()>
+    public void onCommandButtonShowAyuda() {
         try {
-            
+
         } catch (Exception e) {
-                JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
-      
+
     }
     // </editor-fold> 
+   
+    
+   
 }

@@ -112,7 +112,7 @@ public class AccessServicesImpl implements AccessServices {
             }
 
             if (!JsfUtil.desencriptar(u.getPASSWORD()).equals(password)) {
-               JsfUtil.warningMessage("El password no valido");
+               JsfUtil.warningMessage("La contraseña no es correcta.");
                 return Boolean.FALSE;
             }
 
@@ -152,7 +152,7 @@ public class AccessServicesImpl implements AccessServices {
             }
 
             if (!JsfUtil.desencriptar(u.getPASSWORD()).equals(password)) {
-            JsfUtil.warningMessage("El password no valido");
+            JsfUtil.warningMessage("La constraseña no es correcta");
                 return Boolean.FALSE;
             }
 
