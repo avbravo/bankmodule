@@ -32,13 +32,7 @@
             <p:ajaxStatus onsuccess="limpiartiempo()" />
             <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
 
-            <script type="text/javascript">
-                function setDataTableWithPageStart() {
-
-                    widgetVardataTable.getPaginator().setPage(0);
-                    alert("ejecutado la funcion setDataTableWithPageStart()")
-                }
-            </script>
+          
             <p:growl id='growl' widgetVar="widgetVarGrowl" life="4000" />
             <div class="container-scroller">
                 <!-- partial:partials/_navbar.html -->

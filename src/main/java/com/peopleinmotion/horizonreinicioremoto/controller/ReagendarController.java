@@ -329,7 +329,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                                 .header2("La acción se realizó exitosamente")
                                 .image("atm-green01.png")
                                 .libary("images")
-                                .titulo("Se Reagendó el evento")
+                                .titulo("Se reagendó el evento")
                                 .mensaje("Se realizó con éxito el regeandeamiento")
                                 .returnTo("dashboard.xhtml")
                                 .build();

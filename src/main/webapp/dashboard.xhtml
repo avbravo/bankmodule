@@ -11,15 +11,17 @@
 
     <h:head>
         <link rel="stylesheet" href="./resources/vendors/ti-icons/css/themify-icons.css"/>
-<!--        <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>-->
+        <!--        <link rel="stylesheet" href="./resources/vendors/base/vendor.bundle.base.css"/>-->
         <!--  <link href="./resources/vendors/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/> -->
         <link rel="stylesheet" href="./resources/css/style.css"/>
         <link rel="stylesheet" href="./resources/css/dash01.css"/>
         <link rel="stylesheet" href="./resources/css/mantenimiento.css"/>
         <!--<link rel="stylesheet" href="./resources/css/dataTables.bootstrap.min.css"/>-->
-   -<h:outputStylesheet library="css" name="dataTables.bootstrap.min.css"/>
+        -<h:outputStylesheet library="css" name="dataTables.bootstrap.min.css"/>
         <meta name="referrer" content="no-referrer"/>
         <meta name="referrer" content="strict-origin-when-cross-origin"/>
+
+        <!-- Probanbdo -->
 
         <title>Modulo Banco</title>    
 
@@ -38,16 +40,7 @@
             <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
 
 
-            <script type="text/javascript">
-                function setDataTableWithPageStart() {
 
-                    widgetVardataTable.getPaginator().setPage(0);
-                    alert("ejecutado la funcion setDataTableWithPageStart()")
-                }
-
-
-
-            </script>
 
 
             <p:growl id='growl' widgetVar="widgetVarGrowl"/>
@@ -134,21 +127,21 @@
                                         <dd class="atm-title-mar01"> <p:outputLabel value="#{dashboardController.cortarTexto(item.MENSAJE)}"/></dd>
                                     </f:facet>
                                     <h:panelGrid id="eventDetails" columns="2" cellpadding="2" >
-                                        <p:outputLabel value="Se agendó el:"/>
+                                        <p:outputLabel value="Se agendó el"/>
                                         <p:outputLabel value="#{dashboardController.showDate(item.FECHAAGENDADA)}"/>
-                                        <p:outputLabel  value="Hora agendada:"/>
+                                        <p:outputLabel  value="Hora agendada"/>
                                         <p:outputLabel value="#{dashboardController.showHour(item.FECHAAGENDADA)}"/>
                                         <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha ejecución:"/>
                                         <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="#{dashboardController.showDate(item.FECHAEJECUCION)}"/>
                                         <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora ejecución:"/>
                                         <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="#{dashboardController.showHour(item.FECHAEJECUCION)}"/>
-                                        <p:outputLabel  value="Estado:"/> 
+                                        <p:outputLabel  value="Estado"/> 
                                         <p:outputLabel value="#{item.ESTADO}" style="font-size: 18px !important;"/>
-                                        <p:outputLabel  value="Autorización:" />
+                                        <p:outputLabel  value="Autorización" />
                                         <p:outputLabel  value="Pendiente" style="color:#026adf;" rendered="#{dashboardController.renderedPendiente(item)}"/>
                                         <p:outputLabel  value="Autorizado" style="color:black;" rendered="#{dashboardController.renderedAutorizado(item)}"/>
                                         <p:outputLabel  value="Denegado" style="color:red;" rendered="#{dashboardController.renderedDenegado(item)}"/>
-                                        <p:outputLabel  value="Transacción No:"/> 
+                                        <p:outputLabel  value="Transacción No"/> 
                                         <p:outputLabel value="#{item.ACCIONRECIENTEID}"/>
 
 

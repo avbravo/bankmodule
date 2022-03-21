@@ -1,3 +1,7 @@
+
+password: 123456789aS@
+
+
 DashboardController
 se agrego validacion try catch
 
@@ -36,3 +40,46 @@ UsuarioRepository
 CambioPasswordController
 cambiopassword.xhtml
 paginator.xthml
+
+
+===================
+HAMBURGER offcanvas
+0. Css y JS necesarios
+ <link rel="stylesheet" href="./resources/css/style.css"/>
+  <script src="vendors/base/vendor.bundle.base.js"></script>
+  <script src="js/off-canvas.js"></script>
+
+1. analizar top.xhtml 
+<Dibuja el button para invocar el toogle>
+
+    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="ti-view-list"></span>
+        </button>
+
+
+     
+2. resources/js/off-canvas.js
+<Contiene la funcion java script>
+
+(function($) {
+  'use strict';
+  $(function() {
+    $('[data-toggle="offcanvas"]').on("click", function() {
+      $('.sidebar-offcanvas').toggleClass('active')
+    });
+  });
+})(jQuery);
+
+NECESITAMOS CREAR UN OFF-CANVAS
+EN HTML 5
+https://getbootstrap.com/docs/5.0/components/offcanvas/
+https://www.w3schools.com/howto/howto_js_off-canvas.asp
+
+en el archivo styles.css
+buscar el texto :  .sidebar-offcanvas 
+-offcanvas.active
+
+enlaces
+https://getbootstrap.com/docs/4.3/layout/overview/
+
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sidenav_push
