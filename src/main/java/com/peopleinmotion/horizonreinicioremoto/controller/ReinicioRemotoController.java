@@ -277,11 +277,11 @@ public class ReinicioRemotoController implements Serializable, Page {
                 if (!emailServices.sendTokenToEmailSincrono(token, user)) {
                     JsfUtil.errorMessage("No se logró enviar el token a su correo. Reintente la operación");
                     tokenEnviado = Boolean.FALSE;
-                    ConsoleUtil.info("No lo pude enviar el dialogo...");
+                    // ConsoleUtil.info("No lo pude enviar el dialogo...");
                 } else {
                     JsfUtil.successMessage("El token fue enviado a su correo.");
                     tokenEnviado = Boolean.TRUE;
-                    ConsoleUtil.info("mostrare el dialogo...");
+                    // ConsoleUtil.info("mostrare el dialogo...");
                     openDialogToken();
                 }
                 //Envia el token asincrono
@@ -369,7 +369,7 @@ public class ReinicioRemotoController implements Serializable, Page {
              */
             Integer count = agendaServices.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
             if (count > 0) {
-                ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha");
+                // ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha");
                 JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
 
                 return "";
@@ -398,7 +398,7 @@ public class ReinicioRemotoController implements Serializable, Page {
                     emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 //       Boolean emailSend=    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 //                     if(emailSend ){
-//                        ConsoleUtil.info("Si envio el email");
+//                        // ConsoleUtil.info("Si envio el email");
 //                    }else{
 //                        ConsoleUtil.error("No envio el email");
 //                    }

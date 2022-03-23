@@ -261,9 +261,9 @@ public class DashboardController implements Serializable, Page {
     public String calcularTotales() {
         try {
             totalesEstadoBanco = totalesEstadoBancoServices.calcularTotalesDelBanco();
-ConsoleUtil.info("calcularTotales() getTotalEnProceso()"+totalesEstadoBanco.getTotalEnProceso());
-ConsoleUtil.info("calcularTotales() getTotalFinalizado()"+totalesEstadoBanco.getTotalFinalizado());
-ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.getTotalSolicitado());
+// ConsoleUtil.info("calcularTotales() getTotalEnProceso()"+totalesEstadoBanco.getTotalEnProceso());
+// ConsoleUtil.info("calcularTotales() getTotalFinalizado()"+totalesEstadoBanco.getTotalFinalizado());
+// ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.getTotalSolicitado());
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
@@ -418,7 +418,7 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
             }
 
             accionRecienteSelected = accionRecienteOptional.get();
-            ConsoleUtil.info("AccionReciente autorizdo "+accionRecienteSelected.getAUTORIZADO());
+            // ConsoleUtil.info("AccionReciente autorizdo "+accionRecienteSelected.getAUTORIZADO());
             JmoordbContext.put("accionRecienteDashboard", accionRecienteSelected);
             Optional<Cajero> cajeroOptional = cajeroRepository.findByCajeroId(accionRecienteSelected.getCAJEROID());
 
@@ -525,7 +525,7 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
     // <editor-fold defaultstate="collapsed" desc="onIdle()">
     public void onIdle() {
         try {
-            ConsoleUtil.info("------onIdle() " + "Modulo Banco "+ DateUtil.fechaHoraActual());
+            // ConsoleUtil.info("------onIdle() " + "Modulo Banco "+ DateUtil.fechaHoraActual());
             /**
              * Si una accionreciente fue cambiada por otro usuario
              */
@@ -542,7 +542,7 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
                 loadSchedule();
                 calcularTotales();
             } else {
-                ConsoleUtil.info("onIdle()-->No hubo cambios no hare nada " + DateUtil.fechaHoraActual());
+                // ConsoleUtil.info("onIdle()-->No hubo cambios no hare nada " + DateUtil.fechaHoraActual());
             }
 
         } catch (Exception e) {
@@ -555,22 +555,22 @@ ConsoleUtil.info("calcularTotales() getTotalSolicitado()"+totalesEstadoBanco.get
     // <editor-fold defaultstate="collapsed" desc="onActive() ">
     public void onActive() {
         try {
-            ConsoleUtil.info("-----onActive() " + "Modulo Banco "+ DateUtil.fechaHoraActual());
+            // ConsoleUtil.info("-----onActive() " + "Modulo Banco "+ DateUtil.fechaHoraActual());
             /**
              * Si una accionreciente fue cambiada por otro usuario
              */
             if (notificacionServices.changed(notificacionOld)) {
                 Optional<Notificacion> optional = notificacionServices.findByIDANDTIPOID(banco.getBANCOID(), "BANCO");
                 if (optional.isPresent()) {
-                    ConsoleUtil.info("onActive()() --> actualizare notifiacionOld" + DateUtil.fechaHoraActual());
+                    // ConsoleUtil.info("onActive()() --> actualizare notifiacionOld" + DateUtil.fechaHoraActual());
                     JsfUtil.copyBeans(notificacionOld, optional.get());
                 }
-                ConsoleUtil.info("onActive()()--> relleno carrousel y loadSchedule" + DateUtil.fechaHoraActual());
+                // ConsoleUtil.info("onActive()()--> relleno carrousel y loadSchedule" + DateUtil.fechaHoraActual());
                 fillCarouselAccionReciente();
                 loadSchedule();
                 calcularTotales();
             } else {
-                ConsoleUtil.info("onActive()()-->No hubo cambios no hare nada " + DateUtil.fechaHoraActual());
+                // ConsoleUtil.info("onActive()()-->No hubo cambios no hare nada " + DateUtil.fechaHoraActual());
             }
 
         } catch (Exception e) {

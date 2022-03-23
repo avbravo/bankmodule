@@ -117,7 +117,7 @@ public class AccessController implements Serializable, Page {
             }
 
             if (password == null || password.equals("")) {
-                     ConsoleUtil.info("Ingrese password.........");
+                     // ConsoleUtil.info("Ingrese password.........");
                 JsfUtil.warningMessage("Ingrese el password del usuario");
                 return "";
             }
@@ -129,7 +129,7 @@ public class AccessController implements Serializable, Page {
             }
 
             if (accessServices.validateCredentials(usuario, username, password)) {
-                 ConsoleUtil.info("is validateCredential.........");
+                 // ConsoleUtil.info("is validateCredential.........");
                 usuario = (Usuario) JmoordbContext.get("user");
                 if (usuario.getMODULOBANCO().toUpperCase().equals("NO")) {
                     JsfUtil.warningMessage("No tiene permisos para usar este módulo ");

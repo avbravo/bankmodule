@@ -83,10 +83,10 @@ public class CambioPasswordController implements Serializable, Page {
             user = (Usuario) JmoordbContext.get("user");
 
             String passwordDesencriptado = JsfUtil.desencriptar(user.getPASSWORD());
-            ConsoleUtil.info("userPassword desencriptado " + passwordDesencriptado);
+            // ConsoleUtil.info("userPassword desencriptado " + passwordDesencriptado);
           
           
-                ConsoleUtil.info("passwordOld " + passwordOld);
+                // ConsoleUtil.info("passwordOld " + passwordOld);
                 if (!passwordValidator.checkNull(passwordOld, passwordNew, passwordRepetido, passwordDesencriptado)) {
                     return "";
                 }

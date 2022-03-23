@@ -148,7 +148,7 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
 
                     JsfUtil.warningMessage("No hay acciones para el grupo seleccionado");
                 } else {
-                    ConsoleUtil.info("la lista NO esta vacia..");
+                    // ConsoleUtil.info("la lista NO esta vacia..");
                     accion = accionList.get(0);
                 }
                 Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
@@ -371,7 +371,7 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
              */
             Integer count = agendaServices.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
             if (count > 0) {
-                ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha");
+                // ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha");
                 JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
 
                 return "";
@@ -397,7 +397,7 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                         emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 //       Boolean emailSend=    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 //                     if(emailSend ){
-//                        ConsoleUtil.info("Si envio el email");
+//                        // ConsoleUtil.info("Si envio el email");
 //                    }else{
 //                        ConsoleUtil.error("No envio el email");
 //                    }

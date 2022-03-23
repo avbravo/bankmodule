@@ -401,7 +401,7 @@ NotificacionServices notificacionServices;
                         emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 //       Boolean emailSend=    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 //                     if(emailSend ){
-//                        ConsoleUtil.info("Si envio el email");
+//                        // ConsoleUtil.info("Si envio el email");
 //                    }else{
 //                        ConsoleUtil.error("No envio el email");
 //                    }

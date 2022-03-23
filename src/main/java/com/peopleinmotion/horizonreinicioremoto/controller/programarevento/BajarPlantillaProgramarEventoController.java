@@ -430,7 +430,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                         programarEvento.getCajero().getCAJEROID(), programarEvento.getAccion().getACCIONID(),
                         estado.getESTADOID(), programarEvento.getFechahora(), "SI");
                 if (count > 0) {
-                    ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha Cajero: " + programarEvento.getCajero().getCAJERO());
+                    // ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha Cajero: " + programarEvento.getCajero().getCAJERO());
                     JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
 
                     return "";
