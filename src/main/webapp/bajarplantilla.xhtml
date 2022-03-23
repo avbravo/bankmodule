@@ -125,8 +125,8 @@
                                                                 <p class="atm-title-mar01"><strong>Fecha creación:</strong>#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHACREACION)}</p>			
                                                                 <p class="atm-title-mar01"><strong>Hora creación:</strong>#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHACREACION)}</p>
 
-                                                                <p class="atm-title-mar01"><strong>Fecha ejecución:</strong>#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}</p>
-                                                                <p class="atm-title-mar01"><strong>Hora ejecución:</strong>#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}</p>
+                                                                <p class="atm-title-mar01"><strong>Fecha ejecución:</strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"</p>
+                                                                <p class="atm-title-mar01"><strong>Hora ejecución:</strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"</p>
 
                                                                 <p class="atm-title-mar01"><strong>Estado:</strong>#{bajarPlantillaController.accionReciente.ESTADO}</p>
 
