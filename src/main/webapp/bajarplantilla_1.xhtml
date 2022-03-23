@@ -109,36 +109,86 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="card-body borderline01">
+                                                <div class="card-body ">
                                                     <div class="row justify-content-center align-content-center">
-                                                        <div class="col-12 col-lg-11 atm-card-marbody01" >
+                                                        <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
                                                             <c:if test="${!bajarPlantillaController.haveAccionReciente}">
                                                                 <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
 
 
                                                             </c:if>
                                                             <c:if test="${bajarPlantillaController.haveAccionReciente}">
-                                                                <p class="atm-title-mar01"><strong>Acción: </strong>#{bajarPlantillaController.accionReciente.TITULO}</p>
-                                                                <p class="atm-title-mar01"><strong>Evento: </strong>#{bajarPlantillaController.accionReciente.MENSAJE}</p>
-                                                                <p class="atm-title-mar01"><strong>Se agendó el:</strong>#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAAGENDADA)}</p>
-                                                                <p class="atm-title-mar01"><strong>Hora agendada:</strong>#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAAGENDADA)}</p>
-                                                                <p class="atm-title-mar01"><strong>Fecha creación:</strong>#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHACREACION)}</p>			
-                                                                <p class="atm-title-mar01"><strong>Hora creación:</strong>#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHACREACION)}</p>
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div class="col"><p:outputLabel  value="Acción:" styleClass="p-text-bold"/></div>
+                                                                        <div class="col"> <p:outputLabel  value="#{bajarPlantillaController.accionReciente.TITULO}" /></div>
+                                                                         </div>
+                                                                    <div class="row">
+                                                                        <div class="col"><p:outputLabel  value="Evento:" styleClass="p-text-bold"/></div>
+                                                                        <div class="col"><p:outputLabel  value="#{bajarPlantillaController.accionReciente.MENSAJE}" /></div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col"><p:outputLabel  value="Se agendó el" styleClass="p-text-bold"/></div>
+                                                                        <div class="col"><p:outputLabel  value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAAGENDADA)}" /></div>
+                                                                      </div>
+                                                                       <div class="row">
+                                                                        <div class="col"><p:outputLabel value="Hora agendada:" styleClass="p-text-bold"/></div>
+                                                                        <div class="col"><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAAGENDADA)}"/></div>
 
-                                                                <p class="atm-title-mar01"><strong>Fecha ejecución:</strong>#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}</p>
-                                                                <p class="atm-title-mar01"><strong>Hora ejecución:</strong>#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}</p>
 
-                                                                <p class="atm-title-mar01"><strong>Estado:</strong>#{bajarPlantillaController.accionReciente.ESTADO}</p>
+                                                                    </div>
+                                                                </div>
 
-                                                                <p class="atm-title-mar01"><strong>Transacción No:</strong>#{bajarPlantillaController.accionReciente.ACCIONRECIENTEID}</p>
                                                             </c:if>
-                                                            <p class="atm-title-mar01"><strong>Fecha:</strong>
+
+
+                                                            <h:panelGrid id="eventDetails" columns="2" cellpadding="2">
+                                                                <c:if test="${bajarPlantillaController.haveAccionReciente}">
+
+
+                                                                    <p:outputLabel  value="Acción:" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="#{bajarPlantillaController.accionReciente.TITULO}" />
+
+                                                                    <p:outputLabel  value="Evento:" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="#{bajarPlantillaController.accionReciente.MENSAJE}" />
+
+                                                                    <p:outputLabel  value="Se agendó el:" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel  value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAAGENDADA)}" />
+
+
+                                                                    <p:outputLabel value="Hora agendada:" styleClass="p-text-bold"/>
+                                                                    <p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAAGENDADA)}"/>
+
+
+                                                                    <p:outputLabel value="Fecha creación:"/>
+                                                                    <p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHACREACION)}"/>
+
+                                                                    <p:outputLabel value="Hora creación:"/>
+                                                                    <p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHACREACION)}"/>
+
+                                                                    <p:outputLabel value="Fecha ejecución:"/>
+                                                                    <p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/>
+
+                                                                    <p:outputLabel value="Hora ejecución:"/>
+                                                                    <p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/>
+
+                                                                    <p:outputLabel value="Estado:"/>
+                                                                    <p:outputLabel value="#{bajarPlantillaController.accionReciente.ESTADO}"/>
+
+                                                                    <p:outputLabel value="Transacción No:"/>
+                                                                    <p:outputLabel value="#{bajarPlantillaController.accionReciente.ACCIONRECIENTEID}"/>
+                                                                </c:if>
+                                                                <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
+                                                                <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
+                                                                <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
+                                                                <p:spacer rendered="#{!bajarPlantillaController.haveAccionReciente}"/>
+
+                                                                <p:outputLabel value="Fecha:"/>
                                                                 <p:datePicker  hourFormat="12" id="time1" 
                                                                                pattern="dd/MM/yyyy hh:mm a"
                                                                                value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
                                                                 </p:datePicker>
-                                                            </p>
-                                                            <p class="atm-title-mar01"><strong>Acción:</strong>
+                                                                <p:outputLabel value="Acción:"/>
                                                                 <p:selectOneMenu id="selectOneMenuAccion" 
                                                                                  class="form-control rounded-pill solosel01"
                                                                                  value="#{bajarPlantillaController.selectOneMenuAccionValue}" 
@@ -149,15 +199,8 @@
                                                                                    var="var" 
                                                                                    itemValue="#{var}" itemLabel="#{var.ACCION} " />
                                                                 </p:selectOneMenu>
-                                                            </p>
-                                                        </div>
 
-                                                    </div>
-                                                </div>
-                                                  
-                                                            <h:panelGrid id="eventDetails" columns="2" cellpadding="2">
 
-                                                             
 
                                                                 <f:facet name="footer">
 
@@ -189,6 +232,14 @@
 
                                                             </h:panelGrid>
 
+
+
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
 
 
 
