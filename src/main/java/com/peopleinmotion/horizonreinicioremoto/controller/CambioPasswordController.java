@@ -144,6 +144,17 @@ public class CambioPasswordController implements Serializable, Page {
 
     }
     // </editor-fold> 
+    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonShowPanel()>
+    public String onCommandButtonShowPanel() {
+        try {
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return "";
+
+    }
+    // </editor-fold> 
    
     
    
