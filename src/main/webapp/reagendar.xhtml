@@ -127,7 +127,7 @@
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Evento:" styleClass="p-text-bold"/>
                                                                 </strong><p:outputLabel value="#{reagendarController.accionReciente.MENSAJE}"/> </p>                     
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Se agendó el:"/>
-                                                                <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAAGENDADA)}"/></p>
+                                                                </strong><p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAAGENDADA)}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Hora agendada:"/>
                                                                 </strong><p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAAGENDADA)}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha creación:"/>
@@ -137,7 +137,7 @@
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha ejecución:"/>
                                                                </strong> <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Hora ejecución:"/>
-                                                                <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/></p>
+                                                               </strong> <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Estado:"/> 
                                                                 </strong><p:outputLabel value="#{reagendarController.accionReciente.ESTADO}"/></p>
                                                                <p class="atm-title-mar01"><strong> <p:outputLabel value="Transacción No:"/>
