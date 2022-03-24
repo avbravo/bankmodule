@@ -118,78 +118,94 @@
 
                                                             </c:if>
                                                             <c:if test="${bajarPlantillaController.haveAccionReciente}">
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Acción:"/> </strong><p:outputLabel value="#{bajarPlantillaController.accionReciente.TITULO}"/></p>
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Evento:"/> </strong><p:outputLabel value="#{bajarPlantillaController.accionReciente.MENSAJE}"/></p>
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Se agendó el:"/></strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAAGENDADA)}"/></p>
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Hora agendada:"/></strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAAGENDADA)}"/></p>
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha creación:"/></strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHACREACION)}"/></p>			
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Hora creación:"/></strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHACREACION)}"/></p>
+                                                                <p class="atm-title-mar01"><strong>Acción: </strong>#{bajarPlantillaController.accionReciente.TITULO}</p>
+                                                                <p class="atm-title-mar01"><strong>Evento: </strong>#{bajarPlantillaController.accionReciente.MENSAJE}</p>
+                                                                <p class="atm-title-mar01"><strong>Se agendó el:</strong>#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAAGENDADA)}</p>
+                                                                <p class="atm-title-mar01"><strong>Hora agendada:</strong>#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAAGENDADA)}</p>
+                                                                <p class="atm-title-mar01"><strong>Fecha creación:</strong>#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHACREACION)}</p>			
+                                                                <p class="atm-title-mar01"><strong>Hora creación:</strong>#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHACREACION)}</p>
 
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha ejecución:" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></p>
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Hora ejecución:" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></p>
+                                                                <p class="atm-title-mar01"><strong>Fecha ejecución:</strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></p>
+                                                                <p class="atm-title-mar01"><strong>Hora ejecución:</strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></p>
 
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Estado:"/></strong><p:outputLabel value="#{bajarPlantillaController.accionReciente.ESTADO}"/></p>
+                                                                <p class="atm-title-mar01"><strong>Estado:</strong>#{bajarPlantillaController.accionReciente.ESTADO}</p>
 
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Transacción No:"/></strong><p:outputLabel value="#{bajarPlantillaController.accionReciente.ACCIONRECIENTEID}"/></p>
+                                                                <p class="atm-title-mar01"><strong>Transacción No:</strong>#{bajarPlantillaController.accionReciente.ACCIONRECIENTEID}</p>
                                                             </c:if>
-
+                                                            <p class="atm-title-mar01"><strong>Fecha:</strong>
+                                                                <p:datePicker  hourFormat="12" id="time1" 
+                                                                               pattern="dd/MM/yyyy hh:mm a"
+                                                                               value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
+                                                                </p:datePicker>
+                                                            </p>
+                                                            <p class="atm-title-mar01"><strong>Acción:</strong>
+                                                                <p:selectOneMenu id="selectOneMenuAccion" 
+                                                                                 class="form-control rounded-pill solosel01"
+                                                                                 value="#{bajarPlantillaController.selectOneMenuAccionValue}" 
+                                                                                 converter="#{accionConverter}"
+                                                                                 >
+                                                                    <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
+                                                                    <f:selectItems value="#{bajarPlantillaController.accionList}" 
+                                                                                   var="var" 
+                                                                                   itemValue="#{var}" itemLabel="#{var.ACCION} " />
+                                                                </p:selectOneMenu>
+                                                            </p>
                                                         </div>
 
                                                     </div>
                                                 </div>
+                                                  
+                                                            <h:panelGrid id="eventDetails" columns="2" cellpadding="2">
 
-                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="2">
+                                                             
 
+                                                                <f:facet name="footer">
 
+                                                                    <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                                                                 style="border:0px none; background-color:transparent;">
+                                                                        
+                                                                        <p:outputLabel value="Fecha"/>
+                                                                          <p:datePicker  hourFormat="12" id="time1" 
+                                                                               pattern="dd/MM/yyyy hh:mm a"
+                                                                               value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
+                                                                          </p:datePicker>
+                                                                        
+                                                                        <p:outputLabel value="Acción"/>
+                                                                         <p:selectOneMenu id="selectOneMenuAccion" 
+                                                                                 class="form-control rounded-pill solosel01"
+                                                                                 value="#{bajarPlantillaController.selectOneMenuAccionValue}" 
+                                                                                 converter="#{accionConverter}"
+                                                                                 >
+                                                                    <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
+                                                                    <f:selectItems value="#{bajarPlantillaController.accionList}" 
+                                                                                   var="var" 
+                                                                                   itemValue="#{var}" itemLabel="#{var.ACCION} " />
+                                                                         </p:selectOneMenu><!-- comment -->
+                                                                        <c:if test="${bajarPlantillaController.showButton}">
+                                                                            <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
+                                                                                             title="Envía el token al correo"
+                                                                                             id="commandButtonSendToken"
+                                                                                             action="#{bajarPlantillaController.onCommandButtonSendToken()}"
+                                                                                             update=":form:growl"                                                                    
+                                                                                             styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
+                                                                            </p:commandButton>
 
-                                                    <f:facet name="footer">
-
-                                                        <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
-                                                                     style="border:0px none; background-color:transparent;">
-
-                                                            <p:outputLabel value="Fecha"/>
-                                                            <p:datePicker  hourFormat="12" id="time1" 
-                                                                           pattern="dd/MM/yyyy hh:mm a"
-                                                                           value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
-                                                            </p:datePicker>
-
-                                                            <p:outputLabel value="Acción"/>
-                                                            <p:selectOneMenu id="selectOneMenuAccion" 
-                                                                             class="form-control rounded-pill solosel01"
-                                                                             value="#{bajarPlantillaController.selectOneMenuAccionValue}" 
-                                                                             converter="#{accionConverter}"
-                                                                             >
-                                                                <!--<f:selectItem itemLabel="Seleccione una Accion" itemValue="#{null}"  noSelectionOption="true"/>-->
-                                                                <f:selectItems value="#{bajarPlantillaController.accionList}" 
-                                                                               var="var" 
-                                                                               itemValue="#{var}" itemLabel="#{var.ACCION} " />
-                                                            </p:selectOneMenu>
-
-                                                            <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
-                                                                             title="Envía el token al correo"
-                                                                             id="commandButtonSendToken"
-                                                                             rendered="#{bajarPlantillaController.showButton}"
-                                                                             action="#{bajarPlantillaController.onCommandButtonSendToken()}"
-                                                                             update=":form:growl"                                                                    
-                                                                             styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
-                                                            </p:commandButton>
-
-
-
+                                                                        </c:if>
 
 
 
-                                                            <p:commandButton value="REGRESAR"
-                                                                             styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                                             icon ="pi pi-arrow-left"
-                                                                             action="#{navigatorController.go('cajeroencontrado.xhtml')}"
-                                                                             />
 
-                                                        </p:panelGrid>
+                                                                        <p:commandButton value="REGRESAR"
+                                                                                         styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                                         icon ="pi pi-arrow-left"
+                                                                                         action="#{navigatorController.go('cajeroencontrado.xhtml')}"
+                                                                                         />
 
-                                                    </f:facet>
+                                                                    </p:panelGrid>
 
-                                                </h:panelGrid>
+                                                                </f:facet>
+
+                                                            </h:panelGrid>
 
 
 

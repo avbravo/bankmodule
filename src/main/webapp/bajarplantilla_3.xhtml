@@ -118,19 +118,19 @@
 
                                                             </c:if>
                                                             <c:if test="${bajarPlantillaController.haveAccionReciente}">
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Acción:"/> </strong><p:outputLabel value="#{bajarPlantillaController.accionReciente.TITULO}"/></p>
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Evento:"/> </strong><p:outputLabel value="#{bajarPlantillaController.accionReciente.MENSAJE}"/></p>
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Se agendó el:"/></strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAAGENDADA)}"/></p>
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Hora agendada:"/></strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAAGENDADA)}"/></p>
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha creación:"/></strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHACREACION)}"/></p>			
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Hora creación:"/></strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHACREACION)}"/></p>
+                                                                <p class="atm-title-mar01"><strong>Acción: </strong>#{bajarPlantillaController.accionReciente.TITULO}</p>
+                                                                <p class="atm-title-mar01"><strong>Evento: </strong>#{bajarPlantillaController.accionReciente.MENSAJE}</p>
+                                                                <p class="atm-title-mar01"><strong>Se agendó el:</strong>#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAAGENDADA)}</p>
+                                                                <p class="atm-title-mar01"><strong>Hora agendada:</strong>#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAAGENDADA)}</p>
+                                                                <p class="atm-title-mar01"><strong>Fecha creación:</strong>#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHACREACION)}</p>			
+                                                                <p class="atm-title-mar01"><strong>Hora creación:</strong>#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHACREACION)}</p>
 
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha ejecución:" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></p>
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Hora ejecución:" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></p>
+                                                                <p class="atm-title-mar01"><strong>Fecha ejecución:</strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></p>
+                                                                <p class="atm-title-mar01"><strong>Hora ejecución:</strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAEJECUCION)}" rendered="#{!bajarPlantillaController.renderedByEstadoSolicitado()}"/></p>
 
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Estado:"/></strong><p:outputLabel value="#{bajarPlantillaController.accionReciente.ESTADO}"/></p>
+                                                                <p class="atm-title-mar01"><strong>Estado:</strong>#{bajarPlantillaController.accionReciente.ESTADO}</p>
 
-                                                                <p class="atm-title-mar01"><strong><p:outputLabel value="Transacción No:"/></strong><p:outputLabel value="#{bajarPlantillaController.accionReciente.ACCIONRECIENTEID}"/></p>
+                                                                <p class="atm-title-mar01"><strong>Transacción No:</strong>#{bajarPlantillaController.accionReciente.ACCIONRECIENTEID}</p>
                                                             </c:if>
 
                                                         </div>
@@ -163,18 +163,17 @@
                                                                 <f:selectItems value="#{bajarPlantillaController.accionList}" 
                                                                                var="var" 
                                                                                itemValue="#{var}" itemLabel="#{var.ACCION} " />
-                                                            </p:selectOneMenu>
+                                                            </p:selectOneMenu><!-- comment -->
+                                                            <c:if test="${bajarPlantillaController.showButton}">
+                                                                <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
+                                                                                 title="Envía el token al correo"
+                                                                                 id="commandButtonSendToken"
+                                                                                 action="#{bajarPlantillaController.onCommandButtonSendToken()}"
+                                                                                 update=":form:growl"                                                                    
+                                                                                 styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
+                                                                </p:commandButton>
 
-                                                            <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
-                                                                             title="Envía el token al correo"
-                                                                             id="commandButtonSendToken"
-                                                                             rendered="#{bajarPlantillaController.showButton}"
-                                                                             action="#{bajarPlantillaController.onCommandButtonSendToken()}"
-                                                                             update=":form:growl"                                                                    
-                                                                             styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
-                                                            </p:commandButton>
-
-
+                                                            </c:if>
 
 
 
