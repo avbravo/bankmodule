@@ -29,7 +29,7 @@
 
             <p:ajaxStatus onsuccess="limpiartiempo()" />
             <p:remoteCommand name="ejecutarbean" action="#{accessController.inicializa()}" oncomplete="redireccionar()" />
-          
+
             <p:growl id='growl' widgetVar="widgetVarGrowl">
                 <p:autoUpdate/>
             </p:growl>
@@ -115,77 +115,80 @@
                                                                                  action="#{notificacionesFormularioController.regresar()}"/>
                                                             </c:if>
                                                             <c:if test="${notificacionesFormularioController.haveAccionReciente}">
+                                                                 <p class="atm-title-mar01"><strong><p:outputLabel  value="Acción:" styleClass="p-text-bold"/>
+                                                                </strong> <p:outputLabel  value="#{notificacionesFormularioController.accionReciente.TITULO}"/></p> 
+                                                                <p class="atm-title-mar01"><strong> <p:outputLabel  value="Evento:" styleClass="p-text-bold"/>
+                                                               </strong>  <p:outputLabel value="#{notificacionesFormularioController.accionReciente.MENSAJE}"/>  </p>  
 
-                                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="2">
-                                                                    <p:outputLabel  value="Acción:" styleClass="p-text-bold"/>
-                                                                    <p:outputLabel  value="#{notificacionesFormularioController.accionReciente.TITULO}"/>
-                                                                    <p:outputLabel  value="Evento:" styleClass="p-text-bold"/>
-                                                                    <p:outputLabel value="#{notificacionesFormularioController.accionReciente.MENSAJE}"/>   
+                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Se agendó el:"/>
+                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/></p> 
+                                                                <p class="atm-title-mar01"><strong> <p:outputLabel value="Hora agendada:"/>
+                                                            </strong>     <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/></p> 
+                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Fecha creación:"/>
+                                                             </strong>    <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHACREACION)}"/></p> 
+                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Hora creación:"/>
+                                                               </strong>  <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHACREACION)}"/></p> 
+                                                                <p class="atm-title-mar01"><strong> <p:outputLabel value="Fecha ejecución:" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
+                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}" /></p> 
+                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Hora ejecución:" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
+                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/></p> 
+                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Estado:"/>
+                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ESTADO}"/> </p> 
+                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Autorizado:"/>
+                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.showAutorizadoName(notificacionesFormularioController.accionReciente.AUTORIZADO)}"/></p> 
+                                                              <p class="atm-title-mar01"><strong>   <p:outputLabel value="Transacción No:"/>
+                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ACCIONRECIENTEID}"/></p> 
 
-                                                                    <p:outputLabel value="Se agendó el:"/>
-                                                                    <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/>
-                                                                    <p:outputLabel value="Hora agendada:"/>
-                                                                    <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/>
-                                                                    <p:outputLabel value="Fecha creación:"/>
-                                                                    <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Hora creación:"/>
-                                                                    <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHACREACION)}"/>
-                                                                    <p:outputLabel value="Fecha ejecución:" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
-                                                                    <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}" />
-                                                                    <p:outputLabel value="Hora ejecución:" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
-                                                                    <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
-                                                                    <p:outputLabel value="Estado:"/>
-                                                                    <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ESTADO}"/> 
-                                                                    <p:outputLabel value="Autorizado:"/>
-                                                                    <p:outputLabel value="#{notificacionesFormularioController.showAutorizadoName(notificacionesFormularioController.accionReciente.AUTORIZADO)}"/>
-                                                                    <p:outputLabel value="Transacción No:"/>
-                                                                    <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ACCIONRECIENTEID}"/>
+                                                            </c:if> 
 
-                                                                    <p:outputLabel value="Autorización:"  rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"/>
-                                                                 
-                                                                    <p:selectOneMenu id="autorizado" class="form-control col-lg-auto solosel01 rounded-pill" 
-                                                                          value="#{notificacionesFormularioController.accionReciente.AUTORIZADO}"
-                                                                          rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
-                                                                          >
-                                                                          <f:selectItem itemLabel="Pendiente" itemValue="PE"/>
-                                                                        <f:selectItem itemLabel="Autorizado" itemValue="SI"/>                        
-                                                                        <f:selectItem itemLabel="Denegado" itemValue="NO"/>                        
-
-
-                                                                    </p:selectOneMenu>
-
-                                                                    <f:facet name="footer">
-                                                                        <p:commandButton value="EJECUTAR" 
-                                                                                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
-                                                                                         update=":form:growl"
-                                                                                         icon="pi pi-calendar-plus"
-                                                                                         rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
-                                                                                         action="#{notificacionesFormularioController.onCommandButtonSendToken(true)}"
-                                                                                         >
-
-                                                                        </p:commandButton>
-
-
-
-                                                                        <p:commandButton value="REGRESAR" class="bot-regresar01" 
-                                                                                         styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                                                         icon ="pi pi-arrow-left"
-                                                                                         action="#{notificacionesFormularioController.regresar()}"/>
-
-
-                                                                    </f:facet>
-                                                                </h:panelGrid>
-
-
-
-
-                                                            </c:if>
 
                                                         </div>
                                                     </div>
                                                 </div>
 
+                                                <h:panelGrid id="eventDetails" columns="2" cellpadding="2">
 
+
+
+                                                    <f:facet name="footer">
+                                                        <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                                                     style="border:0px none; background-color:transparent;">
+
+
+
+
+                                                            <p:outputLabel value="Autorización:"  rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"/>
+
+                                                            <p:selectOneMenu id="autorizado" class="form-control col-lg-auto solosel01 rounded-pill" 
+                                                                             value="#{notificacionesFormularioController.accionReciente.AUTORIZADO}"
+                                                                             rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
+                                                                             >
+                                                                <f:selectItem itemLabel="Pendiente" itemValue="PE"/>
+                                                                <f:selectItem itemLabel="Autorizado" itemValue="SI"/>                        
+                                                                <f:selectItem itemLabel="Denegado" itemValue="NO"/>                        
+
+
+                                                            </p:selectOneMenu>
+                                                            <p:commandButton value="EJECUTAR" 
+                                                                             styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
+                                                                             update=":form:growl"
+                                                                             icon="pi pi-calendar-plus"
+                                                                             rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
+                                                                             action="#{notificacionesFormularioController.onCommandButtonSendToken(true)}"
+                                                                             >
+
+                                                            </p:commandButton>
+
+
+
+                                                            <p:commandButton value="REGRESAR" class="bot-regresar01" 
+                                                                             styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                                                             icon ="pi pi-arrow-left"
+                                                                             action="#{notificacionesFormularioController.regresar()}"/>
+
+                                                        </p:panelGrid>
+                                                    </f:facet>
+                                                </h:panelGrid>
 
                                             </div>
 

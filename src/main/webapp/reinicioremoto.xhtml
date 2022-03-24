@@ -117,27 +117,24 @@
 
                                                             </c:if>
                                                             <c:if test="${reinicioRemotoController.haveAccionReciente}">
-                                                                <p:outputLabel  value="Acción:" styleClass="p-text-bold"/>
-                                                                <p:outputLabel  value="#{reinicioRemotoController.accionReciente.TITULO}"/>
+                                                                <p class="atm-title-mar01"><strong><p:outputLabel  value="Acción:" styleClass="p-text-bold"/> </strong><p:outputLabel  value="#{reinicioRemotoController.accionReciente.TITULO}"/></p> 
 
-                                                                <p:outputLabel  value="Evento:" styleClass="p-text-bold"/>
-                                                                <p:outputLabel value="#{reinicioRemotoController.accionReciente.MENSAJE}"/>                        
-                                                                <p:outputLabel value="Se agendó el:"/>
-                                                                <p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHAAGENDADA)}"/>
-                                                                <p:outputLabel value="Hora agendada:"/>
-                                                                <p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHAAGENDADA)}"/>
-                                                                <p:outputLabel value="Fecha creación:"/>
-                                                                <p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHACREACION)}"/>
-                                                                <p:outputLabel value="Hora creación:"/>
-                                                                <p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHACREACION)}"/>
-                                                                <p:outputLabel value="Fecha ejecución:" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}" />
-                                                                <p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHAEJECUCION)}" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}" />
-                                                                <p:outputLabel value="Hora ejecución:" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}" />
-                                                                <p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHAEJECUCION)}" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}"/>
-                                                                <p:outputLabel value="Estado:"/> 
-                                                                <p:outputLabel value="#{reinicioRemotoController.accionReciente.ESTADO}"/>
-                                                                <p:outputLabel value="Transacción No:"/>
-                                                                <p:outputLabel value="#{reinicioRemotoController.accionReciente.ACCIONRECIENTEID}"/>
+                                                                    <p class="atm-title-mar01"><strong><p:outputLabel  value="Evento:" styleClass="p-text-bold"/>
+                                                                        </strong><p:outputLabel value="#{reinicioRemotoController.accionReciente.MENSAJE}"/></p>                        
+                                                                    <p class="atm-title-mar01"><strong><p:outputLabel value="Se agendó el:"/>
+                                                                        </strong><p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHAAGENDADA)}"/></p>
+                                                                    <p class="atm-title-mar01"><strong><p:outputLabel value="Hora agendada:"/>
+                                                                        </strong><p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHAAGENDADA)}"/></p>
+                                                                    <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha creación:"/>
+                                                                        </strong><p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHACREACION)}"/></p>
+                                                                    <p class="atm-title-mar01"><strong><p:outputLabel value="Hora creación:"/>
+                                                                        </strong><p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHACREACION)}"/></p>
+                                                                    <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha ejecución:" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}" />
+                                                                        </strong><p:outputLabel value="#{reinicioRemotoController.showDate(reinicioRemotoController.accionReciente.FECHAEJECUCION)}" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}" /></p>
+                                                                    <p class="atm-title-mar01"><strong><p:outputLabel value="Hora ejecución:" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}" />
+                                                                        </strong><p:outputLabel value="#{reinicioRemotoController.showHour(reinicioRemotoController.accionReciente.FECHAEJECUCION)}" rendered="#{!reinicioRemotoController.renderedByEstadoSolicitado()}"/></p>
+                                                                    <p class="atm-title-mar01"><strong><p:outputLabel value="Estado:"/>  </strong><p:outputLabel value="#{reinicioRemotoController.accionReciente.ESTADO}"/></p>
+                                                                    <p class="atm-title-mar01"><strong><p:outputLabel value="Transacción No:"/></strong><p:outputLabel value="#{reinicioRemotoController.accionReciente.ACCIONRECIENTEID}"/></p>
 
                                                             </c:if>
                                                         </div>
