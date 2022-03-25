@@ -123,24 +123,23 @@
                                             <p:outputLabel value="#{bajarPlantillaProgramarEventoController.showDate(item.fechahora)}"/>
 
                                         </p:column>
-                                        <p:column headerText="Hora" style="width:20%;">
+                                        <p:column headerText="Hora" style="width:18%;">
 
                                             <p:outputLabel value="#{bajarPlantillaProgramarEventoController.showHour(item.fechahora)}"/>
 
                                         </p:column>
-
-
-
-                                        <p:column headerText="" >
-
-
-                                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                        <p:column headerText="" style="width:10%;">
+                                             <p:commandButton value="" styleClass="rounded-button ui-button-danger" icon="pi pi-trash" process="@this"
                                                              oncomplete="PF('deleteProgramarEventoDialog').show()"
                                                              >
-
                                                 <f:setPropertyActionListener value="#{item}" target="#{bajarPlantillaProgramarEventoController.programarEventoSelected}"/>
                                             </p:commandButton>
-                                        </p:column>    
+                                        </p:column>
+
+
+
+                                      
+                                        
                                         <f:facet name="footer">
                                                <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
                                                      title="Envia el token al correo"
