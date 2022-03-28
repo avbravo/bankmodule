@@ -101,47 +101,62 @@
                                 <p:ajax event="idle" listener="#{dashboardController.onIdle}" update=":form:carousel, :form:dashboardresumenacciontotal,:form:dashboardschedule"/>
                                 <p:ajax event="active" listener="#{dashboardController.onActive}" update=":form:carousel,:form:dashboardresumenacciontotal,:form:dashboardschedule"/>
                             </p:idleMonitor>
-
-
+                            
+                     
 
                             <p:carousel var="item"  value="#{dashboardController.accionRecienteList}" numVisible="3"
                                         responsive="true" id="carousel"                                        
                                         >
-                                <div class="card" style="width: 18rem;">
-                                    <strong><p:outputLabel value="#{item.TITULO}"/></strong>
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <p:commandButton styleClass="rounded-button ui-button-secondary"
-                                                             value="#{item.CAJERO}"
-                                                             update=":form:growl"
-                                                             rendered="#{item.AUTORIZADO eq 'SI'}"
-                                                             title="Procesar"
-                                                             action="#{dashboardController.onCommandButtonSelectAccionReciente(item,'dashboard')}"/>
-                                            <p:outputLabel value="#{item.CAJERO}" title="Autorización denegada" rendered="#{item.AUTORIZADO eq 'NO'}"/>
-                                            <p:outputLabel value="#{item.CAJERO}" title="Autorización Pendiente" rendered="#{item.AUTORIZADO eq 'PE'}"/>
+                                <p:card style="width: 25em">
+                                    <f:facet name="header">
+                                        <strong><p:outputLabel value="#{item.TITULO}"/></strong>
+                                    </f:facet>
+                                    <f:facet name="title">
+                                        <p:commandButton styleClass="rounded-button ui-button-secondary"
+                                                         value="#{item.CAJERO}"
+                                                         update=":form:growl"
+                                                         rendered="#{item.AUTORIZADO eq 'SI'}"
+                                                         title="Procesar"
+                                                         action="#{dashboardController.onCommandButtonSelectAccionReciente(item,'dashboard')}"/>
+                                        <p:outputLabel value="#{item.CAJERO}" title="Autorización denegada" rendered="#{item.AUTORIZADO eq 'NO'}"/>
+                                        <p:outputLabel value="#{item.CAJERO}" title="Autorización Pendiente" rendered="#{item.AUTORIZADO eq 'PE'}"/>
 
 
-                                        </h5>
 
-                                     
-                                  
-                                    <p class="card-text"><p:outputLabel value="Se agendó el:#{dashboardController.showDate(item.FECHAAGENDADA)}"/></p>
-                                    <p class="card-text"><p:outputLabel value="Hora agendada:#{dashboardController.showHour(item.FECHAAGENDADA)}"/></p>
-                                    
-                                    
-                                     <p class="card-text"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha ejecución:#{dashboardController.showDate(item.FECHAEJECUCION)}"/></p>
-                                        <p class="card-text"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora ejecución:#{dashboardController.showHour(item.FECHAEJECUCION)}"/></p>
-                                        <p class="card-text"><p:outputLabel  value="Estado:#{item.ESTADO}"/></p>
-                                        <p class="card-text"><p:outputLabel  value="Autorización:Pendiente" style="color:#026adf;" rendered="#{dashboardController.renderedPendiente(item)}"/></p>
-                                        <p class="card-text"><p:outputLabel  value="Autorización:Autorizado" style="color:black;" rendered="#{dashboardController.renderedAutorizado(item)}"/></p>
-                                       <p class="card-text"> <p:outputLabel  value="Autorización:Denegado" style="color:red;" rendered="#{dashboardController.renderedDenegado(item)}"/></p>
-                                       <p class="card-text"> <p:outputLabel  value="Transacción No:#{item.ACCIONRECIENTEID}"/></p>
-                                    
-                                    
-<!--                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                       <a href="#" class="btn btn-primary">Go somewhere</a>-->
-                                </div>
-  </div>
+
+                                    </f:facet>
+                                    <f:facet name="subtitle">
+                                        <dd class="atm-title-mar01"> <p:outputLabel value="#{dashboardController.cortarTexto(item.MENSAJE)}"/></dd>
+                                    </f:facet>
+                                    <h:panelGrid id="eventDetails" columns="2" cellpadding="1" >
+                                        <p:outputLabel value="Se agendó el"/>
+                                        <p:outputLabel value="#{dashboardController.showDate(item.FECHAAGENDADA)}"/>
+                                        <p:outputLabel  value="Hora agendada"/>
+                                        <p:outputLabel value="#{dashboardController.showHour(item.FECHAAGENDADA)}"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Fecha ejecución:"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="#{dashboardController.showDate(item.FECHAEJECUCION)}"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora ejecución:"/>
+                                        <p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="#{dashboardController.showHour(item.FECHAEJECUCION)}"/>
+                                        <p:outputLabel  value="Estado"/> 
+                                        <p:outputLabel value="#{item.ESTADO}" style="font-size: 18px !important;"/>
+                                        <p:outputLabel  value="Autorización" />
+                                        <p:outputLabel  value="Pendiente" style="color:#026adf;" rendered="#{dashboardController.renderedPendiente(item)}"/>
+                                        <p:outputLabel  value="Autorizado" style="color:black;" rendered="#{dashboardController.renderedAutorizado(item)}"/>
+                                        <p:outputLabel  value="Denegado" style="color:red;" rendered="#{dashboardController.renderedDenegado(item)}"/>
+                                        <p:outputLabel  value="Transacción No"/> 
+                                        <p:outputLabel value="#{item.ACCIONRECIENTEID}"/>
+
+
+                                    </h:panelGrid>
+
+
+
+
+                                    <f:facet name="footer">
+
+
+                                    </f:facet>
+                                </p:card>
                             </p:carousel>
 
 

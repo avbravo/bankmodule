@@ -111,9 +111,9 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="card-body ">
+                                                <div class="card-body borderline01">
                                                     <div class="row justify-content-center align-content-center">
-                                                        <div class="col-12 col-lg-11 atm-card-marbody01 ali-desc-mov01" >
+                                                        <div class="col-12 col-lg-11 atm-card-marbody01 " >
                                                             <c:if test="${!reagendarController.haveAccionReciente}">
                                                                 <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
                                                                 <p:commandButton value="REGRESAR" class="bot-regresar01" 
@@ -152,7 +152,7 @@
                                                     <h:panelGrid id="eventDetails" columns="2" cellpadding="2"  styleClass="showcase-text-align-center">
 
                                                         <f:facet name="footer">
-                                                            <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
+                                                            <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
                                                                          style="border:0px none; background-color:transparent;">
                                                                 <p:outputLabel value="Nueva fecha:"/>
                                                                 <p:datePicker id="time1" 
@@ -162,6 +162,7 @@
                                                                               value="#{reagendarController.accionReciente.FECHAAGENDADA}" showTime="true">
 
                                                                 </p:datePicker>
+                                                                <p:spacer/>
                                                                 <p:commandButton value="REAGENDAR" 
                                                                                  styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                                                                                  update=":form:growl"
