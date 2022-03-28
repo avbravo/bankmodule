@@ -196,6 +196,7 @@ public class NotificacionesController implements Serializable, Page {
                         return result;
                     }
 
+
                 };
 
             }

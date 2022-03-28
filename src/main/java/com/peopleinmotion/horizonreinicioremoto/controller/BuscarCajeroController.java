@@ -156,6 +156,8 @@ public class BuscarCajeroController implements Serializable, Page {
                     return result;
                 }
 
+               
+
             };
 
         } catch (Exception e) {
