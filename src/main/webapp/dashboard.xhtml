@@ -102,11 +102,11 @@
                                 <p:ajax event="active" listener="#{dashboardController.onActive}" update=":form:carousel,:form:dashboardresumenacciontotal,:form:dashboardschedule"/>
                             </p:idleMonitor>
 
-                          
+
 
 
                             <p:carousel var="item"  value="#{dashboardController.accionRecienteList}" numVisible="3"
-                                        responsive="true" id="carousel32"                                        
+                                        responsive="true" id="carousel"                                        
                                         >
 
                                 <div class="col-12 col-lg-12 grid-margin stretch-card upx" >
@@ -155,7 +155,7 @@
                                 </div>
                             </p:carousel>
 
-               
+
 
 
 
@@ -195,6 +195,8 @@
         <!-- container-scroller -->
         <!-- container-scroller -->
         <template:script/>
+
+       
     </h:body>
 
 </html>
