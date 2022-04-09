@@ -76,19 +76,19 @@
                                 <span class="filter-container ui-input-icon-left">
                                     <i class="pi pi-search"></i>
                                     <p:inputText  value="#{notificacionesController.cajeroSearch}"  id="cajeroSearch"
-                                                   onclick="PF('widgetVardataTable').paginator.setPage(0);"
+                                                   
                                                   onkeyup="remoteCommandCajero()" placeholder="Cajero"/>
                                 </span>
                                 <span class="filter-container ui-input-icon-left">
                                     <i class="pi pi-search"></i>
                                     <p:inputText  value="#{notificacionesController.tituloSearch}" id="tituloSearch"
-                                                   onclick="PF('widgetVardataTable').paginator.setPage(0);"
+                                                   
                                                   onkeyup="remoteCommandTitulo()" placeholder="Acción"/>
                                 </span>
                                 <span class="filter-container ui-input-icon-left">
                                     <i class="pi pi-search"></i>
                                     <p:inputText  value="#{notificacionesController.estadoSearch}" id="estadoSearch"
-                                                   onclick="PF('widgetVardataTable').paginator.setPage(0);"
+                                                  
                                                   onkeyup="remoteCommandEstado()" placeholder="Estado"/>
                                 </span>
                                 <span class="filter-container ui-input-icon-left">
@@ -97,7 +97,7 @@
                                                      value="#{notificacionesController.autorizadoSearch}"
                                                      label="Autorización"
                                                      title="Vacío no aplica filtro por autorizado"
-                                                      onclick="PF('widgetVardataTable').paginator.setPage(0);"
+                                                     
 
                                                      >
                                         <f:selectItem itemLabel="" itemValue=""/>
@@ -230,11 +230,11 @@
 
         <!-- container-scroller -->
         <template:script/> 
-         <script type="text/javascript">
+         
+    </h:body>
+    <script type="text/javascript">
             $.noConflict();
           
         </script>
-    </h:body>
-
 </html>
 

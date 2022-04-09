@@ -5,13 +5,11 @@
  */
 package com.peopleinmotion.horizonreinicioremoto.security;
 
-import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.entity.Historial;
 import com.peopleinmotion.horizonreinicioremoto.entity.Usuario;
 import com.peopleinmotion.horizonreinicioremoto.interfaces.Page;
 
 import com.peopleinmotion.horizonreinicioremoto.jmoordb.JmoordbContext;
-import com.peopleinmotion.horizonreinicioremoto.paginator.QuerySQL;
 import com.peopleinmotion.horizonreinicioremoto.repository.BancoRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.HistorialRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AccessServices;
@@ -52,6 +50,7 @@ public class AccessController implements Serializable, Page {
     private String username = "";
     private String password = "";
     private Integer intentos = 0;
+    private List<String> usernameList = new ArrayList<>();
 //    Banco selectOneMenuBancoValue = new Banco();
 //    private List<Banco> bancoList = new ArrayList<>();
     // </editor-fold>
@@ -81,6 +80,7 @@ public class AccessController implements Serializable, Page {
         loged = false;
 
         try {
+
             intentos = 0;
 
             /**
@@ -109,27 +109,23 @@ public class AccessController implements Serializable, Page {
     // <editor-fold defaultstate="collapsed" desc="String login()">
     public String login() {
         try {
-          
+
             if (username == null || username.equals("")) {
-            
+
                 JsfUtil.warningMessage("Ingrese el nombre del usuario");
                 return "";
             }
 
             if (password == null || password.equals("")) {
-                     // ConsoleUtil.info("Ingrese password.........");
+
                 JsfUtil.warningMessage("Ingrese el password del usuario");
                 return "";
             }
 
             setLoged(Boolean.FALSE);
-            if (intentos > 2) {
-                JsfUtil.warningMessage("Usted ha intentado ingresar en más de tres ocasiones sin éxito.");
-                return "";
-            }
 
             if (accessServices.validateCredentials(usuario, username, password)) {
-                 // ConsoleUtil.info("is validateCredential.........");
+
                 usuario = (Usuario) JmoordbContext.get("user");
                 if (usuario.getMODULOBANCO().toUpperCase().equals("NO")) {
                     JsfUtil.warningMessage("No tiene permisos para usar este módulo ");
@@ -137,8 +133,6 @@ public class AccessController implements Serializable, Page {
                 }
                 setLoged(Boolean.TRUE);
                 JsfUtil.successMessage("Bienvenido " + usuario.getNOMBRE());
-
-                
 
                 JmoordbContext.put("banco", usuario.getBANCOID());
 
@@ -159,9 +153,17 @@ public class AccessController implements Serializable, Page {
                 JmoordbContext.put("pageInView", "dashboard.xhtml");
                 intentos = 0;
                 return "dashboard.xhtml";
-//               return "index.xhtml";
+
             } else {
                 intentos++;
+                
+                if (intentos > 2) {
+                    JsfUtil.warningMessage("Usted ha intentado ingresar en más de tres ocasiones sin éxito.");
+                    accessServices.disableUser(username);
+                    intentos =0;
+                    return "";
+                }
+
             }
 
         } catch (Exception e) {

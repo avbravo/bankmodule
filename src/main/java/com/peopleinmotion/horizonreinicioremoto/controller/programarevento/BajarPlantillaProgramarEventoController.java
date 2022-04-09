@@ -35,7 +35,6 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import com.peopleinmotion.horizonreinicioremoto.repository.AccionRepository;
-import com.peopleinmotion.horizonreinicioremoto.repository.AgendaRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.CajeroRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.EmailConfigurationRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.EstadoRepository;
@@ -46,7 +45,6 @@ import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaServices;
 import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
-import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
 import java.util.Collections;
 import java.util.Date;

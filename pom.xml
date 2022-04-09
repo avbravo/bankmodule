@@ -16,6 +16,12 @@
     </properties>
     
     <dependencies>
+           <dependency>
+            <groupId>com.peopleinmotion</groupId>
+            <artifactId>horozoncomponent</artifactId>
+            <version>1.0-1</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
@@ -57,7 +63,7 @@
             <artifactId>JColor</artifactId>
             <version>5.2.0</version>
         </dependency>
-      
+     
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -135,6 +141,11 @@ Oracle DB
         EMAIL
         -->
         <dependency>
+		<groupId>com.sun.mail</groupId>
+		<artifactId>javax.mail</artifactId>
+		<version>1.6.2</version>
+	</dependency>
+<!--        <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
@@ -143,7 +154,7 @@ Oracle DB
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.6.2</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

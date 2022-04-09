@@ -79,8 +79,8 @@ public class CalendarioController implements Serializable, Page {
     private TotalesEstadoBanco totalesEstadoBanco = new TotalesEstadoBanco();
 
     Banco selectOneMenuBancoValue = new Banco();
-    private Boolean showDialog=Boolean.FALSE;
-     private Notificacion notificacionOld = new Notificacion();
+    private Boolean showDialog = Boolean.FALSE;
+    private Notificacion notificacionOld = new Notificacion();
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
     Paginator paginator = new Paginator();
@@ -107,7 +107,7 @@ public class CalendarioController implements Serializable, Page {
     AccionRecienteRepository accionRecienteRepository;
     @Inject
     TotalesEstadoBancoServices totalesEstadoBancoServices;
-        @Inject
+    @Inject
     NotificacionServices notificacionServices;
 // </editor-fold>
 
@@ -123,23 +123,22 @@ public class CalendarioController implements Serializable, Page {
         try {
             user = (Usuario) JmoordbContext.get("user");
             banco = (Banco) JmoordbContext.get("banco");
-            
-              /**
+
+            /**
              * Para validar las notificaciones
              */
             Optional<Notificacion> optional = notificacionServices.findByIDANDTIPOID(banco.getBANCOID(), "BANCO");
             if (optional.isPresent()) {
                 notificacionOld = optional.get();
             }
-            
+
             //    cajeroList = new ArrayList<>();
             accionRecienteList = new ArrayList<>();
             accionRecienteScheduleList = new ArrayList<>();
-            showDialog=Boolean.FALSE;
-            if(JsfUtil.contextToInteger("rowForPage") != null){
-                    rowForPage=JsfUtil.contextToInteger("rowForPage");
-                }
-
+            showDialog = Boolean.FALSE;
+            if (JsfUtil.contextToInteger("rowForPage") != null) {
+                rowForPage = JsfUtil.contextToInteger("rowForPage");
+            }
 
             if (JmoordbContext.get("countViewAction") == null) {
                 JmoordbContext.put("countViewAction", 0);
@@ -223,7 +222,7 @@ public class CalendarioController implements Serializable, Page {
 // <editor-fold defaultstate="collapsed" desc="onCommandButtonSelectCajero ">
     public String onCommandButtonSelectCajero(Cajero cajero) {
         try {
-           
+
             JmoordbContext.put("cajero", cajero);
 
             JsfUtil.infoDialog("Selecciono el cajero ", cajero.getCAJEROID().toString());
@@ -399,33 +398,49 @@ public class CalendarioController implements Serializable, Page {
     // <editor-fold defaultstate="collapsed" desc="String onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent)">
     public String onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent) {
         try {
-showDialog=Boolean.TRUE;
-            event = selectEvent.getObject();
-            String id = event.getId();
-
-            Optional<AccionReciente> accionRecienteOptional = accionRecienteRepository.findByAccionRecienteId(JsfUtil.toBigInteger(Integer.parseInt(id)));
-            if (!accionRecienteOptional.isPresent()) {
-
-                JsfUtil.warningMessage("No se encontro el codigo de acción reciente");
-                return "";
-            }
-
-            accionRecienteSelected = accionRecienteOptional.get();
-            JmoordbContext.put("accionRecienteDashboard", accionRecienteSelected);
-            Optional<Cajero> cajeroOptional = cajeroRepository.findByCajeroId(accionRecienteSelected.getCAJEROID());
-
-            if (!cajeroOptional.isPresent()) {
-
+            showDialog = Boolean.TRUE;
+            if (selectEvent == null) {
+                ConsoleUtil.error(".onEventSelect() ----> is null");
             } else {
+//                 ScheduleEvent event = (ScheduleEvent) selectEvent.getObject();  
+                ConsoleUtil.error(" NOT  is null voy a  event = selectEvent.getObject()");
 
-                cajeroSelected = cajeroOptional.get();
-                JmoordbContext.put("cajero", cajeroSelected);
+                if (selectEvent.getObject() == null) {
+
+                    ConsoleUtil.error(" El event is null");
+                } else {
+                    ConsoleUtil.error(".pasado");
+                    event = selectEvent.getObject();
+                    ConsoleUtil.error(".event.toString()" + event.toString());
+                    ConsoleUtil.info("voy  a event.getId()");
+                    String id = event.getId();
+                    ConsoleUtil.error(".onEventSelect() ---->  String id = event.getId() pasado");
+                    Optional<AccionReciente> accionRecienteOptional = accionRecienteRepository.findByAccionRecienteId(JsfUtil.toBigInteger(Integer.parseInt(id)));
+                    if (!accionRecienteOptional.isPresent()) {
+
+                        JsfUtil.warningMessage("No se encontro el codigo de acción reciente");
+                        return "";
+                    }
+
+                    accionRecienteSelected = accionRecienteOptional.get();
+                    JmoordbContext.put("accionRecienteDashboard", accionRecienteSelected);
+                    Optional<Cajero> cajeroOptional = cajeroRepository.findByCajeroId(accionRecienteSelected.getCAJEROID());
+
+                    if (!cajeroOptional.isPresent()) {
+
+                    } else {
+
+                        cajeroSelected = cajeroOptional.get();
+                        JmoordbContext.put("cajero", cajeroSelected);
+                    }
+                    JmoordbContext.put("formularioRetorno", "dashboard");
+                    PrimeFaces.current().ajax().update("widgetVarscheduleDialog");
+                    PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').initPosition()");
+                    PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').show()");
+
+                }
+
             }
-            JmoordbContext.put("formularioRetorno", "dashboard");
- PrimeFaces.current().ajax().update("widgetVarscheduleDialog");
-        PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').initPosition()");
-            PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').show()");
-
 
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + ": " + e.getLocalizedMessage());
@@ -505,7 +520,7 @@ showDialog=Boolean.TRUE;
             Integer length = texto.length();
             if (length > limite) {
 
-                texto = texto.substring(0, (limite -1));
+                texto = texto.substring(0, (limite - 1));
             }
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
@@ -513,12 +528,11 @@ showDialog=Boolean.TRUE;
         return texto;
     }
 // </editor-fold>
-    
-     // <editor-fold defaultstate="collapsed" desc="onIdle()">
 
+    // <editor-fold defaultstate="collapsed" desc="onIdle()">
     public void onIdle() {
         try {
-          
+
             /**
              * Si una accionreciente fue cambiada por otro usuario
              */
@@ -530,7 +544,7 @@ showDialog=Boolean.TRUE;
 
                 fillCarouselAccionReciente();
                 loadSchedule();
-                      calcularTotales();
+                calcularTotales();
             }
 
         } catch (Exception e) {
@@ -539,10 +553,10 @@ showDialog=Boolean.TRUE;
 
     }
 // </editor-fold>
-    
-      // <editor-fold defaultstate="collapsed" desc="onActive() ">
+
+    // <editor-fold defaultstate="collapsed" desc="onActive() ">
     public void onActive() {
-   try {
+        try {
             // ConsoleUtil.info("onActive() " + DateUtil.fechaHoraActual());
             /**
              * Si una accionreciente fue cambiada por otro usuario

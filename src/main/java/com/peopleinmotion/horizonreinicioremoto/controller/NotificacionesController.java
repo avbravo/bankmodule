@@ -192,7 +192,7 @@ public class NotificacionesController implements Serializable, Page {
 //
 //                        List<AccionReciente> result = accionRecienteRepository.findBancoIdAndActivoPaginacion(banco.getBANCOID(), "SI", offset, rowForPage);
                         lazyDataModelAccionReciente.setRowCount(count);
-                        PrimeFaces.current().executeScript("setDataTableWithPageStart()");
+                        //PrimeFaces.current().executeScript("setDataTableWithPageStart()");
                         return result;
                     }
 

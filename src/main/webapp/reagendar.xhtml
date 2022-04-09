@@ -158,7 +158,7 @@
                                                                 <p:datePicker id="time1" 
                                                                               rendered="#{!reagendarController.accionReciente.ESTADO.trim().equals('Ejecutada')}"
                                                                               hourFormat="12"
-                                                                              pattern="dd/MM/yyyy hh:mm a"
+                                                                              pattern="dd/MM/yyyy HH:mm"
                                                                               value="#{reagendarController.accionReciente.FECHAAGENDADA}" showTime="true">
 
                                                                 </p:datePicker>
@@ -532,6 +532,9 @@
         <!-- container-scroller -->
         <template:script/> 
     </h:body>
-
+<script type="text/javascript">
+            $.noConflict();
+          
+        </script>
 </html>
 

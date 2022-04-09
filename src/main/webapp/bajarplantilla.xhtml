@@ -114,13 +114,15 @@
                                                         <div class="col-12 col-lg-11 atm-card-marbody01" >
                                                             <c:if test="${!bajarPlantillaController.haveAccionReciente}">
                                                                 <p class="atm-title-mar01"><strong>No hay acciones agendadas</strong></p>
-
+                                                                
 
                                                             </c:if>
                                                             <c:if test="${bajarPlantillaController.haveAccionReciente}">
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Acción:"/> </strong><p:outputLabel value="#{bajarPlantillaController.accionReciente.TITULO}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Evento:"/> </strong><p:outputLabel value="#{bajarPlantillaController.accionReciente.MENSAJE}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Se agendó el:"/></strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHAAGENDADA)}"/></p>
+                                                                                                         
+
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Hora agendada:"/></strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHAAGENDADA)}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha creación:"/></strong><p:outputLabel value="#{bajarPlantillaController.showDate(bajarPlantillaController.accionReciente.FECHACREACION)}"/></p>			
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Hora creación:"/></strong><p:outputLabel value="#{bajarPlantillaController.showHour(bajarPlantillaController.accionReciente.FECHACREACION)}"/></p>
@@ -148,10 +150,12 @@
                                                                      style="border:0px none; background-color:transparent;">
 
                                                             <p:outputLabel value="Fecha"/>
-                                                            <p:datePicker  hourFormat="12" id="time1" 
-                                                                           pattern="dd/MM/yyyy hh:mm a"
+                                                            <p:datePicker  id="time1" hourFormat="12"
+                                                                           pattern="dd/MM/yyyy HH:mm"
                                                                            value="#{bajarPlantillaController.fechahoraBaja}" showTime="true">
                                                             </p:datePicker>
+                                                            
+                                                            
 
                                                             <p:outputLabel value="Acción"/>
                                                             <p:selectOneMenu id="selectOneMenuAccion" 
@@ -382,6 +386,10 @@
 
         <template:script/> 
     </h:body>
+    <script type="text/javascript">
+            $.noConflict();
+          
+        </script>
 
 </html>
 

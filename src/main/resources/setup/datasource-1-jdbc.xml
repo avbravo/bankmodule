@@ -3,16 +3,16 @@
   <name>jdbc/avbravoDS</name>
   <jdbc-driver-params>
     <!--<url>jdbc:oracle:thin:@localhost:1521:XE</url>-->
-    <url>jdbc:oracle:thin:@localhost:1521:ORCLCDB</url>
+    <url>jdbc:oracle:thin:@localhost:1521:XE</url>
     <driver-name>oracle.jdbc.OracleDriver</driver-name>
     <properties>
       <property>
         <name>user</name>
-        <value>avbravo</value>
+        <value>TELERED</value>
       </property>
       <property>
         <name>password</name>
-        <value>denver16</value>
+        <value>TELERED</value>
       </property>
     </properties>
   </jdbc-driver-params>

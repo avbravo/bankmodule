@@ -125,7 +125,7 @@
 
 
                                 <p:datePicker  hourFormat="12" id="fechaAdd" 
-                                               pattern="dd/MM/yyyy hh:mm a"
+                                               pattern="dd/MM/yyyy HH:mm"
 
                                           
                                                value="#{buscarCajeroProgramarEventoController.fechahoraBaja}" showTime="true">
@@ -216,6 +216,9 @@
 
         <template:script/> 
     </h:body>
-
+<script type="text/javascript">
+            $.noConflict();
+          
+        </script>
 </html>
 
