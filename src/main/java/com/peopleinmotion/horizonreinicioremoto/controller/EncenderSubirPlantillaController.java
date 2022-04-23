@@ -131,17 +131,13 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                  * Buscare las acciones del grupo
                  */
                 accionList = new ArrayList<>();
-                
-             
-                
-              
 
                 if (grupoAccion.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId"))) {
 
                     accionList = accionRepository.findByGrupoAccionIdAndPredeterminado(grupoAccion, "SI");
 
                 } else {
-                    
+
                     JsfUtil.warningMessage("El grupoAccion debe ser Encender Subir Plantilla para realizar las operaciones");
                 }
                 if (accionList == null || accionList.isEmpty()) {
@@ -151,7 +147,8 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                     // ConsoleUtil.info("la lista NO esta vacia..");
                     accion = accionList.get(0);
                 }
-                Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
+                // Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
+                Optional<Estado> optional = estadoRepository.findByEstadoId(JsfUtil.contextToBigInteger("estadoSolicituddeHabilitacióndePlantillaEnviada"));
                 if (!optional.isPresent()) {
                     JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignarlo a esta operacion.");
                 } else {
@@ -159,6 +156,19 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                     showButton = Boolean.TRUE;
                 }
                 findAccionReciente();
+                /**
+                 * si no tiene acción reciente o la ultima accion fue bajar
+                 * plantilla
+                 */
+                if (!haveAccionReciente) {
+                    showButton = Boolean.FALSE;
+                } else {
+                    if ( !accionReciente.getESTADOID().equals(JsfUtil.contextToBigInteger("estadoPlantillaDeshabilitada"))) {
+                        showButton = Boolean.FALSE;
+                    }
+
+                }
+
             }
         } catch (Exception e) {
 
@@ -279,11 +289,11 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                 if (!emailServices.sendTokenToEmailSincrono(token, user)) {
                     JsfUtil.errorMessage("No se logró enviar el token a su correo. Reintente la operación");
                     tokenEnviado = Boolean.FALSE;
-               
+
                 } else {
                     JsfUtil.successMessage("El token fue enviado a su correo.");
                     tokenEnviado = Boolean.TRUE;
-              
+
                     openDialogToken();
                 }
                 //Envia el token asincrono
@@ -383,48 +393,43 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
 
                 Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
 
-                  Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
+                Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
                 if (!agendaOptional.isPresent()) {
                     JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
                 } else {
-                    agendaHistorialServices.createHistorial(agendaOptional.get(), "REINICIO REMOTO", user);
+                    agendaHistorialServices.createHistorial(agendaOptional.get(),"ENCENDER SUBIR PLANTILLA", estado, user,"BANCO");
 
-                        AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI","BA");
-                        JmoordbContext.put("accionReciente", accionReciente);
-                        /**
-                         * Envio de email
-                         */
-                        emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
+                    AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI", "BA");
+                    JmoordbContext.put("accionReciente", accionReciente);
+                    /**
+                     * Envio de email
+                     */
+                    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 //       Boolean emailSend=    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 //                     if(emailSend ){
 //                        // ConsoleUtil.info("Si envio el email");
 //                    }else{
 //                        ConsoleUtil.error("No envio el email");
 //                    }
-                        MessagesForm messagesForm = new MessagesForm.Builder()
-                                .errorWindows(Boolean.FALSE)
-                                .id(accionReciente.getCAJERO())
-                                .header("Operación exitosa")
-                                .header2("La acción se realizó exitosamente")
-                                .image("atm-green01.png")
-                                .libary("images")
-                                .titulo("Encender Subir Plantilla")
-                                .mensaje("Se realizó exitosamente el registro de Encender Subir Plantilla")
-                                .returnTo("dashboard.xhtml")
-                                .build();
-                        JmoordbContext.put("messagesForm", messagesForm);
+                    MessagesForm messagesForm = new MessagesForm.Builder()
+                            .errorWindows(Boolean.FALSE)
+                            .id(accionReciente.getCAJERO())
+                            .header("Operación exitosa")
+                            .header2("La acción se realizó exitosamente")
+                            .image("atm-green01.png")
+                            .libary("images")
+                            .titulo("Encender Subir Plantilla")
+                            .mensaje("Se realizó exitosamente el registro de Encender Subir Plantilla")
+                            .returnTo("dashboard.xhtml")
+                            .build();
+                    JmoordbContext.put("messagesForm", messagesForm);
 
-                        JmoordbContext.put("pageInView", "messagesform.xhtml");
-                        return "messagesform.xhtml";
+                    JmoordbContext.put("pageInView", "messagesform.xhtml");
+                    return "messagesform.xhtml";
                 }
-                
+
             }
-                        
-                    
 
-                
-
-            
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }

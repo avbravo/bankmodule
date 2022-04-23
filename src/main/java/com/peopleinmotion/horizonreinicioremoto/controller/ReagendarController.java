@@ -92,7 +92,7 @@ public class ReagendarController implements Serializable, Page {
     @Inject
     TokenServices tokenServices;
     @Inject
-NotificacionServices notificacionServices;
+    NotificacionServices notificacionServices;
 
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Boolean getShowCommandButtonProcesando() ">
@@ -141,8 +141,7 @@ NotificacionServices notificacionServices;
     @PostConstruct
     public void init() {
         try {
-          
-           
+
             updateByOtherUser = Boolean.FALSE;
             if (JmoordbContext.get("user") == null) {
 
@@ -151,8 +150,8 @@ NotificacionServices notificacionServices;
                 grupoAccionList = new ArrayList<>();
                 user = (Usuario) JmoordbContext.get("user");
                 bank = (Banco) JmoordbContext.get("banco");
-               // findAccionReciente();
- accionReciente = (AccionReciente) JmoordbContext.get("accionRecienteDashboard");
+                // findAccionReciente();
+                accionReciente = (AccionReciente) JmoordbContext.get("accionRecienteDashboard");
                 JsfUtil.copyBeans(accionRecienteOld, accionReciente);
                 cajero = (Cajero) JmoordbContext.get("cajero");
                 haveAccionReciente = Boolean.TRUE;
@@ -260,7 +259,7 @@ NotificacionServices notificacionServices;
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonReagendar()">
     public String onCommandButtonReagendar() {
         try {
-           
+
             if (!tokenEnviado) {
                 JsfUtil.warningMessage("Usted debe solicite primero un token");
                 return "";
@@ -297,11 +296,10 @@ NotificacionServices notificacionServices;
             } else {
                 estado = optional.get();
             }
-accionReciente.setFECHA(DateUtil.getFechaHoraActual());
+            accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
                 //Actualizar la agenda
                 notificacionServices.process(bank.getBANCOID(), "BANCO");
-
 
                 Optional<Agenda> agendaOptional = agendaRepository.findByAgendaId(accionReciente.getAGENDAID());
                 if (!agendaOptional.isPresent()) {
@@ -313,7 +311,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDÓ EL EVENTO", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDÓ EL EVENTO",  estado, user, "BANCO");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE REAGENDÓ EL EVENTO", user, cajero, bank);
@@ -399,7 +397,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
                 //Actualizar la agenda
-  notificacionServices.process(bank.getBANCOID(), "BANCO");
+                notificacionServices.process(bank.getBANCOID(), "BANCO");
                 Optional<Agenda> agendaOptional = agendaRepository.findByAgendaId(accionReciente.getAGENDAID());
                 if (!agendaOptional.isPresent()) {
                     JsfUtil.warningMessage("No se encontro registros de ese agendamiento");
@@ -410,7 +408,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                     agenda.setACTIVO("NO");
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELÓ EL EVENTO", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELÓ EL EVENTO",  estado, user, "BANCO");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELÓ EL EVENTO", user, cajero, bank);
@@ -452,9 +450,18 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
     // <editor-fold defaultstate="collapsed" desc="reagendarAccion() ">
     public String reagendarAccion() {
         try {
-accionReciente.setFECHA(DateUtil.getFechaHoraActual());
+            accionReciente.setFECHA(DateUtil.getFechaHoraActual());
+             Estado estado = new Estado();
+            Optional<Estado> optional = estadoRepository.findByEstadoId(accionReciente.getESTADOID());
+            if (!optional.isPresent()) {
+
+                JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignalor a esta operacion.");
+            } else {
+                estado = optional.get();
+
+            }
             if (accionRecienteRepository.update(accionReciente)) {
-                  notificacionServices.process(bank.getBANCOID(), "BANCO");
+                notificacionServices.process(bank.getBANCOID(), "BANCO");
                 //Actualizar la agenda
                 Optional<Agenda> agendaOptional = agendaRepository.findByAgendaId(accionReciente.getAGENDAID());
                 if (!agendaOptional.isPresent()) {
@@ -465,7 +472,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION",estado, user, "BANCO");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "REAGENDAR ACCION", user, cajero, bank);
@@ -473,7 +480,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                         *Mensajes éxitosos
                          */
                         MessagesForm messagesForm = new MessagesForm.Builder()
-                                  .errorWindows(Boolean.FALSE)
+                                .errorWindows(Boolean.FALSE)
                                 .id(accionReciente.getCAJERO())
                                 .header("Operación exitosa")
                                 .header2("La acción se realizó exitosamente")
@@ -526,15 +533,13 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             // ConsoleUtil.info("onCommandButtonSendToken(isReagendar ) "+isReagendar);
             this.showCommandButtonReagendar = isReagendar;
             if (isReagendar) {
-                 // ConsoleUtil.info("accionReciente.getFECHAAGENDADA() " +accionReciente.getFECHAAGENDADA());
-                 // ConsoleUtil.info("accionRecienteOld.getFECHAAGENDADA() " +accionRecienteOld.getFECHAAGENDADA());
-                if(DateUtil.igualDiaMesAñoHoraMinuto(accionReciente.getFECHAAGENDADA(),  accionRecienteOld.getFECHAAGENDADA())){
-                     JsfUtil.warningMessage("Indique otra fecha para proceder a realizar el cambio de agenda");
+                // ConsoleUtil.info("accionReciente.getFECHAAGENDADA() " +accionReciente.getFECHAAGENDADA());
+                // ConsoleUtil.info("accionRecienteOld.getFECHAAGENDADA() " +accionRecienteOld.getFECHAAGENDADA());
+                if (DateUtil.igualDiaMesAñoHoraMinuto(accionReciente.getFECHAAGENDADA(), accionRecienteOld.getFECHAAGENDADA())) {
+                    JsfUtil.warningMessage("Indique otra fecha para proceder a realizar el cambio de agenda");
                     return "";
                 }
-                
-        
-             
+
             }
             sendToken(isReagendar);
 
@@ -542,7 +547,7 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + e.getLocalizedMessage());
 
         }
-    return "";
+        return "";
     }
 // </editor-fold>
 
@@ -619,21 +624,21 @@ accionReciente.setFECHA(DateUtil.getFechaHoraActual());
     // <editor-fold defaultstate="collapsed" desc="String openDialogToken()">
     public String openDialogToken(Boolean isReagendar) {
         try {
-if(isReagendar){
-     PrimeFaces.current().executeScript("PF('widgetVarTokenDialogReagendar').initPosition()");
-            PrimeFaces.current().executeScript("PF('widgetVarTokenDialogReagendar').show()");
+            if (isReagendar) {
+                PrimeFaces.current().executeScript("PF('widgetVarTokenDialogReagendar').initPosition()");
+                PrimeFaces.current().executeScript("PF('widgetVarTokenDialogReagendar').show()");
 
-}else{
-     PrimeFaces.current().executeScript("PF('widgetVarTokenDialog').initPosition()");
-            PrimeFaces.current().executeScript("PF('widgetVarTokenDialog').show()");
+            } else {
+                PrimeFaces.current().executeScript("PF('widgetVarTokenDialog').initPosition()");
+                PrimeFaces.current().executeScript("PF('widgetVarTokenDialog').show()");
 
-}
-           
+            }
+
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
         return "";
     }
 // </editor-fold>
-    
+
 }

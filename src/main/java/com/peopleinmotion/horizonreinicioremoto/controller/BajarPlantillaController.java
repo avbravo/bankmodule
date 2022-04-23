@@ -42,6 +42,7 @@ import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
 import com.peopleinmotion.horizonreinicioremoto.services.NotificacionServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
+import java.math.BigInteger;
 import java.util.Date;
 import lombok.Data;
 import org.primefaces.PrimeFaces;
@@ -145,7 +146,9 @@ NotificacionServices notificacionServices;
                 } else {
                     accion = accionList.get(0);
                 }
-                Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
+                
+
+                Optional<Estado> optional = estadoRepository.findByEstadoId(JsfUtil.contextToBigInteger("esatadoEnesperadeconfirmacióndelTécnico"));
                 if (!optional.isPresent()) {
                     JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignarlo a esta operacion.");
                 } else {
@@ -387,7 +390,7 @@ NotificacionServices notificacionServices;
                 if (!agendaOptional.isPresent()) {
                     JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
                 } else {
-                     agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user);
+                     agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA", estado, user,"BANCO");
 
                     
                      

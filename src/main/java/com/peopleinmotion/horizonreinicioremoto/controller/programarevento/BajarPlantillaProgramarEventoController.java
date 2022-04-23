@@ -190,7 +190,8 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                 } else {
                     accion = accionList.get(0);
                 }
-                Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
+//                Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
+Optional<Estado> optional = estadoRepository.findByEstadoId(JsfUtil.contextToBigInteger("esatadoEnesperadeconfirmacióndelTécnico"));
                 if (!optional.isPresent()) {
                     JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignarlo a esta operacion.");
                 } else {
@@ -438,7 +439,7 @@ public class BajarPlantillaProgramarEventoController implements Serializable, Pa
                 if (!agendaOptional.isPresent()) {
                     JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
                 } else {
-                    agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user);
+                    agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", estado, user,"BANCO");
 
                     AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI","BA");
                     JmoordbContext.put("accionReciente", accionReciente);

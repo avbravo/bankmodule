@@ -115,29 +115,29 @@
                                                                                  action="#{notificacionesFormularioController.regresar()}"/>
                                                             </c:if>
                                                             <c:if test="${notificacionesFormularioController.haveAccionReciente}">
-                                                                 <p class="atm-title-mar01"><strong><p:outputLabel  value="Acción:" styleClass="p-text-bold"/>
-                                                                </strong> <p:outputLabel  value="#{notificacionesFormularioController.accionReciente.TITULO}"/></p> 
+                                                                <p class="atm-title-mar01"><strong><p:outputLabel  value="Acción:" styleClass="p-text-bold"/>
+                                                                    </strong> <p:outputLabel  value="#{notificacionesFormularioController.accionReciente.TITULO}"/></p> 
                                                                 <p class="atm-title-mar01"><strong> <p:outputLabel  value="Evento:" styleClass="p-text-bold"/>
-                                                               </strong>  <p:outputLabel value="#{notificacionesFormularioController.accionReciente.MENSAJE}"/>  </p>  
+                                                                    </strong>  <p:outputLabel value="#{notificacionesFormularioController.accionReciente.MENSAJE}"/>  </p>  
 
-                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Se agendó el:"/>
-                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/></p> 
+                                                                <p class="atm-title-mar01"><strong>  <p:outputLabel value="Se agendó el:"/>
+                                                                    </strong>   <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/></p> 
                                                                 <p class="atm-title-mar01"><strong> <p:outputLabel value="Hora agendada:"/>
-                                                            </strong>     <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/></p> 
-                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Fecha creación:"/>
-                                                             </strong>    <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHACREACION)}"/></p> 
-                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Hora creación:"/>
-                                                               </strong>  <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHACREACION)}"/></p> 
+                                                                    </strong>     <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAAGENDADA)}"/></p> 
+                                                                <p class="atm-title-mar01"><strong>  <p:outputLabel value="Fecha creación:"/>
+                                                                    </strong>    <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHACREACION)}"/></p> 
+                                                                <p class="atm-title-mar01"><strong>  <p:outputLabel value="Hora creación:"/>
+                                                                    </strong>  <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHACREACION)}"/></p> 
                                                                 <p class="atm-title-mar01"><strong> <p:outputLabel value="Fecha ejecución:" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
-                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}" /></p> 
-                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Hora ejecución:" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
-                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/></p> 
-                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Estado:"/>
-                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ESTADO}"/> </p> 
-                                                               <p class="atm-title-mar01"><strong>  <p:outputLabel value="Autorizado:"/>
-                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.showAutorizadoName(notificacionesFormularioController.accionReciente.AUTORIZADO)}"/></p> 
-                                                              <p class="atm-title-mar01"><strong>   <p:outputLabel value="Transacción No:"/>
-                                                              </strong>   <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ACCIONRECIENTEID}"/></p> 
+                                                                    </strong>   <p:outputLabel value="#{notificacionesFormularioController.showDate(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}" /></p> 
+                                                                <p class="atm-title-mar01"><strong>  <p:outputLabel value="Hora ejecución:" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/>
+                                                                    </strong>   <p:outputLabel value="#{notificacionesFormularioController.showHour(notificacionesFormularioController.accionReciente.FECHAEJECUCION)}" rendered="#{!notificacionesFormularioController.renderedByEstadoSolicitado()}"/></p> 
+                                                                <p class="atm-title-mar01"><strong>  <p:outputLabel value="Estado:"/>
+                                                                    </strong>   <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ESTADO}"/> </p> 
+                                                                <p class="atm-title-mar01"><strong>  <p:outputLabel value="Autorizado:"/>
+                                                                    </strong>   <p:outputLabel value="#{notificacionesFormularioController.showAutorizadoName(notificacionesFormularioController.accionReciente.AUTORIZADO)}"/></p> 
+                                                                <p class="atm-title-mar01"><strong>   <p:outputLabel value="Transacción No:"/>
+                                                                    </strong>   <p:outputLabel value="#{notificacionesFormularioController.accionReciente.ACCIONRECIENTEID}"/></p> 
 
                                                             </c:if> 
 
@@ -387,9 +387,9 @@
         <!-- container-scroller -->
         <template:script/> 
     </h:body>
-<script type="text/javascript">
-            $.noConflict();
-          
-        </script>
+    <script type="text/javascript">
+        $.noConflict();
+
+    </script>
 </html>
 

@@ -149,7 +149,11 @@ public class ReinicioRemotoController implements Serializable, Page {
                 } else {
                     accion = accionList.get(0);
                 }
-                Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
+                /**
+                 * busca en la tabla de parametros
+                 */
+                Optional<Estado> optional = estadoRepository.findByEstadoId(JsfUtil.contextToBigInteger("estadoSolicitudEnviada"));
+                //Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
                 if (!optional.isPresent()) {
                     JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignarlo a esta operacion.");
                 } else {
@@ -386,7 +390,7 @@ public class ReinicioRemotoController implements Serializable, Page {
                     JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
                 } else {
 
-                    agendaHistorialServices.createHistorial(agendaOptional.get(), "REINICIO REMOTO", user);
+                    agendaHistorialServices.createHistorial(agendaOptional.get(), "REINICIO REMOTO",  estado,user,"BANCO");
 
                     AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI","BA");
                     JmoordbContext.put("accionReciente", accionReciente);

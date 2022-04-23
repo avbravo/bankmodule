@@ -440,7 +440,7 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
                     JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
                 } else {
 
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user);
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", estado,user,"BANCO");
 
                         AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado,"SI","BA");
                         JmoordbContext.put("accionReciente", accionReciente);

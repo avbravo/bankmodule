@@ -1,3 +1,74 @@
+-------------------------------------------------
+[AGENDAHISTORIAL]
+-->GUARDAR EL ESTADO CORRECTO EN EVENTO OCURRIDO
+-->AGREGAR CAMPO MODULO, ESTADODESCRIPCION, A LA TABLA HISTORIAL
+-->Revisar el historial de accion reciente
+-->Cuando se actualiza una accion reciente actualizar el grupo si cambio el estado.
+
+-------------------------------------------------
+en accionreciente y agenda se agrego el campo
+GRUPOESTADOID
+
+revisar el contador de eventos  modificarlo
+
+
+Remover token de banco
+--------------------------------------------------
+
+en todos los update de accionReciente  
+accionReciente.setESTADOID(estado.getESTADOID());
+
+usar
+accionReciente.setGRUPOESTADOID(estado.getGRUPOESTADOID().getGRUPOESTADOID());
+   if (accionRecienteRepository.update(accionReciente)) {
+y para la agenda
+agenda.setGRUPOESTADOID(estado.getGRUPOESTADOID().getGRUPOESTADOID());
+
+
+---------------------------------
+PARA ANEL
+1-->
+agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user);
+
+POR
+agregar el estado y mdoulo (el estadp es si no aparece)
+ Estado estado = new Estado();
+            Optional<Estado> optional = estadoRepository.findByEstadoId(accionReciente.getESTADOID());
+            if (!optional.isPresent()) {
+
+                JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignalor a esta operacion.");
+            } else {
+                estado = optional.get();
+
+            }
+agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA", estado, user,"BANCO");
+
+
+
+
+2-->
+En [AccessController.java] en modulo colocar el nombre del modulo adecuado
+                 Historial historial = new Historial.Builder()
+                        .EVENTO("Login")
+                        .FECHA(DateUtil.fechaHoraActual())
+                        .MODULO("BANCO")
+                        .TABLA("USUARIO")
+                        .CONTENIDO(usuario.toJSON())
+                        .USUARIOID(usuario.getUSUARIOID())
+                        .build();
+3 --> Cambiar
+ agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user,"BANCO");
+
+4. load schedule
+  public void loadSchedule() {
+
+---------------------------------
+
+
+if (grupoAccion.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionBajarPlantillaId"))) {
+
+
+
 DevTools failed to load source map: Could not load content for http://localhost:7001/bankmodule/faces/bootstrap.min.js.map: HTTP error: status code 404, net::ERR_HTTP_RESPONSE_CODE_FAILURE
 solucion
 https://techglimpse.com/devtools-failed-load-source-map-http-error/

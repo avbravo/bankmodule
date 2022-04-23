@@ -201,8 +201,20 @@ public class DashboardController implements Serializable, Page {
 
             banco = (Banco) JmoordbContext.get("banco");
 
-            String where = "(a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoProcesandoId") + "' OR  "
-                    + "a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId") + "' )";
+//            String where = "(a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoProcesandoId") + "' OR  "
+//                    + "a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId") + "' )";
+//            String where = "(a.ESTADOID !='" + JsfUtil.contextToBigInteger("estadoFinalizadoId") + "' OR  "
+//                    + "a.ESTADOID !='" + JsfUtil.contextToBigInteger("estadoAcciónNoSePuedeEjecutarId") + "' )";
+String where = "(a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId") + "' OR  "
+                    + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoProcesandoId") + "' OR  "
+                    
+                    + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("esatadoEnesperadeconfirmacióndelTécnico") + "' OR  "
+                    + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoSolicituddedeshabilitaciónPlantillaenviadaaTelered") + "' OR  "
+                    + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoSolicituddedeshabilitacióndePlantillaenProceso") + "' OR  "
+                    + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoSolicitudEnviada") + "' OR  "
+                    + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoSolicituddeReinicioRemotoenProceso") + "' OR  "
+                    + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoSolicituddeHabilitacióndePlantillaEnviada") + "' OR  "
+                    + "a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoPlantillaHabilitadaenProceso") + "' )";
 
             QuerySQL querySQL = new QuerySQL.Builder()
                     .query("SELECT a FROM AccionReciente a WHERE a.BANCOID = '" + banco.getBANCOID() + "' AND a.ACTIVO ='SI' AND " + where + " ORDER BY a.FECHA DESC")
@@ -334,7 +346,24 @@ public class DashboardController implements Serializable, Page {
                     Date DESDE = DateUtil.setHourToDate(DateUtil.convertLocalDateTimeToJavaDate(start), 0, 00);
                     Date HASTA = DateUtil.setHourToDate(DateUtil.convertLocalDateTimeToJavaDate(end), 23, 59);
 //                    accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDate(banco.getBANCOID(), DESDE, HASTA, "SI");
-                    accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("estadoProcesandoId"), JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId"));
+                    
+//accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("estadoProcesandoId"), JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId"));
+//accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("estadoFinalizadoId"), JsfUtil.contextToBigInteger("estadoAcciónNoSePuedeEjecutarId"));
+
+accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateGrupoEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("grupoEstadoSolicitadoId"), JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId'"));
+
+//accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasForSchedule(banco.getBANCOID(), DESDE, HASTA, "SI", 
+//        JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId") ,
+//             JsfUtil.contextToBigInteger("estadoProcesandoId"),
+//             JsfUtil.contextToBigInteger("esatadoEnesperadeconfirmacióndelTécnico"),
+//             JsfUtil.contextToBigInteger("estadoSolicituddedeshabilitaciónPlantillaenviadaaTelered"),
+//             JsfUtil.contextToBigInteger("estadoSolicituddedeshabilitacióndePlantillaenProceso"),
+//             JsfUtil.contextToBigInteger("estadoSolicitudEnviada"),
+//             JsfUtil.contextToBigInteger("estadoSolicituddeReinicioRemotoenProceso"),
+//             JsfUtil.contextToBigInteger("estadoSolicituddeHabilitacióndePlantillaEnviada"),
+//             JsfUtil.contextToBigInteger("estadoPlantillaHabilitadaenProceso")   
+//        
+//        );
 
                     if (accionRecienteScheduleList == null || accionRecienteScheduleList.isEmpty()) {
                         JsfUtil.successMessage("No hay registros de acciones recientes");

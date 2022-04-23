@@ -109,6 +109,16 @@ INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO , 	ORDEN) VAL
 INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Ejecutada',3, 'NO' ,'SI',2);
 INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Acción no se puede ejecutar(Sólo en caso de duplicados)',4, 'NO' , 'SI',3);
 INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Robot no disponible',3, 'NO' ,'SI',4);
+INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('En espera de confirmación del Técnico',1, 'NO' ,'SI',5);
+INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Solicitud de deshabilitación Plantilla enviada a Telered',1, 'NO' ,'SI',5);
+INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Solicitud de deshabilitación de Plantilla en Proceso',2, 'NO' ,'SI',5);
+INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Plantilla Deshabilitada',3, 'NO' ,'SI',5);
+INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Solicitud Enviada',1, 'NO' ,'SI',6);
+INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Solicitud de Reinicio Remoto en Proceso',2, 'NO' ,'SI',6);
+INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Reinicio Remoto Completado',3, 'NO' ,'SI',6);
+INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Solicitud de Habilitación de Plantilla Enviada',1, 'NO' ,'SI',7);
+INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Plantilla Habilitada en Proceso',2, 'NO' ,'SI',8);
+INSERT INTO  ESTADO   (ESTADO, GRUPOESTADOID,PREDETERMINADO,ACTIVO ,	ORDEN) VALUES ('Plantilla Habilitada',3, 'NO' ,'SI',8);
 
 
 /*
@@ -219,5 +229,17 @@ INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES( 'estadoProcesandoId','2');
 INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES( 'estadoFinalizadoId','3');
 INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES( 'estadoAcciónNoSePuedeEjecutarId','4');
 INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES( 'estadoRobotNoDisponible','5');
+
+INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES ('esatadoEnesperadeconfirmacióndelTécnico','6');
+INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES  ('estadoSolicituddedeshabilitaciónPlantillaenviadaaTelered','7');
+INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES  ('estadoSolicituddedeshabilitacióndePlantillaenProceso','8');
+INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES ('estadoPlantillaDeshabilitada','9');
+INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES ('estadoSolicitudEnviada','10');
+INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES ('estadoSolicituddeReinicioRemotoenProceso','11');
+INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES ('estadoReinicioRemotoCompletado','12');
+
+ INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES ('estadoSolicituddeHabilitacióndePlantillaEnviada','13');
+INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES ('estadoPlantillaHabilitadaenProceso','14');
+ INSERT INTO  PARAMETRO (CLAVE, VALOR) VALUES ('estadoPlantillaHabilitada','15');
 
 

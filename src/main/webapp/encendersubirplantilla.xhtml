@@ -153,7 +153,7 @@
                                                     <f:facet name="footer">
                                                         <p:panelGrid columns="2"  styleClass="ui-panelgrid-blank ui-fluid"
                                                                      style="border:0px none; background-color:transparent;">
-
+  <c:if test="${encenderSubirPlantillaController.showButton}">
                                                             <p:outputLabel value="Acción"/>
 
                                                             <p:selectOneMenu id="selectOneMenuAccion" 
@@ -170,7 +170,7 @@
 
 
                                                             </p:selectOneMenu>
-                                                            <c:if test="${encenderSubirPlantillaController.showButton}">
+                                                          
                                                                 <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
                                                                                  title="Envía el token al correo"
                                                                                  id="commandButtonSendToken"
