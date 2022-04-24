@@ -314,7 +314,7 @@ showCommandButtonReagendar = Boolean.FALSE;
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDÓ EL EVENTO",  estado, user, "BANCO");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDÓ EL EVENTO",  estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE REAGENDÓ EL EVENTO", user, cajero, bank);
@@ -411,7 +411,7 @@ showCommandButtonReagendar = Boolean.FALSE;
                     agenda.setACTIVO("NO");
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELÓ EL EVENTO",  estado, user, "BANCO");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELÓ EL EVENTO",  estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELÓ EL EVENTO", user, cajero, bank);
@@ -475,7 +475,7 @@ showCommandButtonReagendar = Boolean.FALSE;
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION",estado, user, "BANCO");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION",estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "REAGENDAR ACCION", user, cajero, bank);

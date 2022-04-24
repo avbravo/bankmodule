@@ -436,6 +436,100 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
         return "";
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonEncenderSubirPlantillasSinToken()">
+    /**
+     * Guarda el evento y envia notificaciones
+     *
+     * @return
+     */
+    public String onCommandButtonEncenderSubirPlantillaSinToken() {
+        try {
+//            if (!tokenEnviado) {
+//                JsfUtil.warningMessage("Usted debe solicite primero un token");
+//                return "";
+//            }
+//            if (!validateToken()) {
+//                return "";
+//            }
+
+  if (selectOneMenuAccionValue == null) {
+                JsfUtil.warningMessage("Seleccione la acción a ejecutar..");
+                return "";
+            }
+            if (fechahoraBaja == null) {
+                JsfUtil.warningMessage("Seleccione la fecha y hora");
+                return "";
+            }
+            JmoordbContext.put("fechahoraBaja", fechahoraBaja);
+
+
+            JmoordbContext.put("accion", selectOneMenuAccionValue);
+            if (selectOneMenuAccionValue == null || selectOneMenuAccionValue.getACCIONID() == null) {
+                JsfUtil.warningMessage("No selecciono la acción a ejecutar");
+                return "";
+            }
+
+            JsfUtil.copyBeans(accion, selectOneMenuAccionValue);
+            /**
+             * Valida que no se hay un agendamiento en la misma hora
+             */
+            Integer count = agendaServices.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
+            if (count > 0) {
+                // ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha");
+                JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
+
+                return "";
+            }
+
+            if (accionList == null || accionList.isEmpty()) {
+                JsfUtil.warningMessage("No acciones para el grupo seleccionado");
+            } else {
+
+                Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
+
+                Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
+                if (!agendaOptional.isPresent()) {
+                    JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
+                } else {
+                    agendaHistorialServices.createHistorial(agendaOptional.get(),"ENCENDER SUBIR PLANTILLA", estado, user,"BANCO");
+
+                    AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI", "BA");
+                    JmoordbContext.put("accionReciente", accionReciente);
+                    /**
+                     * Envio de email
+                     */
+                    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
+//       Boolean emailSend=    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
+//                     if(emailSend ){
+//                        // ConsoleUtil.info("Si envio el email");
+//                    }else{
+//                        ConsoleUtil.error("No envio el email");
+//                    }
+                    MessagesForm messagesForm = new MessagesForm.Builder()
+                            .errorWindows(Boolean.FALSE)
+                            .id(accionReciente.getCAJERO())
+                            .header("Operación exitosa")
+                            .header2("La acción se realizó exitosamente")
+                            .image("atm-green01.png")
+                            .libary("images")
+                            .titulo("Encender Subir Plantilla")
+                            .mensaje("Se realizó exitosamente el registro de Encender Subir Plantilla")
+                            .returnTo("dashboard.xhtml")
+                            .build();
+                    JmoordbContext.put("messagesForm", messagesForm);
+
+                    JmoordbContext.put("pageInView", "messagesform.xhtml");
+                    return "messagesform.xhtml";
+                }
+
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Boolean validateToken() ">    
     public Boolean validateToken() {

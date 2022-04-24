@@ -132,7 +132,7 @@ public class AccessController implements Serializable, Page {
                     return "";
                 }
                 setLoged(Boolean.TRUE);
-                JsfUtil.successMessage("Bienvenido " + usuario.getNOMBRE());
+              //  JsfUtil.successMessage("Bienvenido " + usuario.getNOMBRE());
 
                 JmoordbContext.put("banco", usuario.getBANCOID());
 

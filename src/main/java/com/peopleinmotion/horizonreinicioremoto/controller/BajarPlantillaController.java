@@ -103,9 +103,10 @@ public class BajarPlantillaController implements Serializable, Page {
     AgendaHistorialServices agendaHistorialServices;
     @Inject
     TokenServices tokenServices;
-@Inject
-NotificacionServices notificacionServices;
+    @Inject
+    NotificacionServices notificacionServices;
 // </editor-fold>
+
     /**
      * Creates a new instance of CajeroAccionController
      */
@@ -146,7 +147,6 @@ NotificacionServices notificacionServices;
                 } else {
                     accion = accionList.get(0);
                 }
-                
 
                 Optional<Estado> optional = estadoRepository.findByEstadoId(JsfUtil.contextToBigInteger("esatadoEnesperadeconfirmacióndelTécnico"));
                 if (!optional.isPresent()) {
@@ -269,8 +269,6 @@ NotificacionServices notificacionServices;
             JmoordbContext.put("fechahoraBaja", fechahoraBaja);
             Token token = tokenServices.supplier();
 
-
-
             JmoordbContext.put("accion", selectOneMenuAccionValue);
             if (tokenRepository.create(token)) {
 
@@ -278,17 +276,17 @@ NotificacionServices notificacionServices;
                 if (!emailServices.sendTokenToEmailSincrono(token, user)) {
                     JsfUtil.errorMessage("No se logró enviar el token a su correo. Reintente la operación");
                     tokenEnviado = Boolean.FALSE;
-    
+
                 } else {
                     JsfUtil.successMessage("El token fue enviado a su correo.");
                     tokenEnviado = Boolean.TRUE;
-             
-        openDialogToken();
+
+                    openDialogToken();
                 }
                 //Envia el token asincrono
 //                emailServices.sendTokenToEmail(token, user);
 //Abre el dialogo
-        
+
             } else {
                 JsfUtil.warningMessage("No se pudo generar el token. Repita la acción");
             }
@@ -299,7 +297,6 @@ NotificacionServices notificacionServices;
         return "";
     }
 // </editor-fold>
-
 
     // <editor-fold defaultstate="collapsed" desc="String openDialogToken()">
     public String openDialogToken() {
@@ -343,9 +340,6 @@ NotificacionServices notificacionServices;
         return Boolean.FALSE;
     }
 // </editor-fold>
-    
-    
-   
 
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonBajarPlantillaProgramarEvento()">
     /**
@@ -374,7 +368,7 @@ NotificacionServices notificacionServices;
              */
             Integer count = agendaServices.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
             if (count > 0) {
-            
+
                 JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
 
                 return "";
@@ -386,50 +380,141 @@ NotificacionServices notificacionServices;
 
                 Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
 
-                 Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
+                Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
                 if (!agendaOptional.isPresent()) {
                     JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
                 } else {
-                     agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA", estado, user,"BANCO");
+                    agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA", estado, user, "BA");
 
-                    
-                     
-                        AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado,"SI","BA");
-                        JmoordbContext.put("accionReciente", accionReciente);
-                        
-                         notificacionServices.process(bank.getBANCOID(), "BANCO");
-                        /**
-                         * Envio de email
-                         */
-                        emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
+                    AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI", "BA");
+                    JmoordbContext.put("accionReciente", accionReciente);
+
+                    notificacionServices.process(bank.getBANCOID(), "BANCO");
+                    /**
+                     * Envio de email
+                     */
+                    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 //       Boolean emailSend=    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
 //                     if(emailSend ){
 //                        // ConsoleUtil.info("Si envio el email");
 //                    }else{
 //                        ConsoleUtil.error("No envio el email");
 //                    }
-                        MessagesForm messagesForm = new MessagesForm.Builder()
-                                .errorWindows(Boolean.FALSE)
-                                .id(accionReciente.getCAJERO())
-                                .header("Operación exitosa")
-                                .header2("La acción se realizó exitosamente")
-                                .image("atm-green01.png")
-                                .libary("images")
-                                .titulo("Bajar plantilla Programar evento")
-                                .mensaje("Se realizó exitosamente la baja de plantilla")
-                                .returnTo("dashboard.xhtml")
-                                .build();
-                        JmoordbContext.put("messagesForm", messagesForm);
+                    MessagesForm messagesForm = new MessagesForm.Builder()
+                            .errorWindows(Boolean.FALSE)
+                            .id(accionReciente.getCAJERO())
+                            .header("Operación exitosa")
+                            .header2("La acción se realizó exitosamente")
+                            .image("atm-green01.png")
+                            .libary("images")
+                            .titulo("Bajar plantilla Programar evento")
+                            .mensaje("Se realizó exitosamente la baja de plantilla")
+                            .returnTo("dashboard.xhtml")
+                            .build();
+                    JmoordbContext.put("messagesForm", messagesForm);
 
-                        JmoordbContext.put("pageInView", "messagesform.xhtml");
-                        return "messagesform.xhtml";
-                    }
-
+                    JmoordbContext.put("pageInView", "messagesform.xhtml");
+                    return "messagesform.xhtml";
                 }
-                
-              
 
-            
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonBajarPlantillaSinToken()">
+
+    /**
+     * Guarda el evento y envia notificaciones
+     *
+     * @return
+     */
+    public String onCommandButtonBajarPlantillaSinToken() {
+        try {
+//            if (!tokenEnviado) {
+//                JsfUtil.warningMessage("Usted debe solicite primero un token");
+//                return "";
+//            }
+//            if (!validateToken()) {
+//                return "";
+//            }
+            if (selectOneMenuAccionValue == null) {
+                JsfUtil.warningMessage("Seleccione la acción a ejecutar..");
+                return "";
+            }
+            if (fechahoraBaja == null) {
+                JsfUtil.warningMessage("Seleccione la fecha y hora");
+                return "";
+            }
+            JmoordbContext.put("fechahoraBaja", fechahoraBaja);
+
+            JmoordbContext.put("accion", selectOneMenuAccionValue);
+
+            if (selectOneMenuAccionValue == null || selectOneMenuAccionValue.getACCIONID() == null) {
+                JsfUtil.warningMessage("No selecciono la acción a ejecutar");
+                return "";
+            }
+
+            JsfUtil.copyBeans(accion, selectOneMenuAccionValue);
+            /**
+             * Valida que no se hay un agendamiento en la misma hora
+             */
+            Integer count = agendaServices.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
+            if (count > 0) {
+
+                JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
+
+                return "";
+            }
+
+            if (accionList == null || accionList.isEmpty()) {
+                JsfUtil.warningMessage("No acciones para el grupo seleccionado");
+            } else {
+
+                Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
+
+                Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
+                if (!agendaOptional.isPresent()) {
+                    JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
+                } else {
+                    agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA", estado, user, "BA");
+
+                    AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI", "BA");
+                    JmoordbContext.put("accionReciente", accionReciente);
+
+                    notificacionServices.process(bank.getBANCOID(), "BANCO");
+                    /**
+                     * Envio de email
+                     */
+                    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
+//       Boolean emailSend=    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
+//                     if(emailSend ){
+//                        // ConsoleUtil.info("Si envio el email");
+//                    }else{
+//                        ConsoleUtil.error("No envio el email");
+//                    }
+                    MessagesForm messagesForm = new MessagesForm.Builder()
+                            .errorWindows(Boolean.FALSE)
+                            .id(accionReciente.getCAJERO())
+                            .header("Operación exitosa")
+                            .header2("La acción se realizó exitosamente")
+                            .image("atm-green01.png")
+                            .libary("images")
+                            .titulo("Bajar plantilla Programar evento")
+                            .mensaje("Se realizó exitosamente la baja de plantilla")
+                            .returnTo("dashboard.xhtml")
+                            .build();
+                    JmoordbContext.put("messagesForm", messagesForm);
+
+                    JmoordbContext.put("pageInView", "messagesform.xhtml");
+                    return "messagesform.xhtml";
+                }
+
+            }
+
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }

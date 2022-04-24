@@ -307,7 +307,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "EJECUTAR", estado, user, "BANCO");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "EJECUTAR", estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIÓ LA AUTORIZACIÓN", user, cajero, bank);
@@ -401,7 +401,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIÓ LA AUTORIZACIÓN", estado, user, "BANCO");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIÓ LA AUTORIZACIÓN", estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIÓ LA AUTORIZACIÓN", user, cajero, bank);
@@ -498,7 +498,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setACTIVO("NO");
                     agenda.setFECHA(DateUtil.getFechaHoraActual());
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELÓ EL EVENTO", estado, user, "BANCO");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELÓ EL EVENTO", estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELÓ EL EVENTO", user, cajero, bank);
@@ -561,7 +561,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION",estado, user, "BANCO");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION",estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "REAGENDAR ACCION", user, cajero, bank);

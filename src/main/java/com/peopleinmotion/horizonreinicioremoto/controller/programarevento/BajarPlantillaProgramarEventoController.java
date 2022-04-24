@@ -479,6 +479,107 @@ Optional<Estado> optional = estadoRepository.findByEstadoId(JsfUtil.contextToBig
         return "";
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonBajarPlantillaProgramarEventoSinToken()">
+    /**
+     * Guarda el evento y envia notificaciones
+     *
+     * @return
+     */
+    public String onCommandButtonBajarPlantillaProgramarEventoSinToken() {
+        try {
+//            if (!tokenEnviado) {
+//                JsfUtil.warningMessage("Usted debe solicite primero un token");
+//                return "";
+//            }
+//            if (!validateToken()) {
+//                return "";
+//            }
+  if (selectOneMenuAccionValue == null) {
+                JsfUtil.warningMessage("Seleccione la acción a ejecutar..");
+                return "";
+            }
+            if (fechahoraBaja == null) {
+                JsfUtil.warningMessage("Seleccione la fecha y hora");
+                return "";
+            }
+            JmoordbContext.put("fechahoraBaja", fechahoraBaja);
+ 
+
+            JmoordbContext.put("accion", selectOneMenuAccionValue);
+            if (programarEventoList == null || programarEventoList.isEmpty()) {
+                JsfUtil.warningMessage("No hay registros de agendamientos para procesar");
+                return "";
+            }
+
+            if (accionList == null || accionList.isEmpty()) {
+                JsfUtil.warningMessage("No acciones para el grupo seleccionado");
+                return "";
+            }
+            /*
+            Revisar si tieen agendamiento en esa hora
+             */
+            Integer countéxitosos = 0;
+            for (ProgramarEvento programarEvento : programarEventoList) {
+                JsfUtil.copyBeans(cajero, programarEvento.getCajero());
+                JsfUtil.copyBeans(accion, programarEvento.getAccion());
+                fechahoraBaja = programarEvento.getFechahora();
+                /**
+                 * Valida que no se hay un agendamiento en la misma hora
+                 */
+                Integer count = agendaServices.countAgendamiento(programarEvento.getCajero().getBANCOID().getBANCOID(),
+                        programarEvento.getCajero().getCAJEROID(), programarEvento.getAccion().getACCIONID(),
+                        estado.getESTADOID(), programarEvento.getFechahora(), "SI");
+                if (count > 0) {
+                    // ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha Cajero: " + programarEvento.getCajero().getCAJERO());
+                    JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
+
+                    return "";
+                }
+
+                Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
+                if (!agendaOptional.isPresent()) {
+                    JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
+                } else {
+                    agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", estado, user,"BANCO");
+
+                    AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccion, estado, "SI","BA");
+                    JmoordbContext.put("accionReciente", accionReciente);
+                    /**
+                     * Envio de email
+                     */
+                    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
+                    countéxitosos++;
+
+                }
+
+            }
+            //Limpio los arrayList del context
+            JmoordbContext.put("cajeroListInProgramarEvento", null);
+            JmoordbContext.put("programarEventoListInProgramarEvento", null);
+
+            MessagesForm messagesForm = new MessagesForm.Builder()
+                    .errorWindows(Boolean.FALSE)
+                    
+                    .id(accionReciente.getCAJERO())
+                    .header("Operación exitosa")
+                    .header2("Acciones procesadas exitosamente: " + countéxitosos)
+                    .image("atm-green01.png")
+                    .libary("images")
+                    .titulo("Bajar plantilla Programar evento")
+                    .mensaje("Se realizó exitosamente la baja de plantilla ")
+                    .returnTo("dashboard.xhtml")
+                    .build();
+            JmoordbContext.put("messagesForm", messagesForm);
+
+            JmoordbContext.put("pageInView", "messagesform.xhtml");
+            return "messagesform.xhtml";
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Boolean validateToken() ">    
     public Boolean validateToken() {

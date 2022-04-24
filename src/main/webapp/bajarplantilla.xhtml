@@ -169,11 +169,13 @@
                                                                                itemValue="#{var}" itemLabel="#{var.ACCION} " />
                                                             </p:selectOneMenu>
 
-                                                            <p:commandButton value="SOLICITAR TOKEN" icon="pi pi-inbox" 
-                                                                             title="Envía el token al correo"
-                                                                             id="commandButtonSendToken"
+                                                            <p:commandButton value="ACEPTAR" 
+                                                                             title="ACEPTAR"
+                                                                                    icon="pi pi-unlock"
+                                                                              
+                                                                             id="onCommandButtonAceptar"
                                                                              rendered="#{bajarPlantillaController.showButton}"
-                                                                             action="#{bajarPlantillaController.onCommandButtonSendToken()}"
+                                                                             action="#{bajarPlantillaController.onCommandButtonBajarPlantillaSinToken()}"
                                                                              update=":form:growl"                                                                    
                                                                              styleClass="rounded-button ui-button-danger" style="margin-right: .5rem">
                                                             </p:commandButton>
@@ -240,140 +242,6 @@
 
 
 
-
-            <!--<h:panelGroup id="panelGroupToken">-->
-            <!--            <div style="position: absolute; left: 1px; top: 1px;">-->
-            <p:dialog widgetVar="widgetVarTokenDialog" header="Token" showEffect="fade" hideEffect="fade"
-                      minHeight="40" width="350" 
-
-                      style="position: absolute; left: 1px; top: 1px; width:20%;margin:0 auto"
-                      position="center center"
-                      onShow="PF('widgetVarTokenDialog').initPosition()"
-                      resizable="false"
-                      >
-
-                <f:facet name="header">
-                    <p:outputLabel value="Recibirás un Email con tu token"/>
-                </f:facet>
-
-                <p:panelGrid columns="4"  styleClass="ui-panelgrid-blank ui-fluid"
-                             id="tokenDialogDetails"
-                             style="border:0px none; background-color:transparent;">
-                    <p:inputTextarea  cols="1" id="mytokeen1" maxlength="1" 
-                                      class="boardPrimefaces"
-                                      styleClass="boardPrimefaces"
-                                      value="#{bajarPlantillaController.tokenReader.number1}"
-                                      >
-                        <p:autoUpdate />
-                    </p:inputTextarea>     
-                    <p:inputTextarea  cols="1" id="mytokeen2" maxlength="1" 
-                                      class="boardPrimefaces"
-                                      styleClass="boardPrimefaces"
-                                      value="#{bajarPlantillaController.tokenReader.number2}"
-                                      >
-                        <p:autoUpdate />
-                    </p:inputTextarea>     
-                    <p:inputTextarea  cols="1" id="mytokeen3" maxlength="1" 
-                                      class="boardPrimefaces"
-                                      styleClass="boardPrimefaces"
-                                      value="#{bajarPlantillaController.tokenReader.number3}"
-                                      >
-                        <p:autoUpdate />
-                    </p:inputTextarea>     
-                    <p:inputTextarea  cols="1" id="mytokeen4" maxlength="1" 
-                                      class="boardPrimefaces"
-                                      styleClass="boardPrimefaces"
-                                      value="#{bajarPlantillaController.tokenReader.number4}"
-                                      >
-                        <p:autoUpdate />
-                    </p:inputTextarea>    
-                    <f:facet name="footer">
-                        <p:outputLabel  value="Digita el token que recibiste" styleClass="p-text-bold"/>
-                    </f:facet>
-                </p:panelGrid>
-
-
-                <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
-                             style="border:0px none; background-color:transparent;">
-
-                    <p:commandButton value="1" styleClass="rounded-button ui-button-secondary" 
-                                     action="#{bajarPlantillaController.marcarNumero('1')}"
-
-                                     update=" "/>
-                    <p:commandButton value="2" styleClass="rounded-button ui-button-secondary" 
-                                     action="#{bajarPlantillaController.marcarNumero('2')}"
-                                     update=" "/>
-                    <p:commandButton value="3" styleClass="rounded-button ui-button-secondary" 
-                                     action="#{bajarPlantillaController.marcarNumero('3')}"
-                                     update=" "/>
-                </p:panelGrid>
-
-
-
-
-                <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
-                             style="border:0px none; background-color:transparent;">
-                    <p:commandButton value="4" styleClass="rounded-button ui-button-secondary" 
-                                     action="#{bajarPlantillaController.marcarNumero('4')}"
-                                     update=" "/>
-                    <p:commandButton value="5" styleClass="rounded-button ui-button-secondary"  
-                                     action="#{bajarPlantillaController.marcarNumero('5')}"
-                                     update=" "/>
-                    <p:commandButton value="6" styleClass="rounded-button ui-button-secondary" 
-                                     action="#{bajarPlantillaController.marcarNumero('6')}"
-                                     update=" "/>
-                </p:panelGrid>
-                <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
-                             style="border:0px none; background-color:transparent;">				
-                    <p:commandButton value="7" styleClass="rounded-button ui-button-secondary" 
-                                     action="#{bajarPlantillaController.marcarNumero('7')}"
-                                     update=" "/>
-                    <p:commandButton value="8" styleClass="rounded-button ui-button-secondary" 
-                                     action="#{bajarPlantillaController.marcarNumero('8')}"
-                                     update=" "/>
-                    <p:commandButton value="9" styleClass="rounded-button ui-button-secondary" 
-                                     action="#{bajarPlantillaController.marcarNumero('9')}"
-                                     update=" "/>
-                </p:panelGrid>
-
-                <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
-                             style="border:0px none; background-color:transparent;">				
-
-                    <p:commandButton  value="0" styleClass="rounded-button ui-button-secondary" 
-                                      action="#{bajarPlantillaController.marcarNumero('0')}"
-                                      update=" "/>
-                    <p:spacer/>
-
-                    <p:commandButton  value="DEL" styleClass="rounded-button ui-button-warning" 
-                                      action="#{bajarPlantillaController.marcarNumero('b')}"
-                                      icon="pi pi-times"
-                                      update=" ">
-
-                    </p:commandButton>
-
-                </p:panelGrid>					
-
-                <f:facet name="footer">
-                    <p:commandButton  oncomplete="PF('widgetVarTokenDialog').hide();" 
-                                      action="#{bajarPlantillaController.remoteCommand()}"
-                                      value="Cerrar"
-                                      process="@this"
-                                      icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                      />
-                    <p:commandButton styleClass="rounded-button ui-button-danger"
-
-                                     update="tokenDialogDetails, tokenmessage"
-                                     icon="pi pi-unlock"
-                                     value="ACEPTAR"
-                                     action="#{bajarPlantillaController.onCommandButtonBajarPlantillaProgramarEvento()}">
-
-                    </p:commandButton>
-
-
-                </f:facet>
-                <p:messages id="tokenmessage" />
-            </p:dialog>
-            <!--</h:panelGroup>-->
 
             <!--</div>-->
         </h:form>    
