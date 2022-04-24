@@ -123,32 +123,32 @@
                                                             </c:if>
                                                             <c:if test="${reagendarController.haveAccionReciente}">
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Acción:" styleClass="p-text-bold"/>
-                                                                    </strong><p:outputLabel value="#{reagendarController.accionReciente.TITULO}"/></p>
+                                                                </strong><p:outputLabel value="#{reagendarController.accionReciente.TITULO}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Evento:" styleClass="p-text-bold"/>
-                                                                    </strong><p:outputLabel value="#{reagendarController.accionReciente.MENSAJE}"/> </p>                     
+                                                                </strong><p:outputLabel value="#{reagendarController.accionReciente.MENSAJE}"/> </p>                     
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Se agendó el:"/>
-                                                                    </strong><p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAAGENDADA)}"/></p>
+                                                                </strong><p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAAGENDADA)}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Hora agendada:"/>
-                                                                    </strong><p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAAGENDADA)}"/></p>
+                                                                </strong><p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAAGENDADA)}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha creación:"/>
-                                                                    </strong><p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHACREACION)}"/></p>
+                                                                </strong><p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHACREACION)}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Hora creación:"/>
-                                                                    </strong><p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHACREACION)}"/></p>
+                                                                </strong><p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHACREACION)}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Fecha ejecución:"/>
-                                                                    </strong> <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/></p>
+                                                               </strong> <p:outputLabel value="#{reagendarController.showDate(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Hora ejecución:"/>
-                                                                    </strong> <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/></p>
+                                                               </strong> <p:outputLabel value="#{reagendarController.showHour(reagendarController.accionReciente.FECHAEJECUCION)}" rendered="#{!reagendarController.renderedByEstadoSolicitado()}"/></p>
                                                                 <p class="atm-title-mar01"><strong><p:outputLabel value="Estado:"/> 
-                                                                    </strong><p:outputLabel value="#{reagendarController.accionReciente.ESTADO}"/></p>
-                                                                <p class="atm-title-mar01"><strong> <p:outputLabel value="Transacción No:"/>
-                                                                    </strong><p:outputLabel value="#{reagendarController.accionReciente.ACCIONRECIENTEID}"/></p>
+                                                                </strong><p:outputLabel value="#{reagendarController.accionReciente.ESTADO}"/></p>
+                                                               <p class="atm-title-mar01"><strong> <p:outputLabel value="Transacción No:"/>
+                                                                </strong><p:outputLabel value="#{reagendarController.accionReciente.ACCIONRECIENTEID}"/></p>
 
                                                             </c:if>
 
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <c:if test="${reagendarController.showCommandButtonReagendar}">
+                                                <c:if test="${reagendarController.haveAccionReciente}">
                                                     <h:panelGrid id="eventDetails" columns="2" cellpadding="2"  styleClass="showcase-text-align-center">
 
                                                         <f:facet name="footer">
@@ -156,7 +156,7 @@
                                                                          style="border:0px none; background-color:transparent;">
                                                                 <p:outputLabel value="Nueva fecha:"/>
                                                                 <p:datePicker id="time1" 
-
+                                                                              rendered="#{!reagendarController.accionReciente.ESTADO.trim().equals('Ejecutada')}"
                                                                               hourFormat="12"
                                                                               pattern="dd/MM/yyyy HH:mm"
                                                                               value="#{reagendarController.accionReciente.FECHAAGENDADA}" showTime="true">
@@ -167,7 +167,7 @@
                                                                                  styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                                                                                  update=":form:growl"
                                                                                  icon="pi pi-calendar-plus"
-
+                                                                                 rendered="#{reagendarController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
                                                                                  action="#{reagendarController.onCommandButtonSendToken(true)}"
                                                                                  >
 
@@ -176,7 +176,7 @@
                                                                 <p:commandButton value="CANCELAR ACCIÓN" 
                                                                                  update=":form:growl"
                                                                                  icon="pi pi-trash"            
-
+                                                                                 rendered="#{!reagendarController.accionReciente.ESTADO.trim().equals('Ejecutada')}"
                                                                                  action="#{reagendarController.onCommandButtonSendToken(false)}"
                                                                                  title="Envia el token al correo"
                                                                                  styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
@@ -192,22 +192,8 @@
                                                         </f:facet>
                                                     </h:panelGrid>
 
-
                                                 </c:if>
-                                                <c:if test="${!reagendarController.showCommandButtonReagendar}">
-                                                    <h:panelGrid  columns="2" cellpadding="2"  styleClass="showcase-text-align-center">
 
-                                                        <f:facet name="footer">
-                                                            <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
-                                                                         style="border:0px none; background-color:transparent;">
-                                                                <p:commandButton value="REGRESAR" class="bot-regresar01" 
-                                                                                 styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
-                                                                                 icon ="pi pi-arrow-left"
-                                                                                 action="#{reagendarController.regresar()}"/>
-                                                            </p:panelGrid>
-                                                        </f:facet>
-                                                    </h:panelGrid>
-                                                </c:if>
                                             </div>
 
                                         </div>
@@ -546,9 +532,9 @@
         <!-- container-scroller -->
         <template:script/> 
     </h:body>
-    <script type="text/javascript">
-        $.noConflict();
-
-    </script>
+<script type="text/javascript">
+            $.noConflict();
+          
+        </script>
 </html>
 

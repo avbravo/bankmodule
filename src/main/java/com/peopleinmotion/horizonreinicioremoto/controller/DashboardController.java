@@ -350,7 +350,7 @@ String where = "(a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoEnEsperaDeE
 //accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("estadoProcesandoId"), JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId"));
 //accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("estadoFinalizadoId"), JsfUtil.contextToBigInteger("estadoAcciónNoSePuedeEjecutarId"));
 
-accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateGrupoEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("grupoEstadoSolicitadoId"), JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId'"));
+accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateGrupoEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("grupoEstadoSolicitadoId"), JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId"));
 
 //accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasForSchedule(banco.getBANCOID(), DESDE, HASTA, "SI", 
 //        JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId") ,

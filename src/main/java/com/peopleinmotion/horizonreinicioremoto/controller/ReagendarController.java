@@ -141,7 +141,7 @@ public class ReagendarController implements Serializable, Page {
     @PostConstruct
     public void init() {
         try {
-
+showCommandButtonReagendar = Boolean.FALSE;
             updateByOtherUser = Boolean.FALSE;
             if (JmoordbContext.get("user") == null) {
 
@@ -155,6 +155,9 @@ public class ReagendarController implements Serializable, Page {
                 JsfUtil.copyBeans(accionRecienteOld, accionReciente);
                 cajero = (Cajero) JmoordbContext.get("cajero");
                 haveAccionReciente = Boolean.TRUE;
+              if(!accionReciente.getGRUPOESTADOID().equals(JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId"))){
+               showCommandButtonReagendar = Boolean.TRUE;  
+              }
             }
 
         } catch (Exception e) {
@@ -640,5 +643,6 @@ public class ReagendarController implements Serializable, Page {
         return "";
     }
 // </editor-fold>
-
+    
+    
 }

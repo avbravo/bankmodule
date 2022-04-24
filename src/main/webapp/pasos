@@ -1,3 +1,7 @@
+
+{control manual}
+revisar que no carga la ultima accion realizada cuando es subir plantilla
+
 -------------------------------------------------
 [AGENDAHISTORIAL]
 -->GUARDAR EL ESTADO CORRECTO EN EVENTO OCURRIDO
@@ -56,14 +60,27 @@ En [AccessController.java] en modulo colocar el nombre del modulo adecuado
                         .CONTENIDO(usuario.toJSON())
                         .USUARIOID(usuario.getUSUARIOID())
                         .build();
-3 --> Cambiar
- agendaHistorialServices.createHistorial(agendaOptional.get(), "BAJAR PLANTILLA PROGRAMAR EVENTO", user,"BANCO");
 
 4. load schedule
   public void loadSchedule() {
 
+
+5. CUANDO ACTUALIZA EL ESTADO DE LA ACCIONRECIENTE
+debe actualizar el grupoESTADO DE LA TABLA ACCION Y AGENDA
+
+6--> CAMBIAR
+Optional<AccionReciente> accionRecienteOptional = accionRecienteRepository.findByBancoIdAndCajeroIdUltimaAccionDisponible(bank.getBANCOID(), cajero.getCAJEROID());
+
+POR
+Optional<AccionReciente> accionRecienteOptional = accionRecienteRepository.findByBancoIdAndCajeroIdUltimaAccionDisponible(bank.getBANCOID(), cajero.getCAJEROID(),JsfUtil.contextToBigInteger("grupoEstadoSolicitadoId"), JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId"));
 ---------------------------------
 
+
+
+-> Se ajusto bajar plantilla desde telered para que guarde el estado solicitado por telered
+  ( ) Verificar que envie notificacion a los usuarios del banco
+
+=========================
 
 if (grupoAccion.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionBajarPlantillaId"))) {
 
