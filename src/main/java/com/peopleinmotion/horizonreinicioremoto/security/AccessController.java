@@ -83,6 +83,7 @@ public class AccessController implements Serializable, Page {
 
             intentos = 0;
 
+       
             /**
              * Lee las configuraciones iniciales
              */

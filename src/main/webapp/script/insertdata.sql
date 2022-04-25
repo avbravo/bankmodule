@@ -85,7 +85,7 @@ INSERT INTO USUARIO (USERNAME ,PASSWORD,NOMBRE,CEDULA , EMAIL , TELEFONO , CELUL
 EMAILCONFIGURATION
 */
 INSERT INTO EMAILCONFIGURATION ( EMAIL, PASSWORD,MAILSMTPHOST ,MAILSMTPAUTH , MAILSMTPPORT , MAILSMTPSTARTTLSENABLE,  ACTIVO, ORDEN)
-       VALUES('avillarreal@people-inmotion.com' ,'0HlHHe9wdvaQS1UEA/ZOgg==', 'smtp.office365.com','true','587','true','SI',1);
+       VALUES('avillarreal@people-inmotion.com' ,'xiy990L4ASmGs+ZcX7fhuw==', 'smtp.office365.com','true','587','true','SI',1);
 
 
 /**
