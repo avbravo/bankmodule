@@ -286,12 +286,21 @@ public class NotificacionesFormularioController implements Serializable, Page {
                 return "messagesform.xhtml";
             }
 //
+//            Estado estado = new Estado();
+//            Optional<Estado> optional = estadoRepository.findByEstadoId(JsfUtil.contextToBigInteger("estadoProcesandoId"));
+//            if (!optional.isPresent()) {
+//                JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignalor a esta operacion.");
+//            } else {
+//                estado = optional.get();
+//            }
             Estado estado = new Estado();
-            Optional<Estado> optional = estadoRepository.findByEstadoId(JsfUtil.contextToBigInteger("estadoProcesandoId"));
+            Optional<Estado> optional = estadoRepository.findByEstadoId(accionReciente.getESTADOID());
             if (!optional.isPresent()) {
+
                 JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignalor a esta operacion.");
             } else {
                 estado = optional.get();
+
             }
             accionReciente.setFECHA(DateUtil.getFechaHoraActual());
             if (accionRecienteRepository.update(accionReciente)) {
@@ -307,7 +316,20 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "EJECUTAR", estado, user, "BA");
+                        String texto = "PENDIENTE";
+                                switch(accionReciente.getAUTORIZADO()){
+                                    case "SI":
+                                        texto="AUTORIZADO";
+                                        break;
+                                    case "NO":
+                                        texto="RECHAZADO";
+                                        break;
+                                    case "PE":
+                                            texto="PEMDIENTE";
+                                            break;
+                                }
+                                
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CAMBIÓ LA AUTORIZACIÓN A " +texto, estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CAMBIÓ LA AUTORIZACIÓN", user, cajero, bank);
@@ -541,7 +563,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
     public String reagendarAccion() {
         try {
             accionReciente.setFECHA(DateUtil.getFechaHoraActual());
-             Estado estado = new Estado();
+            Estado estado = new Estado();
             Optional<Estado> optional = estadoRepository.findByEstadoId(accionReciente.getESTADOID());
             if (!optional.isPresent()) {
 
@@ -561,7 +583,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION",estado, user, "BA");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION", estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "REAGENDAR ACCION", user, cajero, bank);
@@ -635,7 +657,7 @@ public class NotificacionesFormularioController implements Serializable, Page {
     }
 // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="String sendToken()">
+    // <editor-fold defaultstate="collapsed" desc="String sendToken(Boolean isReagendar) ">
     public String sendToken(Boolean isReagendar) {
         try {
 
