@@ -174,8 +174,7 @@
                                                                              update=":form:growl"
                                                                              icon="pi pi-calendar-plus"
                                                                              rendered="#{notificacionesFormularioController.accionReciente.AUTORIZADO.trim() eq 'PE' and notificacionesFormularioController.accionReciente.ESTADO.trim() ne 'Ejecutada'}"
-                                               
-                                                                             action="#{notificacionesFormularioController.onCommandButtonEjecutar()}"
+                                                                             action="#{notificacionesFormularioController.onCommandButtonSendToken(true)}"
                                                                              >
 
                                                             </p:commandButton>
@@ -235,7 +234,146 @@
 
 
 
-           
+            <!--<div style="position: absolute; left: 1px; top: 1px;">-->
+
+            <p:dialog widgetVar="widgetVarTokenDialogEjecutar" header="Token" 
+                      showEffect="fade" hideEffect="fade"
+                      minHeight="40" width="350" 
+
+                      style="position: absolute; left: 1px; top: 1px;width:20%;margin:0 auto"
+                      position="center center"
+                      onShow="PF('widgetVarTokenDialogEjecutar').initPosition()"
+                      resizable="false"
+
+                      >
+
+
+                <f:facet name="header">
+                    <p:outputLabel value="Recibirás un Email con tu token"/>
+                </f:facet>
+
+
+                <p:panelGrid columns="4"  styleClass="ui-panelgrid-blank ui-fluid"
+                             id="tokenDialogDetailsReagendar"
+                             style="border:0px none; background-color:transparent;">
+                    <p:inputTextarea  cols="1" id="mytokeen1Reagendar" maxlength="1" 
+                                      class="boardPrimefaces"
+                                      styleClass="boardPrimefaces"
+                                      value="#{notificacionesFormularioController.tokenReader.number1}"
+                                      >
+                        <p:autoUpdate />
+                    </p:inputTextarea>     
+                    <p:inputTextarea  cols="1" id="mytokeen2Reagendar" maxlength="1" 
+                                      class="boardPrimefaces"
+                                      styleClass="boardPrimefaces"
+                                      value="#{notificacionesFormularioController.tokenReader.number2}"
+                                      >
+                        <p:autoUpdate />
+                    </p:inputTextarea>     
+                    <p:inputTextarea  cols="1" id="mytokeen3Reagendar" maxlength="1" 
+                                      class="boardPrimefaces"
+                                      styleClass="boardPrimefaces"
+                                      value="#{notificacionesFormularioController.tokenReader.number3}"
+                                      >
+                        <p:autoUpdate />
+                    </p:inputTextarea>     
+                    <p:inputTextarea  cols="1" id="mytokeen4Reagendar" maxlength="1" 
+                                      class="boardPrimefaces"
+                                      styleClass="boardPrimefaces"
+                                      value="#{notificacionesFormularioController.tokenReader.number4}"
+                                      >
+                        <p:autoUpdate />
+                    </p:inputTextarea>     
+                    <f:facet name="footer">
+                        <p:outputLabel  value="Digita el token que recibiste" styleClass="p-text-bold"/>
+                    </f:facet>
+                </p:panelGrid>
+
+
+
+                <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
+                             style="border:0px none; background-color:transparent;">
+
+                    <p:commandButton value="1" styleClass="rounded-button ui-button-secondary" 
+                                     action="#{notificacionesFormularioController.marcarNumero('1')}"
+
+                                     update=" "/>
+                    <p:commandButton value="2" styleClass="rounded-button ui-button-secondary" 
+                                     action="#{notificacionesFormularioController.marcarNumero('2')}"
+                                     update=" "/>
+                    <p:commandButton value="3" styleClass="rounded-button ui-button-secondary" 
+                                     action="#{notificacionesFormularioController.marcarNumero('3')}"
+                                     update=" "/>
+                </p:panelGrid>
+
+
+
+                <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
+                             style="border:0px none; background-color:transparent;">
+                    <p:commandButton value="4" styleClass="rounded-button ui-button-secondary" 
+                                     action="#{notificacionesFormularioController.marcarNumero('4')}"
+                                     update=" "/>
+                    <p:commandButton value="5" styleClass="rounded-button ui-button-secondary"  
+                                     action="#{notificacionesFormularioController.marcarNumero('5')}"
+                                     update=" "/>
+                    <p:commandButton value="6" styleClass="rounded-button ui-button-secondary" 
+                                     action="#{notificacionesFormularioController.marcarNumero('6')}"
+                                     update=" "/>
+                </p:panelGrid>
+                <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
+                             style="border:0px none; background-color:transparent;">				
+                    <p:commandButton value="7" styleClass="rounded-button ui-button-secondary" 
+                                     action="#{notificacionesFormularioController.marcarNumero('7')}"
+                                     update=" "/>
+                    <p:commandButton value="8" styleClass="rounded-button ui-button-secondary" 
+                                     action="#{notificacionesFormularioController.marcarNumero('8')}"
+                                     update=" "/>
+                    <p:commandButton value="9" styleClass="rounded-button ui-button-secondary" 
+                                     action="#{notificacionesFormularioController.marcarNumero('9')}"
+                                     update=" "/>
+                </p:panelGrid>
+                <p:panelGrid columns="3"  styleClass="ui-panelgrid-blank ui-fluid"
+                             style="border:0px none; background-color:transparent;">				
+
+                    <p:commandButton  value="0" styleClass="rounded-button ui-button-secondary" 
+                                      action="#{notificacionesFormularioController.marcarNumero('0')}"
+                                      update=" "/>
+                    <p:spacer/>
+
+                    <p:commandButton  value="DEL" styleClass="rounded-button ui-button-warning" 
+                                      action="#{notificacionesFormularioController.marcarNumero('b')}"
+                                      icon="pi pi-times"
+                                      update=" ">
+
+                    </p:commandButton>
+
+                </p:panelGrid>			
+
+
+                <f:facet name="footer">
+                    <p:commandButton  oncomplete="PF('widgetVarTokenDialogEjecutar').hide();" 
+                                      action="#{notificacionesFormularioController.remoteCommand()}"
+                                      value="CERRAR"
+                                      process="@this"
+                                      icon="pi pi-times" styleClass="rounded-button ui-button-outlined ui-button-secondary" style="margin-right: .5rem"
+                                      />
+
+                    <p:commandButton styleClass="rounded-button ui-button-danger"
+                                     update="tokenDialogDetailsReagendar, tokenmessageReagendar"
+
+                                     icon="pi pi-unlock"
+                                     title="Reagendar"
+                                     value="ACEPTAR"
+                                     action="#{notificacionesFormularioController.onCommandButtonEjecutar()}">
+
+                    </p:commandButton>
+
+
+                </f:facet>
+                <p:messages id="tokenmessageReagendar" />
+            </p:dialog>
+            <!--</div>-->    
+
 
 
 

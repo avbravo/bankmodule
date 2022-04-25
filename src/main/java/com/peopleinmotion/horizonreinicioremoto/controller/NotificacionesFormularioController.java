@@ -258,17 +258,21 @@ public class NotificacionesFormularioController implements Serializable, Page {
 
         try {
 
-            if (!tokenEnviado) {
-                JsfUtil.warningMessage("Usted debe solicite primero un token");
-                return "";
-            }
-            if (!validateToken()) {
-                return "";
-            }
+//            if (!tokenEnviado) {
+//                JsfUtil.warningMessage("Usted debe solicite primero un token");
+//                return "";
+//            }
+//            if (!validateToken()) {
+//                return "";
+//            }
 
 //            /**
 //             * Valida si fue cambiado por otro usuario
 //             */
+  if (accionReciente.getAUTORIZADO().trim().toUpperCase().equals("PE")) {
+                JsfUtil.warningMessage("Seleccione un estado diferente para proceder a realizar la acción.");
+                return "";
+            }
             if (accionRecienteServices.changed(accionRecienteOld)) {
                 MessagesForm messagesForm = new MessagesForm.Builder()
                         .errorWindows(Boolean.TRUE)

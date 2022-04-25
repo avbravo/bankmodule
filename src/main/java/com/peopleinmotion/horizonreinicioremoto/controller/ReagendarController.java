@@ -262,14 +262,18 @@ showCommandButtonReagendar = Boolean.FALSE;
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonReagendar()">
     public String onCommandButtonReagendar() {
         try {
+ if (DateUtil.igualDiaMesAñoHoraMinuto(accionReciente.getFECHAAGENDADA(), accionRecienteOld.getFECHAAGENDADA())) {
+                    JsfUtil.warningMessage("Indique otra fecha para proceder a realizar el cambio de agenda");
+                    return "";
+                }
 
-            if (!tokenEnviado) {
-                JsfUtil.warningMessage("Usted debe solicite primero un token");
-                return "";
-            }
-            if (!validateToken()) {
-                return "";
-            }
+//            if (!tokenEnviado) {
+//                JsfUtil.warningMessage("Usted debe solicite primero un token");
+//                return "";
+//            }
+//            if (!validateToken()) {
+//                return "";
+//            }
 
             /**
              * Valida si fue cambiado por otro usuario
@@ -358,13 +362,13 @@ showCommandButtonReagendar = Boolean.FALSE;
 
         try {
             //PrimeFaces.current().executeScript("PF('bancoDialog').hide()");
-            if (!tokenEnviado) {
-                JsfUtil.warningMessage("Usted debe solicite primero un token");
-                return "";
-            }
-            if (!validateToken()) {
-                return "";
-            }
+//            if (!tokenEnviado) {
+//                JsfUtil.warningMessage("Usted debe solicite primero un token");
+//                return "";
+//            }
+//            if (!validateToken()) {
+//                return "";
+//            }
             /**
              * Valida si fue cambiado por otro usuario
              */
