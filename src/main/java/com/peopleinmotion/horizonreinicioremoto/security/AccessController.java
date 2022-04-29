@@ -5,14 +5,19 @@
  */
 package com.peopleinmotion.horizonreinicioremoto.security;
 
+import com.peopleinmotion.horizonreinicioremoto.domains.TokenReader;
 import com.peopleinmotion.horizonreinicioremoto.entity.Historial;
+import com.peopleinmotion.horizonreinicioremoto.entity.Token;
 import com.peopleinmotion.horizonreinicioremoto.entity.Usuario;
 import com.peopleinmotion.horizonreinicioremoto.interfaces.Page;
 
 import com.peopleinmotion.horizonreinicioremoto.jmoordb.JmoordbContext;
 import com.peopleinmotion.horizonreinicioremoto.repository.BancoRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.HistorialRepository;
+import com.peopleinmotion.horizonreinicioremoto.repository.TokenRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AccessServices;
+import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
+import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
 import com.peopleinmotion.horizonreinicioremoto.utils.BrowserUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.ConsoleUtil;
 import com.peopleinmotion.horizonreinicioremoto.utils.DateUtil;
@@ -51,11 +56,19 @@ public class AccessController implements Serializable, Page {
     private String password = "";
     private Integer intentos = 0;
     private List<String> usernameList = new ArrayList<>();
+    private Boolean tokenEnviado = Boolean.FALSE;
+    private TokenReader tokenReader = new TokenReader();
+    private String tokenIngresado = "";
 //    Banco selectOneMenuBancoValue = new Banco();
 //    private List<Banco> bancoList = new ArrayList<>();
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="inject() ">
-
+    @Inject
+    TokenServices tokenServices;
+    @Inject
+    TokenRepository tokenRepository;
+    @Inject
+    EmailServices emailServices;
     @Inject
     BancoRepository bancoRepository;
 
@@ -80,10 +93,9 @@ public class AccessController implements Serializable, Page {
         loged = false;
 
         try {
-
+            tokenIngresado = "";
             intentos = 0;
 
-       
             /**
              * Lee las configuraciones iniciales
              */
@@ -107,8 +119,77 @@ public class AccessController implements Serializable, Page {
     }
 // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="String login()">
+    // <editor-fold defaultstate="collapsed" desc="String String login()">
     public String login() {
+        try {
+tokenIngresado = "";
+            if (username == null || username.equals("")) {
+
+                JsfUtil.warningMessage("Ingrese el nombre del usuario");
+                return "";
+            }
+
+            if (password == null || password.equals("")) {
+
+                JsfUtil.warningMessage("Ingrese el password del usuario");
+                return "";
+            }
+
+            setLoged(Boolean.FALSE);
+
+            if (accessServices.validateCredentials(usuario, username, password)) {
+
+                usuario = (Usuario) JmoordbContext.get("user");
+                if (usuario.getMODULOBANCO().toUpperCase().equals("NO")) {
+                    JsfUtil.warningMessage("No tiene permisos para usar este módulo ");
+                    return "";
+                }
+               // setLoged(Boolean.TRUE);
+
+                JmoordbContext.put("banco", usuario.getBANCOID());
+
+                Historial historial = new Historial.Builder()
+                        .EVENTO("Login")
+                        .FECHA(DateUtil.fechaHoraActual())
+                        .MODULO("BANCO")
+                        .TABLA("USUARIO")
+                        .CONTENIDO(usuario.toJSON())
+                        .USUARIOID(usuario.getUSUARIOID())
+                        .build();
+
+                if (!historialRepository.create(historial)) {
+
+                }
+
+                JmoordbContext.put("countViewAction", 0);
+//                JmoordbContext.put("pageInView", "dashboard.xhtml");
+                JmoordbContext.put("pageInView", "logintoken.xhtml");
+                intentos = 0;
+                // return "dashboard.xhtml";
+                //Envia al token al usuario
+                sendToken();
+                return "logintoken.xhtml";
+
+            } else {
+                intentos++;
+
+                if (intentos > 2) {
+                    JsfUtil.warningMessage("Usted ha intentado ingresar en más de tres ocasiones sin éxito.");
+                    accessServices.disableUser(username);
+                    intentos = 0;
+                    return "";
+                }
+
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String String loginOld()">
+    public String loginOld() {
         try {
 
             if (username == null || username.equals("")) {
@@ -133,7 +214,6 @@ public class AccessController implements Serializable, Page {
                     return "";
                 }
                 setLoged(Boolean.TRUE);
-              //  JsfUtil.successMessage("Bienvenido " + usuario.getNOMBRE());
 
                 JmoordbContext.put("banco", usuario.getBANCOID());
 
@@ -151,20 +231,55 @@ public class AccessController implements Serializable, Page {
                 }
 
                 JmoordbContext.put("countViewAction", 0);
-                JmoordbContext.put("pageInView", "dashboard.xhtml");
+//                JmoordbContext.put("pageInView", "dashboard.xhtml");
+                JmoordbContext.put("pageInView", "logintoken.xhtml");
                 intentos = 0;
-                return "dashboard.xhtml";
+                // return "dashboard.xhtml";
+                //Envia al token al usuario
+                sendToken();
+                return "logintoken.xhtml";
 
             } else {
                 intentos++;
-                
+
                 if (intentos > 2) {
                     JsfUtil.warningMessage("Usted ha intentado ingresar en más de tres ocasiones sin éxito.");
                     accessServices.disableUser(username);
-                    intentos =0;
+                    intentos = 0;
                     return "";
                 }
 
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String loginConToken()">
+
+    public String loginConToken() {
+        try {
+
+            if (username == null || username.equals("")) {
+
+                JsfUtil.warningMessage("Ingrese el nombre del usuario");
+                return "";
+            }
+
+            if (password == null || password.equals("")) {
+
+                JsfUtil.warningMessage("Ingrese el password del usuario");
+                return "";
+            }
+           
+            if (validateToken()) {
+                 setLoged(Boolean.TRUE);
+                JmoordbContext.put("countViewAction", 0);
+                JmoordbContext.put("pageInView", "dashboard.xhtml");
+                intentos = 0;
+                return "dashboard.xhtml";
             }
 
         } catch (Exception e) {
@@ -272,4 +387,71 @@ public class AccessController implements Serializable, Page {
         return path;
     }
 // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="String sendToken()">
+    public String sendToken() {
+        try {
+            //Limpio el TokenReader
+            TokenReader tokenReader = TokenReader.builder()
+                    .number1("")
+                    .number2("")
+                    .number3("")
+                    .number4("")
+                    .build();
+            tokenEnviado = Boolean.FALSE;
+
+            if (username == null || username.equals("")) {
+                JsfUtil.warningMessage("Ingrese el nombre de usuario..");
+                return "";
+            }
+            if (password == null || password.equals("")) {
+                JsfUtil.warningMessage("Ingrese su contraseña");
+                return "";
+            }
+
+            Token token = tokenServices.supplier();
+
+            if (tokenRepository.create(token)) {
+
+                //Envia el token sincrono y valida si fue o no enviado.
+                if (!emailServices.sendTokenToEmailSincrono(token, usuario)) {
+                    JsfUtil.errorMessage("No se logró enviar el token a su correo. Reintente la operación");
+                    tokenEnviado = Boolean.FALSE;
+
+                } else {
+                    JsfUtil.successMessage("El token fue enviado a su correo.");
+                    tokenEnviado = Boolean.TRUE;
+
+                }
+                //Envia el token asincrono
+//                emailServices.sendTokenToEmail(token, user);
+//Abre el dialogo
+
+            } else {
+                JsfUtil.warningMessage("No se pudo generar el token. Repita la acción");
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Boolean validateToken() ">    
+    public Boolean validateToken() {
+        try {
+           // String tokenIngresado = tokenReader.getNumber1().trim() + tokenReader.getNumber2().trim() + tokenReader.getNumber3().trim() + tokenReader.getNumber4().trim();
+            return tokenServices.validateToken(usuario, tokenIngresado);
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + "  " + e.getLocalizedMessage());
+        }
+        return Boolean.FALSE;
+    }
+    // </editor-fold>
+        // <editor-fold defaultstate="collapsed" desc="String anterior()">   
+    public String anterior(){
+          return "login.xhtml";
+    }
+  // </editor-fold>
 }
