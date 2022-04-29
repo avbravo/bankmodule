@@ -68,8 +68,9 @@
                                     <div class="form-group">
                                         <p:outputLabel for="token">Token</p:outputLabel>
                                         <h:inputText  id="token"
+                                                      maxlength="4" 
 
-                                                      class="form-control form-control-lg rounded-pill" pt:placeholder="Contraseña"
+                                                      class="form-control form-control-lg rounded-pill" pt:placeholder="Token"
                                                       value="#{accessController.tokenIngresado}"
                                                       ></h:inputText>
 
@@ -77,7 +78,11 @@
                                     </div>
 
 
+                                    <div class="row">
+                                        <div class="col">
 
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col">
                                             <p:commandButton class="btn btn-block btn-danger font-weight-medium auth-form-btn rounded-pill" 
@@ -85,6 +90,11 @@
                                                              update=":form:growl"
                                                              action="#{accessController.loginConToken()}"
                                                              />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+
                                         </div>
                                     </div>
                                     <div class="row">
@@ -97,7 +107,7 @@
                                         </div>
                                         <div class="col">
                                             <p:commandButton styleClass="rounded-button ui-button-danger"  
-                                                             value="ANTERIOR" 
+                                                             value="PAGINA ANTERIOR" 
                                                              update=":form:growl"
                                                              action="login"
                                                              />
@@ -109,9 +119,9 @@
 
 
                                     <!--</div>-->
-                                    <h6 class="font-weight-light text-center">Versión 1.0 </h6>
+                                    <h6 class="font-weight-light text-center">Versión 1.1 </h6>
 
-                                    <p:messages  id="growl"   closable="true" >
+                                    <p:messages  id="growl"    >
 
                                     </p:messages>
 
