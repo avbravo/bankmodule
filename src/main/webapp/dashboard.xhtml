@@ -144,7 +144,7 @@
                                             <p class="card-text"><p:outputLabel rendered="#{dashboardController.renderedByEstadoSolicitado(item.ESTADOID)}" value="Hora ejecución: #{dashboardController.showHour(item.FECHAEJECUCION)}"/></p>
                                             <p class="card-text"><p:outputLabel  value="Estado: #{item.ESTADO}"/></p>
                                             <p class="card-text"><p:outputLabel  value="Autorización: Pendiente" style="color:#026adf;" rendered="#{dashboardController.renderedPendiente(item)}"/></p>
-                                            <p class="card-text"><p:outputLabel  value="Autorización: Autorizado" style="color:black;" rendered="#{dashboardController.renderedAutorizado(item)}"/></p>
+                                            <!--<p class="card-text"><p:outputLabel  value="Autorización: Autorizado" style="color:black;" rendered="#{dashboardController.renderedAutorizado(item)}"/></p>-->
                                             <p class="card-text"> <p:outputLabel  value="Autorización: Denegado" style="color:red;" rendered="#{dashboardController.renderedDenegado(item)}"/></p>
                                             <p class="card-text"> <p:outputLabel  value="Transacción No: #{item.ACCIONRECIENTEID}"/></p>
 
