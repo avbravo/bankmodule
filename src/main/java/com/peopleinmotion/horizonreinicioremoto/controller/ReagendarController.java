@@ -7,6 +7,7 @@ package com.peopleinmotion.horizonreinicioremoto.controller;
 
 import com.peopleinmotion.horizonreinicioremoto.domains.MessagesForm;
 import com.peopleinmotion.horizonreinicioremoto.domains.TokenReader;
+import com.peopleinmotion.horizonreinicioremoto.entity.Accion;
 import com.peopleinmotion.horizonreinicioremoto.entity.AccionReciente;
 import com.peopleinmotion.horizonreinicioremoto.entity.Agenda;
 import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
@@ -18,6 +19,7 @@ import com.peopleinmotion.horizonreinicioremoto.entity.Usuario;
 import com.peopleinmotion.horizonreinicioremoto.interfaces.Page;
 import com.peopleinmotion.horizonreinicioremoto.jmoordb.JmoordbContext;
 import com.peopleinmotion.horizonreinicioremoto.repository.AccionRecienteRepository;
+import com.peopleinmotion.horizonreinicioremoto.repository.AccionRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.AgendaHistorialRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.AgendaRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.EstadoRepository;
@@ -25,6 +27,7 @@ import com.peopleinmotion.horizonreinicioremoto.repository.GrupoAccionRepository
 import com.peopleinmotion.horizonreinicioremoto.repository.TokenRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AccionRecienteServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
+import com.peopleinmotion.horizonreinicioremoto.services.AgendaServices;
 import com.peopleinmotion.horizonreinicioremoto.services.EmailServices;
 import com.peopleinmotion.horizonreinicioremoto.services.NotificacionServices;
 import com.peopleinmotion.horizonreinicioremoto.services.TokenServices;
@@ -58,6 +61,8 @@ public class ReagendarController implements Serializable, Page {
     Banco bank = new Banco();
     AccionReciente accionReciente = new AccionReciente();
     AccionReciente accionRecienteOld = new AccionReciente();
+    Accion accion = new Accion();
+    Estado estado = new Estado();
     List<GrupoAccion> grupoAccionList = new ArrayList<>();
     Boolean haveAccionReciente = Boolean.FALSE;
 
@@ -67,9 +72,18 @@ public class ReagendarController implements Serializable, Page {
     private Boolean tokenEnviado = Boolean.FALSE;
     private Boolean updateByOtherUser = Boolean.FALSE;
     private Boolean showCommandButtonReagendar = Boolean.FALSE;
-// </editor-fold>
+    private Boolean showCommandButtonEncenderSubirPlantilla = Boolean.FALSE;
+    private Boolean showCommandButtonCerrar = Boolean.FALSE;
 
+    GrupoAccion grupoAccionEncenderSubirPlantilla = new GrupoAccion();
+    List<Accion> accionList = new ArrayList<>();
+    Accion selectOneMenuAccionValue = new Accion();
+    private Date fechahoraBaja;
+
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="@Inject ">
+    @Inject
+    AccionRepository accionRepository;
     @Inject
     GrupoAccionRepository grupoAccionRepository;
     @Inject
@@ -80,13 +94,16 @@ public class ReagendarController implements Serializable, Page {
     AgendaRepository agendaRepository;
     @Inject
     AgendaHistorialRepository agendaHistorialRepository;
-    @Inject
-    EmailServices emailServices;
+
     @Inject
     AgendaHistorialServices agendaHistorialServices;
     @Inject
     EstadoRepository estadoRepository;
 
+    @Inject
+    AgendaServices agendaServices;
+    @Inject
+    EmailServices emailServices;
     @Inject
     TokenRepository tokenRepository;
     @Inject
@@ -141,8 +158,10 @@ public class ReagendarController implements Serializable, Page {
     @PostConstruct
     public void init() {
         try {
-showCommandButtonReagendar = Boolean.FALSE;
+            showCommandButtonReagendar = Boolean.FALSE;
             updateByOtherUser = Boolean.FALSE;
+            showCommandButtonEncenderSubirPlantilla = Boolean.FALSE;
+            showCommandButtonCerrar = Boolean.FALSE;
             if (JmoordbContext.get("user") == null) {
 
             } else {
@@ -155,9 +174,43 @@ showCommandButtonReagendar = Boolean.FALSE;
                 JsfUtil.copyBeans(accionRecienteOld, accionReciente);
                 cajero = (Cajero) JmoordbContext.get("cajero");
                 haveAccionReciente = Boolean.TRUE;
-              if(!accionReciente.getGRUPOESTADOID().equals(JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId"))){
-               showCommandButtonReagendar = Boolean.TRUE;  
-              }
+                if (!accionReciente.getGRUPOESTADOID().equals(JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId"))) {
+                    showCommandButtonReagendar = Boolean.TRUE;
+                    showCommandButtonEncenderSubirPlantilla = Boolean.FALSE;
+
+                }
+                /**
+                 * Verifica si la plantilla esta bajada
+                 */
+                if (accionReciente.getESTADOID().equals(JsfUtil.contextToBigInteger("estadoPlantillaDeshabilitada"))) {
+                    showCommandButtonEncenderSubirPlantilla = Boolean.TRUE;
+                    showCommandButtonReagendar = Boolean.FALSE;
+                    //Carga el selectOneMenu
+                    fillSelectOneMenuGrupoAccionEncenderSubirPlantilla();
+                    accionList = new ArrayList<>();
+
+                    if (grupoAccionEncenderSubirPlantilla.getGRUPOACCIONID().equals(JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId"))) {
+
+                        accionList = accionRepository.findByGrupoAccionIdAndPredeterminado(grupoAccionEncenderSubirPlantilla, "SI");
+
+                    } else {
+
+                        JsfUtil.warningMessage("El grupoAccion debe ser Encender Subir Plantilla para realizar las operaciones");
+                    }
+
+                    if (accionList == null || accionList.isEmpty()) {
+
+                        JsfUtil.warningMessage("No hay acciones para el grupo seleccionado");
+                    } else {
+
+                        accion = accionList.get(0);
+
+                    }
+                }
+            }
+            if (!showCommandButtonEncenderSubirPlantilla
+                    && !showCommandButtonReagendar) {
+                showCommandButtonCerrar = Boolean.TRUE;
             }
 
         } catch (Exception e) {
@@ -262,10 +315,10 @@ showCommandButtonReagendar = Boolean.FALSE;
     // <editor-fold defaultstate="collapsed" desc="String onCommandButtonReagendar()">
     public String onCommandButtonReagendar() {
         try {
- if (DateUtil.igualDiaMesAñoHoraMinuto(accionReciente.getFECHAAGENDADA(), accionRecienteOld.getFECHAAGENDADA())) {
-                    JsfUtil.warningMessage("Indique otra fecha para proceder a realizar el cambio de agenda");
-                    return "";
-                }
+            if (DateUtil.igualDiaMesAñoHoraMinuto(accionReciente.getFECHAAGENDADA(), accionRecienteOld.getFECHAAGENDADA())) {
+                JsfUtil.warningMessage("Indique otra fecha para proceder a realizar el cambio de agenda");
+                return "";
+            }
 
 //            if (!tokenEnviado) {
 //                JsfUtil.warningMessage("Usted debe solicite primero un token");
@@ -274,7 +327,6 @@ showCommandButtonReagendar = Boolean.FALSE;
 //            if (!validateToken()) {
 //                return "";
 //            }
-
             /**
              * Valida si fue cambiado por otro usuario
              */
@@ -318,7 +370,7 @@ showCommandButtonReagendar = Boolean.FALSE;
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDÓ EL EVENTO",  estado, user, "BA");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDÓ EL EVENTO", estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE REAGENDÓ EL EVENTO", user, cajero, bank);
@@ -415,7 +467,7 @@ showCommandButtonReagendar = Boolean.FALSE;
                     agenda.setACTIVO("NO");
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELÓ EL EVENTO",  estado, user, "BA");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "SE CANCELÓ EL EVENTO", estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "SE CANCELÓ EL EVENTO", user, cajero, bank);
@@ -458,7 +510,7 @@ showCommandButtonReagendar = Boolean.FALSE;
     public String reagendarAccion() {
         try {
             accionReciente.setFECHA(DateUtil.getFechaHoraActual());
-             Estado estado = new Estado();
+            Estado estado = new Estado();
             Optional<Estado> optional = estadoRepository.findByEstadoId(accionReciente.getESTADOID());
             if (!optional.isPresent()) {
 
@@ -479,7 +531,7 @@ showCommandButtonReagendar = Boolean.FALSE;
                     agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
 
                     if (agendaRepository.update(agenda)) {
-                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION",estado, user, "BA");
+                        agendaHistorialServices.createHistorial(agendaOptional.get(), "REAGENDAR ACCION", estado, user, "BA");
 
                         JmoordbContext.put("accionReciente", accionReciente);
                         emailServices.sendEmailToTecnicosHeader(accionReciente, "REAGENDAR ACCION", user, cajero, bank);
@@ -647,6 +699,188 @@ showCommandButtonReagendar = Boolean.FALSE;
         return "";
     }
 // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="fillSelectOneMenuGrupoAccionEncenderSubirPlantilla() ">
+    public String fillSelectOneMenuGrupoAccionEncenderSubirPlantilla() {
+        try {
+            grupoAccionList = new ArrayList<>();
+            Optional<GrupoAccion> optional = grupoAccionRepository.findByGrupoAccionId(JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId"));
+            if (optional.isPresent()) {
+                grupoAccionEncenderSubirPlantilla = optional.get();
+            } else {
+                JsfUtil.warningMessage("No se encontro el grupo de Accion para encender subir plantilla");
+            }
+
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return "";
+    }
+// </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="String onCommandButtonEncenderSubirPlantillasSinToken()">
+
+    /**
+     * Guarda el evento y envia notificaciones
+     *
+     * @return
+     */
+    public String onCommandButtonEncenderSubirPlantillaSinToken() {
+        try {
+
+            if (selectOneMenuAccionValue == null) {
+                JsfUtil.warningMessage("Seleccione la acción a ejecutar..");
+                return "";
+            }
+            fechahoraBaja = DateUtil.fechaHoraActual();
+            if (fechahoraBaja == null) {
+                JsfUtil.warningMessage("Seleccione la fecha y hora");
+                return "";
+            }
+            JmoordbContext.put("fechahoraBaja", fechahoraBaja);
+
+            JmoordbContext.put("accion", selectOneMenuAccionValue);
+            if (selectOneMenuAccionValue == null || selectOneMenuAccionValue.getACCIONID() == null) {
+                JsfUtil.warningMessage("No selecciono la acción a ejecutar");
+                return "";
+            }
+
+            /**
+             * Valida si fue cambiado por otro usuario
+             */
+            if (accionRecienteServices.changed(accionRecienteOld)) {
+                MessagesForm messagesForm = new MessagesForm.Builder()
+                        .errorWindows(Boolean.TRUE)
+                        .id(accionReciente.getCAJERO())
+                        .header("Operación incompleta")
+                        .header2("La acción no fue completada")
+                        .image("robot01.png")
+                        .libary("images")
+                        .titulo("Encender /Subir Plantilla")
+                        .mensaje("Otro usuario modifico este registro mientras usted lo editaba. ")
+                        .returnTo("buscarcajero.xhtml")
+                        .build();
+                JmoordbContext.put("messagesForm", messagesForm);
+                JmoordbContext.put("pageInView", "messagesform.xhtml");
+                return "messagesform.xhtml";
+            }
+
+            Optional<Estado> optional = estadoRepository.findByEstadoId(JsfUtil.contextToBigInteger("estadoSolicituddeHabilitacióndePlantillaEnviada"));
+            if (!optional.isPresent()) {
+                JsfUtil.warningMessage("No se ha encontado el estado predeterminado para asignarlo a esta operacion.");
+            } else {
+                estado = optional.get();
+
+            }
+            JsfUtil.copyBeans(accion, selectOneMenuAccionValue);
+            /**
+             * Valida que no se hay un agendamiento en la misma hora
+             */
+            Integer count = agendaServices.countAgendamiento(cajero.getBANCOID().getBANCOID(), cajero.getCAJEROID(), accion.getACCIONID(), estado.getESTADOID(), fechahoraBaja, "SI");
+            if (count > 0) {
+                // ConsoleUtil.info("Existe un registro agendado de ese cajero en esa fecha");
+                JsfUtil.warningMessage("Existe un registro agendado de ese cajero en esa fecha");
+
+                return "";
+            }
+
+            if (accionList == null || accionList.isEmpty()) {
+                JsfUtil.warningMessage("No acciones para el grupo seleccionado");
+            } else {
+                
+                /**
+                 * Buscamos la accion para subir plantilla
+                 */
+                
+     accionReciente.setFECHA(DateUtil.getFechaHoraActual());
+                accionReciente.setFECHAAGENDADA(DateUtil.getFechaHoraActual());
+                accionReciente.setESTADO(estado.getESTADO());
+                accionReciente.setESTADOID(estado.getESTADOID());
+                accionReciente.setGRUPOESTADOID(estado.getGRUPOESTADOID().getGRUPOESTADOID());
+                accionReciente.setACCIONID(selectOneMenuAccionValue.getACCIONID());
+            
     
-    
-}
+                if (accionRecienteRepository.update(accionReciente)) {
+                    //Actualizar la agenda
+                    notificacionServices.process(bank.getBANCOID(), "BANCO");
+
+                    Optional<Agenda> agendaOptional = agendaRepository.findByAgendaId(accionReciente.getAGENDAID());
+                    if (!agendaOptional.isPresent()) {
+                        JsfUtil.warningMessage("No se encontro registros de ese agendamiento");
+
+                        return "";
+                    } else {
+                        Agenda agenda = agendaOptional.get();
+                        agenda.setESTADOID(estado.getESTADOID());
+                        agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
+  agenda.setGRUPOESTADOID(estado.getGRUPOESTADOID().getGRUPOESTADOID());
+   agenda.setACCIONID(selectOneMenuAccionValue.getACCIONID());
+                        if (agendaRepository.update(agenda)) {
+                            agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDÓ EL EVENTO", estado, user, "BA");
+
+                            JmoordbContext.put("accionReciente", accionReciente);
+                            emailServices.sendEmailToTecnicosHeader(accionReciente, "SE REAGENDÓ EL EVENTO", user, cajero, bank);
+
+                            /*
+                        *Mensajes éxitosos
+                             */
+                            MessagesForm messagesForm = new MessagesForm.Builder()
+                                    .errorWindows(Boolean.FALSE)
+                                    .id(accionReciente.getCAJERO())
+                                    .header("Operación exitosa")
+                                    .header2("La acción se realizó exitosamente")
+                                    .image("atm-green01.png")
+                                    .libary("images")
+                                   .titulo("Encender Subir Plantilla")
+//                            .mensaje("Se realizó exitosamente el registro de Encender Subir Plantilla")
+                                    .returnTo("dashboard.xhtml")
+                                    .build();
+                            JmoordbContext.put("messagesForm", messagesForm);
+                            JmoordbContext.put("pageInView", "messagesform.xhtml");
+                            return "messagesform.xhtml";
+                        } else {
+                            JsfUtil.warningMessage("No se puede actualizar la agenda...");
+                            return "";
+                        }
+
+//                Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
+//                Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
+//                if (!agendaOptional.isPresent()) {
+//                    JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
+//                } else {
+//                    agendaHistorialServices.createHistorial(agendaOptional.get(),"ENCENDER SUBIR PLANTILLA", estado, user,"BN");
+//
+//                    AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccionEncenderSubirPlantilla, estado, "SI", "BA");
+//                    JmoordbContext.put("accionReciente", accionReciente);
+//                    /**
+//                     * Envio de email
+//                     */
+//                    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
+//
+//                    MessagesForm messagesForm = new MessagesForm.Builder()
+//                            .errorWindows(Boolean.FALSE)
+//                            .id(accionReciente.getCAJERO())
+//                            .header("Operación exitosa")
+//                            .header2("La acción se realizó exitosamente")
+//                            .image("atm-green01.png")
+//                            .libary("images")
+//                            .titulo("Encender Subir Plantilla")
+//                            .mensaje("Se realizó exitosamente el registro de Encender Subir Plantilla")
+//                            .returnTo("dashboard.xhtml")
+//                            .build();
+//                    JmoordbContext.put("messagesForm", messagesForm);
+//
+//                    JmoordbContext.put("pageInView", "messagesform.xhtml");
+//                    return "messagesform.xhtml";
+//                }
+                    }
+                } else {
+                    JsfUtil.warningMessage("No se pudo actualizar la agenda reciente");
+                }
+            }
+            }catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+            return "";
+        }
+// </editor-fold>
+    }

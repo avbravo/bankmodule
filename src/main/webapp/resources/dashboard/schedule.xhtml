@@ -118,14 +118,18 @@
                     <p:commandButton 
                         styleClass="rounded-button ui-button-danger" style="margin-right: .5rem"
                         id="commandButtonProcesar"
-                        value="CONTINUAR"
+                        value="CONTINUAR/REAGENDAR"
+                        title ="Reagendar/Cancelar"
                        rendered="#{dashboardController.renderedAutorizado(dashboardController.accionRecienteSelected)}"
                         icon="pi pi-calendar-plus"
                         update=":form:growl"
                         action="#{dashboardController.onCommandButtonSelectAccionReciente(dashboardController.accionRecienteSelected,'dashboard')}">
 
                     </p:commandButton>
-
+                    
+                   
+                    
+                  
                 </h:panelGrid>
 
 

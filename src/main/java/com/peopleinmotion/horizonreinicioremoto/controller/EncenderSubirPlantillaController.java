@@ -119,12 +119,16 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
             if (JmoordbContext.get("user") == null) {
 
             } else {
+           
                 fechahoraBaja = DateUtil.fechaHoraActual();
 
                 selectOneMenuCuandoValue = "";
                 user = (Usuario) JmoordbContext.get("user");
+              
                 bank = (Banco) JmoordbContext.get("banco");
+               
                 cajero = (Cajero) JmoordbContext.get("cajero");
+             
                 grupoAccion = (GrupoAccion) JmoordbContext.get("grupoAccion");
 
                 /**
@@ -140,13 +144,17 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
 
                     JsfUtil.warningMessage("El grupoAccion debe ser Encender Subir Plantilla para realizar las operaciones");
                 }
+       
                 if (accionList == null || accionList.isEmpty()) {
 
                     JsfUtil.warningMessage("No hay acciones para el grupo seleccionado");
                 } else {
+                 
                     // ConsoleUtil.info("la lista NO esta vacia..");
                     accion = accionList.get(0);
+                  
                 }
+           
                 // Optional<Estado> optional = estadoRepository.findByPredeterminadoAndActivo("SI", "SI");
                 Optional<Estado> optional = estadoRepository.findByEstadoId(JsfUtil.contextToBigInteger("estadoSolicituddeHabilitacióndePlantillaEnviada"));
                 if (!optional.isPresent()) {
@@ -160,6 +168,7 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                  * si no tiene acción reciente o la ultima accion fue bajar
                  * plantilla
                  */
+         
                 if (!haveAccionReciente) {
                     showButton = Boolean.FALSE;
                 } else {
@@ -170,6 +179,7 @@ public class EncenderSubirPlantillaController implements Serializable, Page {
                 }
 
             }
+     
         } catch (Exception e) {
 
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());

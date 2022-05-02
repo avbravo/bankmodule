@@ -9,6 +9,7 @@ import com.peopleinmotion.horizonreinicioremoto.domains.TotalesEstadoBanco;
 import com.peopleinmotion.horizonreinicioremoto.entity.AccionReciente;
 import com.peopleinmotion.horizonreinicioremoto.entity.Banco;
 import com.peopleinmotion.horizonreinicioremoto.entity.Cajero;
+import com.peopleinmotion.horizonreinicioremoto.entity.GrupoAccion;
 import com.peopleinmotion.horizonreinicioremoto.entity.Notificacion;
 import com.peopleinmotion.horizonreinicioremoto.entity.Usuario;
 import com.peopleinmotion.horizonreinicioremoto.interfaces.Page;
@@ -20,6 +21,7 @@ import com.peopleinmotion.horizonreinicioremoto.repository.AgendaHistorialReposi
 import com.peopleinmotion.horizonreinicioremoto.repository.AgendaRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.BancoRepository;
 import com.peopleinmotion.horizonreinicioremoto.repository.CajeroRepository;
+import com.peopleinmotion.horizonreinicioremoto.repository.GrupoAccionRepository;
 import com.peopleinmotion.horizonreinicioremoto.services.AccionRecienteServices;
 import com.peopleinmotion.horizonreinicioremoto.services.AgendaHistorialServices;
 import com.peopleinmotion.horizonreinicioremoto.services.DashboardServices;
@@ -81,6 +83,8 @@ public class DashboardController implements Serializable, Page {
     Banco selectOneMenuBancoValue = new Banco();
     private Boolean showDialog = Boolean.FALSE;
     private Notificacion notificacionOld = new Notificacion();
+     private GrupoAccion grupoAccionEncenderSubirPlantilla = new GrupoAccion();
+         List<GrupoAccion> grupoAccionList = new ArrayList<>();
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="paginator ">
     Paginator paginator = new Paginator();
@@ -88,6 +92,8 @@ public class DashboardController implements Serializable, Page {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="injects() ">
+        GrupoAccionRepository grupoAccionRepository;
+
     @Inject
     AccionRecienteServices accionRecienteServices;
     @Inject
@@ -205,14 +211,14 @@ public class DashboardController implements Serializable, Page {
 //                    + "a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId") + "' )";
 //            String where = "(a.ESTADOID !='" + JsfUtil.contextToBigInteger("estadoFinalizadoId") + "' OR  "
 //                    + "a.ESTADOID !='" + JsfUtil.contextToBigInteger("estadoAcciónNoSePuedeEjecutarId") + "' )";
-String where = "(a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId") + "' OR  "
+            String where = "(a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId") + "' OR  "
                     + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoProcesandoId") + "' OR  "
-                    
                     + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("esatadoEnesperadeconfirmacióndelTécnico") + "' OR  "
                     + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoSolicituddedeshabilitaciónPlantillaenviadaaTelered") + "' OR  "
                     + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoSolicituddedeshabilitacióndePlantillaenProceso") + "' OR  "
                     + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoSolicitudEnviada") + "' OR  "
                     + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoSolicituddeReinicioRemotoenProceso") + "' OR  "
+                    + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoPlantillaDeshabilitada") + "' OR  "
                     + " a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoSolicituddeHabilitacióndePlantillaEnviada") + "' OR  "
                     + "a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoPlantillaHabilitadaenProceso") + "' )";
 
@@ -334,6 +340,39 @@ String where = "(a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoEnEsperaDeE
 
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String onCommandButtonToEncenderSubirPlantilla(AccionReciente accionReciente)">
+    public String onCommandButtonToEncenderSubirPlantilla(AccionReciente accionReciente, String formularioretorno) {
+        try {
+//            
+ConsoleUtil.info(" Step 1");
+ConsoleUtil.info(" Step 1.1 value= "+JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId"));
+
+ConsoleUtil.info(" Step voy a buscar el grupo accion ....");
+             Optional<GrupoAccion> optional = grupoAccionRepository.findByGrupoAccionId(JsfUtil.contextToBigInteger("grupoAccionEncenderSubirPlantillaId"));
+             ConsoleUtil.warning(" Step 2");
+            if (optional.isPresent()) {
+                ConsoleUtil.warning(" Step 3");
+                grupoAccionEncenderSubirPlantilla = optional.get();
+                ConsoleUtil.warning(" Step 4");
+            } else {
+                ConsoleUtil.warning(" Step 5");
+                JsfUtil.warningMessage("No se encontro el grupo de Accion para encender subir plantilla");
+            }
+ConsoleUtil.warning(" Step 6");
+            dashboardServices.onCommandButtonSelectAccionReciente(accionReciente, formularioretorno);
+            ConsoleUtil.warning(" Step 7");
+            JmoordbContext.put("grupoAccion", grupoAccionEncenderSubirPlantilla);
+       ConsoleUtil.warning(" Step 8");
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+            ConsoleUtil.error(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+ConsoleUtil.warning(" Step 9");
+            JmoordbContext.put("pageInView", "encendersubirplantilla.xhtml");
+        return "encendersubirplantilla.xhtml";
+
+    }
+// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="void loadSchedule()">
     public void loadSchedule() {
@@ -346,12 +385,11 @@ String where = "(a.ESTADOID ='" + JsfUtil.contextToBigInteger("estadoEnEsperaDeE
                     Date DESDE = DateUtil.setHourToDate(DateUtil.convertLocalDateTimeToJavaDate(start), 0, 00);
                     Date HASTA = DateUtil.setHourToDate(DateUtil.convertLocalDateTimeToJavaDate(end), 23, 59);
 //                    accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDate(banco.getBANCOID(), DESDE, HASTA, "SI");
-                    
+
 //accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("estadoProcesandoId"), JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId"));
 //accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("estadoFinalizadoId"), JsfUtil.contextToBigInteger("estadoAcciónNoSePuedeEjecutarId"));
-
-accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateGrupoEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("grupoEstadoSolicitadoId"), JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId"));
-
+                    accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateGrupoEstadoPendienteOProgreso(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("grupoEstadoSolicitadoId"), JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId"));
+accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasTypeDateGrupoEstadoPendienteOProgresoOEstadoId(banco.getBANCOID(), DESDE, HASTA, "SI", JsfUtil.contextToBigInteger("grupoEstadoSolicitadoId"), JsfUtil.contextToBigInteger("grupoEstadoEnprocesoId"), JsfUtil.contextToBigInteger("estadoPlantillaDeshabilitada"));
 //accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasForSchedule(banco.getBANCOID(), DESDE, HASTA, "SI", 
 //        JsfUtil.contextToBigInteger("estadoEnEsperaDeEjecucionId") ,
 //             JsfUtil.contextToBigInteger("estadoProcesandoId"),
@@ -364,7 +402,6 @@ accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasType
 //             JsfUtil.contextToBigInteger("estadoPlantillaHabilitadaenProceso")   
 //        
 //        );
-
                     if (accionRecienteScheduleList == null || accionRecienteScheduleList.isEmpty()) {
                         JsfUtil.successMessage("No hay registros de acciones recientes");
                     } else {
@@ -430,13 +467,12 @@ accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasType
     public String onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent) {
         try {
             showDialog = Boolean.TRUE;
-            if(selectEvent == null){
+            if (selectEvent == null) {
                 JsfUtil.warningMessage("No se puede procesar este evento");
                 return "";
             }
             event = selectEvent.getObject();
-            
-            
+
             String id = event.getId();
 
             Optional<AccionReciente> accionRecienteOptional = accionRecienteRepository.findByAccionRecienteId(JsfUtil.toBigInteger(Integer.parseInt(id)));
@@ -463,7 +499,6 @@ accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasType
             PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').initPosition()");
             PrimeFaces.current().executeScript("PF('widgetVarscheduleDialog').show()");
 
-           
         } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + ": " + e.getLocalizedMessage());
         }
@@ -560,13 +595,12 @@ accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasType
              */
             if (notificacionServices.changed(notificacionOld)) {
 
-                
                 Optional<Notificacion> optional = notificacionServices.findByIDANDTIPOID(banco.getBANCOID(), "BANCO");
                 if (optional.isPresent()) {
-                 
+
                     JsfUtil.copyBeans(notificacionOld, optional.get());
                 }
-              
+
                 fillCarouselAccionReciente();
                 loadSchedule();
                 calcularTotales();
@@ -607,52 +641,69 @@ accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasType
         }
     }
 // </editor-fold>
-    
-    
 
-      // <editor-fold defaultstate="collapsed" desc="Boolean renderedPendiente(AccionReciente accionReciente)">
+    // <editor-fold defaultstate="collapsed" desc="Boolean renderedPendiente(AccionReciente accionReciente)">
     public Boolean renderedPendiente(AccionReciente accionReciente) {
         try {
-            if(accionReciente == null ||accionReciente.getAUTORIZADO() ==null){
-                 return Boolean.FALSE;
+            if (accionReciente == null || accionReciente.getAUTORIZADO() == null) {
+                return Boolean.FALSE;
             }
-             return accionReciente.getAUTORIZADO().equals("PE");
+            return accionReciente.getAUTORIZADO().equals("PE");
         } catch (Exception e) {
-               JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
-       return Boolean.FALSE;
+        return Boolean.FALSE;
 
     }
 
     // </editor-fold>
-      // <editor-fold defaultstate="collapsed" desc="Boolean renderedDenegado(AccionReciente accionReciente)">
+    // <editor-fold defaultstate="collapsed" desc="Boolean renderedDenegado(AccionReciente accionReciente)">
     public Boolean renderedDenegado(AccionReciente accionReciente) {
-        try{
+        try {
 
-             if(accionReciente == null ||accionReciente.getAUTORIZADO() ==null){
-                 return Boolean.FALSE;
+            if (accionReciente == null || accionReciente.getAUTORIZADO() == null) {
+                return Boolean.FALSE;
             }
-        return accionReciente.getAUTORIZADO().equals("NO");
- } catch (Exception e) {
-               JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+            return accionReciente.getAUTORIZADO().equals("NO");
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
-       return Boolean.FALSE;
+        return Boolean.FALSE;
     }
 
     // </editor-fold>
-      // <editor-fold defaultstate="collapsed" desc="Boolean renderedAutorizado(AccionReciente accionReciente)">
+    // <editor-fold defaultstate="collapsed" desc="Boolean renderedAutorizado(AccionReciente accionReciente)">
     public Boolean renderedAutorizado(AccionReciente accionReciente) {
-        try{
-             if(accionReciente == null ||accionReciente.getAUTORIZADO() ==null){
-                 return Boolean.FALSE;
+        try {
+            if (accionReciente == null || accionReciente.getAUTORIZADO() == null) {
+                return Boolean.FALSE;
             }
-        return accionReciente.getAUTORIZADO().equals("SI");
-         } catch (Exception e) {
-               JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+            return accionReciente.getAUTORIZADO().equals("SI");
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
-       return Boolean.FALSE;
+        return Boolean.FALSE;
 
     }
 
     // </editor-fold>
+    
+    
+    // <editor-fold defaultstate="collapsed" desc="Boolean renderedAutorizadoAndPlantillaBajada(AccionReciente accionReciente)">
+    public Boolean renderedAutorizadoAndPlantillaBajada(AccionReciente accionReciente) {
+        try {
+            if (accionReciente == null || accionReciente.getAUTORIZADO() == null) {
+                return Boolean.FALSE;
+            }
+            return (accionReciente.getAUTORIZADO().equals("SI") && accionReciente.getESTADOID().equals(JsfUtil.contextToBigInteger("estadoPlantillaDeshabilitada")) );
+        } catch (Exception e) {
+            JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
+        }
+        return Boolean.FALSE;
+
+    }
+
+    // </editor-fold>
+    
+    
 }
