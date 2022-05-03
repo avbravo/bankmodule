@@ -564,7 +564,10 @@ public class BuscarCajeroProgramarEventoController implements Serializable, Page
                 JsfUtil.warningMessage("Por favor seleccione una Acción");
                 return "";
             }
-
+if(fechahoraBaja == null){
+      JsfUtil.warningMessage("Por favor ingrese la fecha y hora");
+                return "";
+}
             ProgramarEvento programarEvento = ProgramarEvento.builder()
                     .cajero(selectOneMenuCajeroValue)
                     .accion(selectOneMenuAccionValue)
