@@ -786,19 +786,18 @@ public class ReagendarController implements Serializable, Page {
             if (accionList == null || accionList.isEmpty()) {
                 JsfUtil.warningMessage("No acciones para el grupo seleccionado");
             } else {
-                
+
                 /**
                  * Buscamos la accion para subir plantilla
                  */
-                
-     accionReciente.setFECHA(DateUtil.getFechaHoraActual());
+                accionReciente.setFECHA(DateUtil.getFechaHoraActual());
                 accionReciente.setFECHAAGENDADA(DateUtil.getFechaHoraActual());
                 accionReciente.setESTADO(estado.getESTADO());
                 accionReciente.setESTADOID(estado.getESTADOID());
                 accionReciente.setGRUPOESTADOID(estado.getGRUPOESTADOID().getGRUPOESTADOID());
                 accionReciente.setACCIONID(selectOneMenuAccionValue.getACCIONID());
-            
-    
+                accionReciente.setTITULO(selectOneMenuAccionValue.getGRUPOACCIONID().getGRUPOACCION());
+
                 if (accionRecienteRepository.update(accionReciente)) {
                     //Actualizar la agenda
                     notificacionServices.process(bank.getBANCOID(), "BANCO");
@@ -812,13 +811,14 @@ public class ReagendarController implements Serializable, Page {
                         Agenda agenda = agendaOptional.get();
                         agenda.setESTADOID(estado.getESTADOID());
                         agenda.setFECHAAGENDADA(accionReciente.getFECHAAGENDADA());
-  agenda.setGRUPOESTADOID(estado.getGRUPOESTADOID().getGRUPOESTADOID());
-   agenda.setACCIONID(selectOneMenuAccionValue.getACCIONID());
+                        agenda.setGRUPOESTADOID(estado.getGRUPOESTADOID().getGRUPOESTADOID());
+                        agenda.setACCIONID(selectOneMenuAccionValue.getACCIONID());
+                      
                         if (agendaRepository.update(agenda)) {
-                            agendaHistorialServices.createHistorial(agendaOptional.get(), "SE REAGENDÓ EL EVENTO", estado, user, "BA");
+                            agendaHistorialServices.createHistorial(agendaOptional.get(), "ENCENDER/SUBIR PLANTILLA", estado, user, "BA");
 
                             JmoordbContext.put("accionReciente", accionReciente);
-                            emailServices.sendEmailToTecnicosHeader(accionReciente, "SE REAGENDÓ EL EVENTO", user, cajero, bank);
+                            emailServices.sendEmailToTecnicosHeader(accionReciente, "ENCENDER/SUBIR PLANTILLA", user, cajero, bank);
 
                             /*
                         *Mensajes éxitosos
@@ -830,8 +830,8 @@ public class ReagendarController implements Serializable, Page {
                                     .header2("La acción se realizó exitosamente")
                                     .image("atm-green01.png")
                                     .libary("images")
-                                   .titulo("Encender Subir Plantilla")
-//                            .mensaje("Se realizó exitosamente el registro de Encender Subir Plantilla")
+                                    .titulo("Encender Subir Plantilla")
+                                    //                            .mensaje("Se realizó exitosamente el registro de Encender Subir Plantilla")
                                     .returnTo("dashboard.xhtml")
                                     .build();
                             JmoordbContext.put("messagesForm", messagesForm);
@@ -842,45 +842,15 @@ public class ReagendarController implements Serializable, Page {
                             return "";
                         }
 
-//                Date fechahoraBaja = (Date) JmoordbContext.get("fechahoraBaja");
-//                Optional<Agenda> agendaOptional = agendaServices.create(cajero, user, estado, accion, fechahoraBaja, fechahoraBaja);
-//                if (!agendaOptional.isPresent()) {
-//                    JsfUtil.warningMessage("No se encontro la agenda con ese codigo de transaccion");
-//                } else {
-//                    agendaHistorialServices.createHistorial(agendaOptional.get(),"ENCENDER SUBIR PLANTILLA", estado, user,"BN");
-//
-//                    AccionReciente accionReciente = accionRecienteServices.create(agendaOptional.get(), bank, cajero, accion, grupoAccionEncenderSubirPlantilla, estado, "SI", "BA");
-//                    JmoordbContext.put("accionReciente", accionReciente);
-//                    /**
-//                     * Envio de email
-//                     */
-//                    emailServices.sendEmailToTecnicos(accionReciente, accion, user, cajero, bank);
-//
-//                    MessagesForm messagesForm = new MessagesForm.Builder()
-//                            .errorWindows(Boolean.FALSE)
-//                            .id(accionReciente.getCAJERO())
-//                            .header("Operación exitosa")
-//                            .header2("La acción se realizó exitosamente")
-//                            .image("atm-green01.png")
-//                            .libary("images")
-//                            .titulo("Encender Subir Plantilla")
-//                            .mensaje("Se realizó exitosamente el registro de Encender Subir Plantilla")
-//                            .returnTo("dashboard.xhtml")
-//                            .build();
-//                    JmoordbContext.put("messagesForm", messagesForm);
-//
-//                    JmoordbContext.put("pageInView", "messagesform.xhtml");
-//                    return "messagesform.xhtml";
-//                }
                     }
                 } else {
                     JsfUtil.warningMessage("No se pudo actualizar la agenda reciente");
                 }
             }
-            }catch (Exception e) {
+        } catch (Exception e) {
             JsfUtil.errorMessage(JsfUtil.nameOfMethod() + " " + e.getLocalizedMessage());
         }
-            return "";
-        }
-// </editor-fold>
+        return "";
     }
+// </editor-fold>
+}
