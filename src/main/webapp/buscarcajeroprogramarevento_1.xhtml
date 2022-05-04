@@ -81,7 +81,8 @@
                                                  value="#{buscarCajeroProgramarEventoController.selectOneMenuCajeroValue}" 
                                                  converter="#{cajeroConverter}"
 
-                                               
+                                                 filter="true"
+                                                 filterMatchMode="startsWith"
                                                  >
                                     <f:selectItem itemLabel="Seleccione un Cajero" itemValue="#{null}"  noSelectionOption="true"/>
                                     <f:selectItems value="#{buscarCajeroProgramarEventoController.cajeroList}" 
