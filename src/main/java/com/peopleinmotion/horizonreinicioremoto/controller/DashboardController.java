@@ -589,7 +589,7 @@ accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasType
     // <editor-fold defaultstate="collapsed" desc="onIdle()">
     public void onIdle() {
         try {
-            // ConsoleUtil.info("------onIdle() " + "Modulo Banco "+ DateUtil.fechaHoraActual());
+            
             /**
              * Si una accionreciente fue cambiada por otro usuario
              */
@@ -618,17 +618,17 @@ accionRecienteScheduleList = accionRecienteRepository.findBancoIdEntreFechasType
     // <editor-fold defaultstate="collapsed" desc="onActive() ">
     public void onActive() {
         try {
-            // ConsoleUtil.info("-----onActive() " + "Modulo Banco "+ DateUtil.fechaHoraActual());
+            
             /**
              * Si una accionreciente fue cambiada por otro usuario
              */
             if (notificacionServices.changed(notificacionOld)) {
                 Optional<Notificacion> optional = notificacionServices.findByIDANDTIPOID(banco.getBANCOID(), "BANCO");
                 if (optional.isPresent()) {
-                    // ConsoleUtil.info("onActive()() --> actualizare notifiacionOld" + DateUtil.fechaHoraActual());
+            
                     JsfUtil.copyBeans(notificacionOld, optional.get());
                 }
-                // ConsoleUtil.info("onActive()()--> relleno carrousel y loadSchedule" + DateUtil.fechaHoraActual());
+            
                 fillCarouselAccionReciente();
                 loadSchedule();
                 calcularTotales();
